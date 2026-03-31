@@ -1,0 +1,4 @@
+interface:
+  display_name: "Release Orchestrator"
+  short_description: "Organize release readiness, rollout, and rollback artifacts"
+  default_prompt: "Use $release-orchestrator to prepare this release package and rollout checklist."

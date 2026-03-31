@@ -21,6 +21,14 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 2. Use `yao-meta-skill` to generate or improve the package in scaffold, production, or library mode.
 3. Run `context_sizer.py`, `trigger_eval.py`, and `cross_packager.py` as needed to validate and export the result.
 
+## 5-Minute Workflow
+
+1. Start from a raw workflow note.
+2. Turn it into a skill package with `SKILL.md`, `agents/interface.yaml`, and only the folders the workflow actually needs.
+3. Validate the trigger description with `evals/trigger_cases.json`.
+4. Export compatibility artifacts for the clients you care about.
+5. Compare the result against the examples in `examples/`.
+
 ## What It Does
 
 This project helps you create, refactor, evaluate, and package skills as durable capability bundles rather than one-off prompts.
@@ -54,6 +62,8 @@ yao-meta-skill/
 ├── .gitignore
 ├── agents/
 │   └── interface.yaml
+├── evals/
+├── examples/
 ├── references/
 ├── scripts/
 └── templates/
@@ -77,9 +87,17 @@ Long-form material that should not bloat the main skill file. This includes desi
 
 Utility scripts that make the meta-skill operational:
 
-- `trigger_eval.py`: checks whether a trigger description is too broad or too weak
+- `trigger_eval.py`: evaluates trigger descriptions with positive, negative, and near-neighbor prompts
 - `context_sizer.py`: estimates context weight and warns when the initial load gets too large
-- `cross_packager.py`: builds client-specific export artifacts from the neutral source package
+- `cross_packager.py`: builds client-specific export artifacts with explicit platform contracts and validation
+
+### `evals/`
+
+Reusable trigger and packaging checks, including baseline and improved descriptions for comparison.
+
+### `examples/`
+
+Three end-to-end examples showing raw workflow input, design summary, and final generated skill shape.
 
 ### `templates/`
 
@@ -113,9 +131,9 @@ The typical flow is:
 Examples:
 
 ```bash
-python3 scripts/cross_packager.py ./yao-meta-skill --platform openai --platform claude --zip
+python3 scripts/cross_packager.py ./yao-meta-skill --platform openai --platform claude --expectations evals/packaging_expectations.json --zip
 python3 scripts/context_sizer.py ./yao-meta-skill
-python3 scripts/trigger_eval.py --description "Create and improve agent skills..." --cases ./cases.json
+python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
 ```
 
 ## Advantages
@@ -144,6 +162,12 @@ This project is best for:
 | 日本語 | [docs/README.ja-JP.md](docs/README.ja-JP.md) |
 | Français | [docs/README.fr-FR.md](docs/README.fr-FR.md) |
 | Русский | [docs/README.ru-RU.md](docs/README.ru-RU.md) |
+
+## Examples And Evals
+
+- Examples: [examples/README.md](examples/README.md)
+- Evals: [evals/README.md](evals/README.md)
+- Packaging contracts: [references/packaging-contracts.md](references/packaging-contracts.md)
 
 ## License
 

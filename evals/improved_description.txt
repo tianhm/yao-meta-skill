@@ -1,0 +1,1 @@
+Create, refactor, evaluate, and package agent skills from workflows, transcripts, prompts, docs, or rough notes. Use when asked to create a skill, turn a repeated process into a reusable skill, improve an existing skill, optimize skill triggering, add evals, or prepare a skill for team reuse.

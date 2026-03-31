@@ -1,0 +1,18 @@
+{
+  "should_trigger": [
+    "Create a skill from this repeated workflow.",
+    "Improve this skill description and add evals.",
+    "Turn this runbook into a reusable agent skill.",
+    "Package this skill for team reuse."
+  ],
+  "should_not_trigger": [
+    "Explain what a workflow is.",
+    "Write a product headline for this landing page.",
+    "Summarize this random note."
+  ],
+  "near_neighbor": [
+    "Create a one-off prompt for this task.",
+    "Help me brainstorm process ideas without building a skill.",
+    "Improve this README but do not turn it into a skill."
+  ]
+}

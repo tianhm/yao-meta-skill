@@ -84,6 +84,37 @@ def build_manifest(skill_dir: Path, platform: str) -> dict:
     }
 
 
+PLATFORM_CONTRACTS = {
+    "openai": {
+        "required_fields": ["name", "description", "version", "display_name", "short_description", "default_prompt", "canonical_metadata"],
+        "required_files": ["targets/openai/adapter.json", "targets/openai/agents/openai.yaml"],
+        "field_mapping": {
+            "display_name": "interface.display_name",
+            "short_description": "interface.short_description",
+            "default_prompt": "interface.default_prompt",
+        },
+    },
+    "claude": {
+        "required_fields": ["name", "description", "version", "display_name", "short_description", "default_prompt", "canonical_metadata"],
+        "required_files": ["targets/claude/adapter.json", "targets/claude/README.md"],
+        "field_mapping": {
+            "display_name": "adapter.display_name",
+            "short_description": "adapter.short_description",
+            "default_prompt": "adapter.default_prompt",
+        },
+    },
+    "generic": {
+        "required_fields": ["name", "description", "version", "display_name", "short_description", "default_prompt", "canonical_metadata"],
+        "required_files": ["targets/generic/adapter.json"],
+        "field_mapping": {
+            "display_name": "adapter.display_name",
+            "short_description": "adapter.short_description",
+            "default_prompt": "adapter.default_prompt",
+        },
+    },
+}
+
+
 def write_yaml_like(path: Path, payload: dict) -> None:
     interface = payload.get("interface", {})
     lines = ["interface:"]
@@ -121,6 +152,7 @@ def write_adapter(skill_dir: Path, out_dir: Path, platform: str) -> Path:
     else:
         payload["install_hint"] = f"Use {skill_dir.name} as an Agent Skills compatible package."
     path = target_dir / "adapter.json"
+    payload["contract"] = PLATFORM_CONTRACTS.get(platform, PLATFORM_CONTRACTS["generic"])
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     return path
 
@@ -143,11 +175,43 @@ def copy_manifest(skill_dir: Path, out_dir: Path) -> Path:
     return manifest_path
 
 
+def load_expectations(path: Path | None) -> dict:
+    if path is None:
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_exports(out_dir: Path, expectations: dict) -> dict:
+    failures = []
+    required_targets = expectations.get("required_targets", [])
+    required_fields = expectations.get("required_fields", [])
+    required_by_target = {
+        "openai": expectations.get("openai_required_files", []),
+        "claude": expectations.get("claude_required_files", []),
+        "generic": expectations.get("generic_required_files", []),
+    }
+
+    for target in required_targets:
+        adapter_path = out_dir / "targets" / target / "adapter.json"
+        if not adapter_path.exists():
+            failures.append(f"missing adapter for target: {target}")
+            continue
+        payload = json.loads(adapter_path.read_text(encoding="utf-8"))
+        for field in required_fields:
+            if field not in payload:
+                failures.append(f"missing field '{field}' in {adapter_path.relative_to(out_dir)}")
+        for rel in required_by_target.get(target, []):
+            if not (out_dir / rel).exists():
+                failures.append(f"missing file: {rel}")
+    return {"ok": not failures, "failures": failures}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate lightweight cross-platform packaging artifacts.")
     parser.add_argument("skill_dir", help="Path to the skill directory")
     parser.add_argument("--platform", action="append", default=[], help="Target platform: openai, claude, generic")
     parser.add_argument("--output-dir", default="dist", help="Output directory")
+    parser.add_argument("--expectations", help="JSON file describing packaging expectations")
     parser.add_argument("--zip", action="store_true", help="Create a zip package")
     args = parser.parse_args()
 
@@ -164,7 +228,21 @@ def main() -> None:
     if args.zip:
         generated.append(str(make_zip(skill_dir, out_dir)))
 
-    print(json.dumps({"output_dir": str(out_dir), "generated": generated}, ensure_ascii=False, indent=2))
+    expectations = load_expectations(Path(args.expectations).resolve()) if args.expectations else {}
+    validation = validate_exports(out_dir, expectations) if expectations else None
+    report = {
+        "output_dir": str(out_dir),
+        "generated": generated,
+        "contracts": PLATFORM_CONTRACTS,
+        "validation": validation,
+        "failure_handling": {
+            "missing_required_file": "exit with code 2 when expectations are provided and validation fails",
+            "missing_required_field": "exit with code 2 when expectations are provided and validation fails",
+        },
+    }
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    if validation and not validation["ok"]:
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

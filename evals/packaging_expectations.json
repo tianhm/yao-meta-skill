@@ -1,0 +1,7 @@
+{
+  "required_targets": ["openai", "claude", "generic"],
+  "required_fields": ["name", "description", "version", "display_name", "short_description", "default_prompt", "canonical_metadata"],
+  "openai_required_files": ["targets/openai/adapter.json", "targets/openai/agents/openai.yaml"],
+  "claude_required_files": ["targets/claude/adapter.json", "targets/claude/README.md"],
+  "generic_required_files": ["targets/generic/adapter.json"]
+}
