@@ -92,6 +92,37 @@ Use governance review to decide whether a skill should:
 - move brittle logic into `scripts/`
 - be deprecated or replaced
 
+## Governance Maturity Scoring
+
+`scripts/governance_check.py` also computes a maturity score out of `100`.
+
+### Score Buckets
+
+The governance checker computes a score band in addition to the declared manifest tier. The score band is a diagnostic output, not a replacement for the declared lifecycle tier.
+
+- `90-100`: governed
+- `80-89`: production
+- `65-79`: reusable
+- `45-64`: emerging
+- `<45`: draft
+
+### Recommended Minimums For Declared Tiers
+
+- `scaffold`: no hard minimum
+- `production`: `80`
+- `library`: `85`
+- `governed`: `90`
+
+### Score Dimensions
+
+- metadata integrity
+- ownership and review cadence
+- boundary and eval evidence
+- operational assets
+- maintenance evidence
+
+The score is not a replacement for human review. It is a fast signal that a shared skill is structured enough to be trusted, maintained, and audited. `scripts/governance_check.py` warns when a declared tier claims more rigor than the score currently supports.
+
 ## Why This Matters
 
 Most skill systems stop at creation. World-class skill systems also manage:

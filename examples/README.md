@@ -7,6 +7,7 @@ It is organized in three tiers:
 - `simple-note-cleanup`: a small personal workflow
 - `team-frontend-review`: a team-level reusable workflow
 - `complex-release-orchestrator`: a multi-step, higher-complexity workflow
+- `governed-incident-command`: a governed operational asset with lifecycle metadata, review cadence, and evidence reports
 
 Each example contains:
 
@@ -20,6 +21,13 @@ The complex example is intentionally thicker than the others and includes:
 - `input/` and `outputs/` sample artifacts
 - `evals/trigger_cases.json`
 - richer references and a deterministic script
+
+The governed example adds:
+
+- explicit lifecycle and maturity metadata
+- review policy and governed ownership
+- reports for maturity and revision history
+- a stronger example of how reusable skills become maintained assets
 
 Additional evolution example:
 

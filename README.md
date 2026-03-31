@@ -92,6 +92,8 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 - packaging failure fixtures: invalid metadata, invalid YAML, and unsupported targets fail as expected
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
+- root governance maturity score: `90/100`; governed benchmark example: `95/100`
+- regression milestones are tracked in [reports/regression_history.md](reports/regression_history.md)
 
 ## What It Does
 
@@ -156,6 +158,7 @@ Utility scripts that make the meta-skill operational:
 - `context_sizer.py`: estimates context weight and warns when the initial load gets too large
 - `resource_boundary_check.py`: audits whether detail is split across `SKILL.md`, `references/`, `scripts/`, `assets/`, and `evals/` appropriately
 - `governance_check.py`: validates owner, review cadence, lifecycle stage, and maturity metadata
+- `render_regression_history.py`: turns milestone snapshots into a readable regression history report
 - `cross_packager.py`: builds client-specific export artifacts with explicit platform contracts and validation
 - `init_skill.py`, `lint_skill.py`, `validate_skill.py`, `diff_eval.py`: minimal authoring toolchain
 
@@ -165,7 +168,7 @@ Reusable trigger and packaging checks, including baseline and improved descripti
 
 ### `examples/`
 
-End-to-end examples showing raw workflow input, design summary, and final generated skill shape, including one thicker complex benchmark and one evolution chain.
+End-to-end examples showing raw workflow input, design summary, and final generated skill shape, including one thicker complex benchmark, one governed benchmark, and one evolution chain.
 
 ### `.github/workflows/test.yml`
 
@@ -181,6 +184,8 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - `failures/` captures reusable anti-pattern writeups and machine-runnable failure cases for routing, packaging, and authoring failures.
 - `tests/verify_packager_failures.py` checks that invalid metadata, invalid YAML, and unsupported targets fail clearly.
 - Governance metadata and resource-boundary rules now have runnable checks instead of staying as prose only.
+- Governance checks now emit a maturity score so governed assets can be compared instead of only pass/fail checked.
+- Declared maturity tiers are checked against recommended minimum governance scores, so `production`, `library`, and `governed` assets can be compared without forcing every strong example into the same label.
 
 ### `templates/`
 
@@ -227,6 +232,7 @@ python3 scripts/trigger_eval.py --description-file evals/improved_description.tx
 - **Context efficient**: the project explicitly pushes detail out of the main skill file.
 - **Evaluation-aware**: trigger and sizing checks are built into the workflow.
 - **Governed**: important skills can be checked for lifecycle metadata, ownership, and review cadence.
+- **Evidence-driven**: regression history and maturity scoring make progress visible across revisions.
 - **Reusable**: the output is a package, not just a paragraph of prompt text.
 - **Portable**: compatibility is handled through packaging rather than duplicating source files for every client.
 
@@ -255,6 +261,8 @@ This project is best for:
 - Evals: [evals/README.md](evals/README.md)
 - Failure library: [failures/README.md](failures/README.md)
 - Failure regression check: [verify_failure_regressions.py](tests/verify_failure_regressions.py)
+- Regression history: [reports/regression_history.md](reports/regression_history.md)
+- Root governance score: [reports/governance_score.json](reports/governance_score.json)
 - Packaging contracts: [references/packaging-contracts.md](references/packaging-contracts.md)
 - Governance model: [references/governance.md](references/governance.md)
 - Resource boundary spec: [references/resource-boundaries.md](references/resource-boundaries.md)
@@ -262,6 +270,8 @@ This project is best for:
 - Failure fixtures: [tests/fixtures](tests/fixtures)
 - Adapter snapshots: [tests/snapshots](tests/snapshots)
 - Evolution example: [examples/evolution-frontend-review/README.md](examples/evolution-frontend-review/README.md)
+- Governed example: [examples/governed-incident-command/design-summary.md](examples/governed-incident-command/design-summary.md)
+- Governed example score: [examples/governed-incident-command/generated-skill/reports/governance_score.json](examples/governed-incident-command/generated-skill/reports/governance_score.json)
 - World-class roadmap: [WORLD_CLASS_PLAN.md](WORLD_CLASS_PLAN.md)
 
 ## License
