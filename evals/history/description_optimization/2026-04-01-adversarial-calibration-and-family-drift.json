@@ -1,4 +1,8 @@
 {
+  "snapshot_id": "adversarial-calibration-and-family-drift",
+  "date": "2026-04-01",
+  "commit": "local-snapshot",
+  "label": "Adversarial Calibration And Family Drift",
   "targets": [
     {
       "name": "yao-meta-skill",
@@ -105,7 +109,7 @@
           }
         }
       },
-      "drift_note": "blind, adversarial, and calibration gates active",
+      "drift_note": "tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.834; risk n/a -> healthy",
       "ok": true
     },
     {
@@ -213,7 +217,7 @@
           }
         }
       },
-      "drift_note": "blind, adversarial, and calibration gates active",
+      "drift_note": "tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.509; risk n/a -> healthy",
       "ok": true
     },
     {
@@ -327,9 +331,12 @@
           }
         }
       },
-      "drift_note": "blind, adversarial, and calibration gates active",
+      "drift_note": "tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 1; adversarial calibration +0.598; risk n/a -> healthy",
       "ok": true
     }
   ],
-  "ok": true
+  "notes": [
+    "recorded family-level blind and adversarial routing evidence",
+    "published calibration and drift history for description optimization"
+  ]
 }

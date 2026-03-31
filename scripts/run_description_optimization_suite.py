@@ -19,6 +19,7 @@ TARGETS = [
         "dev_cases": ROOT / "evals" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "evals" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "evals" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "evals" / "adversarial" / "trigger_cases.json",
         "semantic_config": ROOT / "evals" / "semantic_config.json",
         "output_json": ROOT / "reports" / "description_optimization.json",
         "output_md": ROOT / "reports" / "description_optimization.md",
@@ -31,6 +32,7 @@ TARGETS = [
         "dev_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "adversarial" / "trigger_cases.json",
         "semantic_config": ROOT / "examples" / "team-frontend-review" / "optimization" / "semantic_config.json",
         "output_json": ROOT / "examples" / "team-frontend-review" / "optimization" / "reports" / "description_optimization.json",
         "output_md": ROOT / "examples" / "team-frontend-review" / "optimization" / "reports" / "description_optimization.md",
@@ -43,6 +45,7 @@ TARGETS = [
         "dev_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "adversarial" / "trigger_cases.json",
         "semantic_config": ROOT / "examples" / "governed-incident-command" / "optimization" / "semantic_config.json",
         "output_json": ROOT / "examples" / "governed-incident-command" / "optimization" / "reports" / "description_optimization.json",
         "output_md": ROOT / "examples" / "governed-incident-command" / "optimization" / "reports" / "description_optimization.md",
@@ -76,6 +79,20 @@ def target_error_total(target: dict, prefix: str) -> int | None:
     return fp + fn
 
 
+def calibration_gap(target: dict, gate: str) -> float | None:
+    calibration = target.get("calibration", {}).get(gate) or {}
+    return calibration.get("score_gap")
+
+
+def family_gate_note(target: dict, gate: str) -> str:
+    family = target.get("family_health", {}).get(gate) or {}
+    if not family:
+        return "n/a"
+    weakest = family.get("weakest_family") or {}
+    weakest_label = weakest.get("family") or "-"
+    return f"{family.get('clean_family_count', 0)}/{family.get('family_count', 0)} clean; weakest={weakest_label}"
+
+
 def drift_note_for_target(target: dict, previous: dict | None) -> str:
     if not previous:
         return "initial description optimization snapshot"
@@ -98,6 +115,17 @@ def drift_note_for_target(target: dict, previous: dict | None) -> str:
         else:
             notes.append(f"blind error delta {delta:+d}")
 
+    previous_adv = previous.get("winner_adversarial_holdout_total_errors")
+    current_adv = target.get("winner_adversarial_holdout_total_errors")
+    if previous_adv is None and current_adv is not None:
+        notes.append(f"adversarial gate added with {current_adv} errors")
+    elif previous_adv is not None and current_adv is not None:
+        delta = current_adv - previous_adv
+        if delta == 0:
+            notes.append(f"adversarial stable at {current_adv}")
+        else:
+            notes.append(f"adversarial error delta {delta:+d}")
+
     previous_holdout = target_error_total(previous, "winner_holdout")
     current_holdout = target_error_total(target, "winner_holdout")
     if previous_holdout is not None and current_holdout is not None:
@@ -106,6 +134,22 @@ def drift_note_for_target(target: dict, previous: dict | None) -> str:
             notes.append(f"holdout stable at {current_holdout}")
         else:
             notes.append(f"holdout error delta {delta:+d}")
+
+    previous_gap = calibration_gap(previous, "adversarial_holdout")
+    current_gap = calibration_gap(target, "adversarial_holdout")
+    if previous_gap is None and current_gap is not None:
+        notes.append(f"adversarial calibration {current_gap:+.3f}")
+    elif previous_gap is not None and current_gap is not None:
+        delta = current_gap - previous_gap
+        if abs(delta) < 0.001:
+            notes.append(f"adversarial calibration stable at {current_gap:+.3f}")
+        else:
+            notes.append(f"adversarial calibration delta {delta:+.3f}")
+
+    previous_risk = (previous.get("calibration", {}).get("adversarial_holdout") or {}).get("risk_band")
+    current_risk = (target.get("calibration", {}).get("adversarial_holdout") or {}).get("risk_band")
+    if previous_risk != current_risk and current_risk:
+        notes.append(f"risk {previous_risk or 'n/a'} -> {current_risk}")
 
     return "; ".join(notes)
 
@@ -130,8 +174,8 @@ def build_history_snapshot(summary: dict, args: argparse.Namespace) -> dict:
         "label": args.snapshot_label,
         "targets": targets,
         "notes": [
-            "added blind holdout acceptance gates to description optimization",
-            "published description drift history report",
+            "recorded family-level blind and adversarial routing evidence",
+            "published calibration and drift history for description optimization",
         ],
     }
 
@@ -140,8 +184,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run description optimization across root and example skills.")
     parser.add_argument("--history-snapshot-output")
     parser.add_argument("--snapshot-date")
-    parser.add_argument("--snapshot-id", default="blind-holdout-and-drift-history")
-    parser.add_argument("--snapshot-label", default="Blind Holdout And Drift History")
+    parser.add_argument("--snapshot-id", default="adversarial-calibration-and-family-drift")
+    parser.add_argument("--snapshot-label", default="Adversarial Calibration And Family Drift")
     parser.add_argument("--snapshot-commit", default="local-snapshot")
     args = parser.parse_args()
 
@@ -152,9 +196,18 @@ def main() -> None:
         dev_cases = load_json(target["dev_cases"])
         holdout_cases = load_json(target["holdout_cases"])
         blind_holdout_cases = load_json(target["blind_holdout_cases"])
+        adversarial_cases = load_json(target["adversarial_cases"])
         config = load_semantic_config(target["semantic_config"])
 
-        report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description, blind_holdout_cases)
+        report = optimize(
+            current_description,
+            dev_cases,
+            holdout_cases,
+            config,
+            baseline_description,
+            blind_holdout_cases,
+            adversarial_cases,
+        )
         target["output_json"].parent.mkdir(parents=True, exist_ok=True)
         target["output_json"].write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         target["output_md"].write_text(render_markdown(report, target["title"]), encoding="utf-8")
@@ -165,12 +218,23 @@ def main() -> None:
         blind_winner_fp, blind_winner_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["winner"])
         blind_current_fp, blind_current_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["current"])
         blind_baseline_fp, blind_baseline_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["baseline"])
+        adversarial_winner_fp, adversarial_winner_fn = report_errors(
+            report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner"]
+        )
+        adversarial_current_fp, adversarial_current_fn = report_errors(
+            report["acceptance_gates"]["adversarial_holdout_non_regression"]["current"]
+        )
+        adversarial_baseline_fp, adversarial_baseline_fn = report_errors(
+            report["acceptance_gates"]["adversarial_holdout_non_regression"]["baseline"]
+        )
 
         target_ok = (
             (winner_fp, winner_fn) <= (current_fp, current_fn)
             and (winner_fp, winner_fn) <= (baseline_fp, baseline_fn)
             and (blind_winner_fp, blind_winner_fn) <= (blind_current_fp, blind_current_fn)
             and (blind_winner_fp, blind_winner_fn) <= (blind_baseline_fp, blind_baseline_fn)
+            and (adversarial_winner_fp, adversarial_winner_fn) <= (adversarial_current_fp, adversarial_current_fn)
+            and (adversarial_winner_fp, adversarial_winner_fn) <= (adversarial_baseline_fp, adversarial_baseline_fn)
         )
         summary["targets"].append(
             {
@@ -192,7 +256,24 @@ def main() -> None:
                 "baseline_blind_holdout_fp": blind_baseline_fp,
                 "baseline_blind_holdout_fn": blind_baseline_fn,
                 "winner_blind_holdout_total_errors": blind_winner_fp + blind_winner_fn,
-                "drift_note": "blind holdout gate active",
+                "winner_adversarial_holdout_fp": adversarial_winner_fp,
+                "winner_adversarial_holdout_fn": adversarial_winner_fn,
+                "current_adversarial_holdout_fp": adversarial_current_fp,
+                "current_adversarial_holdout_fn": adversarial_current_fn,
+                "baseline_adversarial_holdout_fp": adversarial_baseline_fp,
+                "baseline_adversarial_holdout_fn": adversarial_baseline_fn,
+                "winner_adversarial_holdout_total_errors": adversarial_winner_fp + adversarial_winner_fn,
+                "calibration": {
+                    "holdout": report["acceptance_gates"]["holdout_non_regression"]["winner_calibration"],
+                    "blind_holdout": report["acceptance_gates"]["blind_holdout_non_regression"]["winner_calibration"],
+                    "adversarial_holdout": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"],
+                },
+                "family_health": {
+                    "holdout": report["acceptance_gates"]["holdout_non_regression"]["winner_family_health"],
+                    "blind_holdout": report["acceptance_gates"]["blind_holdout_non_regression"]["winner_family_health"],
+                    "adversarial_holdout": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_family_health"],
+                },
+                "drift_note": "blind, adversarial, and calibration gates active",
                 "ok": target_ok,
             }
         )
@@ -204,12 +285,25 @@ def main() -> None:
     lines = [
         "# Description Optimization Suite",
         "",
-        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Current Blind FN | Baseline Blind FN | Status |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Adv FP | Adv FN | Adv Gap | Adv Risk | Status |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for target in summary["targets"]:
         lines.append(
-            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['winner_blind_holdout_fp']} | {target['winner_blind_holdout_fn']} | {target['current_blind_holdout_fn']} | {target['baseline_blind_holdout_fn']} | {'ok' if target['ok'] else 'fail'} |"
+            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['winner_blind_holdout_fp']} | {target['winner_blind_holdout_fn']} | {target['winner_adversarial_holdout_fp']} | {target['winner_adversarial_holdout_fn']} | {(target['calibration']['adversarial_holdout'] or {}).get('score_gap', '-')} | {(target['calibration']['adversarial_holdout'] or {}).get('risk_band', '-')} | {'ok' if target['ok'] else 'fail'} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Family Coverage",
+            "",
+            "| Target | Blind Families | Adversarial Families |",
+            "| --- | --- | --- |",
+        ]
+    )
+    for target in summary["targets"]:
+        lines.append(
+            f"| `{target['name']}` | {family_gate_note(target, 'blind_holdout')} | {family_gate_note(target, 'adversarial_holdout')} |"
         )
     (ROOT / "reports" / "description_optimization_suite.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     if args.history_snapshot_output:

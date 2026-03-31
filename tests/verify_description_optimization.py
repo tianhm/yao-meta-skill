@@ -17,6 +17,7 @@ CASES = [
         "dev_cases": ROOT / "evals" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "evals" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "evals" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "evals" / "adversarial" / "trigger_cases.json",
     },
     {
         "name": "team_frontend_review",
@@ -26,6 +27,7 @@ CASES = [
         "dev_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "adversarial" / "trigger_cases.json",
     },
     {
         "name": "governed_incident_command",
@@ -35,6 +37,7 @@ CASES = [
         "dev_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "holdout" / "trigger_cases.json",
         "blind_holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "blind_holdout" / "trigger_cases.json",
+        "adversarial_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "adversarial" / "trigger_cases.json",
     },
 ]
 
@@ -60,6 +63,8 @@ def run_case(case: dict) -> dict:
             str(case["holdout_cases"]),
             "--blind-holdout-cases",
             str(case["blind_holdout_cases"]),
+            "--adversarial-cases",
+            str(case["adversarial_cases"]),
         ],
         cwd=ROOT,
         capture_output=True,
@@ -81,6 +86,17 @@ def run_case(case: dict) -> dict:
     passed = passed and blind_winner is not None and total_errors(blind_winner) <= total_errors(blind_current)
     if blind_baseline:
         passed = passed and total_errors(blind_winner) <= total_errors(blind_baseline)
+    adversarial_winner = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner"]
+    adversarial_current = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["current"]
+    adversarial_baseline = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["baseline"]
+    passed = passed and adversarial_winner is not None and total_errors(adversarial_winner) <= total_errors(adversarial_current)
+    if adversarial_baseline:
+        passed = passed and total_errors(adversarial_winner) <= total_errors(adversarial_baseline)
+    winner_adversarial_calibration = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]
+    winner_adversarial_family = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_family_health"]
+    passed = passed and winner_adversarial_calibration is not None
+    passed = passed and winner_adversarial_family is not None
+    passed = passed and winner_adversarial_family.get("family_count", 0) >= 2
     passed = passed and len(payload.get("candidates", [])) >= 3
     return {
         "name": case["name"],
@@ -92,6 +108,8 @@ def run_case(case: dict) -> dict:
         "current_tokens": current["estimated_tokens"],
         "baseline_tokens": baseline["estimated_tokens"] if baseline else None,
         "winner_blind_holdout_total_errors": total_errors(blind_winner) if blind_winner else None,
+        "winner_adversarial_holdout_total_errors": total_errors(adversarial_winner) if adversarial_winner else None,
+        "winner_adversarial_risk_band": winner_adversarial_calibration.get("risk_band") if winner_adversarial_calibration else None,
     }
 
 

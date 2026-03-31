@@ -7449,6 +7449,1215 @@
       ]
     }
   },
+  "winner_adversarial_holdout_report": {
+    "threshold": 0.33,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "adversarial_noisy_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_multi_asset_boundary": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_document_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_summary_translation_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_future_outline_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_brainstorm_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Ignore the noisy meeting chatter and operationalize this support escalation workflow into a maintained skill package with trigger hardening.",
+          "family": "adversarial_noisy_operationalize",
+          "score": 0.834,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.818,
+            "support_score": 0,
+            "lexical_support": 0.263,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "skill package"
+                ],
+                "eval_optimize": [
+                  "hardening"
+                ],
+                "reuse_package": [
+                  "package",
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Codify this routine into a reusable capability from docs, transcripts, and prompt history, then stress test the route boundary.",
+          "family": "adversarial_multi_asset_boundary",
+          "score": 0.842,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.818,
+            "support_score": 0,
+            "lexical_support": 0.368,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "codify this routine"
+                ],
+                "eval_optimize": [
+                  "stress test",
+                  "route boundary"
+                ],
+                "reuse_package": [
+                  "reusable"
+                ],
+                "transform_workflow": [
+                  "prompt history"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Create a wiki package from this runbook and do not generate any skill files.",
+          "family": "adversarial_document_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [
+              "multi_asset"
+            ],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.364,
+            "support_score": 0.06,
+            "lexical_support": 0.429,
+            "negative_penalty": 0.6,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "reuse_package": [
+                  "package"
+                ],
+                "transform_workflow": [
+                  "runbook"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ],
+                "no_build_directive": [
+                  "do not generate any skill files"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Summarize this SOP, translate it into Japanese for the knowledge base, and keep it as documentation only.",
+          "family": "adversarial_summary_translation_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "semantic_coverage": 0.182,
+            "support_score": 0,
+            "lexical_support": 0.2,
+            "negative_penalty": 1.25,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "transform_workflow": [
+                  "sop"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "knowledge base"
+                ],
+                "no_build_directive": [
+                  "keep it as documentation only"
+                ],
+                "summarize_only": [
+                  "summarize"
+                ],
+                "translate_only": [
+                  "translate",
+                  "into japanese"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Outline a possible future skill from these notes, but stop short of making a full skill and keep it as a plain note.",
+          "family": "adversarial_future_outline_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.25,
+            "negative_penalty": 0.64,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "future_outline": [
+                  "future skill",
+                  "possible future skill"
+                ],
+                "no_build_directive": [
+                  "stop short of making a full skill",
+                  "plain note",
+                  "keep it as a plain note"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Brainstorm packaging improvements for later and keep this as discussion only.",
+          "family": "adversarial_brainstorm_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.182,
+            "support_score": 0,
+            "lexical_support": 0.182,
+            "negative_penalty": 0.88,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ]
+              },
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ],
+                "future_outline": [
+                  "for later"
+                ],
+                "no_build_directive": [
+                  "discussion only"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "current_adversarial_holdout_report": {
+    "threshold": 0.33,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "adversarial_noisy_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_multi_asset_boundary": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_document_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_summary_translation_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_future_outline_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_brainstorm_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Ignore the noisy meeting chatter and operationalize this support escalation workflow into a maintained skill package with trigger hardening.",
+          "family": "adversarial_noisy_operationalize",
+          "score": 0.834,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.818,
+            "support_score": 0,
+            "lexical_support": 0.263,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "skill package"
+                ],
+                "eval_optimize": [
+                  "hardening"
+                ],
+                "reuse_package": [
+                  "package",
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Codify this routine into a reusable capability from docs, transcripts, and prompt history, then stress test the route boundary.",
+          "family": "adversarial_multi_asset_boundary",
+          "score": 0.842,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.818,
+            "support_score": 0,
+            "lexical_support": 0.368,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "codify this routine"
+                ],
+                "eval_optimize": [
+                  "stress test",
+                  "route boundary"
+                ],
+                "reuse_package": [
+                  "reusable"
+                ],
+                "transform_workflow": [
+                  "prompt history"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Create a wiki package from this runbook and do not generate any skill files.",
+          "family": "adversarial_document_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [
+              "multi_asset"
+            ],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.364,
+            "support_score": 0.06,
+            "lexical_support": 0.429,
+            "negative_penalty": 0.6,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "reuse_package": [
+                  "package"
+                ],
+                "transform_workflow": [
+                  "runbook"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ],
+                "no_build_directive": [
+                  "do not generate any skill files"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Summarize this SOP, translate it into Japanese for the knowledge base, and keep it as documentation only.",
+          "family": "adversarial_summary_translation_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "semantic_coverage": 0.182,
+            "support_score": 0,
+            "lexical_support": 0.2,
+            "negative_penalty": 1.25,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "transform_workflow": [
+                  "sop"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "knowledge base"
+                ],
+                "no_build_directive": [
+                  "keep it as documentation only"
+                ],
+                "summarize_only": [
+                  "summarize"
+                ],
+                "translate_only": [
+                  "translate",
+                  "into japanese"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Outline a possible future skill from these notes, but stop short of making a full skill and keep it as a plain note.",
+          "family": "adversarial_future_outline_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.25,
+            "negative_penalty": 0.64,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "future_outline": [
+                  "future skill",
+                  "possible future skill"
+                ],
+                "no_build_directive": [
+                  "stop short of making a full skill",
+                  "plain note",
+                  "keep it as a plain note"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Brainstorm packaging improvements for later and keep this as discussion only.",
+          "family": "adversarial_brainstorm_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill",
+              "team_operationalize"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.182,
+            "support_score": 0,
+            "lexical_support": 0.182,
+            "negative_penalty": 0.88,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ]
+              },
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ],
+                "future_outline": [
+                  "for later"
+                ],
+                "no_build_directive": [
+                  "discussion only"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "baseline_adversarial_holdout_report": {
+    "threshold": 0.33,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "adversarial_noisy_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_multi_asset_boundary": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_document_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_summary_translation_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_future_outline_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "adversarial_brainstorm_collision": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Ignore the noisy meeting chatter and operationalize this support escalation workflow into a maintained skill package with trigger hardening.",
+          "family": "adversarial_noisy_operationalize",
+          "score": 0.845,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.849,
+            "support_score": 0,
+            "lexical_support": 0.053,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "skill package"
+                ],
+                "eval_optimize": [
+                  "hardening"
+                ],
+                "reuse_package": [
+                  "package",
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Codify this routine into a reusable capability from docs, transcripts, and prompt history, then stress test the route boundary.",
+          "family": "adversarial_multi_asset_boundary",
+          "score": 0.845,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [
+              "build_skill",
+              "eval_optimize",
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.849,
+            "support_score": 0,
+            "lexical_support": 0.053,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "build_skill": [
+                  "codify this routine"
+                ],
+                "eval_optimize": [
+                  "stress test",
+                  "route boundary"
+                ],
+                "reuse_package": [
+                  "reusable"
+                ],
+                "transform_workflow": [
+                  "prompt history"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Create a wiki package from this runbook and do not generate any skill files.",
+          "family": "adversarial_document_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package",
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [
+              "multi_asset"
+            ],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.377,
+            "support_score": 0.06,
+            "lexical_support": 0.143,
+            "negative_penalty": 0.6,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "reuse_package": [
+                  "package"
+                ],
+                "transform_workflow": [
+                  "runbook"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ],
+                "no_build_directive": [
+                  "do not generate any skill files"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Summarize this SOP, translate it into Japanese for the knowledge base, and keep it as documentation only.",
+          "family": "adversarial_summary_translation_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [
+              "transform_workflow"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "document_only",
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "exclusive_negative_concepts": [
+              "no_build_directive",
+              "summarize_only",
+              "translate_only"
+            ],
+            "semantic_coverage": 0.189,
+            "support_score": 0,
+            "lexical_support": 0.067,
+            "negative_penalty": 1.25,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "transform_workflow": [
+                  "sop"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "knowledge base"
+                ],
+                "no_build_directive": [
+                  "keep it as documentation only"
+                ],
+                "summarize_only": [
+                  "summarize"
+                ],
+                "translate_only": [
+                  "translate",
+                  "into japanese"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Outline a possible future skill from these notes, but stop short of making a full skill and keep it as a plain note.",
+          "family": "adversarial_future_outline_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.05,
+            "negative_penalty": 0.64,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "future_outline": [
+                  "future skill",
+                  "possible future skill"
+                ],
+                "no_build_directive": [
+                  "stop short of making a full skill",
+                  "plain note",
+                  "keep it as a plain note"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Brainstorm packaging improvements for later and keep this as discussion only.",
+          "family": "adversarial_brainstorm_collision",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "build_skill",
+              "transform_workflow",
+              "reuse_package",
+              "eval_optimize",
+              "iterate_existing_skill"
+            ],
+            "matched_desired_concepts": [
+              "reuse_package"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only",
+              "future_outline",
+              "no_build_directive"
+            ],
+            "semantic_coverage": 0.189,
+            "support_score": 0,
+            "lexical_support": 0.091,
+            "negative_penalty": 0.88,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ]
+              },
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ],
+                "future_outline": [
+                  "for later"
+                ],
+                "no_build_directive": [
+                  "discussion only"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
   "candidates": [
     {
       "id": "current",
@@ -7726,6 +8935,30 @@
       "improved_precision": 1.0,
       "baseline_recall": 1.0,
       "improved_recall": 1.0
+    },
+    "winner_vs_current_adversarial_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
+    "winner_vs_baseline_adversarial_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
     }
   },
   "acceptance_gates": {
@@ -7754,6 +8987,81 @@
         "recall": 1.0,
         "near_neighbor_pass_rate": 1.0,
         "should_not_trigger_pass_rate": 1.0
+      },
+      "winner_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.672,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.468,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.468,
+        "threshold_margin": 0.138,
+        "positive_threshold_buffer": 0.138,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "current_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.672,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.468,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.468,
+        "threshold_margin": 0.138,
+        "positive_threshold_buffer": 0.138,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "baseline_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.648,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.416,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.416,
+        "threshold_margin": 0.086,
+        "positive_threshold_buffer": 0.086,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "winner_family_health": {
+        "family_count": 12,
+        "clean_family_count": 12,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "workflow_to_skill",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "current_family_health": {
+        "family_count": 12,
+        "clean_family_count": 12,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "workflow_to_skill",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "baseline_family_health": {
+        "family_count": 12,
+        "clean_family_count": 12,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "workflow_to_skill",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
       }
     },
     "blind_holdout_non_regression": {
@@ -7780,6 +9088,182 @@
         "recall": 1.0,
         "near_neighbor_pass_rate": 1.0,
         "should_not_trigger_pass_rate": 1.0
+      },
+      "winner_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.399,
+        "mean_non_trigger_score": 0.013,
+        "mean_near_neighbor_score": 0.013,
+        "min_positive_score": 0.392,
+        "max_non_trigger_score": 0.026,
+        "score_gap": 0.366,
+        "threshold_margin": 0.062,
+        "positive_threshold_buffer": 0.062,
+        "negative_threshold_buffer": 0.304,
+        "boundary_case_count": 2,
+        "boundary_case_rate": 0.333,
+        "risk_band": "watch"
+      },
+      "current_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.399,
+        "mean_non_trigger_score": 0.013,
+        "mean_near_neighbor_score": 0.013,
+        "min_positive_score": 0.392,
+        "max_non_trigger_score": 0.026,
+        "score_gap": 0.366,
+        "threshold_margin": 0.062,
+        "positive_threshold_buffer": 0.062,
+        "negative_threshold_buffer": 0.304,
+        "boundary_case_count": 2,
+        "boundary_case_rate": 0.333,
+        "risk_band": "watch"
+      },
+      "baseline_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.393,
+        "mean_non_trigger_score": 0.01,
+        "mean_near_neighbor_score": 0.012,
+        "min_positive_score": 0.393,
+        "max_non_trigger_score": 0.024,
+        "score_gap": 0.369,
+        "threshold_margin": 0.063,
+        "positive_threshold_buffer": 0.063,
+        "negative_threshold_buffer": 0.306,
+        "boundary_case_count": 2,
+        "boundary_case_rate": 0.333,
+        "risk_band": "watch"
+      },
+      "winner_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "current_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "baseline_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      }
+    },
+    "adversarial_holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "winner_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.838,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.834,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.834,
+        "threshold_margin": 0.33,
+        "positive_threshold_buffer": 0.504,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "current_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.838,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.834,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.834,
+        "threshold_margin": 0.33,
+        "positive_threshold_buffer": 0.504,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "baseline_calibration": {
+        "threshold": 0.33,
+        "mean_positive_score": 0.845,
+        "mean_non_trigger_score": 0.0,
+        "mean_near_neighbor_score": 0.0,
+        "min_positive_score": 0.845,
+        "max_non_trigger_score": 0.0,
+        "score_gap": 0.845,
+        "threshold_margin": 0.33,
+        "positive_threshold_buffer": 0.515,
+        "negative_threshold_buffer": 0.33,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
+      },
+      "winner_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "adversarial_summary_translation_collision",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "current_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "adversarial_summary_translation_collision",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "baseline_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "adversarial_summary_translation_collision",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
       }
     }
   },
@@ -7793,10 +9277,15 @@
     "current_holdout_total_errors": 0,
     "winner_blind_holdout_total_errors": 0,
     "current_blind_holdout_total_errors": 0,
+    "winner_adversarial_holdout_total_errors": 0,
+    "current_adversarial_holdout_total_errors": 0,
+    "winner_adversarial_risk_band": "healthy",
+    "winner_adversarial_score_gap": 0.834,
     "candidate_count": 6,
     "baseline_tokens": 8,
     "baseline_dev_total_errors": 2,
     "baseline_holdout_total_errors": 0,
-    "baseline_blind_holdout_total_errors": 0
+    "baseline_blind_holdout_total_errors": 0,
+    "baseline_adversarial_holdout_total_errors": 0
   }
 }

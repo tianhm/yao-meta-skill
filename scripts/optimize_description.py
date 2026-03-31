@@ -184,6 +184,122 @@ def error_tuple(report: dict | None) -> tuple[int, int] | None:
     return (report["false_positives"], report["false_negatives"])
 
 
+def safe_round(value: float | None) -> float | None:
+    if value is None:
+        return None
+    return round(value, 3)
+
+
+def summarize_family_health(report: dict | None) -> dict | None:
+    if not report:
+        return None
+
+    family_stats = report.get("family_stats", {})
+    ordered = sorted(
+        family_stats.items(),
+        key=lambda item: (
+            item[1].get("false_positives", 0) + item[1].get("false_negatives", 0),
+            item[1].get("pass_rate") or 0,
+            -(item[1].get("total") or 0),
+            item[0],
+        ),
+    )
+    weakest = ordered[-1] if ordered else None
+    failing = []
+    for family, stats in family_stats.items():
+        errors = stats.get("false_positives", 0) + stats.get("false_negatives", 0)
+        if errors:
+            failing.append({"family": family, "errors": errors, "pass_rate": stats.get("pass_rate")})
+    failing.sort(key=lambda item: (-item["errors"], item["pass_rate"] or 0, item["family"]))
+    clean_count = sum(
+        1
+        for stats in family_stats.values()
+        if (stats.get("false_positives", 0) + stats.get("false_negatives", 0)) == 0
+    )
+    return {
+        "family_count": len(family_stats),
+        "clean_family_count": clean_count,
+        "failing_families": failing,
+        "weakest_family": {
+            "family": weakest[0],
+            "pass_rate": weakest[1].get("pass_rate"),
+            "errors": weakest[1].get("false_positives", 0) + weakest[1].get("false_negatives", 0),
+        }
+        if weakest
+        else None,
+    }
+
+
+def summarize_calibration(report: dict | None, threshold: float | None) -> dict | None:
+    if not report or threshold is None:
+        return None
+
+    positive_scores = [item["score"] for item in report["results"].get("should_trigger", [])]
+    should_not_scores = [item["score"] for item in report["results"].get("should_not_trigger", [])]
+    near_scores = [item["score"] for item in report["results"].get("near_neighbor", [])]
+    non_trigger_scores = should_not_scores + near_scores
+    total_cases = sum(len(items) for items in report["results"].values())
+    boundary_cases = sum(
+        1
+        for items in report["results"].values()
+        for item in items
+        if item.get("boundary_case")
+    )
+
+    min_positive = min(positive_scores) if positive_scores else None
+    max_non_trigger = max(non_trigger_scores) if non_trigger_scores else None
+    positive_threshold_buffer = (min_positive - threshold) if min_positive is not None else None
+    negative_threshold_buffer = (threshold - max_non_trigger) if max_non_trigger is not None else None
+    score_gap = (min_positive - max_non_trigger) if min_positive is not None and max_non_trigger is not None else None
+    margin_candidates = [value for value in (positive_threshold_buffer, negative_threshold_buffer) if value is not None]
+    threshold_margin = min(margin_candidates) if margin_candidates else None
+
+    risk_band = "healthy"
+    if report["false_positives"] or report["false_negatives"] or (score_gap is not None and score_gap < 0):
+        risk_band = "overlap"
+    elif threshold_margin is not None and threshold_margin < 0.03:
+        risk_band = "tight"
+    elif threshold_margin is not None and threshold_margin < 0.08:
+        risk_band = "watch"
+    elif total_cases and (boundary_cases / total_cases) > 0.25:
+        risk_band = "watch"
+
+    return {
+        "threshold": safe_round(threshold),
+        "mean_positive_score": safe_round(sum(positive_scores) / len(positive_scores)) if positive_scores else None,
+        "mean_non_trigger_score": safe_round(sum(non_trigger_scores) / len(non_trigger_scores)) if non_trigger_scores else None,
+        "mean_near_neighbor_score": safe_round(sum(near_scores) / len(near_scores)) if near_scores else None,
+        "min_positive_score": safe_round(min_positive),
+        "max_non_trigger_score": safe_round(max_non_trigger),
+        "score_gap": safe_round(score_gap),
+        "threshold_margin": safe_round(threshold_margin),
+        "positive_threshold_buffer": safe_round(positive_threshold_buffer),
+        "negative_threshold_buffer": safe_round(negative_threshold_buffer),
+        "boundary_case_count": boundary_cases,
+        "boundary_case_rate": safe_round(boundary_cases / total_cases) if total_cases else None,
+        "risk_band": risk_band,
+    }
+
+
+def build_gate_summary(
+    winner_report: dict | None,
+    current_report: dict | None,
+    baseline_report: dict | None,
+    threshold: float | None,
+) -> dict:
+    return {
+        "winner": summarize_gate_report(winner_report),
+        "current": summarize_gate_report(current_report),
+        "baseline": summarize_gate_report(baseline_report),
+        "winner_calibration": summarize_calibration(winner_report, threshold),
+        "current_calibration": summarize_calibration(current_report, threshold),
+        "baseline_calibration": summarize_calibration(baseline_report, threshold),
+        "winner_family_health": summarize_family_health(winner_report),
+        "current_family_health": summarize_family_health(current_report),
+        "baseline_family_health": summarize_family_health(baseline_report),
+    }
+
+
 def optimize(
     current_description: str,
     dev_cases: dict,
@@ -191,11 +307,17 @@ def optimize(
     config: dict,
     baseline_description: str | None = None,
     blind_holdout_cases: dict | None = None,
+    adversarial_cases: dict | None = None,
 ) -> dict:
     dev_threshold = dev_cases.get("recommended_threshold", 0.48)
     holdout_threshold = holdout_cases.get("recommended_threshold", dev_threshold) if holdout_cases else dev_threshold
     blind_holdout_threshold = (
         blind_holdout_cases.get("recommended_threshold", holdout_threshold) if blind_holdout_cases else holdout_threshold
+    )
+    adversarial_threshold = (
+        adversarial_cases.get("recommended_threshold", blind_holdout_threshold)
+        if adversarial_cases
+        else blind_holdout_threshold
     )
 
     candidates = []
@@ -234,6 +356,19 @@ def optimize(
                 baseline["description"], blind_holdout_cases, blind_holdout_threshold, config
             )
 
+    adversarial_reports = {}
+    if adversarial_cases:
+        adversarial_reports["current"] = evaluate(
+            current["candidate"]["description"], adversarial_cases, adversarial_threshold, config
+        )
+        adversarial_reports["winner"] = evaluate(
+            winner["candidate"]["description"], adversarial_cases, adversarial_threshold, config
+        )
+        if baseline:
+            adversarial_reports["baseline"] = evaluate(
+                baseline["description"], adversarial_cases, adversarial_threshold, config
+            )
+
     report = {
         "current_description": sentence(current_description),
         "current_candidate": current["candidate"],
@@ -246,6 +381,9 @@ def optimize(
         "winner_blind_holdout_report": blind_reports.get("winner"),
         "current_blind_holdout_report": blind_reports.get("current"),
         "baseline_blind_holdout_report": blind_reports.get("baseline"),
+        "winner_adversarial_holdout_report": adversarial_reports.get("winner"),
+        "current_adversarial_holdout_report": adversarial_reports.get("current"),
+        "baseline_adversarial_holdout_report": adversarial_reports.get("baseline"),
         "candidates": [item["candidate"] for item in candidates],
         "selection_logic": {
             "priority": [
@@ -273,19 +411,37 @@ def optimize(
             "winner_vs_baseline_blind_holdout": compare_reports(blind_reports["baseline"], blind_reports["winner"])
             if blind_reports.get("baseline") and blind_reports.get("winner")
             else None,
+            "winner_vs_current_adversarial_holdout": compare_reports(
+                adversarial_reports["current"], adversarial_reports["winner"]
+            )
+            if adversarial_reports.get("current") and adversarial_reports.get("winner")
+            else None,
+            "winner_vs_baseline_adversarial_holdout": compare_reports(
+                adversarial_reports["baseline"], adversarial_reports["winner"]
+            )
+            if adversarial_reports.get("baseline") and adversarial_reports.get("winner")
+            else None,
         },
         "acceptance_gates": {
             "selection_basis": "dev only",
-            "holdout_non_regression": {
-                "winner": summarize_gate_report(winner["holdout_report"]),
-                "current": summarize_gate_report(current["holdout_report"]),
-                "baseline": summarize_gate_report(baseline["holdout"]) if baseline else None,
-            },
-            "blind_holdout_non_regression": {
-                "winner": summarize_gate_report(blind_reports.get("winner")),
-                "current": summarize_gate_report(blind_reports.get("current")),
-                "baseline": summarize_gate_report(blind_reports.get("baseline")),
-            },
+            "holdout_non_regression": build_gate_summary(
+                winner["holdout_report"],
+                current["holdout_report"],
+                baseline["holdout"] if baseline else None,
+                holdout_threshold if holdout_cases else None,
+            ),
+            "blind_holdout_non_regression": build_gate_summary(
+                blind_reports.get("winner"),
+                blind_reports.get("current"),
+                blind_reports.get("baseline"),
+                blind_holdout_threshold if blind_holdout_cases else None,
+            ),
+            "adversarial_holdout_non_regression": build_gate_summary(
+                adversarial_reports.get("winner"),
+                adversarial_reports.get("current"),
+                adversarial_reports.get("baseline"),
+                adversarial_threshold if adversarial_cases else None,
+            ),
         },
     }
     report["summary"] = {
@@ -308,6 +464,18 @@ def optimize(
         "current_blind_holdout_total_errors": sum(error_tuple(blind_reports.get("current")))
         if blind_reports.get("current")
         else None,
+        "winner_adversarial_holdout_total_errors": sum(error_tuple(adversarial_reports.get("winner")))
+        if adversarial_reports.get("winner")
+        else None,
+        "current_adversarial_holdout_total_errors": sum(error_tuple(adversarial_reports.get("current")))
+        if adversarial_reports.get("current")
+        else None,
+        "winner_adversarial_risk_band": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]["risk_band"]
+        if report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]
+        else None,
+        "winner_adversarial_score_gap": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]["score_gap"]
+        if report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]
+        else None,
         "candidate_count": len(report["candidates"]),
     }
     if baseline:
@@ -320,6 +488,9 @@ def optimize(
         )
         report["summary"]["baseline_blind_holdout_total_errors"] = (
             sum(error_tuple(blind_reports.get("baseline"))) if blind_reports.get("baseline") else None
+        )
+        report["summary"]["baseline_adversarial_holdout_total_errors"] = (
+            sum(error_tuple(adversarial_reports.get("baseline"))) if adversarial_reports.get("baseline") else None
         )
     return report
 
@@ -366,6 +537,7 @@ def render_markdown(report: dict, title: str) -> str:
     for gate_name, gate in (
         ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
         ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
     ):
         winner_gate = gate.get("winner") or {}
         current_gate = gate.get("current") or {}
@@ -374,6 +546,58 @@ def render_markdown(report: dict, title: str) -> str:
             continue
         lines.append(
             f"| {gate_name} | {winner_gate.get('false_positives', '-')} | {winner_gate.get('false_negatives', '-')} | {current_gate.get('false_positives', '-')} | {current_gate.get('false_negatives', '-')} | {baseline_gate.get('false_positives', '-')} | {baseline_gate.get('false_negatives', '-')} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Calibration",
+            "",
+            "| Gate | Winner Gap | Winner Risk | Winner Boundary Rate | Current Gap | Baseline Gap |",
+            "| --- | ---: | --- | ---: | ---: | ---: |",
+        ]
+    )
+    for gate_name, gate in (
+        ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
+        ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
+    ):
+        winner_calibration = gate.get("winner_calibration") or {}
+        current_calibration = gate.get("current_calibration") or {}
+        baseline_calibration = gate.get("baseline_calibration") or {}
+        if not winner_calibration and not current_calibration and not baseline_calibration:
+            continue
+        lines.append(
+            f"| {gate_name} | {winner_calibration.get('score_gap', '-')} | {winner_calibration.get('risk_band', '-')} | {winner_calibration.get('boundary_case_rate', '-')} | {current_calibration.get('score_gap', '-')} | {baseline_calibration.get('score_gap', '-')} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Family Health",
+            "",
+            "| Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for gate_name, gate in (
+        ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
+        ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
+    ):
+        winner_health = gate.get("winner_family_health") or {}
+        current_health = gate.get("current_family_health") or {}
+        baseline_health = gate.get("baseline_family_health") or {}
+        if not winner_health and not current_health and not baseline_health:
+            continue
+        weakest = winner_health.get("weakest_family") or {}
+        weakest_label = (
+            f"{weakest.get('family')} ({weakest.get('errors')} errors)"
+            if weakest.get("family")
+            else "-"
+        )
+        lines.append(
+            f"| {gate_name} | {winner_health.get('clean_family_count', '-')}/{winner_health.get('family_count', '-')} | {weakest_label} | {current_health.get('clean_family_count', '-')}/{current_health.get('family_count', '-')} | {baseline_health.get('clean_family_count', '-')}/{baseline_health.get('family_count', '-')} |"
         )
 
     lines.extend(
@@ -390,12 +614,15 @@ def render_markdown(report: dict, title: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate and score description candidates on dev and holdout suites.")
+    parser = argparse.ArgumentParser(
+        description="Generate and score description candidates on dev, holdout, blind, and adversarial suites."
+    )
     parser.add_argument("--description-file", required=True)
     parser.add_argument("--baseline-description-file")
     parser.add_argument("--dev-cases", required=True)
     parser.add_argument("--holdout-cases")
     parser.add_argument("--blind-holdout-cases")
+    parser.add_argument("--adversarial-cases")
     parser.add_argument("--semantic-config", required=True)
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")
@@ -407,9 +634,18 @@ def main() -> None:
     dev_cases = load_json(Path(args.dev_cases))
     holdout_cases = load_json(Path(args.holdout_cases)) if args.holdout_cases else None
     blind_holdout_cases = load_json(Path(args.blind_holdout_cases)) if args.blind_holdout_cases else None
+    adversarial_cases = load_json(Path(args.adversarial_cases)) if args.adversarial_cases else None
     config = load_semantic_config(Path(args.semantic_config))
 
-    report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description, blind_holdout_cases)
+    report = optimize(
+        current_description,
+        dev_cases,
+        holdout_cases,
+        config,
+        baseline_description,
+        blind_holdout_cases,
+        adversarial_cases,
+    )
     rendered = json.dumps(report, ensure_ascii=False, indent=2)
     if args.output_json:
         Path(args.output_json).write_text(rendered + "\n", encoding="utf-8")

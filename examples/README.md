@@ -19,6 +19,7 @@ Some examples also include:
 
 - `optimization/`: example-specific baseline descriptions, semantic configs, dev/holdout suites, and route-optimization reports
 - `optimization/blind_holdout/`: acceptance prompts used only after the winner is chosen on dev
+- `optimization/adversarial/`: harder route-collision prompts used to measure noisy positives, deceptive negatives, and family-level calibration
 
 The complex example is intentionally thicker than the others and includes:
 

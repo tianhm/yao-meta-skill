@@ -26,6 +26,23 @@ Review frontend code for accessibility, UI security, missing states, and UX regr
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+| Adversarial Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+
+## Calibration
+
+| Gate | Winner Gap | Winner Risk | Winner Boundary Rate | Current Gap | Baseline Gap |
+| --- | ---: | --- | ---: | ---: | ---: |
+| Holdout | 0.279 | tight | 0.167 | 0.279 | 0.272 |
+| Blind Holdout | 0.088 | tight | 0.333 | 0.088 | 0.082 |
+| Adversarial Holdout | 0.509 | healthy | 0.0 | 0.509 | 0.519 |
+
+## Family Health
+
+| Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |
+| --- | --- | --- | --- | --- |
+| Holdout | 6/6 | security_and_a11y (0 errors) | 6/6 | 6/6 |
+| Blind Holdout | 6/6 | blind_premerge (0 errors) | 6/6 | 6/6 |
+| Adversarial Holdout | 6/6 | adversarial_quality_gate_review (0 errors) | 6/6 | 6/6 |
 
 ## Selection Logic
 

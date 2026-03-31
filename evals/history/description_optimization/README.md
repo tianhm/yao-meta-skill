@@ -9,6 +9,9 @@ Each snapshot records:
 - per-target winner token counts
 - visible holdout errors
 - blind holdout errors when available
+- adversarial holdout errors when available
+- calibration summaries for blind and adversarial gates when available
+- family coverage summaries for blind and adversarial gates when available
 - short drift notes for route wording changes or new acceptance gates
 
 Use `python3 scripts/render_description_drift_history.py` to rebuild `reports/description_drift_history.md`.

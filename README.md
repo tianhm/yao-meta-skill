@@ -90,7 +90,7 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 <!-- END:EVAL_RESULTS -->
 
 - packaging validation: `openai`, `claude`, and `generic` targets pass contract checks
-- description optimization suite: root, team frontend review, and governed incident command all pass the new blind holdout gate; governed incident command still carries one visible holdout miss while blind holdout stays clean
+- description optimization suite: root, team frontend review, and governed incident command pass blind and adversarial holdout gates; governed incident command still carries one visible holdout miss, and adversarial calibration plus family drift are now tracked separately
 - packaging failure fixtures: invalid metadata, invalid YAML, and unsupported targets fail as expected
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
@@ -161,8 +161,8 @@ Utility scripts that make the meta-skill operational:
 
 - `trigger_eval.py`: evaluates trigger descriptions with semantic intent concepts, explicit exclusions, and near-neighbor prompts
 - `run_eval_suite.py`: runs train/dev/holdout trigger suites, reports family-level regressions, and fails if aggregate regressions appear
-- `optimize_description.py`: generates candidate descriptions, scores them on dev, visible holdout, and blind holdout suites, and explains the winning route wording
-- `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots
+- `optimize_description.py`: generates candidate descriptions, scores them on dev, visible holdout, blind holdout, and adversarial holdout suites, then reports calibration and family health
+- `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots with calibration and family summaries
 - `render_description_drift_history.py`: turns description-optimization snapshots into a readable drift-history report
 - `context_sizer.py`: estimates context weight and warns when the initial load gets too large
 - `resource_boundary_check.py`: audits whether detail is split across `SKILL.md`, `references/`, `scripts/`, `assets/`, and `evals/` appropriately
@@ -189,7 +189,8 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - Trigger evaluation now uses a local semantic-intent model with explicit positive concepts, exclusion concepts, and boundary-case reporting.
 - The sample trigger report now covers a larger positive, negative, and near-neighbor set rather than a tiny demo set.
 - Train/dev/holdout trigger suites now separate iterative tuning from final verification.
-- Description optimization now uses dev for ranking, visible holdout for non-regression, and blind holdout for acceptance without feeding the ranking loop.
+- Description optimization now uses dev for ranking, visible holdout for non-regression, blind holdout for acceptance, and adversarial holdout for harder route-collision checks without feeding the ranking loop.
+- Description drift history now records adversarial calibration gaps and family coverage, so routing changes can be judged on confidence and family stability rather than raw error counts alone.
 - Packaging validation now uses explicit contracts and YAML parsing, but it is still a lightweight local validation layer rather than a full platform integration suite.
 - `evals/failure-cases.md` captures known weak spots that should remain part of regression checks.
 - `failures/` captures reusable anti-pattern writeups and machine-runnable failure cases for routing, packaging, and authoring failures.

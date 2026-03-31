@@ -15,13 +15,23 @@ def render_markdown(snapshots: list[dict]) -> str:
     lines = [
         "# Description Drift History",
         "",
-        "| Date | Label | Target | Winner | Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Drift Note |",
-        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| Date | Label | Target | Winner | Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Adv FP | Adv FN | Adv Gap | Adv Risk | Drift Note |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
 
     previous_by_target: dict[str, dict] = {}
+
     def display(value: object) -> str:
         return "-" if value is None else str(value)
+
+    def family_display(target: dict, gate: str) -> str:
+        family = (target.get("family_health", {}) or {}).get(gate) or {}
+        if not family:
+            return "-"
+        weakest = family.get("weakest_family") or {}
+        weakest_label = weakest.get("family") or "-"
+        return f"{family.get('clean_family_count', 0)}/{family.get('family_count', 0)} clean; weakest={weakest_label}"
+
     for snapshot in snapshots:
         for target in snapshot.get("targets", []):
             previous = previous_by_target.get(target["name"])
@@ -35,13 +45,35 @@ def render_markdown(snapshots: list[dict]) -> str:
                     blind_note = "blind gate unchanged"
                 else:
                     blind_note = f"blind error delta {blind_now - blind_prev:+d}"
-                drift_note = f"{token_note}; {blind_note}"
+                adv_prev = previous.get("winner_adversarial_holdout_total_errors")
+                adv_now = target.get("winner_adversarial_holdout_total_errors")
+                if adv_prev is None or adv_now is None:
+                    adv_note = "adversarial gate unchanged"
+                else:
+                    adv_note = f"adversarial error delta {adv_now - adv_prev:+d}"
+                drift_note = f"{token_note}; {blind_note}; {adv_note}"
             if not drift_note:
                 drift_note = "initial snapshot"
+            adversarial_calibration = (target.get("calibration", {}) or {}).get("adversarial_holdout") or {}
             lines.append(
-                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {display(target.get('winner_blind_holdout_fp'))} | {display(target.get('winner_blind_holdout_fn'))} | {drift_note} |"
+                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {display(target.get('winner_blind_holdout_fp'))} | {display(target.get('winner_blind_holdout_fn'))} | {display(target.get('winner_adversarial_holdout_fp'))} | {display(target.get('winner_adversarial_holdout_fn'))} | {display(adversarial_calibration.get('score_gap'))} | {display(adversarial_calibration.get('risk_band'))} | {drift_note} |"
             )
             previous_by_target[target["name"]] = target
+
+    lines.extend(
+        [
+            "",
+            "## Family Coverage",
+            "",
+            "| Date | Label | Target | Blind Families | Adversarial Families |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for snapshot in snapshots:
+        for target in snapshot.get("targets", []):
+            lines.append(
+                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | {family_display(target, 'blind_holdout')} | {family_display(target, 'adversarial_holdout')} |"
+            )
     return "\n".join(lines) + "\n"
 
 
