@@ -1,5 +1,11 @@
 # Yao Meta Skill
 
+[![English](https://img.shields.io/badge/Docs-English-black)](README.md)
+[![中文](https://img.shields.io/badge/Docs-%E4%B8%AD%E6%96%87-red)](docs/README.zh-CN.md)
+[![日本語](https://img.shields.io/badge/Docs-%E6%97%A5%E6%9C%AC%E8%AA%9E-blue)](docs/README.ja-JP.md)
+[![Français](https://img.shields.io/badge/Docs-Fran%C3%A7ais-green)](docs/README.fr-FR.md)
+[![Русский](https://img.shields.io/badge/Docs-%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9-purple)](docs/README.ru-RU.md)
+
 `yao-meta-skill` is a meta-skill for building other agent skills.
 
 It turns rough workflows, transcripts, prompts, notes, and runbooks into reusable skill packages with:
@@ -125,11 +131,13 @@ This project is best for:
 
 ## Documentation
 
-- English: [README.md](README.md)
-- 中文: [docs/README.zh-CN.md](docs/README.zh-CN.md)
-- 日本語: [docs/README.ja-JP.md](docs/README.ja-JP.md)
-- Français: [docs/README.fr-FR.md](docs/README.fr-FR.md)
-- Русский: [docs/README.ru-RU.md](docs/README.ru-RU.md)
+| Language | Entry |
+| --- | --- |
+| English | [README.md](README.md) |
+| 中文 | [docs/README.zh-CN.md](docs/README.zh-CN.md) |
+| 日本語 | [docs/README.ja-JP.md](docs/README.ja-JP.md) |
+| Français | [docs/README.fr-FR.md](docs/README.fr-FR.md) |
+| Русский | [docs/README.ru-RU.md](docs/README.ru-RU.md) |
 
 ## License
 
