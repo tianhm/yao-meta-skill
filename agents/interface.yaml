@@ -1,0 +1,10 @@
+interface:
+  display_name: "Yao Meta Skill"
+  short_description: "Create robust, trigger-aware agent skills"
+  default_prompt: "Use $yao-meta-skill to turn my workflow, prompt set, or rough notes into a production-ready skill with strong triggering, lean structure, and an eval plan."
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets:
+    - "openai"
+    - "claude"
+    - "generic"
