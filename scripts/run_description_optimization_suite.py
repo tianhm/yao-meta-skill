@@ -174,7 +174,7 @@ def build_history_snapshot(summary: dict, args: argparse.Namespace) -> dict:
         "label": args.snapshot_label,
         "targets": targets,
         "notes": [
-            "recorded family-level blind and adversarial routing evidence",
+            "recorded family-level blind, judge-backed blind, and adversarial routing evidence",
             "published calibration and drift history for description optimization",
         ],
     }
@@ -218,6 +218,15 @@ def main() -> None:
         blind_winner_fp, blind_winner_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["winner"])
         blind_current_fp, blind_current_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["current"])
         blind_baseline_fp, blind_baseline_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["baseline"])
+        judge_blind_winner_fp, judge_blind_winner_fn = report_errors(
+            report["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner"]
+        )
+        judge_blind_current_fp, judge_blind_current_fn = report_errors(
+            report["acceptance_gates"]["judge_blind_holdout_non_regression"]["current"]
+        )
+        judge_blind_baseline_fp, judge_blind_baseline_fn = report_errors(
+            report["acceptance_gates"]["judge_blind_holdout_non_regression"]["baseline"]
+        )
         adversarial_winner_fp, adversarial_winner_fn = report_errors(
             report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner"]
         )
@@ -233,6 +242,8 @@ def main() -> None:
             and (winner_fp, winner_fn) <= (baseline_fp, baseline_fn)
             and (blind_winner_fp, blind_winner_fn) <= (blind_current_fp, blind_current_fn)
             and (blind_winner_fp, blind_winner_fn) <= (blind_baseline_fp, blind_baseline_fn)
+            and (judge_blind_winner_fp, judge_blind_winner_fn) <= (judge_blind_current_fp, judge_blind_current_fn)
+            and (judge_blind_winner_fp, judge_blind_winner_fn) <= (judge_blind_baseline_fp, judge_blind_baseline_fn)
             and (adversarial_winner_fp, adversarial_winner_fn) <= (adversarial_current_fp, adversarial_current_fn)
             and (adversarial_winner_fp, adversarial_winner_fn) <= (adversarial_baseline_fp, adversarial_baseline_fn)
         )
@@ -256,6 +267,13 @@ def main() -> None:
                 "baseline_blind_holdout_fp": blind_baseline_fp,
                 "baseline_blind_holdout_fn": blind_baseline_fn,
                 "winner_blind_holdout_total_errors": blind_winner_fp + blind_winner_fn,
+                "winner_judge_blind_holdout_fp": judge_blind_winner_fp,
+                "winner_judge_blind_holdout_fn": judge_blind_winner_fn,
+                "current_judge_blind_holdout_fp": judge_blind_current_fp,
+                "current_judge_blind_holdout_fn": judge_blind_current_fn,
+                "baseline_judge_blind_holdout_fp": judge_blind_baseline_fp,
+                "baseline_judge_blind_holdout_fn": judge_blind_baseline_fn,
+                "winner_judge_blind_holdout_total_errors": judge_blind_winner_fp + judge_blind_winner_fn,
                 "winner_adversarial_holdout_fp": adversarial_winner_fp,
                 "winner_adversarial_holdout_fn": adversarial_winner_fn,
                 "current_adversarial_holdout_fp": adversarial_current_fp,
@@ -268,12 +286,18 @@ def main() -> None:
                     "blind_holdout": report["acceptance_gates"]["blind_holdout_non_regression"]["winner_calibration"],
                     "adversarial_holdout": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"],
                 },
+                "judge_blind": {
+                    "winner": (report["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner"] or {}).get("judge_summary"),
+                    "current": (report["acceptance_gates"]["judge_blind_holdout_non_regression"]["current"] or {}).get("judge_summary"),
+                    "baseline": (report["acceptance_gates"]["judge_blind_holdout_non_regression"]["baseline"] or {}).get("judge_summary"),
+                },
                 "family_health": {
                     "holdout": report["acceptance_gates"]["holdout_non_regression"]["winner_family_health"],
                     "blind_holdout": report["acceptance_gates"]["blind_holdout_non_regression"]["winner_family_health"],
+                    "judge_blind_holdout": report["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner_family_health"],
                     "adversarial_holdout": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_family_health"],
                 },
-                "drift_note": "blind, adversarial, and calibration gates active",
+                "drift_note": "blind, judge-backed blind, adversarial, and calibration gates active",
                 "ok": target_ok,
             }
         )
@@ -285,25 +309,25 @@ def main() -> None:
     lines = [
         "# Description Optimization Suite",
         "",
-        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Adv FP | Adv FN | Adv Gap | Adv Risk | Status |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Judge Blind Errors | Adv FP | Adv FN | Adv Gap | Adv Risk | Status |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for target in summary["targets"]:
         lines.append(
-            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['winner_blind_holdout_fp']} | {target['winner_blind_holdout_fn']} | {target['winner_adversarial_holdout_fp']} | {target['winner_adversarial_holdout_fn']} | {(target['calibration']['adversarial_holdout'] or {}).get('score_gap', '-')} | {(target['calibration']['adversarial_holdout'] or {}).get('risk_band', '-')} | {'ok' if target['ok'] else 'fail'} |"
+            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['winner_blind_holdout_fp']} | {target['winner_blind_holdout_fn']} | {target['winner_judge_blind_holdout_total_errors']} | {target['winner_adversarial_holdout_fp']} | {target['winner_adversarial_holdout_fn']} | {(target['calibration']['adversarial_holdout'] or {}).get('score_gap', '-')} | {(target['calibration']['adversarial_holdout'] or {}).get('risk_band', '-')} | {'ok' if target['ok'] else 'fail'} |"
         )
     lines.extend(
         [
             "",
             "## Family Coverage",
             "",
-            "| Target | Blind Families | Adversarial Families |",
-            "| --- | --- | --- |",
+            "| Target | Blind Families | Judge Blind Families | Adversarial Families |",
+            "| --- | --- | --- | --- |",
         ]
     )
     for target in summary["targets"]:
         lines.append(
-            f"| `{target['name']}` | {family_gate_note(target, 'blind_holdout')} | {family_gate_note(target, 'adversarial_holdout')} |"
+            f"| `{target['name']}` | {family_gate_note(target, 'blind_holdout')} | {family_gate_note(target, 'judge_blind_holdout')} | {family_gate_note(target, 'adversarial_holdout')} |"
         )
     (ROOT / "reports" / "description_optimization_suite.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     if args.history_snapshot_output:

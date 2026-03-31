@@ -26,6 +26,7 @@ Build governed incident command packets. Use when asked to standardize incident 
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Holdout | 0 | 1 | 0 | 1 | 0 | 2 |
 | Blind Holdout | 0 | 0 | 0 | 0 | 0 | 1 |
+| Judge Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Adversarial Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Calibration
@@ -36,12 +37,19 @@ Build governed incident command packets. Use when asked to standardize incident 
 | Blind Holdout | 0.412 | healthy | 0.167 | 0.412 | 0.065 |
 | Adversarial Holdout | 0.598 | healthy | 0.0 | 0.598 | 0.172 |
 
+## Judge Blind Summary
+
+| Gate | Winner Agreement | Winner Mean Confidence | Current Agreement | Baseline Agreement |
+| --- | ---: | ---: | ---: | ---: |
+| Judge Blind Holdout | 1.0 | 0.657 | 1.0 | 1.0 |
+
 ## Family Health
 
 | Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |
 | --- | --- | --- | --- | --- |
 | Holdout | 5/6 | packet_assembly (1 errors) | 5/6 | 4/6 |
 | Blind Holdout | 6/6 | blind_summary_only (0 errors) | 6/6 | 5/6 |
+| Judge Blind Holdout | 6/6 | blind_summary_only (0 errors) | 6/6 | 6/6 |
 | Adversarial Holdout | 6/6 | adversarial_single_update_collision (0 errors) | 6/6 | 6/6 |
 
 ## Selection Logic

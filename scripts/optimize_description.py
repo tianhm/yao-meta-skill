@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from context_sizer import estimate_tokens
+from judge_blind_eval import evaluate_judge
 from trigger_eval import (
     compare_reports,
     evaluate,
@@ -168,7 +169,7 @@ def summarize_candidate(candidate: dict, dev_report: dict, holdout_report: dict 
 def summarize_gate_report(report: dict | None) -> dict | None:
     if not report:
         return None
-    return {
+    summary = {
         "false_positives": report["false_positives"],
         "false_negatives": report["false_negatives"],
         "precision": report["precision"],
@@ -176,6 +177,9 @@ def summarize_gate_report(report: dict | None) -> dict | None:
         "near_neighbor_pass_rate": report["bucket_stats"]["near_neighbor"]["pass_rate"],
         "should_not_trigger_pass_rate": report["bucket_stats"]["should_not_trigger"]["pass_rate"],
     }
+    if report.get("judge_summary"):
+        summary["judge_summary"] = report["judge_summary"]
+    return summary
 
 
 def error_tuple(report: dict | None) -> tuple[int, int] | None:
@@ -356,6 +360,13 @@ def optimize(
                 baseline["description"], blind_holdout_cases, blind_holdout_threshold, config
             )
 
+    judge_blind_reports = {}
+    if blind_holdout_cases:
+        judge_blind_reports["current"] = evaluate_judge(current["candidate"]["description"], blind_holdout_cases, config)
+        judge_blind_reports["winner"] = evaluate_judge(winner["candidate"]["description"], blind_holdout_cases, config)
+        if baseline:
+            judge_blind_reports["baseline"] = evaluate_judge(baseline["description"], blind_holdout_cases, config)
+
     adversarial_reports = {}
     if adversarial_cases:
         adversarial_reports["current"] = evaluate(
@@ -381,6 +392,9 @@ def optimize(
         "winner_blind_holdout_report": blind_reports.get("winner"),
         "current_blind_holdout_report": blind_reports.get("current"),
         "baseline_blind_holdout_report": blind_reports.get("baseline"),
+        "winner_judge_blind_holdout_report": judge_blind_reports.get("winner"),
+        "current_judge_blind_holdout_report": judge_blind_reports.get("current"),
+        "baseline_judge_blind_holdout_report": judge_blind_reports.get("baseline"),
         "winner_adversarial_holdout_report": adversarial_reports.get("winner"),
         "current_adversarial_holdout_report": adversarial_reports.get("current"),
         "baseline_adversarial_holdout_report": adversarial_reports.get("baseline"),
@@ -411,6 +425,16 @@ def optimize(
             "winner_vs_baseline_blind_holdout": compare_reports(blind_reports["baseline"], blind_reports["winner"])
             if blind_reports.get("baseline") and blind_reports.get("winner")
             else None,
+            "winner_vs_current_judge_blind_holdout": compare_reports(
+                judge_blind_reports["current"], judge_blind_reports["winner"]
+            )
+            if judge_blind_reports.get("current") and judge_blind_reports.get("winner")
+            else None,
+            "winner_vs_baseline_judge_blind_holdout": compare_reports(
+                judge_blind_reports["baseline"], judge_blind_reports["winner"]
+            )
+            if judge_blind_reports.get("baseline") and judge_blind_reports.get("winner")
+            else None,
             "winner_vs_current_adversarial_holdout": compare_reports(
                 adversarial_reports["current"], adversarial_reports["winner"]
             )
@@ -435,6 +459,12 @@ def optimize(
                 blind_reports.get("current"),
                 blind_reports.get("baseline"),
                 blind_holdout_threshold if blind_holdout_cases else None,
+            ),
+            "judge_blind_holdout_non_regression": build_gate_summary(
+                judge_blind_reports.get("winner"),
+                judge_blind_reports.get("current"),
+                judge_blind_reports.get("baseline"),
+                None,
             ),
             "adversarial_holdout_non_regression": build_gate_summary(
                 adversarial_reports.get("winner"),
@@ -464,12 +494,23 @@ def optimize(
         "current_blind_holdout_total_errors": sum(error_tuple(blind_reports.get("current")))
         if blind_reports.get("current")
         else None,
+        "winner_judge_blind_holdout_total_errors": sum(error_tuple(judge_blind_reports.get("winner")))
+        if judge_blind_reports.get("winner")
+        else None,
+        "current_judge_blind_holdout_total_errors": sum(error_tuple(judge_blind_reports.get("current")))
+        if judge_blind_reports.get("current")
+        else None,
         "winner_adversarial_holdout_total_errors": sum(error_tuple(adversarial_reports.get("winner")))
         if adversarial_reports.get("winner")
         else None,
         "current_adversarial_holdout_total_errors": sum(error_tuple(adversarial_reports.get("current")))
         if adversarial_reports.get("current")
         else None,
+        "winner_judge_blind_agreement_rate": (
+            report["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner"].get("judge_summary", {}).get("agreement_rate")
+            if report["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner"]
+            else None
+        ),
         "winner_adversarial_risk_band": report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]["risk_band"]
         if report["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]
         else None,
@@ -488,6 +529,9 @@ def optimize(
         )
         report["summary"]["baseline_blind_holdout_total_errors"] = (
             sum(error_tuple(blind_reports.get("baseline"))) if blind_reports.get("baseline") else None
+        )
+        report["summary"]["baseline_judge_blind_holdout_total_errors"] = (
+            sum(error_tuple(judge_blind_reports.get("baseline"))) if judge_blind_reports.get("baseline") else None
         )
         report["summary"]["baseline_adversarial_holdout_total_errors"] = (
             sum(error_tuple(adversarial_reports.get("baseline"))) if adversarial_reports.get("baseline") else None
@@ -537,6 +581,7 @@ def render_markdown(report: dict, title: str) -> str:
     for gate_name, gate in (
         ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
         ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Judge Blind Holdout", report["acceptance_gates"]["judge_blind_holdout_non_regression"]),
         ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
     ):
         winner_gate = gate.get("winner") or {}
@@ -560,6 +605,7 @@ def render_markdown(report: dict, title: str) -> str:
     for gate_name, gate in (
         ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
         ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Judge Blind Holdout", report["acceptance_gates"]["judge_blind_holdout_non_regression"]),
         ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
     ):
         winner_calibration = gate.get("winner_calibration") or {}
@@ -574,6 +620,24 @@ def render_markdown(report: dict, title: str) -> str:
     lines.extend(
         [
             "",
+            "## Judge Blind Summary",
+            "",
+            "| Gate | Winner Agreement | Winner Mean Confidence | Current Agreement | Baseline Agreement |",
+            "| --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    judge_gate = report["acceptance_gates"]["judge_blind_holdout_non_regression"]
+    judge_winner = (judge_gate.get("winner") or {}).get("judge_summary") or {}
+    judge_current = (judge_gate.get("current") or {}).get("judge_summary") or {}
+    judge_baseline = (judge_gate.get("baseline") or {}).get("judge_summary") or {}
+    if judge_winner or judge_current or judge_baseline:
+        lines.append(
+            f"| Judge Blind Holdout | {judge_winner.get('agreement_rate', '-')} | {judge_winner.get('mean_confidence', '-')} | {judge_current.get('agreement_rate', '-')} | {judge_baseline.get('agreement_rate', '-')} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Family Health",
             "",
             "| Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |",
@@ -583,6 +647,7 @@ def render_markdown(report: dict, title: str) -> str:
     for gate_name, gate in (
         ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
         ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+        ("Judge Blind Holdout", report["acceptance_gates"]["judge_blind_holdout_non_regression"]),
         ("Adversarial Holdout", report["acceptance_gates"]["adversarial_holdout_non_regression"]),
     ):
         winner_health = gate.get("winner_family_health") or {}

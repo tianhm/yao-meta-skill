@@ -74,12 +74,14 @@ The current sprint is aimed at the four dimensions that most directly determine 
 - route confusion matrix
 - contrastive route testing across sibling skills
 - mutation-based and adversarial route families
+- judge-backed blind eval so blind acceptance does not depend on one scorer
 
 ### Method
 
 - promotion policy
 - explicit gate-selection doctrine
 - non-skill decision rules for when packaging should not happen
+- formal skill engineering method and archetype taxonomy
 
 ### Execution
 

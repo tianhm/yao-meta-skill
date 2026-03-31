@@ -7449,6 +7449,1047 @@
       ]
     }
   },
+  "winner_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_multi_asset": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_document_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_future_outline": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Operationalize this support escalation routine as a maintained skill and keep trigger eval coverage.",
+          "family": "blind_operationalize",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 0,
+            "margin": 3,
+            "confidence": 0.74,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "support escalation routine"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Take these SOP scraps, prompt notes, and transcript excerpts and formalize them into a reusable capability package.",
+          "family": "blind_multi_asset",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "reusable",
+                  "package"
+                ],
+                "transform_workflow": [
+                  "sop",
+                  "transcript"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Turn this workflow note into a wiki reference only, do not create any skill files, and keep it out of agent execution.",
+          "family": "blind_document_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [
+              "document_only"
+            ],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 1,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain the differences between prompts and skills in plain English.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "prompts"
+            ],
+            "artifact_hits": [
+              "prompts"
+            ],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [
+              "explain_only"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain",
+              "plain english"
+            ],
+            "positive_vote": 2,
+            "negative_vote": 3,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "explain_only": [
+                  "plain english"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Sketch a future skill outline from these notes, but stop before generating files.",
+          "family": "blind_future_outline",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 2,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "future skill"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Review this process and suggest improvements for later; no packaging yet.",
+          "family": "blind_brainstorm_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 2,
+            "margin": 1,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ],
+                "transform_workflow": [
+                  "process"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "for later"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.66,
+      "rubric_version": "blind-v1"
+    }
+  },
+  "current_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_multi_asset": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_document_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_future_outline": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Operationalize this support escalation routine as a maintained skill and keep trigger eval coverage.",
+          "family": "blind_operationalize",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 0,
+            "margin": 3,
+            "confidence": 0.74,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "support escalation routine"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Take these SOP scraps, prompt notes, and transcript excerpts and formalize them into a reusable capability package.",
+          "family": "blind_multi_asset",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "reusable",
+                  "package"
+                ],
+                "transform_workflow": [
+                  "sop",
+                  "transcript"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Turn this workflow note into a wiki reference only, do not create any skill files, and keep it out of agent execution.",
+          "family": "blind_document_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [
+              "document_only"
+            ],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 1,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain the differences between prompts and skills in plain English.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "prompts"
+            ],
+            "artifact_hits": [
+              "prompts"
+            ],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [
+              "explain_only"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain",
+              "plain english"
+            ],
+            "positive_vote": 2,
+            "negative_vote": 3,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "explain_only": [
+                  "plain english"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Sketch a future skill outline from these notes, but stop before generating files.",
+          "family": "blind_future_outline",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 2,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "future skill"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Review this process and suggest improvements for later; no packaging yet.",
+          "family": "blind_brainstorm_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 2,
+            "margin": 1,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ],
+                "transform_workflow": [
+                  "process"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "for later"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.66,
+      "rubric_version": "blind-v1"
+    }
+  },
+  "baseline_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_operationalize": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_multi_asset": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_document_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_future_outline": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Operationalize this support escalation routine as a maintained skill and keep trigger eval coverage.",
+          "family": "blind_operationalize",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 0,
+            "margin": 3,
+            "confidence": 0.74,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "maintained",
+                  "operationalize"
+                ],
+                "transform_workflow": [
+                  "support escalation routine"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Take these SOP scraps, prompt notes, and transcript excerpts and formalize them into a reusable capability package.",
+          "family": "blind_multi_asset",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "reusable",
+                  "package"
+                ],
+                "transform_workflow": [
+                  "sop",
+                  "transcript"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Turn this workflow note into a wiki reference only, do not create any skill files, and keep it out of agent execution.",
+          "family": "blind_document_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [
+              "document_only"
+            ],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 1,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ],
+                "transform_workflow": [
+                  "workflow"
+                ]
+              },
+              "negative": {
+                "document_only": [
+                  "wiki"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain the differences between prompts and skills in plain English.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "prompts"
+            ],
+            "artifact_hits": [
+              "prompts"
+            ],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [
+              "explain_only"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain",
+              "plain english"
+            ],
+            "positive_vote": 2,
+            "negative_vote": 3,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "explain_only": [
+                  "plain english"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Sketch a future skill outline from these notes, but stop before generating files.",
+          "family": "blind_future_outline",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "notes"
+            ],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 2,
+            "margin": -1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "multi_asset": [
+                  "files"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "future skill"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Review this process and suggest improvements for later; no packaging yet.",
+          "family": "blind_brainstorm_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "strong_positive_concepts": [
+              "transform_workflow",
+              "reuse_package"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [
+              "future_outline"
+            ],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 3,
+            "negative_vote": 2,
+            "margin": 1,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "reuse_package": [
+                  "packaging"
+                ],
+                "transform_workflow": [
+                  "process"
+                ]
+              },
+              "negative": {
+                "future_outline": [
+                  "for later"
+                ]
+              }
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.66,
+      "rubric_version": "blind-v1"
+    }
+  },
   "winner_adversarial_holdout_report": {
     "threshold": 0.33,
     "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
@@ -8936,6 +9977,30 @@
       "baseline_recall": 1.0,
       "improved_recall": 1.0
     },
+    "winner_vs_current_judge_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
+    "winner_vs_baseline_judge_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
     "winner_vs_current_adversarial_holdout": {
       "baseline_false_positives": 0,
       "baseline_false_negatives": 0,
@@ -9165,6 +10230,80 @@
         }
       }
     },
+    "judge_blind_holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.66,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.66,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.66,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "winner_calibration": null,
+      "current_calibration": null,
+      "baseline_calibration": null,
+      "winner_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "current_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "baseline_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_operationalize",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      }
+    },
     "adversarial_holdout_non_regression": {
       "winner": {
         "false_positives": 0,
@@ -9277,8 +10416,11 @@
     "current_holdout_total_errors": 0,
     "winner_blind_holdout_total_errors": 0,
     "current_blind_holdout_total_errors": 0,
+    "winner_judge_blind_holdout_total_errors": 0,
+    "current_judge_blind_holdout_total_errors": 0,
     "winner_adversarial_holdout_total_errors": 0,
     "current_adversarial_holdout_total_errors": 0,
+    "winner_judge_blind_agreement_rate": 1.0,
     "winner_adversarial_risk_band": "healthy",
     "winner_adversarial_score_gap": 0.834,
     "candidate_count": 6,
@@ -9286,6 +10428,7 @@
     "baseline_dev_total_errors": 2,
     "baseline_holdout_total_errors": 0,
     "baseline_blind_holdout_total_errors": 0,
+    "baseline_judge_blind_holdout_total_errors": 0,
     "baseline_adversarial_holdout_total_errors": 0
   }
 }

@@ -25,6 +25,7 @@ Use:
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
 python3 scripts/run_eval_suite.py
+python3 scripts/judge_blind_eval.py --description-file SKILL.md --cases evals/blind_holdout/trigger_cases.json --semantic-config evals/semantic_config.json
 python3 scripts/run_description_optimization_suite.py --history-snapshot-output evals/history/description_optimization/YYYY-MM-DD-adversarial-calibration-and-family-drift.json --snapshot-date YYYY-MM-DD --snapshot-id adversarial-calibration-and-family-drift --snapshot-label "Adversarial Calibration And Family Drift"
 python3 scripts/build_confusion_matrix.py --history-snapshot-output evals/history/YYYY-MM-DD-route-scorecard-foundation.json --snapshot-date YYYY-MM-DD --snapshot-id route-scorecard-foundation --snapshot-label "Route Scorecard Foundation"
 python3 scripts/render_eval_dashboard.py
@@ -51,5 +52,6 @@ Regression scope now includes:
 - family-based reporting across workflow-to-skill, iterate-existing-skill, document-only, one-off, and future-outline cases
 - holdout verification
 - description optimization reports that compare baseline, current, and optimized route wording across dev, holdout, blind holdout, and adversarial holdout gates
+- judge-backed blind-holdout verification that adds a rubric-based second opinion for blind prompts
 - calibration summaries that surface score gaps, threshold margins, and risk bands for each acceptance gate
 - family-level drift history that records which blind and adversarial families stay clean over time

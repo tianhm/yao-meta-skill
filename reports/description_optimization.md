@@ -27,6 +27,7 @@ Create, refactor, evaluate, and package agent skills from workflows, prompts, tr
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+| Judge Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Adversarial Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Calibration
@@ -37,12 +38,19 @@ Create, refactor, evaluate, and package agent skills from workflows, prompts, tr
 | Blind Holdout | 0.366 | watch | 0.333 | 0.366 | 0.369 |
 | Adversarial Holdout | 0.834 | healthy | 0.0 | 0.834 | 0.845 |
 
+## Judge Blind Summary
+
+| Gate | Winner Agreement | Winner Mean Confidence | Current Agreement | Baseline Agreement |
+| --- | ---: | ---: | ---: | ---: |
+| Judge Blind Holdout | 1.0 | 0.66 | 1.0 | 1.0 |
+
 ## Family Health
 
 | Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |
 | --- | --- | --- | --- | --- |
 | Holdout | 12/12 | workflow_to_skill (0 errors) | 12/12 | 12/12 |
 | Blind Holdout | 6/6 | blind_operationalize (0 errors) | 6/6 | 6/6 |
+| Judge Blind Holdout | 6/6 | blind_operationalize (0 errors) | 6/6 | 6/6 |
 | Adversarial Holdout | 6/6 | adversarial_summary_translation_collision (0 errors) | 6/6 | 6/6 |
 
 ## Selection Logic

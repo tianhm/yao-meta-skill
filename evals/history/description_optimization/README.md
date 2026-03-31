@@ -9,6 +9,7 @@ Each snapshot records:
 - per-target winner token counts
 - visible holdout errors
 - blind holdout errors when available
+- judge-backed blind holdout errors and agreement when available
 - adversarial holdout errors when available
 - calibration summaries for blind and adversarial gates when available
 - family coverage summaries for blind and adversarial gates when available

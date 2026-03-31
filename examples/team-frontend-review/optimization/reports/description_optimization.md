@@ -26,6 +26,7 @@ Review frontend code for accessibility, UI security, missing states, and UX regr
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+| Judge Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 | Adversarial Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Calibration
@@ -36,12 +37,19 @@ Review frontend code for accessibility, UI security, missing states, and UX regr
 | Blind Holdout | 0.088 | tight | 0.333 | 0.088 | 0.082 |
 | Adversarial Holdout | 0.509 | healthy | 0.0 | 0.509 | 0.519 |
 
+## Judge Blind Summary
+
+| Gate | Winner Agreement | Winner Mean Confidence | Current Agreement | Baseline Agreement |
+| --- | ---: | ---: | ---: | ---: |
+| Judge Blind Holdout | 1.0 | 0.703 | 1.0 | 1.0 |
+
 ## Family Health
 
 | Gate | Winner Clean Families | Winner Weakest Family | Current Clean Families | Baseline Clean Families |
 | --- | --- | --- | --- | --- |
 | Holdout | 6/6 | security_and_a11y (0 errors) | 6/6 | 6/6 |
 | Blind Holdout | 6/6 | blind_premerge (0 errors) | 6/6 | 6/6 |
+| Judge Blind Holdout | 6/6 | blind_premerge (0 errors) | 6/6 | 6/6 |
 | Adversarial Holdout | 6/6 | adversarial_quality_gate_review (0 errors) | 6/6 | 6/6 |
 
 ## Selection Logic

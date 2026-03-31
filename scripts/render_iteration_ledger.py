@@ -38,17 +38,19 @@ def render_markdown(system_snapshots: list[dict], description_snapshots: list[di
             "",
             "## Description Optimization Milestones",
             "",
-            "| Date | Label | Target | Blind Errors | Adversarial Errors | Adversarial Gap | Adversarial Risk | Drift Note |",
-            "| --- | --- | --- | ---: | ---: | ---: | --- | --- |",
+            "| Date | Label | Target | Blind Errors | Judge Blind Errors | Judge Agreement | Adversarial Errors | Adversarial Gap | Adversarial Risk | Drift Note |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |",
         ]
     )
     for snapshot in description_snapshots:
         for target in snapshot.get("targets", []):
             blind_errors = target.get("winner_blind_holdout_total_errors")
+            judge_blind_errors = target.get("winner_judge_blind_holdout_total_errors")
+            judge_blind = (target.get("judge_blind") or {}).get("winner") or {}
             adversarial_errors = target.get("winner_adversarial_holdout_total_errors")
             adversarial_calibration = (target.get("calibration", {}) or {}).get("adversarial_holdout") or {}
             lines.append(
-                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | {'-' if blind_errors is None else blind_errors} | {'-' if adversarial_errors is None else adversarial_errors} | {'-' if adversarial_calibration.get('score_gap') is None else adversarial_calibration.get('score_gap')} | {adversarial_calibration.get('risk_band', '-')} | {target.get('drift_note', '-')} |"
+                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | {'-' if blind_errors is None else blind_errors} | {'-' if judge_blind_errors is None else judge_blind_errors} | {judge_blind.get('agreement_rate', '-')} | {'-' if adversarial_errors is None else adversarial_errors} | {'-' if adversarial_calibration.get('score_gap') is None else adversarial_calibration.get('score_gap')} | {adversarial_calibration.get('risk_band', '-')} | {target.get('drift_note', '-')} |"
             )
 
     lines.extend(

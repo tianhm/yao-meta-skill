@@ -12,17 +12,20 @@
 
 ## Description Optimization Milestones
 
-| Date | Label | Target | Blind Errors | Adversarial Errors | Adversarial Gap | Adversarial Risk | Drift Note |
-| --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| 2026-03-31 | Description Optimization Suite | `yao-meta-skill` | - | - | - | - | initial description optimization suite without blind holdout |
-| 2026-03-31 | Description Optimization Suite | `team-frontend-review` | - | - | - | - | compressed example description and stored first holdout report |
-| 2026-03-31 | Description Optimization Suite | `governed-incident-command` | - | - | - | - | compressed governed description and reduced visible holdout misses |
-| 2026-04-01 | Adversarial Calibration And Family Drift | `yao-meta-skill` | 0 | 0 | 0.834 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.834; risk n/a -> healthy |
-| 2026-04-01 | Adversarial Calibration And Family Drift | `team-frontend-review` | 0 | 0 | 0.509 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.509; risk n/a -> healthy |
-| 2026-04-01 | Adversarial Calibration And Family Drift | `governed-incident-command` | 0 | 0 | 0.598 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 1; adversarial calibration +0.598; risk n/a -> healthy |
-| 2026-04-01 | Blind Holdout And Drift History | `yao-meta-skill` | 0 | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 0 |
-| 2026-04-01 | Blind Holdout And Drift History | `team-frontend-review` | 0 | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 0 |
-| 2026-04-01 | Blind Holdout And Drift History | `governed-incident-command` | 0 | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 1 |
+| Date | Label | Target | Blind Errors | Judge Blind Errors | Judge Agreement | Adversarial Errors | Adversarial Gap | Adversarial Risk | Drift Note |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| 2026-03-31 | Description Optimization Suite | `yao-meta-skill` | - | - | - | - | - | - | initial description optimization suite without blind holdout |
+| 2026-03-31 | Description Optimization Suite | `team-frontend-review` | - | - | - | - | - | - | compressed example description and stored first holdout report |
+| 2026-03-31 | Description Optimization Suite | `governed-incident-command` | - | - | - | - | - | - | compressed governed description and reduced visible holdout misses |
+| 2026-04-01 | Adversarial Calibration And Family Drift | `yao-meta-skill` | 0 | - | - | 0 | 0.834 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.834; risk n/a -> healthy |
+| 2026-04-01 | Adversarial Calibration And Family Drift | `team-frontend-review` | 0 | - | - | 0 | 0.509 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.509; risk n/a -> healthy |
+| 2026-04-01 | Adversarial Calibration And Family Drift | `governed-incident-command` | 0 | - | - | 0 | 0.598 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 1; adversarial calibration +0.598; risk n/a -> healthy |
+| 2026-04-01 | Blind Holdout And Drift History | `yao-meta-skill` | 0 | - | - | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 0 |
+| 2026-04-01 | Blind Holdout And Drift History | `team-frontend-review` | 0 | - | - | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 0 |
+| 2026-04-01 | Blind Holdout And Drift History | `governed-incident-command` | 0 | - | - | - | - | - | tokens stable; blind gate added with 0 errors; holdout stable at 1 |
+| 2026-04-01 | Judge-Backed Blind Eval | `yao-meta-skill` | 0 | 0 | 1.0 | 0 | 0.834 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.834; risk n/a -> healthy |
+| 2026-04-01 | Judge-Backed Blind Eval | `team-frontend-review` | 0 | 0 | 1.0 | 0 | 0.509 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.509; risk n/a -> healthy |
+| 2026-04-01 | Judge-Backed Blind Eval | `governed-incident-command` | 0 | 0 | 1.0 | 0 | 0.598 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 1; adversarial calibration +0.598; risk n/a -> healthy |
 
 ## Current Route Scorecard
 

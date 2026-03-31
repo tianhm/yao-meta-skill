@@ -3942,6 +3942,1020 @@
       ]
     }
   },
+  "winner_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility",
+              "ui_security",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "accessibility",
+              "ui_security"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage"
+            ],
+            "trigger_action_hits": [
+              "run a pre-merge frontend review"
+            ],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 6,
+            "negative_vote": 0,
+            "margin": 6,
+            "confidence": 1.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 0,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility"
+            ],
+            "strong_positive_concepts": [
+              "accessibility"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "forms"
+            ],
+            "artifact_hits": [
+              "forms"
+            ],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain"
+            ],
+            "positive_vote": 3,
+            "negative_vote": 1,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 0,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 0,
+            "negative_vote": 0,
+            "margin": 0,
+            "confidence": 0.5,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.703,
+      "rubric_version": "blind-v1"
+    }
+  },
+  "current_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility",
+              "ui_security",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "accessibility",
+              "ui_security"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage"
+            ],
+            "trigger_action_hits": [
+              "run a pre-merge frontend review"
+            ],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 6,
+            "negative_vote": 0,
+            "margin": 6,
+            "confidence": 1.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 0,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility"
+            ],
+            "strong_positive_concepts": [
+              "accessibility"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "forms"
+            ],
+            "artifact_hits": [
+              "forms"
+            ],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain"
+            ],
+            "positive_vote": 3,
+            "negative_vote": 1,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 0,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 0,
+            "negative_vote": 0,
+            "margin": 0,
+            "confidence": 0.5,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.703,
+      "rubric_version": "blind-v1"
+    }
+  },
+  "baseline_judge_blind_holdout_report": {
+    "judge": "rubric-blind-v1",
+    "judge_explanation": "The blind judge uses a rubric rather than the main threshold scorer. It looks for trigger-action evidence, focused capability evidence, and input or artifact evidence, then blocks on explicit exclusion and exclusive negative signals. This acts as an independent second opinion for blind-holdout prompts.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility",
+              "ui_security",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "accessibility",
+              "ui_security"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 4,
+            "negative_vote": 0,
+            "margin": 4,
+            "confidence": 0.82,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "state_coverage"
+            ],
+            "trigger_action_hits": [
+              "run a pre-merge frontend review"
+            ],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 6,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 6,
+            "negative_vote": 0,
+            "margin": 6,
+            "confidence": 1.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 1,
+            "negative_vote": 0,
+            "margin": 1,
+            "confidence": 0.58,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "accessibility"
+            ],
+            "strong_positive_concepts": [
+              "accessibility"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [
+              "forms"
+            ],
+            "artifact_hits": [
+              "forms"
+            ],
+            "capability_overlap": 1,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [
+              "explain"
+            ],
+            "positive_vote": 3,
+            "negative_vote": 1,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "review_frontend",
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [
+              "review_frontend"
+            ],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 2,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 2,
+            "negative_vote": 0,
+            "margin": 2,
+            "confidence": 0.66,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "judge_detail": {
+            "mode": "judge-rubric",
+            "focused_positive_concepts": [
+              "frontend_scope"
+            ],
+            "strong_positive_concepts": [],
+            "trigger_action_hits": [],
+            "input_hits": [],
+            "artifact_hits": [],
+            "capability_overlap": 0,
+            "exclusive_negative_concepts": [],
+            "nonexclusive_negative_concepts": [],
+            "exclusion_hits": [],
+            "generic_exclusion_hits": [],
+            "positive_vote": 0,
+            "negative_vote": 0,
+            "margin": 0,
+            "confidence": 0.5,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        }
+      ]
+    },
+    "judge_summary": {
+      "agreement_rate": 1.0,
+      "mean_confidence": 0.703,
+      "rubric_version": "blind-v1"
+    }
+  },
   "winner_adversarial_holdout_report": {
     "threshold": 0.34,
     "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
@@ -5340,6 +6354,30 @@
       "baseline_recall": 1.0,
       "improved_recall": 1.0
     },
+    "winner_vs_current_judge_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
+    "winner_vs_baseline_judge_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
     "winner_vs_current_adversarial_holdout": {
       "baseline_false_positives": 0,
       "baseline_false_negatives": 0,
@@ -5569,6 +6607,80 @@
         }
       }
     },
+    "judge_blind_holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.703,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.703,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0,
+        "judge_summary": {
+          "agreement_rate": 1.0,
+          "mean_confidence": 0.703,
+          "rubric_version": "blind-v1"
+        }
+      },
+      "winner_calibration": null,
+      "current_calibration": null,
+      "baseline_calibration": null,
+      "winner_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_premerge",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "current_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_premerge",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      },
+      "baseline_family_health": {
+        "family_count": 6,
+        "clean_family_count": 6,
+        "failing_families": [],
+        "weakest_family": {
+          "family": "blind_premerge",
+          "pass_rate": 1.0,
+          "errors": 0
+        }
+      }
+    },
     "adversarial_holdout_non_regression": {
       "winner": {
         "false_positives": 0,
@@ -5681,8 +6793,11 @@
     "current_holdout_total_errors": 0,
     "winner_blind_holdout_total_errors": 0,
     "current_blind_holdout_total_errors": 0,
+    "winner_judge_blind_holdout_total_errors": 0,
+    "current_judge_blind_holdout_total_errors": 0,
     "winner_adversarial_holdout_total_errors": 0,
     "current_adversarial_holdout_total_errors": 0,
+    "winner_judge_blind_agreement_rate": 1.0,
     "winner_adversarial_risk_band": "healthy",
     "winner_adversarial_score_gap": 0.509,
     "candidate_count": 5,
@@ -5690,6 +6805,7 @@
     "baseline_dev_total_errors": 4,
     "baseline_holdout_total_errors": 0,
     "baseline_blind_holdout_total_errors": 0,
+    "baseline_judge_blind_holdout_total_errors": 0,
     "baseline_adversarial_holdout_total_errors": 0
   }
 }

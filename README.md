@@ -34,6 +34,7 @@ Minimum commands:
 ```bash
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json
 python3 scripts/run_description_optimization_suite.py
+python3 scripts/judge_blind_eval.py --description-file SKILL.md --cases evals/blind_holdout/trigger_cases.json --semantic-config evals/semantic_config.json
 python3 scripts/context_sizer.py .
 python3 scripts/resource_boundary_check.py .
 python3 scripts/governance_check.py . --require-manifest
@@ -91,6 +92,7 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 
 - packaging validation: `openai`, `claude`, and `generic` targets pass contract checks
 - description optimization suite: root, team frontend review, and governed incident command pass blind and adversarial holdout gates; governed incident command still carries one visible holdout miss, and adversarial calibration plus family drift are now tracked separately
+- judge-backed blind eval: root, team frontend review, and governed incident command now pass an independent rubric judge on blind holdout prompts
 - packaging failure fixtures: invalid metadata, invalid YAML, and unsupported targets fail as expected
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
@@ -115,6 +117,15 @@ The design logic is simple:
 4. Keep the main skill file small and move details into references or scripts.
 5. Add quality gates only when they pay for themselves.
 6. Export compatibility artifacts only for the clients you actually need.
+
+## Method Doctrine
+
+The repository now treats method as a first-class asset instead of scattered guidance.
+
+- [Skill Engineering Method](references/skill-engineering-method.md)
+- [Skill Archetypes](references/skill-archetypes.md)
+- [Gate Selection](references/gate-selection.md)
+- [Non-Skill Decision Tree](references/non-skill-decision-tree.md)
 
 ## Why It Exists
 
@@ -164,6 +175,7 @@ Utility scripts that make the meta-skill operational:
 - `trigger_eval.py`: evaluates trigger descriptions with semantic intent concepts, explicit exclusions, and near-neighbor prompts
 - `run_eval_suite.py`: runs train/dev/holdout trigger suites, reports family-level regressions, and fails if aggregate regressions appear
 - `optimize_description.py`: generates candidate descriptions, scores them on dev, visible holdout, blind holdout, and adversarial holdout suites, then reports calibration and family health
+- `judge_blind_eval.py`: applies an independent rubric judge to blind-holdout prompts so blind acceptance is not backed only by the main threshold scorer
 - `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots with calibration and family summaries
 - `render_description_drift_history.py`: turns description-optimization snapshots into a readable drift-history report
 - `build_confusion_matrix.py`: scores route confusion across tracked sibling skills and `no_route` cases, then writes a route scorecard and optional milestone snapshot
@@ -196,6 +208,7 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - The sample trigger report now covers a larger positive, negative, and near-neighbor set rather than a tiny demo set.
 - Train/dev/holdout trigger suites now separate iterative tuning from final verification.
 - Description optimization now uses dev for ranking, visible holdout for non-regression, blind holdout for acceptance, and adversarial holdout for harder route-collision checks without feeding the ranking loop.
+- Judge-backed blind eval now adds a rubric-based second opinion for blind prompts, so blind acceptance is not decided by one scorer alone.
 - Description drift history now records adversarial calibration gaps and family coverage, so routing changes can be judged on confidence and family stability rather than raw error counts alone.
 - Route confusion is now tracked explicitly across the root meta-skill, frontend review skill, governed incident skill, and `no_route` cases, so route theft is visible instead of implicit.
 - Promotion policy now requires visible holdout, blind holdout, adversarial holdout, and route confusion to stay clean before a description should be considered promotable.

@@ -12,37 +12,27 @@ Build reusable skill packages, not long prompts.
 
 ## Router Rules
 
-- Route by the frontmatter `description` first; it is the main trigger surface.
-- Keep `SKILL.md` as router plus execution skeleton only.
-- Put long guidance in `references/`, deterministic logic in `scripts/`, static artifacts in `assets/`, and generated evidence in `reports/`.
+- Route by frontmatter `description` first.
+- Keep `SKILL.md` to routing plus the minimal execution skeleton.
+- Push long guidance to `references/`, deterministic logic to `scripts/`, and evidence to `reports/`.
 - Use the lightest process that still makes the skill reliable.
-- Package for reuse only when reuse is real.
-
-## Use Cases
-
-- create a new skill
-- turn a workflow, runbook, or prompt set into a skill
-- improve a skill's boundary, evals, or packaging
-- design a team skill template or standard
-- migrate a skill toward the open format
 
 ## Modes
 
-- `Scaffold`: personal or exploratory; deliver `SKILL.md`, `agents/interface.yaml`, and only clearly needed folders.
-- `Production`: reusable team skill; add focused `references/`, `scripts/`, and `evals/` only when they earn their keep.
-- `Library`: important shared or meta skill; add trigger matrices, packaging guidance, and maintenance metadata.
+- `Scaffold`: exploratory or personal.
+- `Production`: team reuse with focused gates.
+- `Library`: shared infrastructure or meta skill.
 
-Detailed mode rules: [Operating Modes](references/operating-modes.md), [QA Ladder](references/qa-ladder.md), [Resource Boundary Spec](references/resource-boundaries.md).
+Mode rules: [Operating Modes](references/operating-modes.md), [QA Ladder](references/qa-ladder.md), [Resource Boundary Spec](references/resource-boundaries.md), [Skill Engineering Method](references/skill-engineering-method.md).
 
 ## Compact Workflow
 
-1. Capture the recurring job, outputs, trigger phrases, and risk.
-2. Set one coherent boundary: one capability family, one trigger surface, one workflow.
-3. Write the `description` early and test it before expanding the body on important skills.
-4. Generate only the folders that earn their keep. Start from the basic template unless complexity is real.
-5. Run the useful gates: `context_sizer.py`, `resource_boundary_check.py`, `governance_check.py`, `trigger_eval.py`, `optimize_description.py`, `cross_packager.py`.
+1. Decide whether the request should become a skill, then choose the lightest archetype.
+2. Capture the recurring job, outputs, trigger phrases, and exclusions.
+3. Write the `description` early, then test route quality before expanding the package.
+4. Add only the folders and gates that earn their keep: `trigger_eval.py`, `optimize_description.py`, `judge_blind_eval.py`, `resource_boundary_check.py`, `governance_check.py`, `cross_packager.py`.
 
-Detailed playbooks: [Operating Modes](references/operating-modes.md) and [Trigger And Eval Playbook](references/eval-playbook.md).
+Playbooks: [Skill Engineering Method](references/skill-engineering-method.md), [Skill Archetypes](references/skill-archetypes.md), [Gate Selection](references/gate-selection.md), [Non-Skill Decision Tree](references/non-skill-decision-tree.md), [Operating Modes](references/operating-modes.md), [Trigger And Eval Playbook](references/eval-playbook.md).
 
 ## Output Contract
 
@@ -51,18 +41,16 @@ Unless the user asks otherwise, produce:
 1. a working skill directory
 2. a trigger-aware `SKILL.md`
 3. aligned `agents/interface.yaml`
-4. references, scripts, evals, reports, and `manifest.json` only when justified
+4. optional `references/`, `scripts/`, `evals/`, `reports/`, and `manifest.json` only when justified
 5. a short summary of boundary, exclusions, gates, and next steps
 
 ## Reference Map
 
+- [Skill Engineering Method](references/skill-engineering-method.md)
+- [Skill Archetypes](references/skill-archetypes.md)
+- [Gate Selection](references/gate-selection.md)
+- [Non-Skill Decision Tree](references/non-skill-decision-tree.md)
 - [Operating Modes](references/operating-modes.md)
-- [QA Ladder](references/qa-ladder.md)
 - [Governance Model](references/governance.md)
 - [Resource Boundary Spec](references/resource-boundaries.md)
-- [Skill Design Guidelines](references/skill_design_guidelines.md)
-- [Client Compatibility](references/client-compatibility.md)
-- [Comparative Analysis](references/comparative-analysis.md)
-- [Meta-Skill Rubric](references/design-rubric.md)
-- [Skill Template](references/skill-template.md)
 - [Trigger And Eval Playbook](references/eval-playbook.md)

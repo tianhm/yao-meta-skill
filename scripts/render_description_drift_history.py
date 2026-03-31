@@ -15,8 +15,8 @@ def render_markdown(snapshots: list[dict]) -> str:
     lines = [
         "# Description Drift History",
         "",
-        "| Date | Label | Target | Winner | Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Adv FP | Adv FN | Adv Gap | Adv Risk | Drift Note |",
-        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+        "| Date | Label | Target | Winner | Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Judge Blind Errors | Judge Agreement | Adv FP | Adv FN | Adv Gap | Adv Risk | Drift Note |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |",
     ]
 
     previous_by_target: dict[str, dict] = {}
@@ -55,8 +55,10 @@ def render_markdown(snapshots: list[dict]) -> str:
             if not drift_note:
                 drift_note = "initial snapshot"
             adversarial_calibration = (target.get("calibration", {}) or {}).get("adversarial_holdout") or {}
+            judge_blind = (target.get("judge_blind") or {}).get("winner") or {}
+            judge_errors = target.get("winner_judge_blind_holdout_total_errors")
             lines.append(
-                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {display(target.get('winner_blind_holdout_fp'))} | {display(target.get('winner_blind_holdout_fn'))} | {display(target.get('winner_adversarial_holdout_fp'))} | {display(target.get('winner_adversarial_holdout_fn'))} | {display(adversarial_calibration.get('score_gap'))} | {display(adversarial_calibration.get('risk_band'))} | {drift_note} |"
+                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {display(target.get('winner_blind_holdout_fp'))} | {display(target.get('winner_blind_holdout_fn'))} | {display(judge_errors)} | {display(judge_blind.get('agreement_rate'))} | {display(target.get('winner_adversarial_holdout_fp'))} | {display(target.get('winner_adversarial_holdout_fn'))} | {display(adversarial_calibration.get('score_gap'))} | {display(adversarial_calibration.get('risk_band'))} | {drift_note} |"
             )
             previous_by_target[target["name"]] = target
 
@@ -65,14 +67,14 @@ def render_markdown(snapshots: list[dict]) -> str:
             "",
             "## Family Coverage",
             "",
-            "| Date | Label | Target | Blind Families | Adversarial Families |",
-            "| --- | --- | --- | --- | --- |",
+            "| Date | Label | Target | Blind Families | Judge Blind Families | Adversarial Families |",
+            "| --- | --- | --- | --- | --- | --- |",
         ]
     )
     for snapshot in snapshots:
         for target in snapshot.get("targets", []):
             lines.append(
-                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | {family_display(target, 'blind_holdout')} | {family_display(target, 'adversarial_holdout')} |"
+                f"| {snapshot['date']} | {snapshot['label']} | `{target['name']}` | {family_display(target, 'blind_holdout')} | {family_display(target, 'judge_blind_holdout')} | {family_display(target, 'adversarial_holdout')} |"
             )
     return "\n".join(lines) + "\n"
 

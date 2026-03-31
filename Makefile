@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: eval eval-suite route-scorecard route-confusion-check description-optimization description-optimization-check description-drift-history iteration-ledger results-panel regression-history context-reports failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check test clean
+.PHONY: eval eval-suite route-scorecard route-confusion-check description-optimization judge-blind-eval description-optimization-check description-drift-history iteration-ledger results-panel regression-history context-reports failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check test clean
 
 eval:
 	$(PYTHON) scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
@@ -16,6 +16,9 @@ route-confusion-check:
 
 description-optimization:
 	$(PYTHON) scripts/run_description_optimization_suite.py
+
+judge-blind-eval:
+	$(PYTHON) scripts/judge_blind_eval.py --description-file SKILL.md --cases evals/blind_holdout/trigger_cases.json --semantic-config evals/semantic_config.json
 
 description-optimization-check:
 	$(PYTHON) tests/verify_description_optimization.py

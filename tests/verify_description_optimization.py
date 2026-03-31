@@ -86,6 +86,12 @@ def run_case(case: dict) -> dict:
     passed = passed and blind_winner is not None and total_errors(blind_winner) <= total_errors(blind_current)
     if blind_baseline:
         passed = passed and total_errors(blind_winner) <= total_errors(blind_baseline)
+    judge_blind_winner = payload["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner"]
+    judge_blind_current = payload["acceptance_gates"]["judge_blind_holdout_non_regression"]["current"]
+    judge_blind_baseline = payload["acceptance_gates"]["judge_blind_holdout_non_regression"]["baseline"]
+    passed = passed and judge_blind_winner is not None and total_errors(judge_blind_winner) <= total_errors(judge_blind_current)
+    if judge_blind_baseline:
+        passed = passed and total_errors(judge_blind_winner) <= total_errors(judge_blind_baseline)
     adversarial_winner = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner"]
     adversarial_current = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["current"]
     adversarial_baseline = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["baseline"]
@@ -94,9 +100,14 @@ def run_case(case: dict) -> dict:
         passed = passed and total_errors(adversarial_winner) <= total_errors(adversarial_baseline)
     winner_adversarial_calibration = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_calibration"]
     winner_adversarial_family = payload["acceptance_gates"]["adversarial_holdout_non_regression"]["winner_family_health"]
+    winner_judge_summary = (judge_blind_winner or {}).get("judge_summary") or {}
+    winner_judge_family = payload["acceptance_gates"]["judge_blind_holdout_non_regression"]["winner_family_health"]
     passed = passed and winner_adversarial_calibration is not None
     passed = passed and winner_adversarial_family is not None
     passed = passed and winner_adversarial_family.get("family_count", 0) >= 2
+    passed = passed and winner_judge_summary.get("agreement_rate") is not None
+    passed = passed and winner_judge_family is not None
+    passed = passed and winner_judge_family.get("family_count", 0) >= 2
     passed = passed and len(payload.get("candidates", [])) >= 3
     return {
         "name": case["name"],
@@ -108,6 +119,8 @@ def run_case(case: dict) -> dict:
         "current_tokens": current["estimated_tokens"],
         "baseline_tokens": baseline["estimated_tokens"] if baseline else None,
         "winner_blind_holdout_total_errors": total_errors(blind_winner) if blind_winner else None,
+        "winner_judge_blind_holdout_total_errors": total_errors(judge_blind_winner) if judge_blind_winner else None,
+        "winner_judge_blind_agreement_rate": winner_judge_summary.get("agreement_rate"),
         "winner_adversarial_holdout_total_errors": total_errors(adversarial_winner) if adversarial_winner else None,
         "winner_adversarial_risk_band": winner_adversarial_calibration.get("risk_band") if winner_adversarial_calibration else None,
     }
