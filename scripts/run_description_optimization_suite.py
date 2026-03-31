@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import json
 from pathlib import Path
 
@@ -17,6 +18,7 @@ TARGETS = [
         "baseline_file": ROOT / "evals" / "baseline_description.txt",
         "dev_cases": ROOT / "evals" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "evals" / "holdout" / "trigger_cases.json",
+        "blind_holdout_cases": ROOT / "evals" / "blind_holdout" / "trigger_cases.json",
         "semantic_config": ROOT / "evals" / "semantic_config.json",
         "output_json": ROOT / "reports" / "description_optimization.json",
         "output_md": ROOT / "reports" / "description_optimization.md",
@@ -28,6 +30,7 @@ TARGETS = [
         "baseline_file": ROOT / "examples" / "team-frontend-review" / "optimization" / "baseline_description.txt",
         "dev_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "holdout" / "trigger_cases.json",
+        "blind_holdout_cases": ROOT / "examples" / "team-frontend-review" / "optimization" / "blind_holdout" / "trigger_cases.json",
         "semantic_config": ROOT / "examples" / "team-frontend-review" / "optimization" / "semantic_config.json",
         "output_json": ROOT / "examples" / "team-frontend-review" / "optimization" / "reports" / "description_optimization.json",
         "output_md": ROOT / "examples" / "team-frontend-review" / "optimization" / "reports" / "description_optimization.md",
@@ -39,6 +42,7 @@ TARGETS = [
         "baseline_file": ROOT / "examples" / "governed-incident-command" / "optimization" / "baseline_description.txt",
         "dev_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "dev" / "trigger_cases.json",
         "holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "holdout" / "trigger_cases.json",
+        "blind_holdout_cases": ROOT / "examples" / "governed-incident-command" / "optimization" / "blind_holdout" / "trigger_cases.json",
         "semantic_config": ROOT / "examples" / "governed-incident-command" / "optimization" / "semantic_config.json",
         "output_json": ROOT / "examples" / "governed-incident-command" / "optimization" / "reports" / "description_optimization.json",
         "output_md": ROOT / "examples" / "governed-incident-command" / "optimization" / "reports" / "description_optimization.md",
@@ -47,22 +51,110 @@ TARGETS = [
 
 
 def report_errors(report: dict) -> tuple[int, int]:
+    if "false_positives" in report and "false_negatives" in report:
+        return (report["false_positives"], report["false_negatives"])
     return (
         report["holdout"]["false_positives"] if report.get("holdout") else report["dev"]["false_positives"],
         report["holdout"]["false_negatives"] if report.get("holdout") else report["dev"]["false_negatives"],
     )
 
 
+def load_existing_snapshots(history_dir: Path, current_output: Path) -> list[dict]:
+    snapshots = []
+    for path in sorted(history_dir.glob("*.json")):
+        if path == current_output:
+            continue
+        snapshots.append(json.loads(path.read_text(encoding="utf-8")))
+    return snapshots
+
+
+def target_error_total(target: dict, prefix: str) -> int | None:
+    fp = target.get(f"{prefix}_fp")
+    fn = target.get(f"{prefix}_fn")
+    if fp is None or fn is None:
+        return None
+    return fp + fn
+
+
+def drift_note_for_target(target: dict, previous: dict | None) -> str:
+    if not previous:
+        return "initial description optimization snapshot"
+
+    notes = []
+    token_delta = target["winner_tokens"] - previous["winner_tokens"]
+    if token_delta == 0:
+        notes.append("tokens stable")
+    else:
+        notes.append(f"tokens {token_delta:+d}")
+
+    previous_blind = previous.get("winner_blind_holdout_total_errors")
+    current_blind = target.get("winner_blind_holdout_total_errors")
+    if previous_blind is None and current_blind is not None:
+        notes.append(f"blind gate added with {current_blind} errors")
+    elif previous_blind is not None and current_blind is not None:
+        delta = current_blind - previous_blind
+        if delta == 0:
+            notes.append(f"blind stable at {current_blind}")
+        else:
+            notes.append(f"blind error delta {delta:+d}")
+
+    previous_holdout = target_error_total(previous, "winner_holdout")
+    current_holdout = target_error_total(target, "winner_holdout")
+    if previous_holdout is not None and current_holdout is not None:
+        delta = current_holdout - previous_holdout
+        if delta == 0:
+            notes.append(f"holdout stable at {current_holdout}")
+        else:
+            notes.append(f"holdout error delta {delta:+d}")
+
+    return "; ".join(notes)
+
+
+def build_history_snapshot(summary: dict, args: argparse.Namespace) -> dict:
+    existing_snapshots = load_existing_snapshots(Path(args.history_snapshot_output).parent, Path(args.history_snapshot_output))
+    previous_by_target = {}
+    for snapshot in existing_snapshots:
+        for target in snapshot.get("targets", []):
+            previous_by_target[target["name"]] = target
+
+    targets = []
+    for target in summary["targets"]:
+        item = dict(target)
+        item["drift_note"] = drift_note_for_target(item, previous_by_target.get(item["name"]))
+        targets.append(item)
+
+    return {
+        "snapshot_id": args.snapshot_id,
+        "date": args.snapshot_date,
+        "commit": args.snapshot_commit,
+        "label": args.snapshot_label,
+        "targets": targets,
+        "notes": [
+            "added blind holdout acceptance gates to description optimization",
+            "published description drift history report",
+        ],
+    }
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Run description optimization across root and example skills.")
+    parser.add_argument("--history-snapshot-output")
+    parser.add_argument("--snapshot-date")
+    parser.add_argument("--snapshot-id", default="blind-holdout-and-drift-history")
+    parser.add_argument("--snapshot-label", default="Blind Holdout And Drift History")
+    parser.add_argument("--snapshot-commit", default="local-snapshot")
+    args = parser.parse_args()
+
     summary = {"targets": [], "ok": True}
     for target in TARGETS:
         current_description = read_description(target["description_file"])
         baseline_description = read_description(target["baseline_file"])
         dev_cases = load_json(target["dev_cases"])
         holdout_cases = load_json(target["holdout_cases"])
+        blind_holdout_cases = load_json(target["blind_holdout_cases"])
         config = load_semantic_config(target["semantic_config"])
 
-        report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description)
+        report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description, blind_holdout_cases)
         target["output_json"].parent.mkdir(parents=True, exist_ok=True)
         target["output_json"].write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         target["output_md"].write_text(render_markdown(report, target["title"]), encoding="utf-8")
@@ -70,10 +162,15 @@ def main() -> None:
         winner_fp, winner_fn = report_errors(report["winner"])
         current_fp, current_fn = report_errors(report["current_candidate"])
         baseline_fp, baseline_fn = report_errors(report["baseline"])
+        blind_winner_fp, blind_winner_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["winner"])
+        blind_current_fp, blind_current_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["current"])
+        blind_baseline_fp, blind_baseline_fn = report_errors(report["acceptance_gates"]["blind_holdout_non_regression"]["baseline"])
 
         target_ok = (
             (winner_fp, winner_fn) <= (current_fp, current_fn)
             and (winner_fp, winner_fn) <= (baseline_fp, baseline_fn)
+            and (blind_winner_fp, blind_winner_fn) <= (blind_current_fp, blind_current_fn)
+            and (blind_winner_fp, blind_winner_fn) <= (blind_baseline_fp, blind_baseline_fn)
         )
         summary["targets"].append(
             {
@@ -88,6 +185,14 @@ def main() -> None:
                 "current_holdout_fn": current_fn,
                 "baseline_holdout_fp": baseline_fp,
                 "baseline_holdout_fn": baseline_fn,
+                "winner_blind_holdout_fp": blind_winner_fp,
+                "winner_blind_holdout_fn": blind_winner_fn,
+                "current_blind_holdout_fp": blind_current_fp,
+                "current_blind_holdout_fn": blind_current_fn,
+                "baseline_blind_holdout_fp": blind_baseline_fp,
+                "baseline_blind_holdout_fn": blind_baseline_fn,
+                "winner_blind_holdout_total_errors": blind_winner_fp + blind_winner_fn,
+                "drift_note": "blind holdout gate active",
                 "ok": target_ok,
             }
         )
@@ -99,14 +204,19 @@ def main() -> None:
     lines = [
         "# Description Optimization Suite",
         "",
-        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Current FP | Current FN | Baseline FP | Baseline FN | Status |",
+        "| Target | Winner | Winner Tokens | Holdout FP | Holdout FN | Blind FP | Blind FN | Current Blind FN | Baseline Blind FN | Status |",
         "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for target in summary["targets"]:
         lines.append(
-            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['current_holdout_fp']} | {target['current_holdout_fn']} | {target['baseline_holdout_fp']} | {target['baseline_holdout_fn']} | {'ok' if target['ok'] else 'fail'} |"
+            f"| `{target['name']}` | `{target['winner_label']}` | {target['winner_tokens']} | {target['winner_holdout_fp']} | {target['winner_holdout_fn']} | {target['winner_blind_holdout_fp']} | {target['winner_blind_holdout_fn']} | {target['current_blind_holdout_fn']} | {target['baseline_blind_holdout_fn']} | {'ok' if target['ok'] else 'fail'} |"
         )
     (ROOT / "reports" / "description_optimization_suite.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    if args.history_snapshot_output:
+        snapshot_path = Path(args.history_snapshot_output)
+        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+        snapshot = build_history_snapshot(summary, args)
+        snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(rendered)
     if not summary["ok"]:
         raise SystemExit(2)

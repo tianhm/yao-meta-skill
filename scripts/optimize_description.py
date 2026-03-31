@@ -165,15 +165,38 @@ def summarize_candidate(candidate: dict, dev_report: dict, holdout_report: dict 
     return summary
 
 
+def summarize_gate_report(report: dict | None) -> dict | None:
+    if not report:
+        return None
+    return {
+        "false_positives": report["false_positives"],
+        "false_negatives": report["false_negatives"],
+        "precision": report["precision"],
+        "recall": report["recall"],
+        "near_neighbor_pass_rate": report["bucket_stats"]["near_neighbor"]["pass_rate"],
+        "should_not_trigger_pass_rate": report["bucket_stats"]["should_not_trigger"]["pass_rate"],
+    }
+
+
+def error_tuple(report: dict | None) -> tuple[int, int] | None:
+    if not report:
+        return None
+    return (report["false_positives"], report["false_negatives"])
+
+
 def optimize(
     current_description: str,
     dev_cases: dict,
     holdout_cases: dict | None,
     config: dict,
     baseline_description: str | None = None,
+    blind_holdout_cases: dict | None = None,
 ) -> dict:
     dev_threshold = dev_cases.get("recommended_threshold", 0.48)
     holdout_threshold = holdout_cases.get("recommended_threshold", dev_threshold) if holdout_cases else dev_threshold
+    blind_holdout_threshold = (
+        blind_holdout_cases.get("recommended_threshold", holdout_threshold) if blind_holdout_cases else holdout_threshold
+    )
 
     candidates = []
     for candidate in build_candidates(current_description, config):
@@ -202,6 +225,15 @@ def optimize(
             "holdout": baseline_holdout,
         }
 
+    blind_reports = {}
+    if blind_holdout_cases:
+        blind_reports["current"] = evaluate(current["candidate"]["description"], blind_holdout_cases, blind_holdout_threshold, config)
+        blind_reports["winner"] = evaluate(winner["candidate"]["description"], blind_holdout_cases, blind_holdout_threshold, config)
+        if baseline:
+            blind_reports["baseline"] = evaluate(
+                baseline["description"], blind_holdout_cases, blind_holdout_threshold, config
+            )
+
     report = {
         "current_description": sentence(current_description),
         "current_candidate": current["candidate"],
@@ -211,6 +243,9 @@ def optimize(
         "winner_holdout_report": winner["holdout_report"],
         "current_dev_report": current["dev_report"],
         "current_holdout_report": current["holdout_report"],
+        "winner_blind_holdout_report": blind_reports.get("winner"),
+        "current_blind_holdout_report": blind_reports.get("current"),
+        "baseline_blind_holdout_report": blind_reports.get("baseline"),
         "candidates": [item["candidate"] for item in candidates],
         "selection_logic": {
             "priority": [
@@ -228,10 +263,29 @@ def optimize(
             "winner_vs_current_holdout": compare_reports(current["holdout_report"], winner["holdout_report"])
             if current["holdout_report"] and winner["holdout_report"]
             else None,
+            "winner_vs_current_blind_holdout": compare_reports(blind_reports["current"], blind_reports["winner"])
+            if blind_reports.get("current") and blind_reports.get("winner")
+            else None,
             "winner_vs_baseline_dev": compare_reports(baseline["dev"], winner["dev_report"]) if baseline else None,
             "winner_vs_baseline_holdout": compare_reports(baseline["holdout"], winner["holdout_report"])
             if baseline and baseline["holdout"] and winner["holdout_report"]
             else None,
+            "winner_vs_baseline_blind_holdout": compare_reports(blind_reports["baseline"], blind_reports["winner"])
+            if blind_reports.get("baseline") and blind_reports.get("winner")
+            else None,
+        },
+        "acceptance_gates": {
+            "selection_basis": "dev only",
+            "holdout_non_regression": {
+                "winner": summarize_gate_report(winner["holdout_report"]),
+                "current": summarize_gate_report(current["holdout_report"]),
+                "baseline": summarize_gate_report(baseline["holdout"]) if baseline else None,
+            },
+            "blind_holdout_non_regression": {
+                "winner": summarize_gate_report(blind_reports.get("winner")),
+                "current": summarize_gate_report(blind_reports.get("current")),
+                "baseline": summarize_gate_report(blind_reports.get("baseline")),
+            },
         },
     }
     report["summary"] = {
@@ -248,6 +302,12 @@ def optimize(
         + report["current_candidate"]["holdout"]["false_negatives"]
         if report["current_candidate"].get("holdout")
         else None,
+        "winner_blind_holdout_total_errors": sum(error_tuple(blind_reports.get("winner")))
+        if blind_reports.get("winner")
+        else None,
+        "current_blind_holdout_total_errors": sum(error_tuple(blind_reports.get("current")))
+        if blind_reports.get("current")
+        else None,
         "candidate_count": len(report["candidates"]),
     }
     if baseline:
@@ -257,6 +317,9 @@ def optimize(
             baseline["holdout"]["false_positives"] + baseline["holdout"]["false_negatives"]
             if baseline.get("holdout")
             else None
+        )
+        report["summary"]["baseline_blind_holdout_total_errors"] = (
+            sum(error_tuple(blind_reports.get("baseline"))) if blind_reports.get("baseline") else None
         )
     return report
 
@@ -294,6 +357,28 @@ def render_markdown(report: dict, title: str) -> str:
     lines.extend(
         [
             "",
+            "## Acceptance Gates",
+            "",
+            "| Gate | Winner FP | Winner FN | Current FP | Current FN | Baseline FP | Baseline FN |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for gate_name, gate in (
+        ("Holdout", report["acceptance_gates"]["holdout_non_regression"]),
+        ("Blind Holdout", report["acceptance_gates"]["blind_holdout_non_regression"]),
+    ):
+        winner_gate = gate.get("winner") or {}
+        current_gate = gate.get("current") or {}
+        baseline_gate = gate.get("baseline") or {}
+        if not winner_gate and not current_gate and not baseline_gate:
+            continue
+        lines.append(
+            f"| {gate_name} | {winner_gate.get('false_positives', '-')} | {winner_gate.get('false_negatives', '-')} | {current_gate.get('false_positives', '-')} | {current_gate.get('false_negatives', '-')} | {baseline_gate.get('false_positives', '-')} | {baseline_gate.get('false_negatives', '-')} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Selection Logic",
             "",
             "Ordered by:",
@@ -310,6 +395,7 @@ def main() -> None:
     parser.add_argument("--baseline-description-file")
     parser.add_argument("--dev-cases", required=True)
     parser.add_argument("--holdout-cases")
+    parser.add_argument("--blind-holdout-cases")
     parser.add_argument("--semantic-config", required=True)
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")
@@ -320,9 +406,10 @@ def main() -> None:
     baseline_description = read_description(Path(args.baseline_description_file)) if args.baseline_description_file else None
     dev_cases = load_json(Path(args.dev_cases))
     holdout_cases = load_json(Path(args.holdout_cases)) if args.holdout_cases else None
+    blind_holdout_cases = load_json(Path(args.blind_holdout_cases)) if args.blind_holdout_cases else None
     config = load_semantic_config(Path(args.semantic_config))
 
-    report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description)
+    report = optimize(current_description, dev_cases, holdout_cases, config, baseline_description, blind_holdout_cases)
     rendered = json.dumps(report, ensure_ascii=False, indent=2)
     if args.output_json:
         Path(args.output_json).write_text(rendered + "\n", encoding="utf-8")

@@ -6,6 +6,7 @@ Contents:
 
 - `trigger_cases.json`: full regression set with `family` labels
 - `train/`, `dev/`, `holdout/`: split trigger suites for iterative tuning and final verification
+- `blind_holdout/`: description-optimization acceptance prompts that do not participate in candidate ranking
 - `semantic_config.json`: local semantic-intent concepts, exclusions, and weights
 - `baseline_description.txt`: intentionally weaker trigger description
 - `improved_description.txt`: current stronger trigger description
@@ -21,8 +22,9 @@ Use:
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
 python3 scripts/run_eval_suite.py
-python3 scripts/run_description_optimization_suite.py
+python3 scripts/run_description_optimization_suite.py --history-snapshot-output evals/history/description_optimization/YYYY-MM-DD-blind-holdout-and-drift-history.json --snapshot-date YYYY-MM-DD
 python3 scripts/render_eval_dashboard.py
+python3 scripts/render_description_drift_history.py
 python3 tests/verify_description_optimization.py
 python3 tests/verify_failure_regressions.py
 python3 scripts/cross_packager.py . --platform openai --platform claude --expectations evals/packaging_expectations.json --zip
@@ -42,4 +44,4 @@ Regression scope now includes:
 - long-context contamination cases where build intent or no-build intent appears after unrelated setup text
 - family-based reporting across workflow-to-skill, iterate-existing-skill, document-only, one-off, and future-outline cases
 - holdout verification
-- description optimization reports that compare baseline, current, and optimized route wording
+- description optimization reports that compare baseline, current, and optimized route wording across dev, holdout, and blind holdout gates

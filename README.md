@@ -90,7 +90,7 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 <!-- END:EVAL_RESULTS -->
 
 - packaging validation: `openai`, `claude`, and `generic` targets pass contract checks
-- description optimization suite: root description remains the best current route, team frontend review was compressed to `50` tokens with no holdout regression, and governed incident command was compressed to `37` tokens while reducing holdout false negatives from `2` to `1`
+- description optimization suite: root, team frontend review, and governed incident command all pass the new blind holdout gate; governed incident command still carries one visible holdout miss while blind holdout stays clean
 - packaging failure fixtures: invalid metadata, invalid YAML, and unsupported targets fail as expected
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
@@ -98,6 +98,7 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 - context budgets: root `989/1000`, complex benchmark `790/1000`, governed benchmark `760/1000`
 - quality density: root `131.4`, complex benchmark `164.6`, governed benchmark `171.1`
 - regression milestones are tracked in [reports/regression_history.md](reports/regression_history.md)
+- description drift history is tracked in [reports/description_drift_history.md](reports/description_drift_history.md)
 - context budget summaries are tracked in [reports/context_budget.md](reports/context_budget.md)
 
 ## What It Does
@@ -160,8 +161,9 @@ Utility scripts that make the meta-skill operational:
 
 - `trigger_eval.py`: evaluates trigger descriptions with semantic intent concepts, explicit exclusions, and near-neighbor prompts
 - `run_eval_suite.py`: runs train/dev/holdout trigger suites, reports family-level regressions, and fails if aggregate regressions appear
-- `optimize_description.py`: generates candidate descriptions, scores them on dev and holdout suites, and explains the winning route wording
-- `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports
+- `optimize_description.py`: generates candidate descriptions, scores them on dev, visible holdout, and blind holdout suites, and explains the winning route wording
+- `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots
+- `render_description_drift_history.py`: turns description-optimization snapshots into a readable drift-history report
 - `context_sizer.py`: estimates context weight and warns when the initial load gets too large
 - `resource_boundary_check.py`: audits whether detail is split across `SKILL.md`, `references/`, `scripts/`, `assets/`, and `evals/` appropriately
 - `governance_check.py`: validates owner, review cadence, lifecycle stage, and maturity metadata
@@ -187,12 +189,14 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - Trigger evaluation now uses a local semantic-intent model with explicit positive concepts, exclusion concepts, and boundary-case reporting.
 - The sample trigger report now covers a larger positive, negative, and near-neighbor set rather than a tiny demo set.
 - Train/dev/holdout trigger suites now separate iterative tuning from final verification.
+- Description optimization now uses dev for ranking, visible holdout for non-regression, and blind holdout for acceptance without feeding the ranking loop.
 - Packaging validation now uses explicit contracts and YAML parsing, but it is still a lightweight local validation layer rather than a full platform integration suite.
 - `evals/failure-cases.md` captures known weak spots that should remain part of regression checks.
 - `failures/` captures reusable anti-pattern writeups and machine-runnable failure cases for routing, packaging, and authoring failures.
 - `tests/verify_packager_failures.py` checks that invalid metadata, invalid YAML, and unsupported targets fail clearly.
 - Governance metadata and resource-boundary rules now have runnable checks instead of staying as prose only.
 - Governance checks now emit a maturity score so governed assets can be compared instead of only pass/fail checked.
+- Description optimization drift history is now versioned separately from the main trigger regression history so routing improvements are visible over time.
 - Declared maturity tiers are checked against recommended minimum governance scores, so `production`, `library`, and `governed` assets can be compared without forcing every strong example into the same label.
 - Context budgets are now tiered and explicit, so a governed skill can still choose a stricter `production`-sized initial-load budget.
 - Resource-boundary checks now detect decorative directories and compute a local quality-density signal instead of only checking raw token counts.

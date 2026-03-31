@@ -2313,6 +2313,993 @@
       ]
     }
   },
+  "winner_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_packet_assembly": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_governed_workflow": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_one_off_update": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_summary_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Turn these alert logs and responder notes into a governed incident packet with severity rationale and owner actions.",
+          "family": "blind_packet_assembly",
+          "score": 1.0,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "governed_workflow",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [
+              "incident_packet"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 1.0,
+            "support_score": 0.32,
+            "lexical_support": 0.176,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "owner"
+                ],
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_packet": [
+                  "governed incident packet"
+                ],
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Standardize this outage review, run severity assessment, and assemble incident communication into a reusable incident workflow.",
+          "family": "blind_governed_workflow",
+          "score": 0.798,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [
+              "reusable_packaging"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.773,
+            "support_score": 0.04,
+            "lexical_support": 0.467,
+            "negative_penalty": 0,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "incident communication"
+                ],
+                "reusable_packaging": [
+                  "reusable",
+                  "workflow"
+                ],
+                "severity_assessment": [
+                  "severity assessment",
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Explain how severity levels are decided during incidents.",
+          "family": "blind_explain_only",
+          "score": 0.386,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.409,
+            "support_score": 0,
+            "lexical_support": 0.125,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Write a single incident update for customers from these notes.",
+          "family": "blind_one_off_update",
+          "score": 0.008,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.1,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Summarize the outage timeline, but do not package a governed workflow.",
+          "family": "blind_summary_only",
+          "score": 0.276,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "governed_workflow"
+            ],
+            "extra_positive_concepts": [
+              "incident_inputs",
+              "reusable_packaging"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.227,
+            "support_score": 0.24,
+            "lexical_support": 0.091,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_inputs": [
+                  "timeline"
+                ],
+                "reusable_packaging": [
+                  "workflow",
+                  "package"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Brainstorm how incident handling could improve next quarter without building the packet.",
+          "family": "blind_brainstorm_only",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.083,
+            "negative_penalty": 0.24,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "current_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_packet_assembly": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_governed_workflow": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_one_off_update": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_summary_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Turn these alert logs and responder notes into a governed incident packet with severity rationale and owner actions.",
+          "family": "blind_packet_assembly",
+          "score": 1.0,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "governed_workflow",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [
+              "incident_packet"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 1.0,
+            "support_score": 0.32,
+            "lexical_support": 0.176,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "owner"
+                ],
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_packet": [
+                  "governed incident packet"
+                ],
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Standardize this outage review, run severity assessment, and assemble incident communication into a reusable incident workflow.",
+          "family": "blind_governed_workflow",
+          "score": 0.798,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [
+              "reusable_packaging"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.773,
+            "support_score": 0.04,
+            "lexical_support": 0.467,
+            "negative_penalty": 0,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "incident communication"
+                ],
+                "reusable_packaging": [
+                  "reusable",
+                  "workflow"
+                ],
+                "severity_assessment": [
+                  "severity assessment",
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Explain how severity levels are decided during incidents.",
+          "family": "blind_explain_only",
+          "score": 0.386,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.409,
+            "support_score": 0,
+            "lexical_support": 0.125,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Write a single incident update for customers from these notes.",
+          "family": "blind_one_off_update",
+          "score": 0.008,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.1,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Summarize the outage timeline, but do not package a governed workflow.",
+          "family": "blind_summary_only",
+          "score": 0.276,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [
+              "governed_workflow"
+            ],
+            "extra_positive_concepts": [
+              "incident_inputs",
+              "reusable_packaging"
+            ],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.227,
+            "support_score": 0.24,
+            "lexical_support": 0.091,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_inputs": [
+                  "timeline"
+                ],
+                "reusable_packaging": [
+                  "workflow",
+                  "package"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Brainstorm how incident handling could improve next quarter without building the packet.",
+          "family": "blind_brainstorm_only",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.083,
+            "negative_penalty": 0.24,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "baseline_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 1,
+        "pass_rate": 0.5
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_packet_assembly": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_governed_workflow": {
+        "total": 1,
+        "passed": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "pass_rate": 0.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_one_off_update": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_summary_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_brainstorm_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [
+      {
+        "bucket": "should_trigger",
+        "family": "blind_governed_workflow",
+        "prompt": "Standardize this outage review, run severity assessment, and assemble incident communication into a reusable incident workflow.",
+        "score": 0.452,
+        "reason": "false_negative",
+        "matched_desired_concepts": [
+          "comms_and_owners",
+          "reusable_packaging",
+          "severity_assessment"
+        ],
+        "matched_negative_concepts": []
+      }
+    ],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Turn these alert logs and responder notes into a governed incident packet with severity rationale and owner actions.",
+          "family": "blind_packet_assembly",
+          "score": 0.792,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "governed_workflow",
+              "incident_packet",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.76,
+            "support_score": 0,
+            "lexical_support": 0.412,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "owner"
+                ],
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_packet": [
+                  "governed incident packet"
+                ],
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Standardize this outage review, run severity assessment, and assemble incident communication into a reusable incident workflow.",
+          "family": "blind_governed_workflow",
+          "score": 0.452,
+          "predicted_trigger": false,
+          "expected_trigger": true,
+          "passed": false,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [
+              "comms_and_owners",
+              "reusable_packaging",
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.38,
+            "support_score": 0,
+            "lexical_support": 0.533,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "comms_and_owners": [
+                  "incident communication"
+                ],
+                "reusable_packaging": [
+                  "reusable",
+                  "workflow"
+                ],
+                "severity_assessment": [
+                  "severity assessment",
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Explain how severity levels are decided during incidents.",
+          "family": "blind_explain_only",
+          "score": 0.176,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [
+              "severity_assessment"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.18,
+            "support_score": 0,
+            "lexical_support": 0.125,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "severity_assessment": [
+                  "severity"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Write a single incident update for customers from these notes.",
+          "family": "blind_one_off_update",
+          "score": 0.032,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.4,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Summarize the outage timeline, but do not package a governed workflow.",
+          "family": "blind_summary_only",
+          "score": 0.387,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [
+              "governed_workflow",
+              "incident_inputs",
+              "reusable_packaging"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.34,
+            "support_score": 0,
+            "lexical_support": 0.182,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "governed_workflow": [
+                  "governed"
+                ],
+                "incident_inputs": [
+                  "timeline"
+                ],
+                "reusable_packaging": [
+                  "workflow",
+                  "package"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Brainstorm how incident handling could improve next quarter without building the packet.",
+          "family": "blind_brainstorm_only",
+          "score": 0.0,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "incident_packet",
+              "incident_inputs",
+              "severity_assessment",
+              "comms_and_owners",
+              "governed_workflow",
+              "reusable_packaging"
+            ],
+            "matched_desired_concepts": [],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "exclusive_negative_concepts": [
+              "brainstorm_only"
+            ],
+            "semantic_coverage": 0.0,
+            "support_score": 0,
+            "lexical_support": 0.167,
+            "negative_penalty": 0.24,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {},
+              "negative": {
+                "brainstorm_only": [
+                  "brainstorm"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
   "candidates": [
     {
       "id": "current",
@@ -2511,6 +3498,18 @@
       "baseline_recall": 0.5,
       "improved_recall": 0.5
     },
+    "winner_vs_current_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
     "winner_vs_baseline_dev": {
       "baseline_false_positives": 0,
       "baseline_false_negatives": 1,
@@ -2534,6 +3533,73 @@
       "improved_precision": 1.0,
       "baseline_recall": 0.0,
       "improved_recall": 0.5
+    },
+    "winner_vs_baseline_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 1,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": -1,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 0.5,
+      "improved_recall": 1.0
+    }
+  },
+  "acceptance_gates": {
+    "selection_basis": "dev only",
+    "holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": null,
+        "recall": 0.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      }
+    },
+    "blind_holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      }
     }
   },
   "summary": {
@@ -2544,9 +3610,12 @@
     "current_dev_total_errors": 1,
     "winner_holdout_total_errors": 1,
     "current_holdout_total_errors": 1,
+    "winner_blind_holdout_total_errors": 0,
+    "current_blind_holdout_total_errors": 0,
     "candidate_count": 5,
     "baseline_tokens": 93,
     "baseline_dev_total_errors": 1,
-    "baseline_holdout_total_errors": 2
+    "baseline_holdout_total_errors": 2,
+    "baseline_blind_holdout_total_errors": 1
   }
 }

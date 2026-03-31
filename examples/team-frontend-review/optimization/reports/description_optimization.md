@@ -20,6 +20,13 @@ Review frontend code for accessibility, UI security, missing states, and UX regr
 | `Artifact Aware` | 84 | 0 | 3 | 1.0 | 0 | 0 |
 | `Boundary` | 90 | 0 | 3 | 1.0 | 0 | 0 |
 
+## Acceptance Gates
+
+| Gate | Winner FP | Winner FN | Current FP | Current FN | Baseline FP | Baseline FN |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+| Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+
 ## Selection Logic
 
 Ordered by:

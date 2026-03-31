@@ -20,6 +20,13 @@ Build governed incident command packets. Use when asked to standardize incident 
 | `Boundary` | 78 | 0 | 1 | 1.0 | 0 | 1 |
 | `Artifact Aware` | 78 | 0 | 1 | 1.0 | 0 | 1 |
 
+## Acceptance Gates
+
+| Gate | Winner FP | Winner FN | Current FP | Current FN | Baseline FP | Baseline FN |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Holdout | 0 | 1 | 0 | 1 | 0 | 2 |
+| Blind Holdout | 0 | 0 | 0 | 0 | 0 | 1 |
+
 ## Selection Logic
 
 Ordered by:

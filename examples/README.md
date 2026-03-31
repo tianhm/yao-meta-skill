@@ -18,6 +18,7 @@ Each example contains:
 Some examples also include:
 
 - `optimization/`: example-specific baseline descriptions, semantic configs, dev/holdout suites, and route-optimization reports
+- `optimization/blind_holdout/`: acceptance prompts used only after the winner is chosen on dev
 
 The complex example is intentionally thicker than the others and includes:
 

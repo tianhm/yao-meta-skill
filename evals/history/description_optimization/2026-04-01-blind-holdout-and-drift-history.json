@@ -1,4 +1,8 @@
 {
+  "snapshot_id": "blind-holdout-and-drift-history",
+  "date": "2026-04-01",
+  "commit": "local-snapshot",
+  "label": "Blind Holdout And Drift History",
   "targets": [
     {
       "name": "yao-meta-skill",
@@ -19,7 +23,7 @@
       "baseline_blind_holdout_fp": 0,
       "baseline_blind_holdout_fn": 0,
       "winner_blind_holdout_total_errors": 0,
-      "drift_note": "blind holdout gate active",
+      "drift_note": "tokens stable; blind gate added with 0 errors; holdout stable at 0",
       "ok": true
     },
     {
@@ -41,7 +45,7 @@
       "baseline_blind_holdout_fp": 0,
       "baseline_blind_holdout_fn": 0,
       "winner_blind_holdout_total_errors": 0,
-      "drift_note": "blind holdout gate active",
+      "drift_note": "tokens stable; blind gate added with 0 errors; holdout stable at 0",
       "ok": true
     },
     {
@@ -63,9 +67,12 @@
       "baseline_blind_holdout_fp": 0,
       "baseline_blind_holdout_fn": 1,
       "winner_blind_holdout_total_errors": 0,
-      "drift_note": "blind holdout gate active",
+      "drift_note": "tokens stable; blind gate added with 0 errors; holdout stable at 1",
       "ok": true
     }
   ],
-  "ok": true
+  "notes": [
+    "added blind holdout acceptance gates to description optimization",
+    "published description drift history report"
+  ]
 }

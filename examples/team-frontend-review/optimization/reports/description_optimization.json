@@ -2928,6 +2928,1020 @@
       ]
     }
   },
+  "winner_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "score": 0.504,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "ui_security"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.42,
+            "support_score": 0,
+            "lexical_support": 0.714,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "score": 0.859,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "review_frontend",
+              "state_coverage",
+              "ux_regression"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.82,
+            "support_score": 0,
+            "lexical_support": 0.562,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "score": 0.061,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.3,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "score": 0.195,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.2,
+            "support_score": 0,
+            "lexical_support": 0.143,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "score": 0.416,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope",
+              "review_frontend"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.38,
+            "support_score": 0,
+            "lexical_support": 0.333,
+            "negative_penalty": 0,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "score": 0.037,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.0,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "current_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "score": 0.504,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "ui_security"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.42,
+            "support_score": 0,
+            "lexical_support": 0.714,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "score": 0.859,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "review_frontend",
+              "state_coverage",
+              "ux_regression"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.82,
+            "support_score": 0,
+            "lexical_support": 0.562,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "score": 0.061,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.3,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "score": 0.195,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.2,
+            "support_score": 0,
+            "lexical_support": 0.143,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "score": 0.416,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope",
+              "review_frontend"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.38,
+            "support_score": 0,
+            "lexical_support": 0.333,
+            "negative_penalty": 0,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "score": 0.037,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.0,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "baseline_blind_holdout_report": {
+    "threshold": 0.48,
+    "threshold_explanation": "Prompts at or above the threshold are treated as trigger matches. Scores are driven primarily by semantic intent coverage: packaging intent, workflow-to-skill transformation intent, reuse/distribution intent, and eval intent. Explicit exclusions such as summary-only, translation-only, one-off, document-only, or do-not-build directives apply direct penalties and can override otherwise similar wording.",
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "bucket_stats": {
+      "should_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "should_not_trigger": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      },
+      "near_neighbor": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 1.0
+      }
+    },
+    "family_stats": {
+      "blind_pr_review": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_premerge": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_build_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_explain_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_checklist_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      },
+      "blind_fix_only": {
+        "total": 1,
+        "passed": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "pass_rate": 1.0
+      }
+    },
+    "misfires": [],
+    "results": {
+      "should_trigger": [
+        {
+          "prompt": "Review this React pull request for a11y regressions, unsafe rendering, and missing empty states.",
+          "family": "blind_pr_review",
+          "score": 0.492,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "ui_security"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.42,
+            "support_score": 0,
+            "lexical_support": 0.571,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "a11y"
+                ],
+                "frontend_scope": [
+                  "react"
+                ],
+                "ui_security": [
+                  "unsafe rendering"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Run a pre-merge frontend review on this diff for form safety, accessibility gaps, and missing states.",
+          "family": "blind_premerge",
+          "score": 0.854,
+          "predicted_trigger": true,
+          "expected_trigger": true,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility",
+              "frontend_scope",
+              "review_frontend",
+              "state_coverage",
+              "ux_regression"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.82,
+            "support_score": 0,
+            "lexical_support": 0.5,
+            "negative_penalty": 0,
+            "coverage_boost": 0.06,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ],
+                "frontend_scope": [
+                  "frontend",
+                  "form"
+                ],
+                "review_frontend": [
+                  "frontend review",
+                  "pre-merge frontend review"
+                ],
+                "state_coverage": [
+                  "missing states"
+                ],
+                "ux_regression": [
+                  "pre-merge"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "should_not_trigger": [
+        {
+          "prompt": "Build a new React settings page and add error handling.",
+          "family": "blind_build_only",
+          "score": 0.053,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.2,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "react"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        },
+        {
+          "prompt": "Explain why keyboard accessibility matters in forms.",
+          "family": "blind_explain_only",
+          "score": 0.207,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "accessibility"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.2,
+            "support_score": 0,
+            "lexical_support": 0.286,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "accessibility": [
+                  "accessibility"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ],
+      "near_neighbor": [
+        {
+          "prompt": "Draft a reusable frontend review checklist, but do not inspect the code.",
+          "family": "blind_checklist_only",
+          "score": 0.41,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope",
+              "review_frontend"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.38,
+            "support_score": 0,
+            "lexical_support": 0.25,
+            "negative_penalty": 0,
+            "coverage_boost": 0.04,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "frontend"
+                ],
+                "review_frontend": [
+                  "frontend review"
+                ]
+              },
+              "negative": {}
+            }
+          },
+          "boundary_case": true
+        },
+        {
+          "prompt": "Fix the broken dropdown behavior in this component.",
+          "family": "blind_fix_only",
+          "score": 0.037,
+          "predicted_trigger": false,
+          "expected_trigger": false,
+          "passed": true,
+          "score_detail": {
+            "mode": "semantic-intent",
+            "desired_positive_concepts": [
+              "review_frontend",
+              "accessibility",
+              "ui_security",
+              "state_coverage",
+              "ux_regression",
+              "frontend_scope"
+            ],
+            "matched_desired_concepts": [
+              "frontend_scope"
+            ],
+            "extra_positive_concepts": [],
+            "matched_negative_concepts": [],
+            "exclusive_negative_concepts": [],
+            "semantic_coverage": 0.04,
+            "support_score": 0,
+            "lexical_support": 0.0,
+            "negative_penalty": 0,
+            "coverage_boost": 0.0,
+            "concept_evidence": {
+              "positive": {
+                "frontend_scope": [
+                  "component"
+                ]
+              },
+              "negative": {}
+            }
+          }
+        }
+      ]
+    }
+  },
   "candidates": [
     {
       "id": "current",
@@ -3126,6 +4140,18 @@
       "baseline_recall": 1.0,
       "improved_recall": 1.0
     },
+    "winner_vs_current_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    },
     "winner_vs_baseline_dev": {
       "baseline_false_positives": 0,
       "baseline_false_negatives": 4,
@@ -3149,6 +4175,73 @@
       "improved_precision": 1.0,
       "baseline_recall": 1.0,
       "improved_recall": 1.0
+    },
+    "winner_vs_baseline_blind_holdout": {
+      "baseline_false_positives": 0,
+      "baseline_false_negatives": 0,
+      "improved_false_positives": 0,
+      "improved_false_negatives": 0,
+      "false_positive_delta": 0,
+      "false_negative_delta": 0,
+      "baseline_precision": 1.0,
+      "improved_precision": 1.0,
+      "baseline_recall": 1.0,
+      "improved_recall": 1.0
+    }
+  },
+  "acceptance_gates": {
+    "selection_basis": "dev only",
+    "holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      }
+    },
+    "blind_holdout_non_regression": {
+      "winner": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "current": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      },
+      "baseline": {
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "near_neighbor_pass_rate": 1.0,
+        "should_not_trigger_pass_rate": 1.0
+      }
     }
   },
   "summary": {
@@ -3159,9 +4252,12 @@
     "current_dev_total_errors": 3,
     "winner_holdout_total_errors": 0,
     "current_holdout_total_errors": 0,
+    "winner_blind_holdout_total_errors": 0,
+    "current_blind_holdout_total_errors": 0,
     "candidate_count": 5,
     "baseline_tokens": 52,
     "baseline_dev_total_errors": 4,
-    "baseline_holdout_total_errors": 0
+    "baseline_holdout_total_errors": 0,
+    "baseline_blind_holdout_total_errors": 0
   }
 }

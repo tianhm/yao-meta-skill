@@ -21,6 +21,13 @@ Create, refactor, evaluate, and package agent skills from workflows, prompts, tr
 | `Boundary` | 78 | 2 | 1 | 0.857 | 0 | 0 |
 | `Guardrail` | 50 | 5 | 1 | 0.429 | 2 | 0 |
 
+## Acceptance Gates
+
+| Gate | Winner FP | Winner FN | Current FP | Current FN | Baseline FP | Baseline FN |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+| Blind Holdout | 0 | 0 | 0 | 0 | 0 | 0 |
+
 ## Selection Logic
 
 Ordered by:
