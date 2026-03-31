@@ -19,7 +19,13 @@
         "meta skill",
         "meta-skill",
         "turn this into a skill",
-        "turn all of that into one reusable skill package"
+        "turn all of that into one reusable skill package",
+        "codify this workflow",
+        "codify this routine",
+        "operationalize this workflow as a reusable skill",
+        "formalize this process into a reusable capability",
+        "turn this playbook into an agent capability package",
+        "convert this into a maintained skill"
       ]
     },
     "transform_workflow": {
@@ -33,7 +39,15 @@
         "operations checklist",
         "internal process note",
         "existing skill draft",
-        "rough notes"
+        "rough notes",
+        "standard operating procedure",
+        "sop",
+        "transcript",
+        "workflow fragments",
+        "release notes",
+        "onboarding flow",
+        "support escalation routine",
+        "quarterly release routine"
       ]
     },
     "reuse_package": {
@@ -47,7 +61,13 @@
         "share it with the team",
         "team reuse",
         "internal workflows",
-        "production-ready"
+        "production-ready",
+        "library entry",
+        "shared capability",
+        "team library",
+        "ops library",
+        "maintained",
+        "operationalize"
       ]
     },
     "eval_optimize": {
@@ -60,7 +80,12 @@
         "benchmark",
         "validation",
         "validate",
-        "packaging checks"
+        "packaging checks",
+        "false positives",
+        "false negatives",
+        "stress test",
+        "route boundary",
+        "hardening"
       ]
     },
     "iterate_existing_skill": {
@@ -73,7 +98,11 @@
         "optimize skill triggering",
         "package this skill",
         "sharing it with the team",
-        "before sharing it with the team"
+        "before sharing it with the team",
+        "tighten the boundary",
+        "revise this skill",
+        "draft skill",
+        "harden this skill for library reuse"
       ]
     },
     "multi_asset": {
@@ -172,7 +201,12 @@
         "not a skill yet",
         "plain note",
         "keep it as a plain note",
-        "no packaging needed"
+        "no packaging needed",
+        "not for agent execution",
+        "no skill package",
+        "do not convert it into a reusable capability",
+        "keep it as documentation only",
+        "discussion only"
       ]
     },
     "document_only": {
@@ -187,7 +221,10 @@
         "article",
         "blog title",
         "headline",
-        "landing page"
+        "landing page",
+        "reference document",
+        "knowledge base",
+        "template only"
       ]
     },
     "future_outline": {
@@ -197,7 +234,10 @@
         "future skill",
         "possible future skill",
         "before we decide whether to build",
-        "outline for a possible future skill"
+        "outline for a possible future skill",
+        "maybe later",
+        "for later",
+        "future-ready outline"
       ]
     }
   }

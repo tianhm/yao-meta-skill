@@ -33,6 +33,7 @@ def main() -> None:
     parser.add_argument("--eval-dir", default="evals", help="Root eval directory")
     parser.add_argument("--description-file", default="evals/improved_description.txt")
     parser.add_argument("--baseline-description-file", default="evals/baseline_description.txt")
+    parser.add_argument("--output-file", help="Optional path to write the combined JSON report")
     args = parser.parse_args()
 
     root = Path(args.eval_dir).resolve()
@@ -65,15 +66,21 @@ def main() -> None:
     for family, stats in family_summary.items():
         stats["pass_rate"] = round(stats["passed"] / stats["total"], 3) if stats["total"] else None
 
+    total_cases = sum(stats["total"] for stats in family_summary.values())
     summary = {
         "suite_count": len(suites),
+        "total_cases": total_cases,
+        "family_count": len(family_summary),
         "false_positives": aggregate["false_positives"],
         "false_negatives": aggregate["false_negatives"],
         "average_precision": round(sum(aggregate["precision"]) / len(aggregate["precision"]), 3) if aggregate["precision"] else None,
         "average_recall": round(sum(aggregate["recall"]) / len(aggregate["recall"]), 3) if aggregate["recall"] else None,
     }
     output = {"summary": summary, "family_summary": family_summary, "suites": suites}
-    print(json.dumps(output, ensure_ascii=False, indent=2))
+    rendered = json.dumps(output, ensure_ascii=False, indent=2)
+    if args.output_file:
+        Path(args.output_file).write_text(rendered + "\n", encoding="utf-8")
+    print(rendered)
     if summary["false_positives"] > 0 or summary["false_negatives"] > 0:
         raise SystemExit(2)
 

@@ -73,6 +73,42 @@
     {
       "text": "Turn this recurring onboarding process into a reusable skill library entry with validation notes.",
       "family": "workflow_to_skill"
+    },
+    {
+      "text": "Codify this recurring support escalation workflow into a maintained skill for the ops library.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Operationalize this workflow as a reusable skill with validation notes and team library metadata.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Turn the SOP, transcript, and cleanup notes into a maintained skill for the team library.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Codify this workflow into a shared capability package and validate the route boundary before distribution.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Codify this quarterly release routine into a reusable skill package with scripts, references, and packaging checks.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Below are release notes, rough notes, and a transcript from the last handoff. Ignore the noise and turn this runbook into a reusable agent skill with references and scripts so the team can reuse it every quarter.",
+      "family": "long_context_trigger"
+    },
+    {
+      "text": "We have a standard operating procedure, checklist, and prompt history scattered across docs. Formalize this process into a reusable capability, add validation, and package it for team reuse.",
+      "family": "long_context_trigger"
+    },
+    {
+      "text": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
+      "family": "long_context_trigger"
+    },
+    {
+      "text": "Below is a noisy transcript plus release notes and prompt history. Ignore the chatter and turn this playbook into an agent capability package for the team library.",
+      "family": "long_context_trigger"
     }
   ],
   "should_not_trigger": [
@@ -135,6 +171,34 @@
     {
       "text": "Explain this release checklist in simpler language; do not package it.",
       "family": "explain_only"
+    },
+    {
+      "text": "Below is a long SOP, but I only want a summary for leadership and a recap of the main points. Do not build anything reusable.",
+      "family": "long_context_summary_only"
+    },
+    {
+      "text": "Keep this as documentation only for the knowledge base and rewrite it as a reference document.",
+      "family": "long_context_document_only"
+    },
+    {
+      "text": "Translate this long onboarding flow into French and keep it as documentation only with no skill package.",
+      "family": "translate_only"
+    },
+    {
+      "text": "This is a long incident write-up. Keep it as documentation only, explain it in simpler language, and do not convert it into a reusable capability.",
+      "family": "long_context_document_only"
+    },
+    {
+      "text": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
+      "family": "long_context_summary_only"
+    },
+    {
+      "text": "Keep this release workflow as documentation only for the wiki and produce a reference document, not for agent execution.",
+      "family": "long_context_document_only"
+    },
+    {
+      "text": "Translate this long runbook into Russian and keep it as documentation only with no skill package.",
+      "family": "translate_only"
     }
   ],
   "near_neighbor": [
@@ -193,6 +257,26 @@
     {
       "text": "Turn this into a document package for the wiki, not an agent skill.",
       "family": "document_export_vs_agent_skill"
+    },
+    {
+      "text": "We may convert this workflow later, but for now keep it as documentation only and produce a reference document.",
+      "family": "long_context_near_neighbor"
+    },
+    {
+      "text": "Draft a template only from this process and stop short of making a full skill package.",
+      "family": "partial_scaffold_not_full_skill"
+    },
+    {
+      "text": "Turn the workflow below into a wiki-ready reference document and template only. We may build a skill later, but not now.",
+      "family": "long_context_near_neighbor"
+    },
+    {
+      "text": "Shape this idea for later and produce a future-ready outline, but do not build the skill package yet.",
+      "family": "future_outline_vs_build"
+    },
+    {
+      "text": "From the long workflow below, create a template only and a checklist for discussion only. No skill package.",
+      "family": "long_context_near_neighbor"
     }
   ]
 }

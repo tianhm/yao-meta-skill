@@ -12,6 +12,7 @@ Contents:
 - `sample_trigger_report.json`: example comparison output using the current recommended threshold
 - `failure-cases.md`: current weak spots and regression targets
 - `packaging_expectations.json`: required packaging behaviors for supported targets
+- `../reports/`: generated suite JSON plus the homepage-visible family summary panel source
 
 Use:
 
@@ -19,6 +20,7 @@ Use:
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json
 python3 scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
 python3 scripts/run_eval_suite.py
+python3 scripts/render_eval_dashboard.py
 python3 tests/verify_failure_regressions.py
 python3 scripts/cross_packager.py . --platform openai --platform claude --expectations evals/packaging_expectations.json --zip
 python3 tests/verify_packager_failures.py
@@ -33,5 +35,7 @@ Regression scope now includes:
 - mixed-intent negatives
 - explicit "do not build a skill" negatives
 - semantic exclusion cases such as one-off, document-only, and future-outline prompts
+- paraphrase families that avoid the original wording while preserving the same trigger intent
+- long-context contamination cases where build intent or no-build intent appears after unrelated setup text
 - family-based reporting across workflow-to-skill, iterate-existing-skill, document-only, one-off, and future-outline cases
 - holdout verification

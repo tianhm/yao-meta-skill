@@ -46,9 +46,46 @@ make test
 
 ## Results
 
-- `make test` passes locally
-- semantic trigger eval: `0` false positives, `0` false negatives on the current regression set
-- eval suite: train / dev / holdout all pass, with family-based reporting
+The homepage panel below is generated from the current eval suite so the family-level outcome is visible without opening raw JSON.
+
+<!-- BEGIN:EVAL_RESULTS -->
+- regression corpus: `66` prompts across `21` families
+- aggregate result: `0` false positives, `0` false negatives, average precision `1.0`, average recall `1.0`
+- suite status:
+
+| Suite | Cases | FP | FN | Precision | Recall |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| train | 31 | 0 | 0 | 1.0 | 1.0 |
+| dev | 22 | 0 | 0 | 1.0 | 1.0 |
+| holdout | 13 | 0 | 0 | 1.0 | 1.0 |
+
+| Family | Cases | Pass Rate |
+| --- | ---: | ---: |
+| `brainstorm_only` | 2 | 1.0 |
+| `brainstorm_vs_build` | 1 | 1.0 |
+| `complex_multi_asset` | 3 | 1.0 |
+| `document_export_vs_agent_skill` | 4 | 1.0 |
+| `document_only` | 3 | 1.0 |
+| `explain_not_package` | 1 | 1.0 |
+| `explain_only` | 5 | 1.0 |
+| `future_outline_vs_build` | 4 | 1.0 |
+| `iterate_existing_skill` | 5 | 1.0 |
+| `long_context_document_only` | 3 | 1.0 |
+| `long_context_near_neighbor` | 3 | 1.0 |
+| `long_context_summary_only` | 2 | 1.0 |
+| `long_context_trigger` | 4 | 1.0 |
+| `meta_skill_creation` | 1 | 1.0 |
+| `one_off_vs_reusable` | 2 | 1.0 |
+| `package_for_team` | 2 | 1.0 |
+| `paraphrase_trigger` | 5 | 1.0 |
+| `partial_scaffold_not_full_skill` | 4 | 1.0 |
+| `summary_only` | 3 | 1.0 |
+| `translate_only` | 4 | 1.0 |
+| `workflow_to_skill` | 5 | 1.0 |
+
+Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/family_summary.md](reports/family_summary.md)
+<!-- END:EVAL_RESULTS -->
+
 - packaging validation: `openai`, `claude`, and `generic` targets pass contract checks
 - packaging failure fixtures: invalid metadata, invalid YAML, and unsupported targets fail as expected
 - failure library regressions: anti-pattern families pass automated checks

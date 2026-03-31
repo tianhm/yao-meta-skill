@@ -29,6 +29,18 @@
     {
       "text": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
       "family": "iterate_existing_skill"
+    },
+    {
+      "text": "Turn the SOP, transcript, and cleanup notes into a maintained skill for the team library.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Codify this workflow into a shared capability package and validate the route boundary before distribution.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
+      "family": "long_context_trigger"
     }
   ],
   "should_not_trigger": [
@@ -51,6 +63,14 @@
     {
       "text": "Summarize this workflow and list the main points only.",
       "family": "summary_only"
+    },
+    {
+      "text": "This is a long incident write-up. Keep it as documentation only, explain it in simpler language, and do not convert it into a reusable capability.",
+      "family": "long_context_document_only"
+    },
+    {
+      "text": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
+      "family": "long_context_summary_only"
     }
   ],
   "near_neighbor": [
@@ -73,6 +93,14 @@
     {
       "text": "Polish these notes into a reusable-looking document without turning them into an agent skill.",
       "family": "document_export_vs_agent_skill"
+    },
+    {
+      "text": "Turn the workflow below into a wiki-ready reference document and template only. We may build a skill later, but not now.",
+      "family": "long_context_near_neighbor"
+    },
+    {
+      "text": "Shape this idea for later and produce a future-ready outline, but do not build the skill package yet.",
+      "family": "future_outline_vs_build"
     }
   ]
 }

@@ -41,6 +41,22 @@
     {
       "text": "Standardize this recurring workflow as a shareable skill package with references.",
       "family": "package_for_team"
+    },
+    {
+      "text": "Codify this recurring support escalation workflow into a maintained skill for the ops library.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Operationalize this workflow as a reusable skill with validation notes and team library metadata.",
+      "family": "paraphrase_trigger"
+    },
+    {
+      "text": "Below are release notes, rough notes, and a transcript from the last handoff. Ignore the noise and turn this runbook into a reusable agent skill with references and scripts so the team can reuse it every quarter.",
+      "family": "long_context_trigger"
+    },
+    {
+      "text": "We have a standard operating procedure, checklist, and prompt history scattered across docs. Formalize this process into a reusable capability, add validation, and package it for team reuse.",
+      "family": "long_context_trigger"
     }
   ],
   "should_not_trigger": [
@@ -75,6 +91,18 @@
     {
       "text": "Explain the difference between a runbook and a workflow.",
       "family": "explain_only"
+    },
+    {
+      "text": "Below is a long SOP, but I only want a summary for leadership and a recap of the main points. Do not build anything reusable.",
+      "family": "long_context_summary_only"
+    },
+    {
+      "text": "Keep this as documentation only for the knowledge base and rewrite it as a reference document.",
+      "family": "long_context_document_only"
+    },
+    {
+      "text": "Translate this long onboarding flow into French and keep it as documentation only with no skill package.",
+      "family": "translate_only"
     }
   ],
   "near_neighbor": [
@@ -100,6 +128,14 @@
     },
     {
       "text": "Create a reusable-looking checklist, but keep it as a plain note instead of a skill.",
+      "family": "partial_scaffold_not_full_skill"
+    },
+    {
+      "text": "We may convert this workflow later, but for now keep it as documentation only and produce a reference document.",
+      "family": "long_context_near_neighbor"
+    },
+    {
+      "text": "Draft a template only from this process and stop short of making a full skill package.",
       "family": "partial_scaffold_not_full_skill"
     }
   ]
