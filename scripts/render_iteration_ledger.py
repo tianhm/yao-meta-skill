@@ -15,7 +15,9 @@ def load_snapshots(history_dir: Path) -> list[dict]:
     return [load_json(path) for path in sorted(history_dir.glob("*.json"))]
 
 
-def render_markdown(system_snapshots: list[dict], description_snapshots: list[dict], route_scorecard: dict) -> str:
+def render_markdown(
+    system_snapshots: list[dict], description_snapshots: list[dict], route_scorecard: dict, promotion_decisions: dict
+) -> str:
     lines = [
         "# Iteration Ledger",
         "",
@@ -56,6 +58,20 @@ def render_markdown(system_snapshots: list[dict], description_snapshots: list[di
     lines.extend(
         [
             "",
+            "## Current Promotion Decisions",
+            "",
+            "| Target | Decision | Winner | Causes | Next Action |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for target in promotion_decisions.get("targets", []):
+        lines.append(
+            f"| `{target['name']}` | `{target['decision']}` | `{target['winner_label']}` | {', '.join(target['promotion']['causes'])} | {target['promotion']['next_action']} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Current Route Scorecard",
             "",
             f"- total cases: `{route_scorecard['summary']['total_cases']}`",
@@ -79,17 +95,19 @@ def main() -> None:
     parser.add_argument("--history-dir", default="evals/history")
     parser.add_argument("--description-history-dir", default="evals/history/description_optimization")
     parser.add_argument("--route-scorecard", default="reports/route_scorecard.json")
+    parser.add_argument("--promotion-decisions", default="reports/promotion_decisions.json")
     parser.add_argument("--output", default="reports/iteration_ledger.md")
     args = parser.parse_args()
 
     system_snapshots = load_snapshots(ROOT / args.history_dir)
     description_snapshots = load_snapshots(ROOT / args.description_history_dir)
     route_scorecard = load_json(ROOT / args.route_scorecard)
+    promotion_decisions = load_json(ROOT / args.promotion_decisions)
 
     output = ROOT / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
-        render_markdown(system_snapshots, description_snapshots, route_scorecard),
+        render_markdown(system_snapshots, description_snapshots, route_scorecard, promotion_decisions),
         encoding="utf-8",
     )
 

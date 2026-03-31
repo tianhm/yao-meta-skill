@@ -27,6 +27,14 @@
 | 2026-04-01 | Judge-Backed Blind Eval | `team-frontend-review` | 0 | 0 | 1.0 | 0 | 0.509 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 0; adversarial calibration +0.509; risk n/a -> healthy |
 | 2026-04-01 | Judge-Backed Blind Eval | `governed-incident-command` | 0 | 0 | 1.0 | 0 | 0.598 | healthy | tokens stable; blind stable at 0; adversarial gate added with 0 errors; holdout stable at 1; adversarial calibration +0.598; risk n/a -> healthy |
 
+## Current Promotion Decisions
+
+| Target | Decision | Winner | Causes | Next Action |
+| --- | --- | --- | --- | --- |
+| `yao-meta-skill` | `keep_current` | `Current` | no_candidate_outperformed_current | Keep the current description and open a new candidate only when fresh route evidence appears. |
+| `team-frontend-review` | `keep_current` | `Current` | no_candidate_outperformed_current, current_holdout_risk | Keep the current description and open a new candidate only when fresh route evidence appears. |
+| `governed-incident-command` | `keep_current` | `Current` | no_candidate_outperformed_current, current_holdout_gap_present, current_holdout_risk | Keep the current description and open a new candidate only when fresh route evidence appears. |
+
 ## Current Route Scorecard
 
 - total cases: `13`

@@ -97,12 +97,14 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
 - root governance maturity score: `90/100`; governed benchmark example: `95/100`
-- context budgets: root `989/1000`, complex benchmark `790/1000`, governed benchmark `760/1000`
-- quality density: root `131.4`, complex benchmark `164.6`, governed benchmark `171.1`
+- context budgets: root `886/1000`, complex benchmark `790/1000`, governed benchmark `760/1000`
+- quality density: root `146.7`, complex benchmark `164.6`, governed benchmark `171.1`
 - regression milestones are tracked in [reports/regression_history.md](reports/regression_history.md)
 - description drift history is tracked in [reports/description_drift_history.md](reports/description_drift_history.md)
 - route confusion is tracked in [reports/route_scorecard.md](reports/route_scorecard.md)
 - promotion evidence is summarized in [reports/iteration_ledger.md](reports/iteration_ledger.md)
+- promotion decisions are published in [reports/promotion_decisions.md](reports/promotion_decisions.md)
+- candidate lifecycle states are published in [reports/candidate_registry.md](reports/candidate_registry.md)
 - context budget summaries are tracked in [reports/context_budget.md](reports/context_budget.md)
 
 ## What It Does
@@ -126,6 +128,8 @@ The repository now treats method as a first-class asset instead of scattered gui
 - [Skill Archetypes](references/skill-archetypes.md)
 - [Gate Selection](references/gate-selection.md)
 - [Non-Skill Decision Tree](references/non-skill-decision-tree.md)
+- [Regression Cause Taxonomy](references/regression-cause-taxonomy.md)
+- [Human Review Template](references/human-review-template.md)
 
 ## Why It Exists
 
@@ -177,6 +181,7 @@ Utility scripts that make the meta-skill operational:
 - `optimize_description.py`: generates candidate descriptions, scores them on dev, visible holdout, blind holdout, and adversarial holdout suites, then reports calibration and family health
 - `judge_blind_eval.py`: applies an independent rubric judge to blind-holdout prompts so blind acceptance is not backed only by the main threshold scorer
 - `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots with calibration and family summaries
+- `promotion_checker.py`: applies promotion policy to current description candidates, writes promotion decisions, builds candidate registries, and emits iteration bundles with review stubs
 - `render_description_drift_history.py`: turns description-optimization snapshots into a readable drift-history report
 - `build_confusion_matrix.py`: scores route confusion across tracked sibling skills and `no_route` cases, then writes a route scorecard and optional milestone snapshot
 - `render_iteration_ledger.py`: compresses regression milestones, description optimization drift, and route scorecards into one iteration-facing ledger
@@ -212,6 +217,8 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - Description drift history now records adversarial calibration gaps and family coverage, so routing changes can be judged on confidence and family stability rather than raw error counts alone.
 - Route confusion is now tracked explicitly across the root meta-skill, frontend review skill, governed incident skill, and `no_route` cases, so route theft is visible instead of implicit.
 - Promotion policy now requires visible holdout, blind holdout, adversarial holdout, and route confusion to stay clean before a description should be considered promotable.
+- Promotion checking now emits explicit decisions, candidate lifecycle states, iteration bundles, and human-review stubs rather than leaving promotion as a prose-only step.
+- Promotion decisions now distinguish “no candidate beat current” from “current still has residual route risk,” so iteration can be audited without forcing every issue into a false block.
 - Packaging validation now uses explicit contracts and YAML parsing, but it is still a lightweight local validation layer rather than a full platform integration suite.
 - `evals/failure-cases.md` captures known weak spots that should remain part of regression checks.
 - `failures/` captures reusable anti-pattern writeups and machine-runnable failure cases for routing, packaging, and authoring failures.
@@ -219,6 +226,7 @@ Continuous integration entrypoint that runs the full local regression suite on p
 - Governance metadata and resource-boundary rules now have runnable checks instead of staying as prose only.
 - Governance checks now emit a maturity score so governed assets can be compared instead of only pass/fail checked.
 - Description optimization drift history is now versioned separately from the main trigger regression history so routing improvements are visible over time.
+- Iteration evidence now records why a candidate was kept, blocked, or promotable via a shared regression-cause taxonomy and bundle artifacts.
 - Declared maturity tiers are checked against recommended minimum governance scores, so `production`, `library`, and `governed` assets can be compared without forcing every strong example into the same label.
 - Context budgets are now tiered and explicit, so a governed skill can still choose a stricter `production`-sized initial-load budget.
 - Resource-boundary checks now detect decorative directories and compute a local quality-density signal instead of only checking raw token counts.
