@@ -8,6 +8,12 @@ from governance_check import compute_score, read_frontmatter
 
 
 OPTIONAL_DIRS = ("references", "scripts", "assets", "evals", "templates", "reports", "input", "outputs")
+IGNORED_RELATIVE_DIRS = {
+    Path("reports") / "release_snapshots",
+    Path("tests") / "tmp",
+    Path("tests") / "tmp_snapshot",
+    Path("tests") / "tmp_cli",
+}
 CANONICAL_PATHS = (
     "SKILL.md",
     "manifest.json",
@@ -37,6 +43,11 @@ def has_files(path: Path) -> bool:
     return path.exists() and any(child.is_file() for child in path.rglob("*"))
 
 
+def should_ignore(path: Path, root: Path) -> bool:
+    rel = path.relative_to(root)
+    return any(rel == ignored or ignored in rel.parents for ignored in IGNORED_RELATIVE_DIRS)
+
+
 def load_manifest(path: Path) -> dict:
     if not path.exists():
         return {}
@@ -50,7 +61,7 @@ def iter_relevant_files(root: Path) -> list[Path]:
         if path.is_file():
             files.append(path)
         elif path.is_dir():
-            files.extend(sorted(file for file in path.rglob("*") if file.is_file()))
+            files.extend(sorted(file for file in path.rglob("*") if file.is_file() and not should_ignore(file, root)))
     return files
 
 

@@ -5,3 +5,4 @@ __pycache__/
 tests/tmp/
 tests/tmp_snapshot/
 tests/tmp_cli/
+reports/release_snapshots/

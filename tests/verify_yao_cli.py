@@ -50,6 +50,18 @@ def main() -> None:
     assert promote_result["ok"], promote_result
     assert promote_result["payload"]["summary"]["blocked"] == 0, promote_result
 
+    review_result = run("review", "--target", "root")
+    assert review_result["ok"], review_result
+    assert review_result["payload"]["artifacts"]["review_md"].endswith("reports/iteration_bundles/yao-meta-skill/review.md")
+
+    snapshot_result = run("release-snapshot", "--target", "root", "--label", "cli-smoke")
+    assert snapshot_result["ok"], snapshot_result
+    assert snapshot_result["payload"]["artifacts"]["snapshot_json"].endswith("cli-smoke.json"), snapshot_result
+
+    flow_result = run("workspace-flow", "--target", "root", "--label", "cli-flow")
+    assert flow_result["ok"], flow_result
+    assert flow_result["payload"]["artifacts"][0]["snapshot"]["artifacts"]["snapshot_md"].endswith("cli-flow.md"), flow_result
+
     report_result = run("report")
     assert report_result["ok"], report_result
     assert "iteration_ledger" in report_result["payload"]["artifacts"], report_result

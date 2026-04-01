@@ -48,6 +48,12 @@ TARGETS = {
     },
 }
 
+PROMOTION_TARGETS = {
+    "root": "yao-meta-skill",
+    "team-frontend-review": "team-frontend-review",
+    "governed-incident-command": "governed-incident-command",
+}
+
 
 def script_path(name: str) -> str:
     return str(SCRIPTS / name)
@@ -85,6 +91,12 @@ def resolve_target(name: str) -> dict:
     if name not in TARGETS:
         raise KeyError(f"Unknown target: {name}")
     return TARGETS[name]
+
+
+def resolve_promotion_target(name: str) -> str:
+    if name not in PROMOTION_TARGETS:
+        raise KeyError(f"Unknown promotion target: {name}")
+    return PROMOTION_TARGETS[name]
 
 
 def command_init(args: argparse.Namespace) -> int:
@@ -199,6 +211,112 @@ def command_report(args: argparse.Namespace) -> int:
     return 0 if report["ok"] else 2
 
 
+def command_review(args: argparse.Namespace) -> int:
+    target_name = resolve_promotion_target(args.target)
+    bundle_dir = ROOT / "reports" / "iteration_bundles" / target_name
+    report = {
+        "ok": (bundle_dir / "bundle.json").exists() and (bundle_dir / "review.md").exists(),
+        "target": target_name,
+        "artifacts": {
+            "bundle_json": str((bundle_dir / "bundle.json").relative_to(ROOT)),
+            "bundle_md": str((bundle_dir / "bundle.md").relative_to(ROOT)),
+            "review_md": str((bundle_dir / "review.md").relative_to(ROOT)),
+        },
+    }
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if report["ok"] else 2
+
+
+def command_release_snapshot(args: argparse.Namespace) -> int:
+    target_name = resolve_promotion_target(args.target)
+    result = run_script(
+        "create_iteration_snapshot.py",
+        [
+            "--target",
+            target_name,
+            "--label",
+            args.label,
+        ],
+    )
+    print(json.dumps(result["payload"] if result["payload"] is not None else result, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 2
+
+
+def command_workspace_flow(args: argparse.Namespace) -> int:
+    selected_targets = (
+        ["root", "team-frontend-review", "governed-incident-command"]
+        if args.target == "all"
+        else [args.target]
+    )
+    steps = []
+    snapshot_artifacts = []
+
+    for target in selected_targets:
+        steps.append(
+            {
+                "phase": "optimize-description",
+                "target": target,
+                "result": run_script("optimize_description.py", optimize_args_for_target(target, True)),
+            }
+        )
+
+    steps.extend(
+        [
+            {"phase": "route-scorecard", "result": run_script("build_confusion_matrix.py", [])},
+            {"phase": "promotion-check", "result": run_script("promotion_checker.py", [])},
+            {"phase": "report-refresh", "result": run_script("render_eval_dashboard.py", [])},
+            {"phase": "report-refresh", "result": run_script("render_description_drift_history.py", [])},
+            {"phase": "report-refresh", "result": run_script("render_iteration_ledger.py", [])},
+            {"phase": "report-refresh", "result": run_script("render_regression_history.py", [])},
+            {"phase": "report-refresh", "result": run_script("render_context_reports.py", [])},
+        ]
+    )
+
+    for target in selected_targets:
+        review_target = resolve_promotion_target(target)
+        review_info = {
+            "bundle_json": f"reports/iteration_bundles/{review_target}/bundle.json",
+            "bundle_md": f"reports/iteration_bundles/{review_target}/bundle.md",
+            "review_md": f"reports/iteration_bundles/{review_target}/review.md",
+        }
+        snapshot = run_script(
+            "create_iteration_snapshot.py",
+            [
+                "--target",
+                review_target,
+                "--label",
+                args.label,
+            ],
+        )
+        snapshot_artifacts.append(
+            {
+                "target": review_target,
+                "review": review_info,
+                "snapshot": snapshot["payload"] if snapshot["payload"] is not None else snapshot,
+            }
+        )
+        steps.append({"phase": "release-snapshot", "target": review_target, "result": snapshot})
+
+    report = {
+        "ok": all(step["result"]["ok"] for step in steps),
+        "target": args.target,
+        "label": args.label,
+        "steps": [
+            {
+                "phase": step["phase"],
+                **({"target": step["target"]} if "target" in step else {}),
+                "command": step["result"]["command"],
+                "ok": step["result"]["ok"],
+                "returncode": step["result"]["returncode"],
+            }
+            for step in steps
+        ],
+        "artifacts": snapshot_artifacts,
+    }
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if report["ok"] else 2
+
+
 def command_package(args: argparse.Namespace) -> int:
     cmd = [
         str(Path(args.skill_dir).resolve()),
@@ -261,6 +379,35 @@ def build_parser() -> argparse.ArgumentParser:
 
     promote_cmd = subparsers.add_parser("promote-check", help="Apply promotion policy and build iteration bundles.")
     promote_cmd.set_defaults(func=command_promote_check)
+
+    review_cmd = subparsers.add_parser("review", help="Locate the current bundle and human review stub for a target.")
+    review_cmd.add_argument(
+        "--target",
+        choices=["root", "team-frontend-review", "governed-incident-command"],
+        default="root",
+    )
+    review_cmd.set_defaults(func=command_review)
+
+    snapshot_cmd = subparsers.add_parser("release-snapshot", help="Create a versioned snapshot from current promotion outputs.")
+    snapshot_cmd.add_argument(
+        "--target",
+        choices=["root", "team-frontend-review", "governed-incident-command"],
+        default="root",
+    )
+    snapshot_cmd.add_argument("--label", default="manual")
+    snapshot_cmd.set_defaults(func=command_release_snapshot)
+
+    flow_cmd = subparsers.add_parser(
+        "workspace-flow",
+        help="Run optimize, promotion, review refresh, and release snapshots as one authoring flow.",
+    )
+    flow_cmd.add_argument(
+        "--target",
+        choices=["root", "team-frontend-review", "governed-incident-command", "all"],
+        default="root",
+    )
+    flow_cmd.add_argument("--label", default="manual")
+    flow_cmd.set_defaults(func=command_workspace_flow)
 
     report_cmd = subparsers.add_parser("report", help="Render route, iteration, regression, and context reports.")
     report_cmd.add_argument("--refresh-optimization", action="store_true")

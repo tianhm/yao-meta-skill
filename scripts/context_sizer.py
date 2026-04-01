@@ -5,6 +5,12 @@ from pathlib import Path
 
 
 TEXT_EXTS = {".md", ".txt", ".yaml", ".yml", ".json", ".py", ".sh", ".js", ".ts"}
+IGNORED_RELATIVE_DIRS = {
+    Path("reports") / "release_snapshots",
+    Path("tests") / "tmp",
+    Path("tests") / "tmp_snapshot",
+    Path("tests") / "tmp_cli",
+}
 PACKAGE_PATHS = (
     "SKILL.md",
     "manifest.json",
@@ -51,6 +57,11 @@ def classify(path: Path) -> str:
     return "binary_or_other"
 
 
+def should_ignore(path: Path, skill_dir: Path) -> bool:
+    rel = path.relative_to(skill_dir)
+    return any(rel == ignored or ignored in rel.parents for ignored in IGNORED_RELATIVE_DIRS)
+
+
 def summarize(skill_dir: Path) -> dict:
     files = []
     total_tokens = 0
@@ -64,6 +75,8 @@ def summarize(skill_dir: Path) -> dict:
             candidate_files.extend(sorted(file for file in path.rglob("*") if file.is_file()))
 
     for path in candidate_files:
+        if should_ignore(path, skill_dir):
+            continue
         if path.suffix not in TEXT_EXTS and path.name != "SKILL.md":
             size = path.stat().st_size
             files.append({"path": str(path.relative_to(skill_dir)), "kind": "binary_or_other", "bytes": size})
