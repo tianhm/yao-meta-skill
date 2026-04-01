@@ -1,5 +1,7 @@
 # Yao Meta Skill
 
+[![CI](https://github.com/yaojingang/yao-meta-skill/actions/workflows/test.yml/badge.svg)](https://github.com/yaojingang/yao-meta-skill/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 [![English](https://img.shields.io/badge/Docs-English-black)](README.md)
 [![中文](https://img.shields.io/badge/Docs-%E4%B8%AD%E6%96%87-red)](docs/README.zh-CN.md)
 [![日本語](https://img.shields.io/badge/Docs-%E6%97%A5%E6%9C%AC%E8%AA%9E-blue)](docs/README.ja-JP.md)
@@ -9,6 +11,8 @@
 `YAO` stands for `Yielding AI Outcomes` — the goal is not to generate more prompt text, but to produce reusable AI assets and real operational outcomes.
 
 `yao-meta-skill` is a lightweight but rigorous system for creating, evaluating, packaging, and governing reusable agent skills.
+
+[Quick Start](#quick-start) · [Examples](examples/README.md) · [Evals](evals/README.md) · [Failure Library](failures/README.md) · [Method Doctrine](#method-doctrine)
 
 It turns rough workflows, transcripts, prompts, notes, and runbooks into reusable skill packages with:
 
