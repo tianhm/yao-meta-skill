@@ -1,5 +1,7 @@
 # Yao Meta Skill 日本語紹介
 
+`YAO = Yielding AI Outcomes` は、「AI の結果を実際の成果として届ける」という意味です。単に prompt テキストを増やすのではなく、再利用可能な AI 資産と実運用の成果を作ることを重視します。
+
 `yao-meta-skill` は、再利用可能な agent skill を作成・評価・パッケージ化・運用するための、軽量で厳密なシステムです。
 
 粗い workflow、transcript、prompt、notes、runbook を、再利用可能な skill パッケージに変換し、次の性質を持たせます。

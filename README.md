@@ -6,6 +6,8 @@
 [![Français](https://img.shields.io/badge/Docs-Fran%C3%A7ais-green)](docs/README.fr-FR.md)
 [![Русский](https://img.shields.io/badge/Docs-%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9-purple)](docs/README.ru-RU.md)
 
+`YAO` stands for `Yielding AI Outcomes` — the goal is not to generate more prompt text, but to produce reusable AI assets and real operational outcomes.
+
 `yao-meta-skill` is a lightweight but rigorous system for creating, evaluating, packaging, and governing reusable agent skills.
 
 It turns rough workflows, transcripts, prompts, notes, and runbooks into reusable skill packages with:
