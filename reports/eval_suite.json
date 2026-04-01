@@ -787,7 +787,7 @@
           {
             "prompt": "Below are release notes, rough notes, and a transcript from the last handoff. Ignore the noise and turn this runbook into a reusable agent skill with references and scripts so the team can reuse it every quarter.",
             "family": "long_context_trigger",
-            "score": 0.758,
+            "score": 0.756,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -814,7 +814,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.709,
               "support_score": 0.06,
-              "lexical_support": 0.387,
+              "lexical_support": 0.355,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -2150,7 +2150,7 @@
           {
             "prompt": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
             "family": "iterate_existing_skill",
-            "score": 0.563,
+            "score": 0.557,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -2175,7 +2175,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.509,
               "support_score": 0,
-              "lexical_support": 0.429,
+              "lexical_support": 0.357,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -2307,7 +2307,7 @@
           {
             "prompt": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
             "family": "long_context_trigger",
-            "score": 0.891,
+            "score": 0.888,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -2335,7 +2335,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.855,
               "support_score": 0.06,
-              "lexical_support": 0.37,
+              "lexical_support": 0.333,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {

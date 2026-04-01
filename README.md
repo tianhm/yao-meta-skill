@@ -21,6 +21,16 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 2. Use `yao-meta-skill` to generate or improve the package in scaffold, production, or library mode.
 3. Run `context_sizer.py`, `resource_boundary_check.py`, `governance_check.py`, `trigger_eval.py`, and `cross_packager.py` as needed to validate and export the result.
 
+Or use the unified authoring CLI:
+
+```bash
+python3 scripts/yao.py validate .
+python3 scripts/yao.py optimize-description --target root
+python3 scripts/yao.py promote-check
+python3 scripts/yao.py report
+python3 scripts/yao.py package . --platform generic --output-dir dist
+```
+
 ## 5-Minute Workflow
 
 1. Start from a raw workflow note.
@@ -46,6 +56,18 @@ Or run everything together:
 
 ```bash
 make test
+```
+
+Unified authoring flow:
+
+```bash
+python3 scripts/yao.py init my-skill --description "Describe what the skill does."
+python3 scripts/yao.py validate my-skill
+python3 scripts/yao.py optimize-description --target root --write
+python3 scripts/yao.py promote-check
+python3 scripts/yao.py report
+python3 scripts/yao.py package . --platform openai --platform claude --platform generic --output-dir dist --zip
+python3 scripts/yao.py test
 ```
 
 ## Results
@@ -97,8 +119,8 @@ Full reports: [reports/eval_suite.json](reports/eval_suite.json) and [reports/fa
 - failure library regressions: anti-pattern families pass automated checks
 - governance and resource-boundary checks are part of the default test path
 - root governance maturity score: `90/100`; governed benchmark example: `95/100`
-- context budgets: root `886/1000`, complex benchmark `790/1000`, governed benchmark `760/1000`
-- quality density: root `146.7`, complex benchmark `164.6`, governed benchmark `171.1`
+- context budgets: root `927/1000`, complex benchmark `790/1000`, governed benchmark `760/1000`
+- quality density: root `140.2`, complex benchmark `164.6`, governed benchmark `171.1`
 - regression milestones are tracked in [reports/regression_history.md](reports/regression_history.md)
 - description drift history is tracked in [reports/description_drift_history.md](reports/description_drift_history.md)
 - route confusion is tracked in [reports/route_scorecard.md](reports/route_scorecard.md)
@@ -182,6 +204,7 @@ Utility scripts that make the meta-skill operational:
 - `judge_blind_eval.py`: applies an independent rubric judge to blind-holdout prompts so blind acceptance is not backed only by the main threshold scorer
 - `run_description_optimization_suite.py`: runs description optimization across the root skill and governed examples, then writes reusable reports and optional drift snapshots with calibration and family summaries
 - `promotion_checker.py`: applies promotion policy to current description candidates, writes promotion decisions, builds candidate registries, and emits iteration bundles with review stubs
+- `yao.py`: unified authoring CLI that exposes init, validate, optimize-description, promote-check, report, package, and test as one entrypoint
 - `render_description_drift_history.py`: turns description-optimization snapshots into a readable drift-history report
 - `build_confusion_matrix.py`: scores route confusion across tracked sibling skills and `no_route` cases, then writes a route scorecard and optional milestone snapshot
 - `render_iteration_ledger.py`: compresses regression milestones, description optimization drift, and route scorecards into one iteration-facing ledger
