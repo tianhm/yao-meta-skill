@@ -12,6 +12,52 @@ Il transforme des workflows bruts, des transcripts, des prompts, des notes et de
 - des métadonnées sources neutres et des adaptateurs spécifiques au client
 - des contrôles de gouvernance, de promotion et de portabilité intégrés au flux standard
 
+## Architecture
+
+Le système est volontairement organisé par couches afin qu'un nouveau venu puisse le lire de haut en bas : d'abord le routage, ensuite la méthode, puis la validation, et enfin le packaging et la gouvernance.
+
+```mermaid
+flowchart TD
+    A["Entrées<br/>workflows / prompts / transcripts / docs / notes"] --> B["Routeur<br/>SKILL.md"]
+    B --> C["Couche méthode<br/>references/"]
+    B --> D["Flux auteur<br/>scripts/yao.py"]
+
+    C --> C1["Skill Archetype"]
+    C --> C2["Gate Selection"]
+    C --> C3["Non-Skill Decision"]
+    C --> C4["Operating Modes"]
+    C --> C5["Governance"]
+    C --> C6["Resource Boundaries"]
+
+    D --> E["Création<br/>init / template"]
+    D --> F["Validation<br/>lint / boundary / governance"]
+    D --> G["Évaluation<br/>trigger / suites / judge / confusion"]
+    D --> H["Promotion<br/>promotion policy / candidate registry"]
+    D --> I["Packaging<br/>neutral source -> target adapters"]
+    D --> J["Rapports<br/>history / scorecards / context / portability"]
+
+    E --> K["Skill Package"]
+    F --> K
+    G --> L["evals/"]
+    H --> M["reports/"]
+    I --> N["dist/ ou sorties cibles"]
+
+    K --> K1["SKILL.md"]
+    K --> K2["agents/interface.yaml"]
+    K --> K3["manifest.json"]
+    K --> K4["references / scripts / evals / reports optionnels"]
+
+    L --> M
+```
+
+On peut lire ce schéma en cinq couches :
+
+- **Couche d'entrée** : les matériaux opérationnels bruts servent de source au futur skill package.
+- **Couche de routage** : `SKILL.md` reste léger et définit d'abord les frontières, le mode et le contrat de sortie.
+- **Couche méthode** : les documents de doctrine déterminent si la demande mérite d'être skillifiée et quels garde-fous elle doit recevoir.
+- **Couche de flux auteur** : le CLI unifié relie création, validation, optimisation, promotion, reporting et packaging.
+- **Couche preuves et sorties** : le résultat n'est pas seulement un skill package, mais aussi des evals, des signaux de gouvernance, des sorties de portabilité et un historique d'itération.
+
 ## Quick Start
 
 1. Décrivez le workflow, l'ensemble de prompts ou la tâche répétée que vous voulez transformer en skill.

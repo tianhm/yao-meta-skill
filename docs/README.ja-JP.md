@@ -12,6 +12,52 @@
 - 中立的なソースメタデータとクライアント別アダプタ
 - ガバナンス、昇格判定、portability チェックを標準フローに内蔵
 
+## アーキテクチャ
+
+このシステムは層構造になっており、新しい利用者でも上から順に理解できます。最初に route を決め、次に method を選び、その後に検証し、最後に package と governance を扱います。
+
+```mermaid
+flowchart TD
+    A["入力<br/>workflow / prompt / transcript / docs / notes"] --> B["ルーター<br/>SKILL.md"]
+    B --> C["メソッド層<br/>references/"]
+    B --> D["作者フロー<br/>scripts/yao.py"]
+
+    C --> C1["Skill Archetype"]
+    C --> C2["Gate Selection"]
+    C --> C3["Non-Skill Decision"]
+    C --> C4["Operating Modes"]
+    C --> C5["Governance"]
+    C --> C6["Resource Boundaries"]
+
+    D --> E["作成<br/>init / template"]
+    D --> F["検証<br/>lint / boundary / governance"]
+    D --> G["評価<br/>trigger / suites / judge / confusion"]
+    D --> H["昇格<br/>promotion policy / candidate registry"]
+    D --> I["パッケージ化<br/>neutral source -> target adapters"]
+    D --> J["レポート<br/>history / scorecards / context / portability"]
+
+    E --> K["Skill Package"]
+    F --> K
+    G --> L["evals/"]
+    H --> M["reports/"]
+    I --> N["dist/ または target outputs"]
+
+    K --> K1["SKILL.md"]
+    K --> K2["agents/interface.yaml"]
+    K --> K3["manifest.json"]
+    K --> K4["optional references / scripts / evals / reports"]
+
+    L --> M
+```
+
+この図は 5 つの層として読むとわかりやすいです。
+
+- **入力層**: 断片的な運用資料を skill 化の原材料にします。
+- **ルーター層**: `SKILL.md` は軽量のまま、境界、モード、出力契約を先に決めます。
+- **メソッド層**: method 文書が、skill 化すべきか、どの quality gate が必要かを決めます。
+- **作者フロー層**: 統一 CLI が作成、検証、最適化、昇格、レポート、パッケージ化を一つの流れにします。
+- **証拠と出力層**: 最終成果は skill package だけでなく、eval 結果、governance signal、portability 出力、iteration history も含みます。
+
 ## Quick Start
 
 1. skill 化したい workflow、prompt 集合、または反復タスクを説明します。

@@ -12,6 +12,52 @@
 - нейтральными исходными метаданными и клиентскими адаптерами
 - встроенными проверками governance, promotion и portability в стандартном потоке
 
+## Архитектура
+
+Система специально построена слоями, чтобы новый пользователь мог понять ее сверху вниз: сначала routing, затем method, потом validation, а уже после этого packaging и governance.
+
+```mermaid
+flowchart TD
+    A["Входы<br/>workflows / prompts / transcripts / docs / notes"] --> B["Router<br/>SKILL.md"]
+    B --> C["Method layer<br/>references/"]
+    B --> D["Authoring flow<br/>scripts/yao.py"]
+
+    C --> C1["Skill Archetype"]
+    C --> C2["Gate Selection"]
+    C --> C3["Non-Skill Decision"]
+    C --> C4["Operating Modes"]
+    C --> C5["Governance"]
+    C --> C6["Resource Boundaries"]
+
+    D --> E["Создание<br/>init / template"]
+    D --> F["Проверка<br/>lint / boundary / governance"]
+    D --> G["Оценка<br/>trigger / suites / judge / confusion"]
+    D --> H["Промоушен<br/>promotion policy / candidate registry"]
+    D --> I["Упаковка<br/>neutral source -> target adapters"]
+    D --> J["Отчеты<br/>history / scorecards / context / portability"]
+
+    E --> K["Skill Package"]
+    F --> K
+    G --> L["evals/"]
+    H --> M["reports/"]
+    I --> N["dist/ или target outputs"]
+
+    K --> K1["SKILL.md"]
+    K --> K2["agents/interface.yaml"]
+    K --> K3["manifest.json"]
+    K --> K4["optional references / scripts / evals / reports"]
+
+    L --> M
+```
+
+Эту схему удобнее читать как 5 слоев:
+
+- **Слой входов**: разрозненные операционные материалы становятся сырьем для будущего skill package.
+- **Слой routing**: `SKILL.md` остается легким и сначала определяет границы, режим и output contract.
+- **Слой method**: doctrinal docs определяют, стоит ли вообще skill-изировать запрос и какие quality gates ему нужны.
+- **Слой authoring flow**: единый CLI связывает создание, проверку, оптимизацию, promotion, reporting и packaging.
+- **Слой доказательств и выходов**: итогом становится не только skill package, но и eval-артефакты, governance signals, portability outputs и история итераций.
+
 ## Quick Start
 
 1. Опишите workflow, набор prompts или повторяющуюся задачу, которую хотите превратить в skill.

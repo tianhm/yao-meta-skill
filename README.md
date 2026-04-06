@@ -22,6 +22,52 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - neutral source metadata plus client-specific adapters
 - governance, promotion, and portability checks built into the default flow
 
+## Architecture
+
+The system is intentionally layered so users can understand it from top to bottom: route first, choose method second, validate third, then package and govern the result.
+
+```mermaid
+flowchart TD
+    A["Inputs<br/>workflows / prompts / transcripts / docs / notes"] --> B["Router<br/>SKILL.md"]
+    B --> C["Method Layer<br/>references/"]
+    B --> D["Authoring Flow<br/>scripts/yao.py"]
+
+    C --> C1["Archetypes"]
+    C --> C2["Gate Selection"]
+    C --> C3["Non-Skill Decision"]
+    C --> C4["Operating Modes"]
+    C --> C5["Governance"]
+    C --> C6["Resource Boundaries"]
+
+    D --> E["Create<br/>init / template"]
+    D --> F["Validate<br/>lint / boundary / governance"]
+    D --> G["Evaluate<br/>trigger / suites / judge / confusion"]
+    D --> H["Promote<br/>promotion policy / candidate registry"]
+    D --> I["Package<br/>neutral source -> target adapters"]
+    D --> J["Report<br/>history / scorecards / context / portability"]
+
+    E --> K["Skill Package"]
+    F --> K
+    G --> L["evals/"]
+    H --> M["reports/"]
+    I --> N["dist/ or target outputs"]
+
+    K --> K1["SKILL.md"]
+    K --> K2["agents/interface.yaml"]
+    K --> K3["manifest.json"]
+    K --> K4["optional references / scripts / evals / reports"]
+
+    L --> M
+```
+
+Read the diagram in five layers:
+
+- **Inputs**: rough operational material becomes the source for a reusable skill package.
+- **Router**: `SKILL.md` stays small and decides boundary, mode, and output contract first.
+- **Method layer**: doctrine files explain whether the request should become a skill and which quality gates it deserves.
+- **Authoring flow**: the unified CLI turns creation, validation, optimization, promotion, reporting, and packaging into one path.
+- **Evidence and outputs**: the result is not only a skill package, but also eval artifacts, governance signals, portability outputs, and iteration history.
+
 ## Quick Start
 
 1. Describe the workflow, prompt set, or repeated task you want to turn into a skill.

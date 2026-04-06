@@ -12,6 +12,52 @@
 - 中性的源元数据以及面向不同客户端的适配层
 - 内建的治理、晋升和 portability 检查
 
+## 架构图
+
+这套系统是分层设计的，方便新用户从上到下理解：先路由，再选方法，再做验证，最后再打包和治理。
+
+```mermaid
+flowchart TD
+    A["输入<br/>workflow / prompt / transcript / docs / notes"] --> B["路由入口<br/>SKILL.md"]
+    B --> C["方法层<br/>references/"]
+    B --> D["作者流<br/>scripts/yao.py"]
+
+    C --> C1["Skill Archetype"]
+    C --> C2["Gate Selection"]
+    C --> C3["Non-Skill Decision"]
+    C --> C4["Operating Modes"]
+    C --> C5["Governance"]
+    C --> C6["Resource Boundaries"]
+
+    D --> E["创建<br/>init / template"]
+    D --> F["校验<br/>lint / boundary / governance"]
+    D --> G["评测<br/>trigger / suites / judge / confusion"]
+    D --> H["晋升<br/>promotion policy / candidate registry"]
+    D --> I["打包<br/>neutral source -> target adapters"]
+    D --> J["报告<br/>history / scorecards / context / portability"]
+
+    E --> K["Skill Package"]
+    F --> K
+    G --> L["evals/"]
+    H --> M["reports/"]
+    I --> N["dist/ 或目标导出物"]
+
+    K --> K1["SKILL.md"]
+    K --> K2["agents/interface.yaml"]
+    K --> K3["manifest.json"]
+    K --> K4["可选 references / scripts / evals / reports"]
+
+    L --> M
+```
+
+可以把这张图理解成 5 层：
+
+- **输入层**：把零散的操作材料作为 skill 的原始输入。
+- **路由层**：`SKILL.md` 保持轻量，优先定义边界、模式和输出契约。
+- **方法层**：方法文档决定这件事该不该 skill 化、该上哪些质量门。
+- **作者流层**：统一 CLI 把创建、校验、优化、晋升、报告和打包串成一条路径。
+- **证据与产出层**：最终产出不只是 skill 包，还包括 eval 结果、治理信号、portability 产物和迭代历史。
+
 ## Quick Start
 
 1. 先描述你想沉淀成 skill 的 workflow、prompt 集合或重复任务。
