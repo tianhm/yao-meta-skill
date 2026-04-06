@@ -9,6 +9,7 @@
 - 明確なトリガー面
 - 軽量な `SKILL.md`
 - 必要に応じた references、scripts、evals
+- 新しい skill ごとに、白背景の簡潔な HTML overview を自動生成
 - 中立的なソースメタデータとクライアント別アダプタ
 - ガバナンス、昇格判定、portability チェックを標準フローに内蔵
 
@@ -36,7 +37,7 @@ flowchart LR
 
 1. skill 化したい workflow、prompt 集合、または反復タスクを説明します。
 2. `yao-meta-skill` を使って scaffold、production、library のいずれかのモードでパッケージを生成または改善します。
-3. 必要に応じて `context_sizer.py`、`trigger_eval.py`、`cross_packager.py` を実行し、検証と出力を行います。
+3. 新しく作成した skill には `reports/skill-overview.html` が付き、構造、ロジック、使い方、強みをすぐ確認できます。
 
 ## Results
 

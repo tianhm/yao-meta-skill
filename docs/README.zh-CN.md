@@ -9,6 +9,7 @@
 - 清晰的触发面
 - 精简的 `SKILL.md`
 - 可选的 references、scripts 和 evals
+- 新建 skill 时自动生成一份极简白底 HTML 可视化说明
 - 中性的源元数据以及面向不同客户端的适配层
 - 内建的治理、晋升和 portability 检查
 
@@ -36,7 +37,7 @@ flowchart LR
 
 1. 先描述你想沉淀成 skill 的 workflow、prompt 集合或重复任务。
 2. 使用 `yao-meta-skill` 以 scaffold、production 或 library 模式生成或改进 skill 包。
-3. 按需要运行 `context_sizer.py`、`trigger_eval.py` 和 `cross_packager.py` 来检查并导出结果。
+3. 新建 skill 后，会默认附带 `reports/skill-overview.html`，方便快速理解架构、逻辑、使用方法和优势。
 
 ## Results
 

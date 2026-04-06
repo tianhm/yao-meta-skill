@@ -19,6 +19,7 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - a clear trigger surface
 - a lean `SKILL.md`
 - optional references, scripts, and evals
+- a generated visual HTML overview for each newly initialized skill
 - neutral source metadata plus client-specific adapters
 - governance, promotion, and portability checks built into the default flow
 
@@ -51,8 +52,8 @@ Read it in 10 seconds:
 Or use the unified authoring CLI:
 
 ```bash
-python3 scripts/yao.py validate .
-python3 scripts/yao.py workspace-flow --target root --label first-pass
+python3 scripts/yao.py init my-skill --description "Describe what the skill does."
+python3 scripts/yao.py skill-report my-skill
 python3 scripts/yao.py package . --platform generic --output-dir dist
 ```
 
