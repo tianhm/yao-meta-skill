@@ -19,8 +19,10 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - a clear trigger surface
 - a lean `SKILL.md`
 - optional references, scripts, and evals
+- a front-loaded intent dialogue before deep authoring
 - a controlled benchmark scan before deep authoring
 - a generated visual HTML overview for each newly initialized skill
+- three high-value next iteration directions after the first package is created
 - neutral source metadata plus client-specific adapters
 - governance, promotion, and portability checks built into the default flow
 
@@ -47,18 +49,21 @@ Read it in 10 seconds:
 ## Quick Start
 
 1. Describe the workflow, prompt set, or repeated task you want to turn into a skill.
-2. Run a short reference scan with external benchmarks first, then use local files only for fit and privacy checks.
-3. Use `yao-meta-skill` to generate or improve the package in scaffold, production, or library mode.
-4. Run `context_sizer.py`, `resource_boundary_check.py`, `governance_check.py`, `trigger_eval.py`, and `cross_packager.py` as needed to validate and export the result.
+2. Start with a short intent dialogue so the real job, outputs, exclusions, and constraints are explicit.
+3. Run a short reference scan with external benchmarks first, then use local files only for fit and privacy checks.
+4. Use `yao-meta-skill` to generate or improve the package in scaffold, production, or library mode.
+5. Review the generated `reports/intent-dialogue.md`, `reports/skill-overview.html`, and `reports/iteration-directions.md` before adding more structure.
 
 Or use the unified authoring CLI:
 
 ```bash
 python3 scripts/yao.py init my-skill --description "Describe what the skill does."
+python3 scripts/yao.py intent-dialogue my-skill
 python3 scripts/yao.py reference-scan my-skill \
   --external-reference "World Class Method::method::Borrow a tight evaluation loop.::Do not copy heavy process." \
   --local-constraint "Current Library Naming::structure::Keep naming aligned with the local skill library.::Do not inherit private references."
 python3 scripts/yao.py skill-report my-skill
+python3 scripts/yao.py iteration-directions my-skill
 python3 scripts/yao.py package . --platform generic --output-dir dist
 ```
 
@@ -201,9 +206,11 @@ The design logic is simple:
 The repository now treats method as a first-class asset instead of scattered guidance.
 
 - [Skill Engineering Method](references/skill-engineering-method.md)
+- [Intent Dialogue](references/intent-dialogue.md)
 - [Reference Scan Strategy](references/reference-scan.md)
 - [Skill Archetypes](references/skill-archetypes.md)
 - [Gate Selection](references/gate-selection.md)
+- [Iteration Philosophy](references/iteration-philosophy.md)
 - [Non-Skill Decision Tree](references/non-skill-decision-tree.md)
 - [Regression Cause Taxonomy](references/regression-cause-taxonomy.md)
 - [Human Review Template](references/human-review-template.md)

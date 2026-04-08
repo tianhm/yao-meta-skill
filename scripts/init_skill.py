@@ -4,6 +4,8 @@ import json
 from datetime import date
 from pathlib import Path
 
+from render_intent_dialogue import render_intent_dialogue
+from render_iteration_directions import render_iteration_directions
 from render_reference_scan import render_reference_scan
 from render_skill_overview import render_skill_overview
 
@@ -34,15 +36,19 @@ README_TEMPLATE = """# {title}
 ## How To Use
 
 1. Load the skill through `SKILL.md`.
-2. Follow the workflow steps in `SKILL.md`.
-3. Check `reports/skill-overview.html` if you want a fast visual explanation of the package.
+2. Start with `reports/intent-dialogue.md` to tighten the real job, outputs, and exclusions.
+3. Follow the workflow steps in `SKILL.md`.
+4. Check `reports/skill-overview.html` if you want a fast visual explanation of the package.
+5. Review `reports/iteration-directions.md` for the three most valuable next moves.
 
 ## Package Map
 
 - `SKILL.md`: trigger and workflow entrypoint
 - `agents/interface.yaml`: portable interface metadata
 - `manifest.json`: lifecycle and packaging metadata
+- `reports/intent-dialogue.md`: front-loaded discovery questions for better boundary design
 - `reports/skill-overview.html`: visual overview report
+- `reports/iteration-directions.md`: the top three next iteration directions
 """
 
 
@@ -131,7 +137,9 @@ def main() -> None:
         encoding="utf-8",
     )
     overview = render_skill_overview(root)
+    intent_dialogue = render_intent_dialogue(root)
     reference_scan = render_reference_scan(root, [])
+    iteration_directions = render_iteration_directions(root)
     print(
         json.dumps(
             {
@@ -140,8 +148,14 @@ def main() -> None:
                 "artifacts": {
                     "readme": str(root / "README.md"),
                     "manifest": str(root / "manifest.json"),
-                    **overview["artifacts"],
-                    **reference_scan["artifacts"],
+                    "skill_overview_html": overview["artifacts"]["html"],
+                    "skill_overview_json": overview["artifacts"]["json"],
+                    "intent_dialogue_md": intent_dialogue["artifacts"]["markdown"],
+                    "intent_dialogue_json": intent_dialogue["artifacts"]["json"],
+                    "reference_scan_md": reference_scan["artifacts"]["markdown"],
+                    "reference_scan_json": reference_scan["artifacts"]["json"],
+                    "iteration_directions_md": iteration_directions["artifacts"]["markdown"],
+                    "iteration_directions_json": iteration_directions["artifacts"]["json"],
                 },
             },
             ensure_ascii=False,

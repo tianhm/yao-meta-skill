@@ -9,8 +9,10 @@ Il transforme des workflows bruts, des transcripts, des prompts, des notes et de
 - une surface de déclenchement claire
 - un `SKILL.md` léger
 - des references, scripts et evals optionnels
+- un court dialogue d'intention avant l'authoring approfondi
 - un benchmark/reference scan contrôlé avant l'authoring profond
 - un rapport HTML minimaliste en fond blanc généré automatiquement pour chaque nouveau skill
+- trois directions d'itération à plus forte valeur après la première création
 - des métadonnées sources neutres et des adaptateurs spécifiques au client
 - des contrôles de gouvernance, de promotion et de portabilité intégrés au flux standard
 
@@ -37,9 +39,10 @@ Lecture en 10 secondes :
 ## Quick Start
 
 1. Décrivez le workflow, l'ensemble de prompts ou la tâche répétée que vous voulez transformer en skill.
-2. Lancez un court reference scan en privilégiant GitHub et les objets publics de référence ; les fichiers locaux ne servent ensuite qu'à l'ajustement, à la confidentialité et à la compatibilité.
-3. Utilisez `yao-meta-skill` pour générer ou améliorer le paquet en mode scaffold, production ou library.
-4. Chaque nouveau skill reçoit aussi `reports/skill-overview.html` et `reports/reference-scan.md`, pour comprendre rapidement son architecture, sa logique, son usage et ses références utiles.
+2. Commencez par un court dialogue d'intention pour clarifier le vrai job, les sorties, les exclusions et les contraintes.
+3. Lancez ensuite un short reference scan en privilégiant GitHub et les objets publics de référence ; les fichiers locaux ne servent ensuite qu'à l'ajustement, à la confidentialité et à la compatibilité.
+4. Utilisez `yao-meta-skill` pour générer ou améliorer le paquet en mode scaffold, production ou library.
+5. Chaque nouveau skill reçoit aussi `reports/intent-dialogue.md`, `reports/skill-overview.html`, `reports/reference-scan.md` et `reports/iteration-directions.md`.
 
 ## Results
 

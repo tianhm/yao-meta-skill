@@ -36,8 +36,10 @@ def main() -> None:
     created = Path(init_result["payload"]["root"])
     assert (created / "SKILL.md").exists(), created
     assert (created / "README.md").exists(), created
+    assert (created / "reports" / "intent-dialogue.md").exists(), created
     assert (created / "reports" / "skill-overview.html").exists(), created
     assert (created / "reports" / "reference-scan.md").exists(), created
+    assert (created / "reports" / "iteration-directions.md").exists(), created
 
     validate_result = run("validate", str(created))
     assert validate_result["ok"], validate_result
@@ -57,6 +59,14 @@ def main() -> None:
     )
     assert reference_scan_result["ok"], reference_scan_result
     assert reference_scan_result["payload"]["artifacts"]["markdown"].endswith("reports/reference-scan.md"), reference_scan_result
+
+    intent_result = run("intent-dialogue", str(created))
+    assert intent_result["ok"], intent_result
+    assert intent_result["payload"]["artifacts"]["markdown"].endswith("reports/intent-dialogue.md"), intent_result
+
+    directions_result = run("iteration-directions", str(created))
+    assert directions_result["ok"], directions_result
+    assert directions_result["payload"]["artifacts"]["markdown"].endswith("reports/iteration-directions.md"), directions_result
 
     optimize_result = run("optimize-description", "--target", "root")
     assert optimize_result["ok"], optimize_result

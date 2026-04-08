@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: eval eval-suite route-scorecard route-confusion-check description-optimization judge-blind-eval description-optimization-check promotion-check yao-cli-check skill-overview-check reference-scan-check description-drift-history iteration-ledger results-panel regression-history context-reports portability-report portability-check failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check test clean
+.PHONY: eval eval-suite route-scorecard route-confusion-check description-optimization judge-blind-eval description-optimization-check promotion-check yao-cli-check skill-overview-check reference-scan-check iteration-directions-check description-drift-history iteration-ledger results-panel regression-history context-reports portability-report portability-check failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check test clean
 
 eval:
 	$(PYTHON) scripts/trigger_eval.py --description-file evals/improved_description.txt --cases evals/trigger_cases.json --baseline-description-file evals/baseline_description.txt
@@ -34,6 +34,9 @@ skill-overview-check:
 
 reference-scan-check:
 	$(PYTHON) tests/verify_reference_scan.py
+
+iteration-directions-check:
+	$(PYTHON) tests/verify_iteration_directions.py
 
 description-drift-history:
 	$(PYTHON) scripts/render_description_drift_history.py
@@ -83,7 +86,7 @@ resource-boundary-check:
 quality-check:
 	$(PYTHON) tests/verify_quality_checks.py
 
-test: eval eval-suite route-scorecard route-confusion-check description-optimization description-optimization-check promotion-check yao-cli-check skill-overview-check reference-scan-check description-drift-history iteration-ledger regression-history context-reports portability-report portability-check failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check
+test: eval eval-suite route-scorecard route-confusion-check description-optimization description-optimization-check promotion-check yao-cli-check skill-overview-check reference-scan-check iteration-directions-check description-drift-history iteration-ledger regression-history context-reports portability-report portability-check failure-regression-check package-check package-failure-check snapshot-check validate lint governance-check resource-boundary-check quality-check
 
 clean:
-	rm -rf dist tests/tmp tests/tmp_snapshot
+	rm -rf dist tests/tmp tests/tmp_snapshot tests/tmp_cli tests/tmp_skill_overview tests/tmp_reference_scan tests/tmp_iteration_directions

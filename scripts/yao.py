@@ -243,6 +243,30 @@ def command_reference_scan(args: argparse.Namespace) -> int:
     return 0 if result["ok"] else 2
 
 
+def command_intent_dialogue(args: argparse.Namespace) -> int:
+    skill_dir = str(Path(args.skill_dir).resolve())
+    cmd = [skill_dir]
+    if args.output_md:
+        cmd.extend(["--output-md", args.output_md])
+    if args.output_json:
+        cmd.extend(["--output-json", args.output_json])
+    result = run_script("render_intent_dialogue.py", cmd)
+    print(json.dumps(result["payload"] if result["payload"] is not None else result, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 2
+
+
+def command_iteration_directions(args: argparse.Namespace) -> int:
+    skill_dir = str(Path(args.skill_dir).resolve())
+    cmd = [skill_dir]
+    if args.output_md:
+        cmd.extend(["--output-md", args.output_md])
+    if args.output_json:
+        cmd.extend(["--output-json", args.output_json])
+    result = run_script("render_iteration_directions.py", cmd)
+    print(json.dumps(result["payload"] if result["payload"] is not None else result, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 2
+
+
 def command_review(args: argparse.Namespace) -> int:
     target_name = resolve_promotion_target(args.target)
     bundle_dir = ROOT / "reports" / "iteration_bundles" / target_name
@@ -463,6 +487,24 @@ def build_parser() -> argparse.ArgumentParser:
     reference_scan_cmd.add_argument("--output-md")
     reference_scan_cmd.add_argument("--output-json")
     reference_scan_cmd.set_defaults(func=command_reference_scan)
+
+    intent_dialogue_cmd = subparsers.add_parser(
+        "intent-dialogue",
+        help="Render a front-loaded intent dialogue guide for a skill package.",
+    )
+    intent_dialogue_cmd.add_argument("skill_dir", nargs="?", default=".")
+    intent_dialogue_cmd.add_argument("--output-md")
+    intent_dialogue_cmd.add_argument("--output-json")
+    intent_dialogue_cmd.set_defaults(func=command_intent_dialogue)
+
+    iteration_directions_cmd = subparsers.add_parser(
+        "iteration-directions",
+        help="Render the top three next iteration directions for a skill package.",
+    )
+    iteration_directions_cmd.add_argument("skill_dir", nargs="?", default=".")
+    iteration_directions_cmd.add_argument("--output-md")
+    iteration_directions_cmd.add_argument("--output-json")
+    iteration_directions_cmd.set_defaults(func=command_iteration_directions)
 
     package_cmd = subparsers.add_parser("package", help="Export compatibility artifacts for selected targets.")
     package_cmd.add_argument("skill_dir", nargs="?", default=".")

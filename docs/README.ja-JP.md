@@ -9,8 +9,10 @@
 - 明確なトリガー面
 - 軽量な `SKILL.md`
 - 必要に応じた references、scripts、evals
+- 深い authoring の前に行う短い intent dialogue
 - 深い authoring の前に、制御された benchmark/reference scan を 1 回行う
 - 新しい skill ごとに、白背景の簡潔な HTML overview を自動生成
+- 初回作成後に自動で提示される 3 つの高価値な次の iteration direction
 - 中立的なソースメタデータとクライアント別アダプタ
 - ガバナンス、昇格判定、portability チェックを標準フローに内蔵
 
@@ -37,9 +39,10 @@ flowchart LR
 ## Quick Start
 
 1. skill 化したい workflow、prompt 集合、または反復タスクを説明します。
-2. まず短い reference scan を行い、GitHub や世界トップ級の公開対象を主参照にし、ローカル資産は適合確認と privacy 調整だけに使います。
-3. `yao-meta-skill` を使って scaffold、production、library のいずれかのモードでパッケージを生成または改善します。
-4. 新しく作成した skill には `reports/skill-overview.html` と `reports/reference-scan.md` が付き、構造、ロジック、使い方、参考対象をすぐ確認できます。
+2. まず短い intent dialogue で、実際の job、outputs、boundary、constraints を明確にします。
+3. 次に短い reference scan を行い、GitHub や世界トップ級の公開対象を主参照にし、ローカル資産は適合確認と privacy 調整だけに使います。
+4. `yao-meta-skill` を使って scaffold、production、library のいずれかのモードでパッケージを生成または改善します。
+5. 新しく作成した skill には `reports/intent-dialogue.md`、`reports/skill-overview.html`、`reports/reference-scan.md`、`reports/iteration-directions.md` が付きます。
 
 ## Results
 
