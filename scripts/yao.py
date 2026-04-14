@@ -123,6 +123,13 @@ def prompt_with_default(label: str, default: str) -> str:
     return value or default
 
 
+def prompt_optional(label: str, default: str = "skip") -> str:
+    sys.stderr.write(f"{label} [{default}]: ")
+    sys.stderr.flush()
+    value = sys.stdin.readline().strip()
+    return value or default
+
+
 def prompt_optional_entries(label: str) -> list[str]:
     sys.stderr.write(f"{label} [none]: ")
     sys.stderr.flush()
@@ -173,6 +180,17 @@ def archetype_guidance(archetype: str) -> dict:
     return mapping.get(archetype, mapping["scaffold"])
 
 
+def discovery_summary(job: str, primary_output: str, archetype: str, guidance: dict) -> str:
+    return (
+        "\nHere's the shape I'm hearing so far:\n"
+        f"- Repeated job: {job}\n"
+        f"- Desired hand-back: {primary_output}\n"
+        f"- Best starting archetype: {archetype}\n"
+        f"- First gate: {guidance['first_gate']}\n"
+        f"- Current focus: {guidance['focus']}\n"
+    )
+
+
 def command_init(args: argparse.Namespace) -> int:
     cmd = [
         args.name,
@@ -203,27 +221,47 @@ def command_init(args: argparse.Namespace) -> int:
 
 
 def command_quickstart(args: argparse.Namespace) -> int:
-    sys.stderr.write("Let's start gently and shape this skill around the real work, the outcome, and the standards you actually care about.\n")
-    sys.stderr.write("You do not need a perfect brief. A rough description is enough, and I will help tighten it.\n")
-    sys.stderr.write("I will also look at a few strong public GitHub references first, so we can borrow proven patterns without copying the source.\n")
+    sys.stderr.write("Let's start gently. You do not need a polished brief here.\n")
+    sys.stderr.write("Give me the real work in your own words, and I will help turn it into a clean first-pass skill.\n")
+    sys.stderr.write("Before we deepen the package, I will also look at a few strong public GitHub references so we can borrow patterns without copying them.\n")
     name = args.name or prompt_with_default("Skill name", "my-skill")
-    job = args.job or prompt_with_default("What repeated work do you most want this skill to quietly take off your hands", "Turn a repeated workflow into a reusable skill.")
-    primary_output = args.primary_output or prompt_with_default("If it works well, what should it hand back so you can keep moving", "A reusable skill package.")
+    job = args.job or prompt_with_default(
+        "In your own words, what repeated work do you most want this skill to quietly take over",
+        "Turn a repeated workflow into a reusable skill.",
+    )
+    primary_output = args.primary_output or prompt_with_default(
+        "If it works beautifully, what should it hand back so you or the next person can keep moving",
+        "A reusable skill package.",
+    )
     description = args.description or f"{job.rstrip('.')} Primary output: {primary_output.rstrip('.')}."
     inferred_archetype, archetype_reason = infer_archetype(job, description)
-    archetype = args.archetype or prompt_with_default("Archetype (scaffold/production/library/governed)", inferred_archetype)
+    guidance = archetype_guidance(inferred_archetype)
+    sys.stderr.write(discovery_summary(job, primary_output, inferred_archetype, guidance))
+    correction = prompt_optional(
+        "If I am off, what is the first thing I should correct before I package this idea",
+        "looks right",
+    )
+    if correction.lower() not in {"looks right", "skip", "none", "no"}:
+        description = f"{description.rstrip('.')} Keep this correction in scope: {correction.rstrip('.')}."
+        inferred_archetype, archetype_reason = infer_archetype(job, description)
+        guidance = archetype_guidance(inferred_archetype)
+        sys.stderr.write("\nThanks. I tightened the frame before moving on.\n")
+        sys.stderr.write(discovery_summary(job, primary_output, inferred_archetype, guidance))
+    archetype = args.archetype or prompt_with_default("I would start with this archetype (scaffold/production/library/governed)", inferred_archetype)
     archetype = archetype if archetype in ARCHETYPE_MODE else inferred_archetype
     default_mode = ARCHETYPE_MODE[archetype]
-    mode = args.mode or prompt_with_default("Mode (scaffold/production/library/governed)", default_mode)
+    mode = args.mode or prompt_with_default("For the first pass, I would keep the mode here (scaffold/production/library/governed)", default_mode)
     mode = mode if mode in ARCHETYPE_MODE.values() else default_mode
+    guidance = archetype_guidance(archetype)
+    sys.stderr.write(
+        f"\nGood. I will treat this as `{archetype}` in `{mode}` mode, so the first pass stays focused on {guidance['focus']}.\n"
+    )
     user_references = args.user_reference or prompt_optional_entries(
-        "Your own reference examples to learn from as pattern hints (repo, product, page, workflow; comma-separated)"
+        "If there is anything you admire and want me to learn from as pattern hints, send it here (repo, product, page, workflow; comma-separated)"
     )
-    external_references = args.external_reference or prompt_optional_entries(
-        "Additional public benchmark objects you already know you want to borrow from (comma-separated)"
-    )
+    external_references = args.external_reference or []
     local_constraints = args.local_constraint or prompt_optional_entries(
-        "Local constraints that must still be respected (privacy, naming, compatibility; comma-separated)"
+        "Tell me any local constraints I must keep in view (privacy, naming, compatibility; comma-separated)"
     )
     github_query = args.github_query or build_query(" ".join(filter(None, [job, primary_output, description])))
     sys.stderr.write(f"GitHub benchmark query: {github_query}\n")

@@ -17,7 +17,7 @@
 - 初回の人間レビューを助ける、コンパクトな HTML review viewer
 - 毎回フル promotion flow を通さずに使える軽量 feedback log
 - 増分価値をすばやく確認できる with-skill vs baseline 比較レポート
-- scaffold / production / library / governed を案内する archetype-aware quickstart
+- 会話型 discovery flow として scaffold / production / library / governed を案内する archetype-aware quickstart
 - 中立的なソースメタデータとクライアント別アダプタ
 - ガバナンス、昇格判定、portability チェックを標準フローに内蔵
 

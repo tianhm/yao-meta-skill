@@ -22,11 +22,11 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - a front-loaded intent dialogue that starts from the user's real work, desired outcome, and quality bar
 - an automatic GitHub benchmark scan that pulls the top three public repositories first, extracts borrow or avoid patterns, and then asks whether the user has references worth learning from
 - a generated visual HTML overview for each newly initialized skill
-- a compact HTML review viewer for first-pass human review
+- a side-by-side HTML review studio for first-pass human review
 - three high-value next iteration directions after the first package is created
 - a lightweight feedback log that does not require a full promotion cycle
 - a baseline compare report for with-skill vs baseline review
-- an archetype-aware quickstart that steers new packages toward scaffold, production, library, or governed fits
+- a conversation-style, archetype-aware quickstart that steers new packages toward scaffold, production, library, or governed fits
 - neutral source metadata plus client-specific adapters
 - governance, promotion, and portability checks built into the default flow
 

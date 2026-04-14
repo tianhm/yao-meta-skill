@@ -17,7 +17,7 @@
 - 提供一个紧凑的 HTML review viewer，方便第一次人工理解和评审
 - 提供一个轻量 feedback log，不必每次都走完整 promotion 流程
 - 提供一个 with-skill vs baseline 的对比报告，便于快速看增量收益
-- 提供一个 archetype-aware 的 quickstart，引导新 skill 落到 scaffold、production、library 或 governed 的合适形态
+- 提供一个更像对话发现流程的 archetype-aware quickstart，引导新 skill 落到 scaffold、production、library 或 governed 的合适形态
 - 中性的源元数据以及面向不同客户端的适配层
 - 内建的治理、晋升和 portability 检查
 

@@ -50,7 +50,7 @@ def main() -> None:
         str(tmp_root),
         "--github-fixture-dir",
         str(BENCHMARK_FIXTURE_DIR),
-        input_text="quickstart-skill\nTurn rough notes into a reusable package.\nA reusable markdown workflow.\nproduction\nproduction\nA top-tier internal workflow product\nhigh-star GitHub repo, official docs\nprivacy and naming\n",
+        input_text="quickstart-skill\nTurn rough notes into a reusable package.\nA reusable markdown workflow.\nlooks right\nproduction\nproduction\nA top-tier internal workflow product\nprivacy and naming\n",
     )
     assert quickstart_result["ok"], quickstart_result
     quickstart_root = Path(quickstart_result["payload"]["root"])
@@ -59,6 +59,7 @@ def main() -> None:
     assert quickstart_result["payload"]["archetype"] == "production", quickstart_result
     assert len(quickstart_result["payload"]["references"]["benchmark_repositories"]) == 3, quickstart_result
     assert quickstart_result["payload"]["references"]["user_references"] == ["A top-tier internal workflow product"], quickstart_result
+    assert quickstart_result["payload"]["guidance"]["experience_note"], quickstart_result
 
     validate_result = run("validate", str(created))
     assert validate_result["ok"], validate_result

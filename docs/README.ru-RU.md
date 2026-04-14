@@ -17,7 +17,7 @@
 - компактным HTML review viewer для быстрой первой ручной оценки
 - легким feedback log, чтобы не запускать полный promotion flow на каждом цикле
 - отчетом with-skill vs baseline для быстрого сравнения инкрементальной пользы
-- archetype-aware quickstart, который помогает выбрать scaffold, production, library или governed форму
+- conversation-style archetype-aware quickstart, который ведет пользователя как discovery flow и помогает выбрать scaffold, production, library или governed форму
 - нейтральными исходными метаданными и клиентскими адаптерами
 - встроенными проверками governance, promotion и portability в стандартном потоке
 

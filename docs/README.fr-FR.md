@@ -17,7 +17,7 @@ Il transforme des workflows bruts, des transcripts, des prompts, des notes et de
 - un review viewer HTML compact pour accélérer la première revue humaine
 - un feedback log léger pour éviter de lancer tout le flux de promotion à chaque tour
 - un rapport with-skill vs baseline pour visualiser rapidement le gain incrémental
-- un quickstart sensible aux archetypes pour orienter un nouveau skill vers scaffold, production, library ou governed
+- un quickstart conversationnel, sensible aux archetypes, pour orienter un nouveau skill vers scaffold, production, library ou governed
 - des métadonnées sources neutres et des adaptateurs spécifiques au client
 - des contrôles de gouvernance, de promotion et de portabilité intégrés au flux standard
 
