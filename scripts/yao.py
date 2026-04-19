@@ -226,7 +226,7 @@ def command_quickstart(args: argparse.Namespace) -> int:
     sys.stderr.write("Before we deepen the package, I will also look at a few strong public GitHub references so we can borrow patterns without copying them.\n")
     name = args.name or prompt_with_default("Skill name", "my-skill")
     job = args.job or prompt_with_default(
-        "In your own words, what repeated work do you most want this skill to quietly take over",
+        "In your own words, what repeated work do you most want this skill to reliably handle",
         "Turn a repeated workflow into a reusable skill.",
     )
     primary_output = args.primary_output or prompt_with_default(

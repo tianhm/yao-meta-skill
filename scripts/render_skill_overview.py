@@ -185,7 +185,7 @@ def card_items(interface_data: dict, logic_steps: list[str], package_map: list[d
 
 def introduction_lines(description: str) -> list[str]:
     return [
-        f"This skill is trying to quietly take over: {description}",
+        f"This skill is designed to handle: {description}",
         "Start by clarifying the recurring job, the real input shape, and the output that lets the next person keep moving.",
         "If the idea is still fuzzy, use the intent dialogue first and let the structure come second.",
     ]
