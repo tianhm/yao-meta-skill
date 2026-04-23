@@ -1,0 +1,69 @@
+{
+  "skill_name": "yao-meta-skill",
+  "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use when asked to create a skill, turn a repeated process into a reusable skill, improve an existing skill, add evals, or package a skill for team reuse.",
+  "intent_confidence": {
+    "score": 30,
+    "band": "low",
+    "gate_passed": false
+  },
+  "github_benchmarks": [],
+  "source_tracks": [
+    {
+      "source_type": "official",
+      "name": "Official workflow product ergonomics",
+      "evidence_mode": "curated-pattern-track",
+      "matched_keywords": [
+        "workflow"
+      ],
+      "borrow": "Borrow a first-time operator flow that explains itself before it asks for more structure.",
+      "avoid": "Do not mimic product polish that adds UI bulk without improving clarity.",
+      "why_relevant": "This track matches: workflow."
+    },
+    {
+      "source_type": "research",
+      "name": "Hypothesis-test-learn loop",
+      "evidence_mode": "curated-pattern-track",
+      "matched_keywords": [
+        "general fit"
+      ],
+      "borrow": "Borrow a small hypothesis-test-learn loop so the first revision is evidence-backed.",
+      "avoid": "Do not create experimental overhead that exceeds the skill's real risk tier.",
+      "why_relevant": "This track matches: general fit."
+    },
+    {
+      "source_type": "principles",
+      "name": "Boundary-first design",
+      "evidence_mode": "curated-pattern-track",
+      "matched_keywords": [
+        "general fit"
+      ],
+      "borrow": "Borrow the discipline of defining what the skill should not own before growing the package.",
+      "avoid": "Do not expand execution assets until route boundaries stay clean.",
+      "why_relevant": "This track matches: general fit."
+    }
+  ],
+  "synthesis": {
+    "borrow_now": [
+      "Borrow a first-time operator flow that explains itself before it asks for more structure.",
+      "Borrow a small hypothesis-test-learn loop so the first revision is evidence-backed.",
+      "Borrow the discipline of defining what the skill should not own before growing the package."
+    ],
+    "avoid_now": [
+      "Do not mimic product polish that adds UI bulk without improving clarity.",
+      "Do not create experimental overhead that exceeds the skill's real risk tier.",
+      "Do not expand execution assets until route boundaries stay clean."
+    ],
+    "quality_risers": [
+      "Use GitHub repositories for concrete package and workflow patterns.",
+      "Use curated official or commercial tracks for entrypoint and operator ergonomics.",
+      "Use research tracks to justify the smallest evaluation loop that still catches regressions.",
+      "Use principle tracks to keep the package small, boundary-aware, and outcome-driven."
+    ],
+    "decision_prompt": "I pulled concrete GitHub benchmarks and layered them with curated official, research, and principle tracks. Do you want the next draft to borrow one or two of these patterns now, or keep the first pass lighter?",
+    "source_mix": {
+      "github_benchmarks": 0,
+      "curated_tracks": 3,
+      "user_references": 0
+    }
+  }
+}
