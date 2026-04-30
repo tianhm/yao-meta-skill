@@ -36,6 +36,8 @@ DEFAULT_TARGETS = [
     "baseline-compare-check",
     "reference-scan-check",
     "github-benchmark-scan-check",
+    "reference-synthesis-check",
+    "output-risk-profile-check",
     "iteration-directions-check",
     "description-drift-history",
     "iteration-ledger",

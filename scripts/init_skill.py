@@ -8,6 +8,7 @@ from github_benchmark_scan import run_github_benchmark_scan
 from render_intent_confidence import render_intent_confidence
 from render_intent_dialogue import render_intent_dialogue
 from render_iteration_directions import render_iteration_directions
+from render_output_risk_profile import render_output_risk_profile
 from render_reference_scan import parse_reference, render_reference_scan
 from render_reference_synthesis import render_reference_synthesis
 from render_review_viewer import render_review_viewer
@@ -26,6 +27,18 @@ description: {description}
 1. Understand the request.
 2. Execute the main task.
 3. Validate the result.
+
+## Output Quality Guardrails
+
+- Before final output, apply the likely failure modes in `reports/output-risk-profile.md` when that report is present.
+- Repair generic headings, cluttered notes, fragile visual assumptions, weak tables, and missing verification cues before handing work back.
+- If output-specific evidence is missing, state the gap instead of inventing screenshots, citations, data, or examples.
+
+## Honest Boundaries
+
+- Use this skill for the recurring job described in the trigger, not for one-off adjacent requests.
+- Treat missing inputs, unclear outputs, or conflicting constraints as reasons to ask one focused clarification.
+- Do not add new references, scripts, evals, or governance unless they improve reliability more than they add weight.
 """
 
 
@@ -47,7 +60,14 @@ README_TEMPLATE = """# {title}
 6. Follow the workflow steps in `SKILL.md`.
 7. Check `reports/skill-overview.html` if you want a fast visual explanation of the package.
 8. Open `reports/review-viewer.html` for a compact visual review of the package.
-9. Review `reports/iteration-directions.md` for the three most valuable next moves.
+9. Check `reports/output-risk-profile.md` to see likely output mistakes and self-repair checks.
+10. Review `reports/iteration-directions.md` for the three most valuable next moves.
+
+## Honest Boundaries
+
+- This package starts from the current intent frame and should not pretend to cover unclear adjacent jobs.
+- The first version should ask for clarification when the real input, output, or exclusion boundary is still fuzzy.
+- New structure should be added only when it earns its keep through evidence, validation, or reviewer need.
 
 ## Package Map
 
@@ -59,6 +79,7 @@ README_TEMPLATE = """# {title}
 - `reports/github-benchmark-scan.md`: top public benchmark repositories, extracted patterns, and borrow or avoid notes
 - `reports/reference-scan.md`: benchmark notes from public references, user references, and local constraints
 - `reports/reference-synthesis.md`: a combined view of GitHub benchmarks plus curated world-class pattern tracks
+- `reports/output-risk-profile.md`: predicted output failure modes and self-repair constraints for this skill
 - `reports/skill-overview.html`: visual overview report
 - `reports/review-viewer.html`: compact review page for architecture, usage, feedback, and next steps
 - `reports/iteration-directions.md`: the top three next iteration directions
@@ -224,6 +245,7 @@ def initialize_skill(
         dedupe_references([*combined_external_references, *(user_references or []), *(local_constraints or [])]),
     )
     reference_synthesis = render_reference_synthesis(root)
+    output_risk_profile = render_output_risk_profile(root)
     overview = render_skill_overview(root)
     iteration_directions = render_iteration_directions(root)
     review_viewer = render_review_viewer(root)
@@ -241,6 +263,8 @@ def initialize_skill(
         "reference_scan_json": reference_scan["artifacts"]["json"],
         "reference_synthesis_md": reference_synthesis["artifacts"]["markdown"],
         "reference_synthesis_json": reference_synthesis["artifacts"]["json"],
+        "output_risk_profile_md": output_risk_profile["artifacts"]["markdown"],
+        "output_risk_profile_json": output_risk_profile["artifacts"]["json"],
         "iteration_directions_md": iteration_directions["artifacts"]["markdown"],
         "iteration_directions_json": iteration_directions["artifacts"]["json"],
         "review_viewer_html": review_viewer["artifacts"]["html"],

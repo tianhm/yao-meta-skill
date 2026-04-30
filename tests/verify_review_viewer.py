@@ -46,6 +46,8 @@ def main() -> None:
     assert "Architecture at a glance" in html_text, html_text[:500]
     assert "Compare view" in html_text, html_text[:500]
     assert "Variant diff studio" in html_text, html_text[:900]
+    assert "Evidence readiness" in html_text, html_text[:1200]
+    assert "Output risk profile" in html_text, html_text[:1600]
     assert "Reference coach" in html_text, html_text[:900]
     assert "Reference synthesis" in html_text, html_text[:1200]
     assert "Top three next moves" in html_text, html_text[:500]

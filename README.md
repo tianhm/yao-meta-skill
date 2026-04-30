@@ -95,6 +95,7 @@ python3 scripts/yao.py reference-scan my-skill \
 python3 scripts/yao.py review-viewer my-skill
 python3 scripts/yao.py feedback my-skill --note "Tighten exclusions before adding scripts." --rating 4 --category boundary
 python3 scripts/yao.py baseline-compare
+python3 scripts/yao.py check-update
 python3 scripts/yao.py package . --platform generic --output-dir dist
 ```
 
@@ -243,6 +244,8 @@ The repository now treats method as a first-class asset instead of scattered gui
 - [Skill Engineering Method](references/skill-engineering-method.md)
 - [Intent Dialogue](references/intent-dialogue.md)
 - [Reference Scan Strategy](references/reference-scan.md)
+- [Pattern Extraction Doctrine](references/pattern-extraction-doctrine.md)
+- [Output Quality Risk](references/output-quality-risk.md)
 - [Authoring Discipline](references/authoring-discipline.md)
 - [Skill Archetypes](references/skill-archetypes.md)
 - [Gate Selection](references/gate-selection.md)
@@ -267,6 +270,7 @@ Most teams keep valuable operating knowledge scattered across chats, personal pr
 yao-meta-skill/
 ├── SKILL.md
 ├── README.md
+├── VERSION
 ├── LICENSE
 ├── .gitignore
 ├── agents/
@@ -315,6 +319,8 @@ Utility scripts that make the meta-skill operational:
 - `cross_packager.py`: builds client-specific export artifacts with explicit platform contracts and validation
 - `render_portability_report.py`: scores cross-environment portability from neutral metadata, degradation rules, and consumer validation coverage
 - `init_skill.py`, `lint_skill.py`, `validate_skill.py`, `diff_eval.py`: minimal authoring toolchain
+- `check_update.py`: checks GitHub for a newer `VERSION` or remote manifest version and reports a reinstall hint without modifying local files
+- `render_output_risk_profile.py`: predicts output-specific failure modes such as generic headings, citation clutter, screenshot mistakes, weak Markdown tables, and missing execution assumptions
 
 ### `evals/`
 
