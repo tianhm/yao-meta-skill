@@ -53,6 +53,7 @@ def main() -> None:
     assert (created / "reports" / "reference-scan.md").exists(), created
     assert (created / "reports" / "reference-synthesis.md").exists(), created
     assert (created / "reports" / "output-risk-profile.md").exists(), created
+    assert (created / "reports" / "artifact-design-profile.md").exists(), created
     assert (created / "reports" / "iteration-directions.md").exists(), created
     assert "Honest Boundaries" in (created / "SKILL.md").read_text(encoding="utf-8"), created
 
@@ -82,6 +83,7 @@ def main() -> None:
     assert (quickstart_root / "reports" / "github-benchmark-scan.md").exists(), quickstart_root
     assert (quickstart_root / "reports" / "intent-confidence.md").exists(), quickstart_root
     assert (quickstart_root / "reports" / "reference-synthesis.md").exists(), quickstart_root
+    assert (quickstart_root / "reports" / "artifact-design-profile.md").exists(), quickstart_root
     assert quickstart_result["payload"]["archetype"] == "production", quickstart_result
     assert quickstart_result["payload"]["guidance"]["experience_note"], quickstart_result
     assert quickstart_result["payload"]["guidance"]["problem_diagnosis"]["candidates"], quickstart_result
@@ -172,6 +174,11 @@ def main() -> None:
     assert output_risk_result["payload"]["artifacts"]["markdown"].endswith("reports/output-risk-profile.md"), output_risk_result
     assert output_risk_result["payload"]["summary"]["risk_families"], output_risk_result
 
+    artifact_design_result = run("artifact-design-profile", str(created))
+    assert artifact_design_result["ok"], artifact_design_result
+    assert artifact_design_result["payload"]["artifacts"]["markdown"].endswith("reports/artifact-design-profile.md"), artifact_design_result
+    assert artifact_design_result["payload"]["summary"]["quality_gates"], artifact_design_result
+
     directions_result = run("iteration-directions", str(created))
     assert directions_result["ok"], directions_result
     assert directions_result["payload"]["artifacts"]["markdown"].endswith("reports/iteration-directions.md"), directions_result
@@ -219,6 +226,7 @@ def main() -> None:
     assert report_result["ok"], report_result
     assert "iteration_ledger" in report_result["payload"]["artifacts"], report_result
     assert "portability_score" in report_result["payload"]["artifacts"], report_result
+    assert "artifact_design_profile" in report_result["payload"]["artifacts"], report_result
 
     package_dir = tmp_root / "dist"
     package_result = run("package", ".", "--platform", "generic", "--output-dir", str(package_dir))

@@ -203,7 +203,7 @@ def build_summary(skill_dir: Path) -> dict:
                 "matched_keywords": ["general-output-risk"],
             },
         ]
-    matched = sorted(matched, key=lambda item: item["score"], reverse=True)[:4]
+    matched = sorted(matched, key=lambda item: item["score"], reverse=True)[:5]
     top_risks = []
     constraints = []
     self_repair = []

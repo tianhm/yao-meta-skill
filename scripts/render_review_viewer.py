@@ -8,6 +8,7 @@ from pathlib import Path
 from render_intent_confidence import render_intent_confidence
 from render_intent_dialogue import render_intent_dialogue
 from render_iteration_directions import render_iteration_directions
+from render_artifact_design_profile import render_artifact_design_profile
 from render_output_risk_profile import render_output_risk_profile
 from render_reference_scan import render_reference_scan
 from render_reference_synthesis import render_reference_synthesis
@@ -62,6 +63,11 @@ def load_output_risk_summary(skill_dir: Path) -> dict:
     return payload if isinstance(payload, dict) else {}
 
 
+def load_artifact_design_summary(skill_dir: Path) -> dict:
+    payload = load_json(skill_dir / "reports" / "artifact-design-profile.json")
+    return payload if isinstance(payload, dict) else {}
+
+
 def ensure_report_inputs(skill_dir: Path) -> dict:
     overview_json = skill_dir / "reports" / "skill-overview.json"
     intent_confidence_json = skill_dir / "reports" / "intent-confidence.json"
@@ -69,6 +75,7 @@ def ensure_report_inputs(skill_dir: Path) -> dict:
     reference_json = skill_dir / "reports" / "reference-scan.json"
     reference_synthesis_json = skill_dir / "reports" / "reference-synthesis.json"
     output_risk_json = skill_dir / "reports" / "output-risk-profile.json"
+    artifact_design_json = skill_dir / "reports" / "artifact-design-profile.json"
     directions_json = skill_dir / "reports" / "iteration-directions.json"
 
     overview_payload = load_json(overview_json) if overview_json.exists() else {}
@@ -77,6 +84,7 @@ def ensure_report_inputs(skill_dir: Path) -> dict:
     reference_payload = load_json(reference_json) if reference_json.exists() else {}
     reference_synthesis_payload = load_json(reference_synthesis_json) if reference_synthesis_json.exists() else {}
     output_risk_payload = load_json(output_risk_json) if output_risk_json.exists() else {}
+    artifact_design_payload = load_json(artifact_design_json) if artifact_design_json.exists() else {}
     directions_payload = load_json(directions_json) if directions_json.exists() else {}
 
     intent_confidence = intent_confidence_payload or render_intent_confidence(skill_dir)["summary"]
@@ -84,6 +92,7 @@ def ensure_report_inputs(skill_dir: Path) -> dict:
     reference = reference_payload or render_reference_scan(skill_dir, [])["summary"]
     reference_synthesis = reference_synthesis_payload or render_reference_synthesis(skill_dir)["summary"]
     output_risk = output_risk_payload or render_output_risk_profile(skill_dir)["summary"]
+    artifact_design = artifact_design_payload or render_artifact_design_profile(skill_dir)["summary"]
     overview = overview_payload or render_skill_overview(skill_dir)["summary"]
     iteration = directions_payload.get("summary", {}) or render_iteration_directions(skill_dir)["summary"]
     feedback = load_feedback_summary(skill_dir)
@@ -93,6 +102,7 @@ def ensure_report_inputs(skill_dir: Path) -> dict:
     benchmark = load_benchmark_summary(skill_dir)
     reference_synthesis = load_reference_synthesis_summary(skill_dir)
     output_risk = load_output_risk_summary(skill_dir) or output_risk
+    artifact_design = load_artifact_design_summary(skill_dir) or artifact_design
     return {
         "overview": overview,
         "intent_confidence": intent_confidence,
@@ -106,6 +116,7 @@ def ensure_report_inputs(skill_dir: Path) -> dict:
         "benchmark": benchmark,
         "reference_synthesis": reference_synthesis,
         "output_risk": output_risk,
+        "artifact_design": artifact_design,
     }
 
 
@@ -238,6 +249,7 @@ def evidence_readiness(report: dict) -> dict:
     intent_confidence = report.get("intent_confidence", {})
     reference_synthesis = report.get("reference_synthesis", {})
     output_risk = report.get("output_risk", {})
+    artifact_design = report.get("artifact_design", {})
     benchmark = report.get("benchmark", {})
     synthesis = reference_synthesis.get("synthesis", {}) if isinstance(reference_synthesis, dict) else {}
     pattern_gate = synthesis.get("pattern_gate", {}) if isinstance(synthesis, dict) else {}
@@ -269,6 +281,11 @@ def evidence_readiness(report: dict) -> dict:
             "status": "ready" if output_risk.get("risk_families") else "needs review",
             "detail": f"{len(output_risk.get('risk_families', []))} output risk families attached.",
         },
+        {
+            "label": "Artifact design profile",
+            "status": "ready" if artifact_design.get("primary_artifact") else "needs review",
+            "detail": artifact_design.get("primary_artifact", {}).get("direction", "No artifact design profile attached."),
+        },
     ]
     ready_count = sum(1 for item in checks if item["status"] == "ready")
     return {
@@ -292,6 +309,7 @@ def render_html(report: dict) -> str:
     benchmark = report.get("benchmark", {})
     reference_synthesis = report.get("reference_synthesis", {})
     output_risk = report.get("output_risk", {})
+    artifact_design = report.get("artifact_design", {})
     architecture = architecture_steps(overview)
     compare_table_rows = compare_rows(compare)
     benchmark_rows = benchmark_cards(benchmark)
@@ -328,6 +346,21 @@ def render_html(report: dict) -> str:
     )
     if not output_risk_items:
         output_risk_items = "<li>No output risk profile attached yet. Generate one before approving example outputs.</li>"
+
+    artifact_design_items = "".join(
+        (
+            "<li>"
+            f"<strong>{html.escape(item.get('label', item.get('key', 'Artifact')))}</strong><br>"
+            f"<span>{html.escape(item.get('direction', ''))}</span>"
+            "</li>"
+        )
+        for item in artifact_design.get("artifact_families", [])[:3]
+    )
+    if not artifact_design_items:
+        artifact_design_items = "<li>No artifact design profile attached yet. Generate one before approving visual or document outputs.</li>"
+    design_gate_items = "".join(
+        f"<li>{html.escape(item)}</li>" for item in artifact_design.get("quality_gates", [])[:5]
+    ) or "<li>No artifact design quality gates attached yet.</li>"
 
     readiness_html = "".join(
         (
@@ -754,6 +787,18 @@ def render_html(report: dict) -> str:
       <div class="panel">
         <h2>Self-repair checks</h2>
         <ul>{"".join(f"<li>{html.escape(item)}</li>" for item in output_risk.get('self_repair_checks', [])[:5]) or "<li>No self-repair checks attached yet.</li>"}</ul>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Artifact design profile</h2>
+        <p class="minor">Design system: {html.escape(str(artifact_design.get('design_system', 'not generated')))}</p>
+        <ul>{artifact_design_items}</ul>
+      </div>
+      <div class="panel">
+        <h2>Visual quality gates</h2>
+        <ul>{design_gate_items}</ul>
       </div>
     </section>
 

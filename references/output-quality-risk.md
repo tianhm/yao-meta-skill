@@ -21,9 +21,10 @@ Before finalizing a generated skill:
 
 1. infer the most likely output families from the job and target output
 2. generate `reports/output-risk-profile.md`
-3. add output-specific constraints to the generated skill's operating frame
-4. expose the risk profile in the review viewer
-5. treat unresolved output risks as iteration candidates instead of pretending the first version is complete
+3. generate `reports/artifact-design-profile.md` when the output is a report, tutorial, viewer, dashboard, screenshot, Markdown page, or visual artifact
+4. add output-specific constraints to the generated skill's operating frame
+5. expose the risk and design profiles in the review viewer
+6. treat unresolved output risks as iteration candidates instead of pretending the first version is complete
 
 ## Self-Repair Rule
 

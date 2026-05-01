@@ -8,6 +8,7 @@ from github_benchmark_scan import run_github_benchmark_scan
 from render_intent_confidence import render_intent_confidence
 from render_intent_dialogue import render_intent_dialogue
 from render_iteration_directions import render_iteration_directions
+from render_artifact_design_profile import render_artifact_design_profile
 from render_output_risk_profile import render_output_risk_profile
 from render_reference_scan import parse_reference, render_reference_scan
 from render_reference_synthesis import render_reference_synthesis
@@ -31,7 +32,9 @@ description: {description}
 ## Output Quality Guardrails
 
 - Before final output, apply the likely failure modes in `reports/output-risk-profile.md` when that report is present.
+- Before rendering reports, tutorials, review pages, dashboards, or visual artifacts, apply the artifact direction and visual quality gates in `reports/artifact-design-profile.md` when that report is present.
 - Repair generic headings, cluttered notes, fragile visual assumptions, weak tables, and missing verification cues before handing work back.
+- Let the artifact's content choose the visual system; do not copy a fixed palette or report style from another skill without a clear reason.
 - If output-specific evidence is missing, state the gap instead of inventing screenshots, citations, data, or examples.
 
 ## Honest Boundaries
@@ -61,7 +64,8 @@ README_TEMPLATE = """# {title}
 7. Check `reports/skill-overview.html` if you want a fast visual explanation of the package.
 8. Open `reports/review-viewer.html` for a compact visual review of the package.
 9. Check `reports/output-risk-profile.md` to see likely output mistakes and self-repair checks.
-10. Review `reports/iteration-directions.md` for the three most valuable next moves.
+10. Check `reports/artifact-design-profile.md` to see the intended artifact direction, layout patterns, visual quality gates, and anti-patterns.
+11. Review `reports/iteration-directions.md` for the three most valuable next moves.
 
 ## Honest Boundaries
 
@@ -80,6 +84,7 @@ README_TEMPLATE = """# {title}
 - `reports/reference-scan.md`: benchmark notes from public references, user references, and local constraints
 - `reports/reference-synthesis.md`: a combined view of GitHub benchmarks plus curated world-class pattern tracks
 - `reports/output-risk-profile.md`: predicted output failure modes and self-repair constraints for this skill
+- `reports/artifact-design-profile.md`: artifact-specific design direction, layout patterns, visual quality gates, and anti-patterns
 - `reports/skill-overview.html`: visual overview report
 - `reports/review-viewer.html`: compact review page for architecture, usage, feedback, and next steps
 - `reports/iteration-directions.md`: the top three next iteration directions
@@ -246,6 +251,7 @@ def initialize_skill(
     )
     reference_synthesis = render_reference_synthesis(root)
     output_risk_profile = render_output_risk_profile(root)
+    artifact_design_profile = render_artifact_design_profile(root)
     overview = render_skill_overview(root)
     iteration_directions = render_iteration_directions(root)
     review_viewer = render_review_viewer(root)
@@ -265,6 +271,8 @@ def initialize_skill(
         "reference_synthesis_json": reference_synthesis["artifacts"]["json"],
         "output_risk_profile_md": output_risk_profile["artifacts"]["markdown"],
         "output_risk_profile_json": output_risk_profile["artifacts"]["json"],
+        "artifact_design_profile_md": artifact_design_profile["artifacts"]["markdown"],
+        "artifact_design_profile_json": artifact_design_profile["artifacts"]["json"],
         "iteration_directions_md": iteration_directions["artifacts"]["markdown"],
         "iteration_directions_json": iteration_directions["artifacts"]["json"],
         "review_viewer_html": review_viewer["artifacts"]["html"],

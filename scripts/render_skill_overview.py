@@ -74,6 +74,10 @@ def load_reference_synthesis(skill_dir: Path) -> dict:
     return load_json(skill_dir / "reports" / "reference-synthesis.json")
 
 
+def load_artifact_design(skill_dir: Path) -> dict:
+    return load_json(skill_dir / "reports" / "artifact-design-profile.json")
+
+
 def extract_title(body: str, fallback: str) -> str:
     for line in body.splitlines():
         if line.startswith("# "):
@@ -212,6 +216,15 @@ def synthesis_highlights(synthesis: dict) -> list[str]:
     return synthesis.get("synthesis", {}).get("borrow_now", [])[:3]
 
 
+def artifact_design_highlights(profile: dict) -> list[str]:
+    primary = profile.get("primary_artifact", {})
+    highlights = []
+    if primary.get("direction"):
+        highlights.append(primary["direction"])
+    highlights.extend(profile.get("quality_gates", [])[:3])
+    return highlights[:4]
+
+
 def build_summary(skill_dir: Path) -> dict:
     skill_text = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
     frontmatter, body = parse_frontmatter(skill_text)
@@ -230,6 +243,7 @@ def build_summary(skill_dir: Path) -> dict:
     strengths = derive_strengths(skill_dir, manifest)
     benchmark = load_benchmark(skill_dir)
     reference_synthesis = load_reference_synthesis(skill_dir)
+    artifact_design = load_artifact_design(skill_dir)
 
     return {
         "name": name,
@@ -244,6 +258,11 @@ def build_summary(skill_dir: Path) -> dict:
         "introduction": introduction_lines(description),
         "benchmark_highlights": benchmark_highlights(benchmark),
         "synthesis_highlights": synthesis_highlights(reference_synthesis),
+        "artifact_design": {
+            "design_system": artifact_design.get("design_system", "content-led editorial"),
+            "primary_label": artifact_design.get("primary_artifact", {}).get("label", "General artifact"),
+            "highlights": artifact_design_highlights(artifact_design),
+        },
         "metadata": {
             "canonical_format": interface_data.get("compatibility", {}).get("canonical_format", "agent-skills"),
             "targets": interface_data.get("compatibility", {}).get("adapter_targets", []),
@@ -288,6 +307,8 @@ def render_html(summary: dict) -> str:
         for item in summary.get("benchmark_highlights", [])
     )
     synthesis_html = "".join(f"<li>{html.escape(item)}</li>" for item in summary.get("synthesis_highlights", []))
+    artifact_design = summary.get("artifact_design", {})
+    artifact_design_html = "".join(f"<li>{html.escape(item)}</li>" for item in artifact_design.get("highlights", []))
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -517,6 +538,19 @@ def render_html(summary: dict) -> str:
           <p>These are the strongest cross-source patterns to borrow now after combining GitHub benchmarks with curated official, research, and principle tracks.</p>
         </div>
         <ul class="strengths">{synthesis_html or "<li>No synthesis has been generated yet. Run the reference synthesis after the benchmark scan.</li>"}</ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Artifact design direction</h2>
+          <p>Use this to understand how the generated reports, tutorials, viewers, or visual artifacts should feel before changing the layout.</p>
+        </div>
+        <div>
+          <p><strong>{html.escape(str(artifact_design.get("primary_label", "General artifact")))}</strong> · {html.escape(str(artifact_design.get("design_system", "content-led editorial")))}</p>
+          <ul class="strengths">{artifact_design_html or "<li>No artifact design profile has been generated yet.</li>"}</ul>
+        </div>
       </div>
     </section>
   </div>
