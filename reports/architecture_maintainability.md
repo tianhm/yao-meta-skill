@@ -5,12 +5,12 @@ Generated at: `2026-06-13`
 ## Summary
 
 - decision: `pass`
-- python files: `232`
-- scripts: `155`
-- tests: `77`
-- internal modules: `71`
-- CLI scripts: `86`
-- Yao CLI command handlers: `71`
+- python files: `236`
+- scripts: `158`
+- tests: `78`
+- internal modules: `73`
+- CLI scripts: `87`
+- Yao CLI command handlers: `72`
 - entrypoint command handlers: `18`
 - command modules: `7`
 - largest file lines: `719`

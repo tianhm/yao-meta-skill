@@ -40,6 +40,7 @@ architecture-maintainability-check:
 
 yao-cli-check:
 	$(PYTHON) tests/verify_yao_cli.py
+	$(PYTHON) tests/verify_evidence_build.py
 
 yao-cli-world-class-check:
 	$(PYTHON) tests/verify_yao_cli_world_class.py

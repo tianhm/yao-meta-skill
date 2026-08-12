@@ -25,6 +25,15 @@ def command_skill_ir(args: argparse.Namespace) -> int:
     return emit_result(run_script("export_skill_ir.py", cmd))
 
 
+def command_evidence_build(args: argparse.Namespace) -> int:
+    cmd = [str(Path(args.skill_dir).resolve())]
+    if args.run_id:
+        cmd.extend(["--run-id", args.run_id])
+    if args.publish:
+        cmd.append("--publish")
+    return emit_result(run_script("run_evidence_build.py", cmd))
+
+
 def command_compile_skill(args: argparse.Namespace) -> int:
     cmd = [str(Path(args.skill_dir).resolve())]
     for target in args.target or []:

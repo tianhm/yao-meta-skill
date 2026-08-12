@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from evidence_resolver import resolve_report_path
+
 
 SCRIPT_INTERFACE = "internal-module"
 SCRIPT_INTERFACE_REASON = "Imported by render_evidence_consistency.py for shared report loading, comparison, and Markdown rendering helpers."
@@ -83,6 +85,7 @@ LOCKSTEP_SECTIONS = [
 
 
 def load_json(path: Path) -> tuple[dict[str, Any], str | None]:
+    path = resolve_report_path(path)
     if not path.exists():
         return {}, "missing"
     try:

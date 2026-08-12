@@ -21,6 +21,7 @@ from yao_cli_create_commands import command_init, command_quickstart
 from yao_cli_distribution_commands import (
     command_compile_skill,
     command_conformance,
+    command_evidence_build,
     command_install_simulate,
     command_package,
     command_package_verify,

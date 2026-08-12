@@ -29,6 +29,12 @@ Common focused checks:
 - Trust or script inventory changes: `python3 tests/verify_trust_check.py`
 - Packaging or registry changes: `python3 tests/verify_package_verification.py && python3 tests/verify_registry_audit.py`
 
+## Trusted evidence runs
+
+Use `python3 scripts/yao.py evidence-build <skill_dir>` for an isolated dry run. Add `--publish` only after source and generated evidence have been committed and the target worktree is clean. Publishing creates an immutable bundle under the target Skill's `.yao/releases`, refreshes canonical report mirrors, and updates `reports/.current-run.json` last.
+
+Official report consumers must use `scripts/evidence_resolver.py`. Keep `.yao/runs` and `.yao/releases` local. Commit the canonical pointer and artifact index when they form release evidence. If `.yao/publish-transaction.json` exists, run `evidence-build` again to restore the previous canonical mirrors before producing a new candidate. Preserve the transaction marker and previous release bundle when recovery reports an integrity error. See `references/evidence-publication.md` for the full protocol.
+
 After source changes that affect scripts, package contents, trust evidence, Review Studio, registry metadata, or generated reports, refresh the release evidence before final sign-off:
 
 ```bash

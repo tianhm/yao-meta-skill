@@ -102,7 +102,7 @@
       "label": "上下文成本",
       "score": 42,
       "reasons": [
-        "入口约 314 个词/字，references 约 16934 个词/字。",
+        "入口约 314 个词/字，references 约 17200 个词/字。",
         "分数越高代表上下文成本越低。",
         "上下文成本偏高，建议压缩入口或拆分 references。"
       ]
@@ -206,7 +206,7 @@
       "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
     ],
     "gaps": [
-      "上下文成本需要补强：入口约 314 个词/字，references 约 16934 个词/字。"
+      "上下文成本需要补强：入口约 314 个词/字，references 约 17200 个词/字。"
     ],
     "recommendations": [
       "先改触发边界，再扩展工作流。",
@@ -504,13 +504,13 @@
         "path": "references",
         "label": "Extended guidance and reusable notes",
         "kind": "folder",
-        "file_count": 35
+        "file_count": 36
       },
       {
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 155
+        "file_count": 158
       },
       {
         "path": "evals",
@@ -522,10 +522,10 @@
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 170
+        "file_count": 178
       }
     ],
-    "file_count": 393,
+    "file_count": 405,
     "folder_count": 4,
     "distribution": [
       {
@@ -546,11 +546,11 @@
       },
       {
         "label": "references",
-        "value": 35
+        "value": 36
       },
       {
         "label": "scripts",
-        "value": 155
+        "value": 158
       },
       {
         "label": "evals",
@@ -558,7 +558,7 @@
       },
       {
         "label": "reports",
-        "value": 170
+        "value": 178
       }
     ]
   },
@@ -678,13 +678,13 @@
       "path": "references",
       "label": "Extended guidance and reusable notes",
       "kind": "folder",
-      "file_count": 35
+      "file_count": 36
     },
     {
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 155
+      "file_count": 158
     },
     {
       "path": "evals",
@@ -696,7 +696,7 @@
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 170
+      "file_count": 178
     }
   ],
   "strengths": [
@@ -1016,12 +1016,12 @@
     "ok": true,
     "summary": {
       "reproducibility_ready": true,
-      "release_lock_ready": true,
+      "release_lock_ready": false,
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "c297ab1a774434898a9711dc65a49f422cad5cd90e054b6c84ac7c92ee21f850",
-      "source_contract_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff",
+      "evidence_bundle_sha256": "b5471c3d022cae967508a0704faa0a6c8cfc8f2170de58970b2aa77097b05471",
+      "source_contract_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893",
       "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
@@ -1039,19 +1039,19 @@
       "world_class_source_check_count": 19,
       "world_class_source_pass_count": 12,
       "world_class_source_blocked_count": 7,
-      "beta_test_ready": true,
-      "beta_test_blocker_count": 0,
+      "beta_test_ready": false,
+      "beta_test_blocker_count": 1,
       "beta_test_deferred_evidence_count": 4,
       "public_claim_ready": false,
-      "public_claim_blocker_count": 3,
-      "working_tree_dirty": false,
-      "changed_file_count": 0,
-      "source_tree_dirty": false,
-      "source_changed_file_count": 0,
-      "generated_tree_dirty": false,
-      "generated_changed_file_count": 0
+      "public_claim_blocker_count": 4,
+      "working_tree_dirty": true,
+      "changed_file_count": 76,
+      "source_tree_dirty": true,
+      "source_changed_file_count": 15,
+      "generated_tree_dirty": true,
+      "generated_changed_file_count": 61
     },
-    "commit": "ef0c82e8acf09ee401c6086f59623c3ef1287761",
+    "commit": "4cbb6d19f76b556162072070adddb3490017308e",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1136,9 +1136,9 @@
     "failures": []
   },
   "trust_security": {
-    "scanned_files": 247,
-    "script_count": 155,
-    "internal_module_count": 69,
+    "scanned_files": 251,
+    "script_count": 158,
+    "internal_module_count": 71,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -1146,18 +1146,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 74,
+    "file_write_script_count": 75,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 86,
+    "help_smoke_checked_count": 87,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 247,
-    "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff"
+    "package_hash_file_count": 251,
+    "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
   },
   "skill_atlas": {
     "skill_count": 11,
@@ -1195,7 +1195,7 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff",
+        "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
       },
       "compatibility": {
@@ -1232,7 +1232,7 @@
         "install_simulated": true,
         "install_simulation": "reports/install_simulation.json"
       },
-      "generated_at": "2026-07-16"
+      "generated_at": "2026-06-13"
     },
     "failures": [],
     "warnings": []
@@ -1256,7 +1256,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 612,
+      "archive_entry_count": 623,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1329,7 +1329,7 @@
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff"
+          "to": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
         }
       ]
     },

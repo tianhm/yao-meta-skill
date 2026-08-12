@@ -73,6 +73,15 @@ def build_parser(command_handlers: dict[str, Callable[[argparse.Namespace], int]
     validate_cmd.add_argument("--require-manifest", action="store_true")
     validate_cmd.set_defaults(func=_handler(command_handlers, "command_validate"))
 
+    evidence_build_cmd = subparsers.add_parser(
+        "evidence-build",
+        help="Build isolated evidence and optionally publish an immutable release bundle.",
+    )
+    evidence_build_cmd.add_argument("skill_dir", nargs="?", default=".")
+    evidence_build_cmd.add_argument("--run-id")
+    evidence_build_cmd.add_argument("--publish", action="store_true")
+    evidence_build_cmd.set_defaults(func=_handler(command_handlers, "command_evidence_build"))
+
     optimize_cmd = subparsers.add_parser("optimize-description", help="Optimize description candidates for a target.")
     optimize_cmd.add_argument(
         "--target",

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from evidence_resolver import resolve_report_path
 from skill_ir_paths import find_skill_ir_path as find_skill_ir_path_for_name
 
 try:
@@ -20,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def load_json(path: Path) -> dict[str, Any]:
+    path = resolve_report_path(path)
     if not path.exists():
         return {}
     try:

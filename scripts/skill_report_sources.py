@@ -5,6 +5,8 @@ import json
 import re
 from pathlib import Path
 
+from evidence_resolver import resolve_report_path
+
 try:
     import yaml
 except ImportError:  # pragma: no cover
@@ -62,6 +64,7 @@ def load_yaml(path: Path) -> dict:
 
 
 def load_json(path: Path) -> dict:
+    path = resolve_report_path(path)
     if not path.exists():
         return {}
     try:

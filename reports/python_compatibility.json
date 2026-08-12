@@ -5,7 +5,7 @@
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 235,
+    "file_count": 239,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -198,6 +198,18 @@
     },
     {
       "path": "scripts/evidence_consistency_world_class.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/evidence_resolver.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/evidence_store.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -671,6 +683,12 @@
       "issues": []
     },
     {
+      "path": "scripts/run_evidence_build.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/run_output_eval.py",
       "ok": true,
       "issue_count": 0,
@@ -1044,6 +1062,12 @@
     },
     {
       "path": "tests/verify_description_optimization.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_evidence_build.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

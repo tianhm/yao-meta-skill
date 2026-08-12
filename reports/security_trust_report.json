@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 247,
-    "script_count": 155,
-    "internal_module_count": 69,
+    "scanned_files": 251,
+    "script_count": 158,
+    "internal_module_count": 71,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -12,18 +12,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 74,
+    "file_write_script_count": 75,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 86,
+    "help_smoke_checked_count": 87,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 247,
-    "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff"
+    "package_hash_file_count": 251,
+    "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
   },
   "failures": [],
   "warnings": [],
@@ -409,6 +409,34 @@
       "uses_network": false,
       "uses_file_write": false,
       "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/evidence_resolver.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/evidence_store.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by evidence-build and evidence consumers for transactional local evidence publishing.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": true,
       "network_urls": [],
       "network_hosts": []
     },
@@ -1519,6 +1547,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/run_evidence_build.py",
+      "interface": "cli",
+      "interface_declared": false,
+      "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/run_output_eval.py",
       "interface": "cli",
       "interface_declared": false,
@@ -2249,11 +2291,11 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 86,
-    "checked_count": 86,
-    "passed_count": 86,
+    "candidate_count": 87,
+    "checked_count": 87,
+    "passed_count": 87,
     "failed_count": 0,
-    "skipped_count": 69,
+    "skipped_count": 71,
     "failed_scripts": [],
     "results": [
       {
@@ -2997,6 +3039,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/run_evidence_build.py",
+        "command": "python3 scripts/run_evidence_build.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: run_evidence_build.py [-h] [--run-id RUN_ID] [--publish] skill_dir\n\nBuild isolated, hash-indexed evidence for an agent skill.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help       show this help message and exit\n  --run-id ",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/run_output_eval.py",
         "command": "python3 scripts/run_output_eval.py --help",
         "returncode": 0,
@@ -3113,7 +3165,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,optimize-description,promote-check,python-compat,architecture-audit,rev",
+        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,evidence-build,optimize-description,promote-check,python-compat,archite",
         "stderr_excerpt": ""
       }
     ],
@@ -3172,6 +3224,14 @@
       },
       {
         "path": "scripts/evidence_consistency_world_class.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/evidence_resolver.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/evidence_store.py",
         "reason": "internal module"
       },
       {
@@ -3459,6 +3519,7 @@
           "scripts/create_iteration_snapshot.py",
           "scripts/cross_packager.py",
           "scripts/emit_telemetry_event.py",
+          "scripts/evidence_store.py",
           "scripts/export_skill_ir.py",
           "scripts/github_benchmark_scan.py",
           "scripts/import_output_review_decisions.py",
@@ -3547,6 +3608,7 @@
           "scripts/apply_adaptation.py",
           "scripts/benchmark_release_lock.py",
           "scripts/ci_test.py",
+          "scripts/evidence_store.py",
           "scripts/render_benchmark_reproducibility.py",
           "scripts/render_eval_dashboard.py",
           "scripts/render_evidence_consistency.py",

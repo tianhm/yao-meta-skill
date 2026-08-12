@@ -16,7 +16,7 @@
   "trust_level": "local",
   "license": "MIT",
   "checksums": {
-    "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff",
+    "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893",
     "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
   },
   "compatibility": {
@@ -53,5 +53,5 @@
     "install_simulated": true,
     "install_simulation": "reports/install_simulation.json"
   },
-  "generated_at": "2026-07-16"
+  "generated_at": "2026-06-13"
 }

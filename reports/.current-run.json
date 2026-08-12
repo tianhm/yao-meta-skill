@@ -1,0 +1,9 @@
+{
+  "artifact_index": "reports/artifact-index.json",
+  "artifact_index_sha256": "778ecd775ef3232701bb3cac98dc8c682f98b046c45943c3e292cdc376f4c899",
+  "published_at": "2026-08-12T11:26:51Z",
+  "release_dir": ".yao/releases/m1-27b07ea",
+  "run_id": "m1-27b07ea",
+  "schema_version": "1.0",
+  "skill_name": "yao-meta-skill"
+}
