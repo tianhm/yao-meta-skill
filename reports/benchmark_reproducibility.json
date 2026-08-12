@@ -3,21 +3,29 @@
   "ok": true,
   "generated_at": "2026-08-12",
   "skill_dir": ".",
-  "commit": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+  "commit": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 1,
+    "changed_file_count": 5,
     "generated_dirty": true,
-    "generated_changed_file_count": 1,
+    "generated_changed_file_count": 5,
     "source_dirty": false,
     "source_changed_file_count": 0,
     "sample": [
-      " M reports/context_budget.json"
+      " M registry/packages/yao-meta-skill.json",
+      " M reports/package_verification.json",
+      " M reports/package_verification.md",
+      " M reports/registry_audit.json",
+      " M reports/registry_audit.md"
     ],
     "source_sample": [],
     "generated_sample": [
-      " M reports/context_budget.json"
+      " M registry/packages/yao-meta-skill.json",
+      " M reports/package_verification.json",
+      " M reports/package_verification.md",
+      " M reports/registry_audit.json",
+      " M reports/registry_audit.md"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -35,9 +43,9 @@
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "2d3826ffc2bad53de8af5e5181c6d15a4faf4f2170a09795c632626cf44b1da8",
+    "evidence_bundle_sha256": "3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a176aa010674",
     "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-    "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+    "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -64,11 +72,11 @@
     "public_claim_ready": false,
     "public_claim_blocker_count": 5,
     "working_tree_dirty": true,
-    "changed_file_count": 1,
+    "changed_file_count": 5,
     "source_tree_dirty": false,
     "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 1
+    "generated_changed_file_count": 5
   },
   "beta_test_release": {
     "ready": true,
@@ -113,10 +121,10 @@
   },
   "release_lock": {
     "ready": true,
-    "commit": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+    "commit": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
     "status_scope": "generation-time status before this report is written",
     "source_changed_file_count": 0,
-    "generated_changed_file_count": 1,
+    "generated_changed_file_count": 5,
     "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
@@ -125,7 +133,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "2d3826ffc2bad53de8af5e5181c6d15a4faf4f2170a09795c632626cf44b1da8"
+    "sha256": "3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a176aa010674"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -248,14 +256,14 @@
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "49e3f56280ddcc751ed444da94390f9449a6a3a49dd8cbd900f9bf8adf9c65c8"
+      "sha256": "8253c3da95944e5ce019acd9c2fd73362463238b629428643360a3a1369777cb"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
       "bytes": 19653,
-      "sha256": "f126943c3de80b1b58da52bc375a7bb33f868c1f0aeae68ffccce3ac60ca0394"
+      "sha256": "cd0b1e851e178c4a3bbc31245faba6a952dc37335d69942ea092a990eead5b1d"
     },
     {
       "label": "install_simulation",

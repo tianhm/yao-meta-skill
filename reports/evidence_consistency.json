@@ -396,13 +396,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0"
+        "all_equal_to_actual_archive": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701"
       },
       "actual": {
-        "actual_archive": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
-        "package_verification": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
-        "registry": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
-        "benchmark": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0"
+        "actual_archive": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "package_verification": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "registry": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "benchmark": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -470,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 12
+        "changed_file_count": 11
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -511,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
-      "actual": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+      "expected": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
+      "actual": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -528,7 +528,7 @@
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -544,7 +544,7 @@
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -655,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
-      "actual": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+      "expected": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
+      "actual": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -672,7 +672,7 @@
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -688,7 +688,7 @@
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,

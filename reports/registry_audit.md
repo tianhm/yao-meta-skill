@@ -7,7 +7,7 @@
 - Owner: `Yao Team`
 - License: `MIT`
 - Package SHA256: `d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d`
-- Archive SHA256: `a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0`
+- Archive SHA256: `23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701`
 - Install simulated: `True`
 
 ## Compatibility
