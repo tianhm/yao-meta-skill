@@ -192,6 +192,32 @@ class EvidenceStore:
         atomic_write_json(run_dir / "run-manifest.json", manifest)
         return EvidenceRun(selected_id, run_dir, manifest, artifact_index)
 
+    def add_json_artifact(self, run: EvidenceRun, relative_path: str | Path, payload: dict[str, Any]) -> EvidenceRun:
+        verified = self.verify_run(run.run_dir)
+        relative = Path(relative_path)
+        if relative.is_absolute() or ".." in relative.parts or not relative.parts or relative.parts[0] != "reports":
+            raise EvidenceError("unsafe-artifact", f"Run artifacts must stay under reports/: {relative}")
+        destination = verified.run_dir / "artifacts" / relative
+        atomic_write_json(destination, payload)
+        entries = [item for item in verified.artifact_index["artifacts"] if item.get("path") != relative.as_posix()]
+        entries.append(
+            {
+                "path": relative.as_posix(),
+                "sha256": sha256_file(destination),
+                "size": destination.stat().st_size,
+            }
+        )
+        entries.sort(key=lambda item: str(item["path"]))
+        artifact_index = dict(verified.artifact_index)
+        artifact_index["artifacts"] = entries
+        index_path = verified.run_dir / "artifact-index.json"
+        atomic_write_json(index_path, artifact_index)
+        manifest = dict(verified.manifest)
+        manifest["artifact_count"] = len(entries)
+        manifest["artifact_index_sha256"] = sha256_file(index_path)
+        atomic_write_json(verified.run_dir / "run-manifest.json", manifest)
+        return EvidenceRun(verified.run_id, verified.run_dir, manifest, artifact_index)
+
     def verify_run(self, run_dir: Path | str) -> EvidenceRun:
         resolved = Path(run_dir).resolve()
         try:
@@ -283,7 +309,10 @@ class EvidenceStore:
                 "previous_pointer": POINTER_PATH.as_posix() if (self.skill_dir / POINTER_PATH).exists() else None,
             }
             atomic_write_json(self.transaction_path, transaction)
-            shutil.copytree(verified.run_dir, release_dir)
+            release_dir.mkdir()
+            shutil.copy2(verified.run_dir / "run-manifest.json", release_dir / "run-manifest.json")
+            shutil.copy2(verified.run_dir / "artifact-index.json", release_dir / "artifact-index.json")
+            shutil.copytree(verified.run_dir / "artifacts", release_dir / "artifacts")
             self._simulate_crash(crash_at, "after-release")
             self._restore_bundle(release_dir)
             self._simulate_crash(crash_at, "after-mirrors")

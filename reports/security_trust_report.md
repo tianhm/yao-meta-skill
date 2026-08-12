@@ -1,22 +1,22 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `251`
-- Scripts: `158`
-- Internal script modules: `71`
+- Scanned files: `257`
+- Scripts: `161`
+- Internal script modules: `72`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
 - Network policy missing scripts: `0`
-- File-write scripts: `75`
+- File-write scripts: `78`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `87`
+- CLI help smoke checked: `89`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `251`
-- Package SHA256: `8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25`
+- Package hash files: `257`
+- Package SHA256: `7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `87`
-- Passed scripts: `87`
+- Checked scripts: `89`
+- Passed scripts: `89`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -64,6 +64,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | scripts/adaptation_patch_safety.py | internal-module | True | False | False | False | False | False | False | Shared adaptation patch target parsing and target-file baseline verification helpers. |
 | scripts/adaptation_report_contracts.py | internal-module | True | False | False | False | False | False | False | Shared adaptation approval and regression report contract decoration helpers. |
+| scripts/adjudicate_multi_reviewer.py | cli | True | True | True | False | False | True | False | Adjudicates three independent provider-output review packets and writes promotion evidence. |
 | scripts/adjudicate_output_review.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/apply_adaptation.py | cli | True | True | True | False | False | True | True | Approval-gated adaptive patch application with dry-run, allowlist, regression, and rollback evidence. |
 | scripts/benchmark_release_lock.py | internal-module | True | False | False | False | False | False | True | Imported by render_benchmark_reproducibility.py to keep release-lock git status classification out of the report renderer. |
@@ -102,6 +103,7 @@
 | scripts/lint_skill.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/local_output_eval_runner.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/optimize_description.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/output_provider_matrix.py | internal-module | True | False | False | False | False | True | False | Imported by evidence-build and matrix tests for budgeted double-model output evaluation. |
 | scripts/output_review_privacy.py | internal-module | True | False | False | False | False | False | False | Imported by output-review import and world-class human evidence validators to reject raw content, credential, secret, token, and answer-key fields recursively. |
 | scripts/prepare_output_review_kit.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/prepare_world_class_submission_kit.py | cli | True | True | True | False | False | True | False | Prepares editable world-class evidence intake packets without counting drafts as accepted evidence. |
@@ -129,6 +131,7 @@
 | scripts/render_output_risk_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_portability_report.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_prompt_quality_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/render_provider_output_status.py | cli | True | True | True | False | False | True | False | Renders credential-safe DeepSeek provider-matrix readiness without making API calls. |
 | scripts/render_reference_scan.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_reference_synthesis.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_regression_history.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |

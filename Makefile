@@ -75,6 +75,7 @@ output-eval-check:
 
 output-execution-check:
 	$(PYTHON) tests/verify_output_execution_runs.py
+	$(PYTHON) tests/verify_output_provider_matrix.py
 
 output-review-kit-check:
 	$(PYTHON) tests/verify_output_review_kit.py

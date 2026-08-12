@@ -119,6 +119,8 @@ def command_run(
     assertions: list[dict[str, Any]],
     command: list[str],
     timeout_seconds: float,
+    raw_output_dir: Path | None = None,
+    raw_output_path_override: Path | None = None,
 ) -> dict[str, Any]:
     request = {
         "case_id": str(case.get("id", "")),
@@ -165,6 +167,16 @@ def command_run(
     provider = str(payload.get("provider", ""))
     model = str(payload.get("model", ""))
     model_executed = execution_kind == "model" and bool(model and provider)
+    raw_path = raw_output_path_override
+    if raw_path is None and raw_output_dir is not None:
+        safe_case = "".join(character if character.isalnum() or character in "-_." else "_" for character in request["case_id"])
+        raw_path = raw_output_dir / f"{safe_case}.{variant}.txt"
+    if output and raw_path is not None:
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
+        raw_path.write_text(output, encoding="utf-8")
+    redacted_summary = ""
+    if output:
+        redacted_summary = f"{len(output)} chars; {grade['passed_count']}/{len(assertions)} assertions passed"
     return {
         "case_id": request["case_id"],
         "variant": variant,
@@ -181,6 +193,10 @@ def command_run(
         "failed_count": grade["failed_count"] if output else len(assertions),
         "failed_assertions": [item["id"] for item in grade["failed"]] if output else [str(item.get("id", "assertion")) for item in assertions],
         "output_sha256": hashlib.sha256(output.encode("utf-8")).hexdigest() if output else "",
+        "raw_output_path": str(raw_path) if raw_path is not None and output else "",
+        "redacted_summary": redacted_summary,
+        "response_id": str(payload.get("response_id", "")),
+        "system_fingerprint": str(payload.get("system_fingerprint", "")),
         "failure": "" if proc.returncode == 0 and output else (proc.stderr.strip() or "runner returned no output"),
     }
 

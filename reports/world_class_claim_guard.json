@@ -6,9 +6,9 @@
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 211,
-    "json_claim_surface_count": 103,
-    "metadata_claim_surface_count": 104,
+    "claim_surface_count": 212,
+    "json_claim_surface_count": 104,
+    "metadata_claim_surface_count": 105,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -524,6 +524,10 @@
     },
     {
       "path": "reports/prompt-quality-profile.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_evaluation.json",
       "violation_count": 0
     },
     {

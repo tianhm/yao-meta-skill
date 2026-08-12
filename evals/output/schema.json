@@ -5,7 +5,7 @@
   "description": "Output-eval case for comparing without-skill and with-skill outputs, with optional execution metadata.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "prompt", "baseline_output", "with_skill_output", "assertions"],
+  "required": ["id", "prompt", "assertions"],
   "properties": {
     "id": {
       "type": "string",
@@ -81,5 +81,15 @@
       "type": "object",
       "additionalProperties": true
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"execution": {"properties": {"mode": {"const": "model"}}}},
+        "required": ["execution"]
+      },
+      "then": {},
+      "else": {"required": ["baseline_output", "with_skill_output"]}
+    }
+  ]
 }

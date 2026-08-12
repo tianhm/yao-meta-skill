@@ -102,7 +102,7 @@
       "label": "上下文成本",
       "score": 42,
       "reasons": [
-        "入口约 314 个词/字，references 约 17216 个词/字。",
+        "入口约 314 个词/字，references 约 17483 个词/字。",
         "分数越高代表上下文成本越低。",
         "上下文成本偏高，建议压缩入口或拆分 references。"
       ]
@@ -206,7 +206,7 @@
       "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
     ],
     "gaps": [
-      "上下文成本需要补强：入口约 314 个词/字，references 约 17216 个词/字。"
+      "上下文成本需要补强：入口约 314 个词/字，references 约 17483 个词/字。"
     ],
     "recommendations": [
       "先改触发边界，再扩展工作流。",
@@ -504,28 +504,28 @@
         "path": "references",
         "label": "Extended guidance and reusable notes",
         "kind": "folder",
-        "file_count": 36
+        "file_count": 37
       },
       {
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 158
+        "file_count": 161
       },
       {
         "path": "evals",
         "label": "Trigger and quality checks",
         "kind": "folder",
-        "file_count": 29
+        "file_count": 31
       },
       {
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 180
+        "file_count": 181
       }
     ],
-    "file_count": 407,
+    "file_count": 414,
     "folder_count": 4,
     "distribution": [
       {
@@ -546,19 +546,19 @@
       },
       {
         "label": "references",
-        "value": 36
+        "value": 37
       },
       {
         "label": "scripts",
-        "value": 158
+        "value": 161
       },
       {
         "label": "evals",
-        "value": 29
+        "value": 31
       },
       {
         "label": "reports",
-        "value": 180
+        "value": 181
       }
     ]
   },
@@ -678,25 +678,25 @@
       "path": "references",
       "label": "Extended guidance and reusable notes",
       "kind": "folder",
-      "file_count": 36
+      "file_count": 37
     },
     {
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 158
+      "file_count": 161
     },
     {
       "path": "evals",
       "label": "Trigger and quality checks",
       "kind": "folder",
-      "file_count": 29
+      "file_count": 31
     },
     {
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 180
+      "file_count": 181
     }
   ],
   "strengths": [
@@ -802,7 +802,7 @@
     "source_path": "skill-ir/examples/yao-meta-skill.json",
     "target_count": 5,
     "trigger_samples": 8,
-    "output_eval_cases": 3
+    "output_eval_cases": 5
   },
   "compiled_targets": {
     "ok": true,
@@ -1020,8 +1020,8 @@
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "9463972d8fdb01113391b0ce54309267c73b2cfdbc881b666df83064600fa7d5",
-      "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
+      "evidence_bundle_sha256": "f297ea0e9375f272d0ff4d4b61a3673b8165b1e275c9a998fe261e81cc4a334b",
+      "source_contract_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5",
       "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
@@ -1045,13 +1045,13 @@
       "public_claim_ready": false,
       "public_claim_blocker_count": 4,
       "working_tree_dirty": true,
-      "changed_file_count": 46,
+      "changed_file_count": 68,
       "source_tree_dirty": true,
-      "source_changed_file_count": 9,
+      "source_changed_file_count": 21,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 37
+      "generated_changed_file_count": 47
     },
-    "commit": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
+    "commit": "ac19921b7062a56ca0ea541f8c5b757786b7bec2",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1136,9 +1136,9 @@
     "failures": []
   },
   "trust_security": {
-    "scanned_files": 251,
-    "script_count": 158,
-    "internal_module_count": 71,
+    "scanned_files": 257,
+    "script_count": 161,
+    "internal_module_count": 72,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -1146,18 +1146,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 75,
+    "file_write_script_count": 78,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 87,
+    "help_smoke_checked_count": 89,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 251,
-    "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
+    "package_hash_file_count": 257,
+    "package_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5"
   },
   "skill_atlas": {
     "skill_count": 11,
@@ -1195,7 +1195,7 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
+        "package_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
       },
       "compatibility": {
@@ -1256,7 +1256,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 986,
+      "archive_entry_count": 1537,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1329,7 +1329,7 @@
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
+          "to": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5"
         }
       ]
     },

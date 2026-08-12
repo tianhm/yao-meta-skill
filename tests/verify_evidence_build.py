@@ -75,10 +75,13 @@ def main() -> None:
             raise AssertionError("symlink artifact was accepted")
         (alpha / "reports" / "escape.json").unlink()
 
+        (alpha_run.run_dir / "raw-outputs").mkdir()
+        (alpha_run.run_dir / "raw-outputs" / "private.txt").write_text("raw provider output", encoding="utf-8")
         first_release = alpha_store.publish(alpha_run)
         pointer = json.loads((alpha / "reports" / ".current-run.json").read_text(encoding="utf-8"))
         assert pointer["run_id"] == "alpha-run", pointer
         assert first_release == (alpha / ".yao" / "releases" / "alpha-run").resolve(), first_release
+        assert not (first_release / "raw-outputs").exists(), first_release
         assert json.loads((alpha / "reports" / "quality.json").read_text(encoding="utf-8"))["marker"] == "alpha-v1"
         subprocess.run(["git", "add", "reports/.current-run.json", "reports/artifact-index.json"], cwd=alpha, check=True)
         subprocess.run(["git", "commit", "-qm", "publish pointer"], cwd=alpha, check=True)
@@ -196,6 +199,7 @@ def main() -> None:
         )
         assert rejected.returncode == 2, rejected.stdout
         assert json.loads(rejected.stdout)["error"]["code"] == "dirty-worktree", rejected.stdout
+        assert not (beta / ".yao" / "runs" / "dirty-publish").exists()
 
     print(json.dumps({"ok": True}, indent=2))
 

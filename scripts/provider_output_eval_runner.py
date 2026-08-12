@@ -211,6 +211,7 @@ def request_body(
     api_format: str,
     thinking_type: str,
     temperature: float | None,
+    max_output_tokens: int,
 ) -> dict[str, Any]:
     if api_format == "chat-completions":
         body: dict[str, Any] = {
@@ -221,10 +222,12 @@ def request_body(
             body["thinking"] = {"type": thinking_type}
         if temperature is not None:
             body["temperature"] = temperature
+        body["max_tokens"] = max_output_tokens
         return body
     body = {"model": model, "input": provider_input}
     if temperature is not None:
         body["temperature"] = temperature
+    body["max_output_tokens"] = max_output_tokens
     return body
 
 
@@ -237,9 +240,10 @@ def call_provider(
     api_format: str,
     thinking_type: str,
     temperature: float | None,
+    max_output_tokens: int,
 ) -> dict[str, Any]:
     body = json.dumps(
-        request_body(model, provider_input, api_format, thinking_type, temperature),
+        request_body(model, provider_input, api_format, thinking_type, temperature, max_output_tokens),
         ensure_ascii=False,
     ).encode("utf-8")
     request = Request(
@@ -292,6 +296,7 @@ def main() -> None:
     parser.add_argument("--input-root", default=str(ROOT / "evals" / "output"))
     parser.add_argument("--skill-file", default=str(ROOT / "SKILL.md"))
     parser.add_argument("--timeout-seconds", type=float, default=60.0)
+    parser.add_argument("--max-output-tokens", type=int, default=3000)
     parser.add_argument("--max-input-file-chars", type=int, default=6000)
     parser.add_argument("--max-skill-chars", type=int, default=8000)
     parser.add_argument("--allow-insecure-localhost", action="store_true")
@@ -307,6 +312,8 @@ def main() -> None:
     validate_base_url(base_url, args.allow_insecure_localhost, args.allow_custom_base_url, api_format)
     if args.temperature is not None and not 0 <= args.temperature <= 2:
         fail("--temperature must be between 0 and 2")
+    if args.max_output_tokens < 1 or args.max_output_tokens > 3000:
+        fail("--max-output-tokens must be between 1 and 3000")
     if not args.model:
         fail("missing model; pass --model or set YAO_OUTPUT_EVAL_MODEL")
     api_key = os.environ.get(api_key_env, "")
@@ -326,6 +333,7 @@ def main() -> None:
         api_format,
         thinking,
         args.temperature,
+        args.max_output_tokens,
     )
     output = response_text(response)
     if not output:
@@ -337,6 +345,7 @@ def main() -> None:
         "model": args.model,
         "usage": observed_usage(response),
         "response_id": str(response.get("id", "")),
+        "system_fingerprint": str(response.get("system_fingerprint", "")),
     }
     print(json.dumps(result, ensure_ascii=False))
 

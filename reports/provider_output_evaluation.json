@@ -1,0 +1,27 @@
+{
+  "completed_call_count": 0,
+  "human_review": {
+    "completed_reviewer_count": 0,
+    "required_reviewer_count": 3,
+    "status": "pending"
+  },
+  "missing_environment": "DEEPSEEK_API_KEY",
+  "models": [
+    "deepseek-v4-flash",
+    "deepseek-v4-pro"
+  ],
+  "ok": true,
+  "planned_call_count": 40,
+  "provider": "deepseek",
+  "quality_promotion": {
+    "eligible": false,
+    "status": "pending"
+  },
+  "raw_output_count": 0,
+  "schema_version": "1.0",
+  "status": "external-required",
+  "world_class_evidence": {
+    "counts_as_completion": false,
+    "status": "pending"
+  }
+}

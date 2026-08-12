@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 251,
-    "script_count": 158,
-    "internal_module_count": 71,
+    "scanned_files": 257,
+    "script_count": 161,
+    "internal_module_count": 72,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -12,18 +12,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 75,
+    "file_write_script_count": 78,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 87,
+    "help_smoke_checked_count": 89,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 251,
-    "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
+    "package_hash_file_count": 257,
+    "package_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5"
   },
   "failures": [],
   "warnings": [],
@@ -53,6 +53,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/adjudicate_multi_reviewer.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Adjudicates three independent provider-output review packets and writes promotion evidence.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -599,6 +613,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/output_provider_matrix.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by evidence-build and matrix tests for budgeted double-model output evaluation.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/output_review_privacy.py",
       "interface": "internal-module",
       "interface_declared": true,
@@ -973,6 +1001,20 @@
       "interface": "cli",
       "interface_declared": false,
       "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/render_provider_output_status.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Renders credential-safe DeepSeek provider-matrix readiness without making API calls.",
       "has_argparse": true,
       "has_main_guard": true,
       "uses_input": false,
@@ -2291,13 +2333,23 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 87,
-    "checked_count": 87,
-    "passed_count": 87,
+    "candidate_count": 89,
+    "checked_count": 89,
+    "passed_count": 89,
     "failed_count": 0,
-    "skipped_count": 71,
+    "skipped_count": 72,
     "failed_scripts": [],
     "results": [
+      {
+        "path": "scripts/adjudicate_multi_reviewer.py",
+        "command": "python3 scripts/adjudicate_multi_reviewer.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: adjudicate_multi_reviewer.py [-h] [--answer-key ANSWER_KEY]\n                                    --decisions DECISIONS\n                                    [--output-json OUTPUT_JSON]\n                                    [--output-md OU",
+        "stderr_excerpt": ""
+      },
       {
         "path": "scripts/adjudicate_output_review.py",
         "command": "python3 scripts/adjudicate_output_review.py --help",
@@ -2779,6 +2831,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/render_provider_output_status.py",
+        "command": "python3 scripts/render_provider_output_status.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: render_provider_output_status.py [-h] [--output-json OUTPUT_JSON]\n                                        [skill_dir]\n\nRender DeepSeek provider-matrix readiness without calling the provider.\n\npositional arguments:\n  skill_dir\n\noption",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/render_reference_scan.py",
         "command": "python3 scripts/render_reference_scan.py --help",
         "returncode": 0,
@@ -3239,6 +3301,10 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/output_provider_matrix.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/output_review_privacy.py",
         "reason": "internal module"
       },
@@ -3508,6 +3574,7 @@
         "capability": "file_write",
         "status": "approved",
         "scripts": [
+          "scripts/adjudicate_multi_reviewer.py",
           "scripts/adjudicate_output_review.py",
           "scripts/apply_adaptation.py",
           "scripts/build_confusion_matrix.py",
@@ -3525,6 +3592,7 @@
           "scripts/import_output_review_decisions.py",
           "scripts/import_telemetry_events.py",
           "scripts/init_skill.py",
+          "scripts/output_provider_matrix.py",
           "scripts/prepare_output_review_kit.py",
           "scripts/prepare_world_class_submission_kit.py",
           "scripts/probe_runtime_permissions.py",
@@ -3549,6 +3617,7 @@
           "scripts/render_output_risk_profile.py",
           "scripts/render_portability_report.py",
           "scripts/render_prompt_quality_profile.py",
+          "scripts/render_provider_output_status.py",
           "scripts/render_reference_scan.py",
           "scripts/render_reference_synthesis.py",
           "scripts/render_regression_history.py",

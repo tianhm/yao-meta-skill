@@ -40,7 +40,12 @@ def normalize(text: str) -> str:
 
 def validate_case(case: dict[str, Any], cases_root: Path) -> list[str]:
     failures = []
-    for key in ("id", "prompt", "baseline_output", "with_skill_output", "assertions"):
+    execution = case.get("execution", {}) if isinstance(case.get("execution"), dict) else {}
+    model_case = execution.get("mode") == "model"
+    required_fields = ["id", "prompt", "assertions"]
+    if not model_case:
+        required_fields.extend(["baseline_output", "with_skill_output"])
+    for key in required_fields:
         if key not in case:
             failures.append(f"{case.get('id', '<unknown>')}: missing {key}")
     for raw_path in case.get("input_files", []):

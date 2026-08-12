@@ -337,6 +337,7 @@ def main() -> None:
         assert ProviderHandler.requests[-1]["authorization"] == "Bearer test-key", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["model"] == "fixture-model", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["temperature"] == 0.0, ProviderHandler.requests[-1]
+        assert ProviderHandler.requests[-1]["body"]["max_output_tokens"] == 3000, ProviderHandler.requests[-1]
         assert "Create a reusable skill package." in ProviderHandler.requests[-1]["body"]["input"], ProviderHandler.requests[-1]
         assert "fixture_output" not in ProviderHandler.requests[-1]["body"]["input"], ProviderHandler.requests[-1]
 
@@ -410,6 +411,7 @@ def main() -> None:
         assert ProviderHandler.requests[-1]["body"]["model"] == "fixture-model", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["thinking"]["type"] == "disabled", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["temperature"] == 0.0, ProviderHandler.requests[-1]
+        assert ProviderHandler.requests[-1]["body"]["max_tokens"] == 3000, ProviderHandler.requests[-1]
         assert "Create a reusable skill package." in ProviderHandler.requests[-1]["body"]["messages"][0]["content"], (
             ProviderHandler.requests[-1]
         )

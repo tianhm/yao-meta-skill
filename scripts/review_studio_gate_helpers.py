@@ -76,7 +76,9 @@ def build_output_lab_gate(
     output_execution: dict[str, Any],
     output_blind: dict[str, Any],
     output_review: dict[str, Any],
+    provider_output: dict[str, Any] | None = None,
 ) -> dict[str, str]:
+    provider_output = provider_output or {}
     output_summary = output.get("summary", {})
     output_execution_summary = output_execution.get("summary", {})
     output_blind_summary = output_blind.get("summary", {})
@@ -129,6 +131,7 @@ def build_output_lab_gate(
             + (f"; reviewed {review_judgment_count}/{review_pair_count}" if output_review else "")
             + (f"; review pending {review_pending_count}" if review_pending else "")
             + ("; review adjudication missing" if review_missing else "")
+            + (f"; provider matrix {provider_output.get('status', 'pending')}" if provider_output else "")
         )
     return gate(
         "output-lab",
