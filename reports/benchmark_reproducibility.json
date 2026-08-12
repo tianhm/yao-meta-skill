@@ -3,48 +3,38 @@
   "ok": true,
   "generated_at": "2026-08-12",
   "skill_dir": ".",
-  "commit": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
+  "commit": "5fd6da792505655599b6e98361d24e25d0f90ae7",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 117,
+    "changed_file_count": 44,
     "generated_dirty": true,
-    "generated_changed_file_count": 47,
+    "generated_changed_file_count": 42,
     "source_dirty": true,
-    "source_changed_file_count": 70,
+    "source_changed_file_count": 2,
     "sample": [
       " M AGENTS.md",
-      " M docs/migration-1.2.0.md",
-      " M evidence/world_class/intake.schema.json",
-      " M evidence/world_class/templates/human-adjudication.intake.json",
-      " M evidence/world_class/templates/provider-holdout.intake.json",
-      " M references/evidence-publication.md",
-      " M references/provider-output-evaluation.md",
+      " M registry/index.json",
+      " M registry/packages/yao-meta-skill.json",
       " M reports/adaptation_proposals.json",
       " M reports/adaptation_proposals.md",
-      " M reports/architecture_maintainability.json",
-      " M reports/architecture_maintainability.md",
-      " M reports/benchmark_reproducibility.json"
+      " M reports/benchmark_reproducibility.json",
+      " M reports/benchmark_reproducibility.md",
+      " M reports/compiled_targets.json",
+      " M reports/context_budget.json",
+      " M reports/context_budget.md",
+      " M reports/context_budget_summary.json",
+      " M reports/evidence_consistency.json"
     ],
     "source_sample": [
       " M AGENTS.md",
-      " M docs/migration-1.2.0.md",
-      " M evidence/world_class/intake.schema.json",
-      " M evidence/world_class/templates/human-adjudication.intake.json",
-      " M evidence/world_class/templates/provider-holdout.intake.json",
-      " M references/evidence-publication.md",
-      " M references/provider-output-evaluation.md",
-      " M scripts/adjudicate_multi_reviewer.py",
-      " M scripts/ci_test.py",
-      " M scripts/cross_packager.py",
-      " M scripts/evidence_consistency_core.py",
-      " M scripts/evidence_resolver.py"
+      " M scripts/evidence_consistency_release.py"
     ],
     "generated_sample": [
+      " M registry/index.json",
+      " M registry/packages/yao-meta-skill.json",
       " M reports/adaptation_proposals.json",
       " M reports/adaptation_proposals.md",
-      " M reports/architecture_maintainability.json",
-      " M reports/architecture_maintainability.md",
       " M reports/benchmark_reproducibility.json",
       " M reports/benchmark_reproducibility.md",
       " M reports/compiled_targets.json",
@@ -70,9 +60,9 @@
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "7f28c9f8b51b490dc651fd1f772b228454fa35bf833d2a19431fefbd5a7f9f1c",
-    "source_contract_sha256": "5dfb0ebb066588580f83ad216cf2bc07d59fdff6d9c39432c4e6ed0b476e16c9",
-    "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+    "evidence_bundle_sha256": "b02c1308be48081454dd8b34638eb6e01a302640f0f012fa091e100466dfe670",
+    "source_contract_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06",
+    "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -99,11 +89,11 @@
     "public_claim_ready": false,
     "public_claim_blocker_count": 6,
     "working_tree_dirty": true,
-    "changed_file_count": 117,
+    "changed_file_count": 44,
     "source_tree_dirty": true,
-    "source_changed_file_count": 70,
+    "source_changed_file_count": 2,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 47
+    "generated_changed_file_count": 42
   },
   "beta_test_release": {
     "ready": false,
@@ -151,10 +141,10 @@
   },
   "release_lock": {
     "ready": false,
-    "commit": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
+    "commit": "5fd6da792505655599b6e98361d24e25d0f90ae7",
     "status_scope": "generation-time status before this report is written",
-    "source_changed_file_count": 70,
-    "generated_changed_file_count": 47,
+    "source_changed_file_count": 2,
+    "generated_changed_file_count": 42,
     "reason": "source files were dirty at generation time"
   },
   "evidence_bundle": {
@@ -163,7 +153,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "7f28c9f8b51b490dc651fd1f772b228454fa35bf833d2a19431fefbd5a7f9f1c"
+    "sha256": "b02c1308be48081454dd8b34638eb6e01a302640f0f012fa091e100466dfe670"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -272,42 +262,42 @@
       "path": "reports/security_trust_report.json",
       "exists": true,
       "bytes": 147560,
-      "sha256": "a5f5728457b1562945b093dfa36a1d9ced85b873d9d090f78b585f5799b3ec58"
+      "sha256": "7d838fab862e62b77180b555d727b1049b3d19e270ebfcf57b4678a3bdb5a6e8"
     },
     {
       "label": "python_compatibility",
       "path": "reports/python_compatibility.json",
       "exists": true,
       "bytes": 35151,
-      "sha256": "7b198c98c5be49c21344d682d7f9500c14b0d99d993615fee035579076c82318"
+      "sha256": "2e9aea2822c5c90a386ec6100d5d7d4feef51bd6c2c2655565734c9f0ea7f92e"
     },
     {
       "label": "registry_audit",
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "1c8016c7c2372b86dc66bccf45e56737441313c5645af2dda760de42cfb8f36d"
+      "sha256": "ed9b59540b58f1913c476ade37412316ccffc5412b2f50cbe99f2fd4fb69895d"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
-      "bytes": 19568,
-      "sha256": "ea196a7e792a51b84937c5ca8b28d83f6a6de12387a61f05bf196a8d87580dc4"
+      "bytes": 19756,
+      "sha256": "56b7b91dc263d96e13fc842abcf3684b0dd671a61ee31f5171139e33544e6154"
     },
     {
       "label": "install_simulation",
       "path": "reports/install_simulation.json",
       "exists": true,
       "bytes": 8793,
-      "sha256": "3dc6f2e8cdaabba34cd6b8a61cc500b40a30d4ed88666c1ebf4c1313a5a2a429"
+      "sha256": "79c9bed7e4e24e09f6430e81fd07fe913ed99a72369d89baeab6e06b8daac008"
     },
     {
       "label": "skill_os2_audit",
       "path": "reports/skill_os2_audit.json",
       "exists": true,
       "bytes": 14790,
-      "sha256": "8843f3b582471e49946a17c6f222a6d397bcb5542dc100427b1b450960dd65bb"
+      "sha256": "630b92696b3f0fc29601cd673ccb780efc0945fd7c9b96fd5ce6a0a8c25ab0f0"
     },
     {
       "label": "world_class_evidence_plan",
@@ -369,8 +359,8 @@
       "label": "world_class_claim_guard",
       "path": "reports/world_class_claim_guard.json",
       "exists": true,
-      "bytes": 22001,
-      "sha256": "e29efa3fa94a31ecf24b730de5fd51a1b75c2fd4c42929d9e0789d93096b2968"
+      "bytes": 22100,
+      "sha256": "0d8ca964d76b4eba5da652e4be37bcc977f50ee5367efdae9bc4d4b1c105acbf"
     }
   ],
   "missing_artifacts": [],

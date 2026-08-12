@@ -5,14 +5,14 @@
   "skill_dir": ".",
   "summary": {
     "check_count": 41,
-    "pass_count": 40,
-    "warn_count": 1,
+    "pass_count": 41,
+    "warn_count": 0,
     "fail_count": 0,
     "decision": "consistent"
   },
   "status_counts": {
-    "pass": 40,
-    "warn": 1,
+    "pass": 41,
+    "warn": 0,
     "fail": 0
   },
   "checks": [
@@ -56,7 +56,6 @@
         "source_refresh_section": true,
         "clean_lock_section": true,
         "source_refresh_commands": {
-          "python3 scripts/run_output_execution.py --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]'": true,
           "python3 scripts/compile_skill.py . --generated-at \"$GENERATED_AT\"": true,
           "python3 scripts/cross_packager.py . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip": true,
           "python3 scripts/simulate_install.py . --package-dir dist --install-root dist/install-simulation --output-json reports/install_simulation.json --output-md reports/install_simulation.md --generated-at \"$GENERATED_AT\"": true,
@@ -108,7 +107,6 @@
         "source_refresh_section": true,
         "clean_lock_section": true,
         "source_refresh_commands": {
-          "python3 scripts/run_output_execution.py --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]'": true,
           "python3 scripts/compile_skill.py . --generated-at \"$GENERATED_AT\"": true,
           "python3 scripts/cross_packager.py . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip": true,
           "python3 scripts/simulate_install.py . --package-dir dist --install-root dist/install-simulation --output-json reports/install_simulation.json --output-md reports/install_simulation.md --generated-at \"$GENERATED_AT\"": true,
@@ -396,15 +394,15 @@
     {
       "key": "release-archive-hash-lockstep",
       "label": "Release archive hash matches package, registry, and benchmark evidence",
-      "status": "warn",
+      "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "640d6818e7158abc48c4f4f9f9c07969c2fc5af9f3e9f8d033553b78a1eba4b7"
+        "all_equal_to_actual_archive": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9"
       },
       "actual": {
-        "actual_archive": "640d6818e7158abc48c4f4f9f9c07969c2fc5af9f3e9f8d033553b78a1eba4b7",
-        "package_verification": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
-        "registry": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
-        "benchmark": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257"
+        "actual_archive": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
+        "package_verification": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
+        "registry": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
+        "benchmark": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -439,12 +437,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 565434/120000; top deferred scripts 500336; resource governance governed; quality density 147.8",
+        "detail": "initial load 947/1000; deferred 565895/120000; top deferred scripts 500797; resource governance governed; quality density 147.8",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 565434/120000; top deferred scripts 500336; resource governance governed; quality density 147.8",
+        "detail": "initial load 947/1000; deferred 565895/120000; top deferred scripts 500797; resource governance governed; quality density 147.8",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -472,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 116
+        "changed_file_count": 44
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -513,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
-      "actual": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
+      "expected": "5fd6da792505655599b6e98361d24e25d0f90ae7",
+      "actual": "5fd6da792505655599b6e98361d24e25d0f90ae7",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -529,8 +527,8 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "cea0357734eece61a4beaf2731d65daa36246f1dbfd1045608e68dffdf0333f2",
-        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+        "source_contract_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06",
+        "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -545,8 +543,8 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "cea0357734eece61a4beaf2731d65daa36246f1dbfd1045608e68dffdf0333f2",
-        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+        "source_contract_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06",
+        "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -657,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
-      "actual": "4e5cedef9af4bc81f8f9227fed59cf5f23c5873c",
+      "expected": "5fd6da792505655599b6e98361d24e25d0f90ae7",
+      "actual": "5fd6da792505655599b6e98361d24e25d0f90ae7",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -673,8 +671,8 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "cea0357734eece61a4beaf2731d65daa36246f1dbfd1045608e68dffdf0333f2",
-        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+        "source_contract_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06",
+        "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -689,8 +687,8 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "cea0357734eece61a4beaf2731d65daa36246f1dbfd1045608e68dffdf0333f2",
-        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+        "source_contract_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06",
+        "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -1787,10 +1785,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 183
+            "file_count": 184
           }
         ],
-        "file_count": 422,
+        "file_count": 423,
         "folder_count": 4,
         "distribution": [
           {
@@ -1823,7 +1821,7 @@
           },
           {
             "label": "reports",
-            "value": 183
+            "value": 184
           }
         ]
       },
@@ -1875,10 +1873,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 183
+            "file_count": 184
           }
         ],
-        "file_count": 422,
+        "file_count": 423,
         "folder_count": 4,
         "distribution": [
           {
@@ -1911,7 +1909,7 @@
           },
           {
             "label": "reports",
-            "value": 183
+            "value": 184
           }
         ]
       },
@@ -3790,8 +3788,8 @@
         "`5` warnings",
         "`74` declared internal modules",
         "`91 / 91` CLI help smoke checks passing across `165` scripts",
-        "`641` zip entries",
-        "archive with `641` entries",
+        "`633` zip entries",
+        "archive with `633` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",

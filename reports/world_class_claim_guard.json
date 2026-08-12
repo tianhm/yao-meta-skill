@@ -6,7 +6,7 @@
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 215,
+    "claim_surface_count": 216,
     "json_claim_surface_count": 105,
     "metadata_claim_surface_count": 106,
     "package_claim_surface_count": 17,
@@ -504,6 +504,10 @@
     },
     {
       "path": "reports/package_verification.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1-review-repair-checklist.md",
       "violation_count": 0
     },
     {

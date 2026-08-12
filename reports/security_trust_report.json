@@ -23,7 +23,7 @@
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
     "package_hash_file_count": 264,
-    "package_sha256": "5dfb0ebb066588580f83ad216cf2bc07d59fdff6d9c39432c4e6ed0b476e16c9"
+    "package_sha256": "d59f20dd3142b5a42d740454dcc9cf7e1336bdf0ec943dec9616b77f831d1d06"
   },
   "failures": [],
   "warnings": [],
@@ -3233,7 +3233,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: sync_local_install.py [-h] [--root ROOT] [--install-dir INSTALL_DIR]\n                             [--package-dir PACKAGE_DIR]\n                             [--generated-at GENERATED_AT]\n                             [--skip-install-pre",
+        "stdout_excerpt": "usage: sync_local_install.py [-h] [--root ROOT] [--install-dir INSTALL_DIR]\n                             [--package-dir PACKAGE_DIR]\n                             [--verification-json VERIFICATION_JSON]\n                             [--genera",
         "stderr_excerpt": ""
       },
       {

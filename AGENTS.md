@@ -43,7 +43,6 @@ After source changes that affect scripts, package contents, trust evidence, Revi
 
 ```bash
 GENERATED_AT="${GENERATED_AT:-$(date +%F)}"
-python3 scripts/run_output_execution.py --runner-command '["python3","scripts/local_output_eval_runner.py"]'
 python3 scripts/compile_skill.py . --generated-at "$GENERATED_AT"
 python3 scripts/cross_packager.py . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip
 python3 scripts/simulate_install.py . --package-dir dist --install-root dist/install-simulation --output-json reports/install_simulation.json --output-md reports/install_simulation.md --generated-at "$GENERATED_AT"
@@ -78,6 +77,8 @@ python3 scripts/render_world_class_preflight.py . --generated-at "$GENERATED_AT"
 python3 scripts/render_review_studio.py . --output-html reports/review-studio.html --output-json reports/review-studio.json
 python3 scripts/render_evidence_consistency.py . --generated-at "$GENERATED_AT"
 ```
+
+`reports/output_execution_runs.json` is the immutable legacy provider baseline. Do not replace it with the local runner during routine report refresh. Phase 1 Provider evidence is generated inside `evidence-build` runs and promoted through the evidence publication protocol.
 
 For final release evidence, commit source and generated package evidence first, then run the clean-lock reports from a clean worktree:
 

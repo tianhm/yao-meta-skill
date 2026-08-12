@@ -172,17 +172,20 @@
             "scripts/evidence_consistency_core.py",
             "scripts/evidence_consistency_phase_queue.py",
             "scripts/evidence_consistency_release.py",
+            "scripts/evidence_consistency_review_studio.py",
             "scripts/evidence_consistency_skill_os2_review.py",
             "scripts/evidence_consistency_world_class.py",
             "scripts/evidence_resolver.py",
             "scripts/evidence_store.py",
             "scripts/export_skill_ir.py",
+            "scripts/finalize_provider_review.py",
             "scripts/github_benchmark_scan.py",
             "scripts/governance_check.py",
             "scripts/html_rendering.py",
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
             "scripts/local_output_eval_runner.py",
@@ -364,7 +367,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           }
@@ -652,7 +655,7 @@
             "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
             "counts": {
               "references": 37,
-              "scripts": 162,
+              "scripts": 165,
               "assets": 6,
               "reports": 43
             },
@@ -663,7 +666,7 @@
           },
           "scripts": {
             "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-            "script_count": 162,
+            "script_count": 165,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -917,7 +920,7 @@
           "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           },
@@ -928,7 +931,7 @@
         },
         "scripts": {
           "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-          "script_count": 162,
+          "script_count": 165,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -1157,17 +1160,20 @@
             "scripts/evidence_consistency_core.py",
             "scripts/evidence_consistency_phase_queue.py",
             "scripts/evidence_consistency_release.py",
+            "scripts/evidence_consistency_review_studio.py",
             "scripts/evidence_consistency_skill_os2_review.py",
             "scripts/evidence_consistency_world_class.py",
             "scripts/evidence_resolver.py",
             "scripts/evidence_store.py",
             "scripts/export_skill_ir.py",
+            "scripts/finalize_provider_review.py",
             "scripts/github_benchmark_scan.py",
             "scripts/governance_check.py",
             "scripts/html_rendering.py",
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
             "scripts/local_output_eval_runner.py",
@@ -1349,7 +1355,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           }
@@ -1637,7 +1643,7 @@
             "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
             "counts": {
               "references": 37,
-              "scripts": 162,
+              "scripts": 165,
               "assets": 6,
               "reports": 43
             },
@@ -1648,7 +1654,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-            "script_count": 162,
+            "script_count": 165,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -1902,7 +1908,7 @@
           "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           },
@@ -1913,7 +1919,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-          "script_count": 162,
+          "script_count": 165,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -2142,17 +2148,20 @@
             "scripts/evidence_consistency_core.py",
             "scripts/evidence_consistency_phase_queue.py",
             "scripts/evidence_consistency_release.py",
+            "scripts/evidence_consistency_review_studio.py",
             "scripts/evidence_consistency_skill_os2_review.py",
             "scripts/evidence_consistency_world_class.py",
             "scripts/evidence_resolver.py",
             "scripts/evidence_store.py",
             "scripts/export_skill_ir.py",
+            "scripts/finalize_provider_review.py",
             "scripts/github_benchmark_scan.py",
             "scripts/governance_check.py",
             "scripts/html_rendering.py",
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
             "scripts/local_output_eval_runner.py",
@@ -2334,7 +2343,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           }
@@ -2622,7 +2631,7 @@
             "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
             "counts": {
               "references": 37,
-              "scripts": 162,
+              "scripts": 165,
               "assets": 6,
               "reports": 43
             },
@@ -2632,7 +2641,7 @@
           },
           "scripts": {
             "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-            "script_count": 162,
+            "script_count": 165,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -2880,7 +2889,7 @@
           "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           },
@@ -2890,7 +2899,7 @@
         },
         "scripts": {
           "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-          "script_count": 162,
+          "script_count": 165,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -3111,17 +3120,20 @@
             "scripts/evidence_consistency_core.py",
             "scripts/evidence_consistency_phase_queue.py",
             "scripts/evidence_consistency_release.py",
+            "scripts/evidence_consistency_review_studio.py",
             "scripts/evidence_consistency_skill_os2_review.py",
             "scripts/evidence_consistency_world_class.py",
             "scripts/evidence_resolver.py",
             "scripts/evidence_store.py",
             "scripts/export_skill_ir.py",
+            "scripts/finalize_provider_review.py",
             "scripts/github_benchmark_scan.py",
             "scripts/governance_check.py",
             "scripts/html_rendering.py",
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
             "scripts/local_output_eval_runner.py",
@@ -3303,7 +3315,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           }
@@ -3591,7 +3603,7 @@
             "strategy": "Keep optional directories as relative resources next to SKILL.md.",
             "counts": {
               "references": 37,
-              "scripts": 162,
+              "scripts": 165,
               "assets": 6,
               "reports": 43
             },
@@ -3602,7 +3614,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-            "script_count": 162,
+            "script_count": 165,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -3849,7 +3861,7 @@
           "strategy": "Keep optional directories as relative resources next to SKILL.md.",
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           },
@@ -3860,7 +3872,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-          "script_count": 162,
+          "script_count": 165,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -4080,17 +4092,20 @@
             "scripts/evidence_consistency_core.py",
             "scripts/evidence_consistency_phase_queue.py",
             "scripts/evidence_consistency_release.py",
+            "scripts/evidence_consistency_review_studio.py",
             "scripts/evidence_consistency_skill_os2_review.py",
             "scripts/evidence_consistency_world_class.py",
             "scripts/evidence_resolver.py",
             "scripts/evidence_store.py",
             "scripts/export_skill_ir.py",
+            "scripts/finalize_provider_review.py",
             "scripts/github_benchmark_scan.py",
             "scripts/governance_check.py",
             "scripts/html_rendering.py",
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
             "scripts/local_output_eval_runner.py",
@@ -4272,7 +4287,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           }
@@ -4560,7 +4575,7 @@
             "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
             "counts": {
               "references": 37,
-              "scripts": 162,
+              "scripts": 165,
               "assets": 6,
               "reports": 43
             },
@@ -4571,7 +4586,7 @@
           },
           "scripts": {
             "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-            "script_count": 162,
+            "script_count": 165,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -4822,7 +4837,7 @@
           "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
           "counts": {
             "references": 37,
-            "scripts": 162,
+            "scripts": 165,
             "assets": 6,
             "reports": 43
           },
@@ -4833,7 +4848,7 @@
         },
         "scripts": {
           "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-          "script_count": 162,
+          "script_count": 165,
           "help_smoke_failed_count": 0
         },
         "permissions": {

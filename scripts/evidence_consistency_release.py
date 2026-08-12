@@ -10,7 +10,6 @@ CLEAN_LOCK_HEADER = "For final release evidence"
 CLEAN_LOCK_END = "If `reports/benchmark_reproducibility.json`"
 
 SOURCE_REFRESH_REPORT_COMMANDS = [
-    'python3 scripts/run_output_execution.py --runner-command \'["python3","scripts/local_output_eval_runner.py"]\'',
     'python3 scripts/compile_skill.py . --generated-at "$GENERATED_AT"',
     "python3 scripts/cross_packager.py . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip",
     'python3 scripts/simulate_install.py . --package-dir dist --install-root dist/install-simulation --output-json reports/install_simulation.json --output-md reports/install_simulation.md --generated-at "$GENERATED_AT"',
