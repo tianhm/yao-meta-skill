@@ -124,22 +124,23 @@ def main() -> None:
     provider_item = {item["evidence_key"]: item for item in payload["items"]}["provider-holdout"]
     assert provider_item["review_state"] == "awaiting-submission", provider_item
     assert provider_item["submission_status"] == "missing", provider_item
-    assert provider_item["source_accepted"] is True, provider_item
+    assert provider_item["source_accepted"] is False, provider_item
     provider_source = {item["field"]: item for item in provider_item["source_checklist"]}
-    assert provider_source["model_executed_count"]["status"] == "pass", provider_source
-    assert provider_source["timing_observed_count"]["status"] == "pass", provider_source
-    assert provider_source["token_observed_count"]["status"] == "pass", provider_source
+    assert provider_source["call_count"]["status"] == "blocked", provider_source
+    assert provider_source["model_executed_count"]["status"] == "blocked", provider_source
+    assert provider_source["failure_count"]["status"] == "pass", provider_source
+    assert provider_source["total_tokens"]["status"] == "pass", provider_source
     human_item = {item["evidence_key"]: item for item in payload["items"]}["human-adjudication"]
     human_source = {item["field"]: item for item in human_item["source_checklist"]}
-    assert human_item["observed_state"]["raw_content_allowed"] is False, human_item
-    assert human_item["observed_state"]["raw_content_path_count"] == 0, human_item
-    assert human_source["raw_content_allowed"]["status"] == "pass", human_source
-    assert "prompt_sha256" in " ".join(human_item["success_checks"]), human_item
-    assert "prompt_sha256" in " ".join(human_item["privacy_contract"]), human_item
+    assert human_item["observed_state"]["contract_version"] == "phase1", human_item
+    assert human_item["observed_state"]["reviewer_count"] == 0, human_item
+    assert human_source["reviewer_count"]["status"] == "blocked", human_source
+    assert "blind_pack_sha256" in " ".join(human_item["success_checks"]), human_item
+    assert "answer_key_sha256" in " ".join(human_item["privacy_contract"]), human_item
     markdown = output_md.read_text(encoding="utf-8")
     assert "World-Class Submission Review" in markdown, markdown
     assert "review counts submission as completion: `false`" in markdown, markdown
-    assert "Provider model run: 10 / >0 => pass" in markdown, markdown
+    assert "Provider calls: 0 / ==40 => blocked" in markdown, markdown
     assert "`provider-holdout`" in markdown, markdown
 
     submissions = TMP / "valid_submissions"
@@ -166,24 +167,24 @@ def main() -> None:
     submitted_payload = json.loads(submitted_proc.stdout)
     submitted_summary = submitted_payload["summary"]
     assert submitted_payload["ok"] is True, submitted_payload
-    assert submitted_summary["decision"] == "awaiting-submissions", submitted_summary
-    assert submitted_summary["valid_packet_source_incomplete_count"] == 0, submitted_summary
+    assert submitted_summary["decision"] == "source-evidence-incomplete", submitted_summary
+    assert submitted_summary["valid_packet_source_incomplete_count"] == 1, submitted_summary
     assert submitted_summary["awaiting_submission_count"] == 3, submitted_summary
     assert submitted_summary["invalid_submission_count"] == 0, submitted_summary
-    assert submitted_summary["accepted_count"] == 1, submitted_summary
+    assert submitted_summary["accepted_count"] == 0, submitted_summary
     assert submitted_summary["source_pass_count"] + submitted_summary["source_blocked_count"] == submitted_summary["source_check_count"], submitted_summary
     assert submitted_summary["source_blocked_count"] >= 6, submitted_summary
     submitted_provider = {item["evidence_key"]: item for item in submitted_payload["items"]}["provider-holdout"]
-    assert submitted_provider["review_state"] == "accepted", submitted_provider
+    assert submitted_provider["review_state"] == "source-evidence-incomplete", submitted_provider
     assert submitted_provider["intake_status"] == "pass", submitted_provider
     assert submitted_provider["submission_status"] == "submitted", submitted_provider
     assert submitted_provider["artifact_ref_count"] == 1, submitted_provider
-    assert submitted_provider["source_accepted"] is True, submitted_provider
+    assert submitted_provider["source_accepted"] is False, submitted_provider
     assert submitted_provider["intake_errors"] == [], submitted_provider
     assert "model_executed_count" in submitted_provider["observed_state"], submitted_provider
     submitted_source = {item["field"]: item for item in submitted_provider["source_checklist"]}
-    assert submitted_source["model_executed_count"]["status"] == "pass", submitted_source
-    assert submitted_source["timing_observed_count"]["status"] == "pass", submitted_source
+    assert submitted_source["call_count"]["status"] == "blocked", submitted_source
+    assert submitted_source["model_executed_count"]["status"] == "blocked", submitted_source
 
     invalid_dir = TMP / "invalid_submissions"
     invalid_dir.mkdir()

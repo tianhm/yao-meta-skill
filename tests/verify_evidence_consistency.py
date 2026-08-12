@@ -39,10 +39,8 @@ REPORT_FILES = [
     "scripts/ci_test.py",
 ]
 
-
 def run(cmd: list[str], *, check: bool = False) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=check)
-
 
 def copy_reports(dst: Path) -> None:
     for relative in REPORT_FILES:
@@ -50,7 +48,6 @@ def copy_reports(dst: Path) -> None:
         target = dst / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
-
 
 def refresh_embedded_reports() -> None:
     script_names = [
@@ -166,6 +163,9 @@ def main() -> None:
     ]
     assert checks["skill-ir-evidence-path-contract"]["status"] == "pass", checks[
         "skill-ir-evidence-path-contract"
+    ]
+    assert checks["release-archive-hash-lockstep"]["status"] in {"pass", "warn"}, checks[
+        "release-archive-hash-lockstep"
     ]
     assert checks["skill-ir-evidence-path-contract"]["actual"]["review_studio_evidence_path"] == (
         "skill-ir/examples/yao-meta-skill.json"

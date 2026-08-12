@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-12",
+  "generated_at": "2026-06-13",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 259,
+    "file_count": 265,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -42,6 +42,12 @@
     },
     {
       "path": ".yao/releases/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/releases/phase1-m4-install-safe/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -84,6 +90,12 @@
     },
     {
       "path": ".yao/runs/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-m4-install-safe/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -275,6 +287,12 @@
       "issues": []
     },
     {
+      "path": "scripts/evidence_consistency_review_studio.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/evidence_consistency_skill_os2_review.py",
       "ok": true,
       "issue_count": 0,
@@ -300,6 +318,12 @@
     },
     {
       "path": "scripts/export_skill_ir.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/finalize_provider_review.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -336,6 +360,12 @@
     },
     {
       "path": "scripts/init_skill.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/json_schema_validation.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1092,6 +1122,12 @@
     },
     {
       "path": "tests/fixtures/fake_deepseek_output_runner.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/fixtures/fake_untrusted_output_runner.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

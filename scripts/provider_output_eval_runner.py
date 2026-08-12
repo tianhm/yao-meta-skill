@@ -273,10 +273,9 @@ def call_provider(
         with urlopen(request, timeout=timeout_seconds) as response:
             response_body = response.read().decode("utf-8", errors="replace")
     except HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")[:500]
-        fail(f"provider request failed with HTTP {exc.code}: {detail}")
-    except URLError as exc:
-        fail(f"provider request failed: {exc.reason}")
+        fail(f"provider request failed with HTTP {exc.code}")
+    except URLError:
+        fail("provider request failed with a network error")
     try:
         payload = json.loads(response_body)
     except json.JSONDecodeError as exc:

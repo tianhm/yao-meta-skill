@@ -96,6 +96,7 @@ def build_gates(skill_dir: Path, output_html: Path, data: dict[str, dict[str, An
             data["output_blind_review"],
             data["output_review_adjudication"],
             data.get("provider_output_evaluation", {}),
+            data.get("provider_output_adjudication", {}),
         )
     )
 

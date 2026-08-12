@@ -9,6 +9,7 @@ import sys
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
+    parser.add_argument("--total-tokens", type=int, default=30)
     args = parser.parse_args()
     request = json.loads(sys.stdin.read())
     if request["variant"] == "with_skill":
@@ -25,7 +26,12 @@ def main() -> None:
                 "execution_kind": "model",
                 "provider": "deepseek",
                 "model": args.model,
-                "usage": {"input_tokens": 10, "output_tokens": 20, "total_tokens": 30, "estimated": False},
+                "usage": {
+                    "input_tokens": 10,
+                    "output_tokens": max(0, args.total_tokens - 10),
+                    "total_tokens": args.total_tokens,
+                    "estimated": False,
+                },
                 "response_id": f"fixture-{args.model}-{request['case_id']}-{request['variant']}",
             }
         )

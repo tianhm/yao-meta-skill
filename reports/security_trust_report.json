@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 261,
-    "script_count": 162,
-    "internal_module_count": 72,
+    "scanned_files": 264,
+    "script_count": 165,
+    "internal_module_count": 74,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -18,12 +18,12 @@
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 90,
+    "help_smoke_checked_count": 91,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 261,
-    "package_sha256": "db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70"
+    "package_hash_file_count": 264,
+    "package_sha256": "5dfb0ebb066588580f83ad216cf2bc07d59fdff6d9c39432c4e6ed0b476e16c9"
   },
   "failures": [],
   "warnings": [],
@@ -399,6 +399,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/evidence_consistency_review_studio.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Keeps Review Studio mirror validation isolated from the evidence-consistency orchestrator.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/evidence_consistency_skill_os2_review.py",
       "interface": "internal-module",
       "interface_declared": true,
@@ -464,6 +478,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/finalize_provider_review.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Binds three controlled reviewer submissions to one immutable provider run without rerunning the model matrix.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -552,6 +580,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/json_schema_validation.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by manifest and Skill IR validation to enforce their committed JSON Schema contracts.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -2347,11 +2389,11 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 90,
-    "checked_count": 90,
-    "passed_count": 90,
+    "candidate_count": 91,
+    "checked_count": 91,
+    "passed_count": 91,
     "failed_count": 0,
-    "skipped_count": 72,
+    "skipped_count": 74,
     "failed_scripts": [],
     "results": [
       {
@@ -2361,7 +2403,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: adjudicate_multi_reviewer.py [-h] [--answer-key ANSWER_KEY]\n                                    --decisions DECISIONS\n                                    [--output-json OUTPUT_JSON]\n                                    [--output-md OU",
+        "stdout_excerpt": "usage: adjudicate_multi_reviewer.py [-h] --answer-key ANSWER_KEY\n                                    --decisions DECISIONS\n                                    --reviewer-registry REVIEWER_REGISTRY\n                                    [--outp",
         "stderr_excerpt": ""
       },
       {
@@ -2502,6 +2544,16 @@
         "passed": true,
         "has_help_text": true,
         "stdout_excerpt": "usage: export_skill_ir.py [-h] [--output-json OUTPUT_JSON] [--validate-only]\n                          [skill_dir]\n\nExport a platform-neutral Skill IR document from a skill package.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help ",
+        "stderr_excerpt": ""
+      },
+      {
+        "path": "scripts/finalize_provider_review.py",
+        "command": "python3 scripts/finalize_provider_review.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: finalize_provider_review.py [-h] --source-run SOURCE_RUN\n                                   --decisions DECISIONS\n                                   --reviewer-registry REVIEWER_REGISTRY\n                                   [--run-id R",
         "stderr_excerpt": ""
       },
       {
@@ -3131,7 +3183,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: run_evidence_build.py [-h] [--run-id RUN_ID] [--publish] skill_dir\n\nBuild isolated, hash-indexed evidence for an agent skill.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help       show this help message and exit\n  --run-id ",
+        "stdout_excerpt": "usage: run_evidence_build.py [-h] [--run-id RUN_ID] [--publish] [--recover]\n                             skill_dir\n\nBuild isolated, hash-indexed evidence for an agent skill.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help       sh",
         "stderr_excerpt": ""
       },
       {
@@ -3251,7 +3303,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,evidence-build,optimize-description,promote-check,python-compat,archite",
+        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,evidence-build,evidence-finalize-review,optimize-description,promote-ch",
         "stderr_excerpt": ""
       }
     ],
@@ -3305,6 +3357,10 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/evidence_consistency_review_studio.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/evidence_consistency_skill_os2_review.py",
         "reason": "internal module"
       },
@@ -3322,6 +3378,10 @@
       },
       {
         "path": "scripts/html_rendering.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/json_schema_validation.py",
         "reason": "internal module"
       },
       {

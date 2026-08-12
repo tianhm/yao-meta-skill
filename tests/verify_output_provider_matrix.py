@@ -4,6 +4,7 @@
 import json
 import copy
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -11,8 +12,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from adjudicate_multi_reviewer import adjudicate_reviews  # noqa: E402
-from output_provider_matrix import build_blind_materials, execute_provider_matrix, load_provider_matrix, provider_status  # noqa: E402
+from adjudicate_multi_reviewer import adjudicate_reviews, canonical_sha256  # noqa: E402
+from evidence_store import EvidenceError, EvidenceStore  # noqa: E402
+from finalize_provider_review import finalize  # noqa: E402
+from output_provider_matrix import build_blind_materials, default_runner_for, execute_provider_matrix, load_provider_matrix, provider_status  # noqa: E402
 
 
 def main() -> None:
@@ -38,6 +41,12 @@ def main() -> None:
     assert readiness["world_class_evidence"]["counts_as_completion"] is False, readiness
     readiness_text = json.dumps(readiness).lower()
     assert "authorization" not in readiness_text and "bearer " not in readiness_text, readiness
+    foreign_skill = tmp_root / "foreign-skill"
+    (foreign_skill / "evals" / "output").mkdir(parents=True)
+    (foreign_skill / "SKILL.md").write_text("foreign skill", encoding="utf-8")
+    default_command = default_runner_for(matrix, matrix["models"][0], foreign_skill)
+    assert default_command[default_command.index("--skill-file") + 1] == str(foreign_skill / "SKILL.md"), default_command
+    assert default_command[default_command.index("--input-root") + 1] == str(foreign_skill / "evals" / "output"), default_command
 
     fake_runner = ROOT / "tests" / "fixtures" / "fake_deepseek_output_runner.py"
 
@@ -74,8 +83,13 @@ def main() -> None:
     assert all("variant_a" not in pair and "variant_b" not in pair for pair in blind_pack["pairs"]), blind_pack
     assert all((run_dir / pair["variant_a_raw_output"]).is_file() for pair in blind_pack["pairs"]), blind_pack
     assert all((run_dir / pair["variant_b_raw_output"]).is_file() for pair in blind_pack["pairs"]), blind_pack
+    assert all("baseline" not in pair["variant_a_raw_output"] and "with_skill" not in pair["variant_a_raw_output"] for pair in blind_pack["pairs"]), blind_pack
+    assert all("baseline" not in pair["variant_b_raw_output"] and "with_skill" not in pair["variant_b_raw_output"] for pair in blind_pack["pairs"]), blind_pack
+    assert len(answer_key["blind_pack_sha256"]) == 64, answer_key
+    assert all(template["review_integrity"]["blind_pack_sha256"] == answer_key["blind_pack_sha256"] for template in templates.values()), templates
+    assert all(template["reviewer_attestation"]["independent_blind_review_completed"] is False for template in templates.values()), templates
 
-    tampered_path = run_dir / blind_pack["pairs"][0]["variant_a_raw_output"]
+    tampered_path = run_dir / report["runs"][0]["raw_output_path"]
     original_output = tampered_path.read_text(encoding="utf-8")
     tampered_path.write_text("tampered after provider execution", encoding="utf-8")
     try:
@@ -104,6 +118,8 @@ def main() -> None:
         decisions.append(
             {
                 "reviewer": reviewer,
+                "review_integrity": {"blind_pack_sha256": answer_key["blind_pack_sha256"]},
+                "reviewer_attestation": {"independent_blind_review_completed": True},
                 "decisions": [
                     {
                         "pair_id": item["pair_id"],
@@ -115,7 +131,22 @@ def main() -> None:
                 ],
             }
         )
-    adjudication = adjudicate_reviews(answer_key, decisions)
+    for index, packet in enumerate(decisions):
+        packet["reviewer_attestation"].update(
+            {"submitted_at": f"2026-08-12T00:0{index}:00Z", "controlled_submission_id": f"submission-{index}"}
+        )
+    registry = {
+        "reviewers": {
+            packet["reviewer"]: {
+                "identity_verified": True,
+                "packet_sha256": canonical_sha256(packet),
+                "submitted_at": packet["reviewer_attestation"]["submitted_at"],
+                "controlled_submission_id": packet["reviewer_attestation"]["controlled_submission_id"],
+            }
+            for packet in decisions
+        }
+    }
+    adjudication = adjudicate_reviews(answer_key, decisions, registry)
     summary = adjudication["summary"]
     assert summary["reviewer_count"] == 3, adjudication
     assert summary["with_skill_pair_wins"] == 20, adjudication
@@ -125,9 +156,21 @@ def main() -> None:
     assert adjudication["quality_promotion"]["eligible"] is True, adjudication
     assert adjudication["world_class_evidence"]["counts_as_completion"] is False, adjudication
 
-    pending = adjudicate_reviews(answer_key, decisions[:2])
+    pending = adjudicate_reviews(answer_key, decisions[:2], registry)
     assert pending["quality_promotion"]["status"] == "pending", pending
     assert pending["quality_promotion"]["eligible"] is False, pending
+
+    unattested = copy.deepcopy(decisions)
+    unattested[0]["reviewer_attestation"]["independent_blind_review_completed"] = False
+    unattested_result = adjudicate_reviews(answer_key, unattested, registry)
+    assert unattested_result["quality_promotion"]["eligible"] is False, unattested_result
+    assert any("attestation" in failure for failure in unattested_result["failures"]), unattested_result
+
+    duplicate = copy.deepcopy(decisions)
+    duplicate[0]["decisions"].append(copy.deepcopy(duplicate[0]["decisions"][0]))
+    duplicate_result = adjudicate_reviews(answer_key, duplicate, registry)
+    assert duplicate_result["quality_promotion"]["eligible"] is False, duplicate_result
+    assert any("duplicate" in failure for failure in duplicate_result["failures"]), duplicate_result
 
     limited_matrix = copy.deepcopy(matrix)
     limited_matrix["limits"]["max_calls"] = 1
@@ -146,6 +189,140 @@ def main() -> None:
         assert "40 successful" in str(exc), exc
     else:
         raise AssertionError("partial provider run produced blind materials")
+
+    untrusted_runner = ROOT / "tests" / "fixtures" / "fake_untrusted_output_runner.py"
+    untrusted = execute_provider_matrix(
+        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        matrix,
+        tmp_root / "untrusted-run",
+        runner_for=lambda _model: [sys.executable, str(untrusted_runner)],
+    )
+    assert untrusted["summary"]["failure_count"] > 0, untrusted
+    try:
+        build_blind_materials(untrusted, tmp_root / "untrusted-run")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("untrusted provider metadata produced blind materials")
+
+    high_usage = execute_provider_matrix(
+        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        matrix,
+        tmp_root / "high-usage-run",
+        runner_for=lambda model: [sys.executable, str(fake_runner), "--model", model["model"], "--total-tokens", "249000"],
+    )
+    assert high_usage["summary"]["call_count"] == 1, high_usage
+    assert high_usage["summary"]["total_tokens"] <= 250000, high_usage
+
+    lifecycle_skill = tmp_root / "lifecycle-skill"
+    (lifecycle_skill / "reports").mkdir(parents=True)
+    (lifecycle_skill / "SKILL.md").write_text(
+        '---\nname: lifecycle-skill\ndescription: "Exercise provider review finalization."\n---\n',
+        encoding="utf-8",
+    )
+    (lifecycle_skill / "manifest.json").write_text(
+        json.dumps({"name": "lifecycle-skill", "version": "1.0.0", "updated_at": "2026-08-12"}),
+        encoding="utf-8",
+    )
+    (lifecycle_skill / "reports" / "quality.json").write_text('{"ok": true}\n', encoding="utf-8")
+    (lifecycle_skill / ".gitignore").write_text(".yao/\n", encoding="utf-8")
+    subprocess.run(["git", "init", "-q"], cwd=lifecycle_skill, check=True)
+    subprocess.run(["git", "config", "user.name", "Provider Review Test"], cwd=lifecycle_skill, check=True)
+    subprocess.run(["git", "config", "user.email", "provider-review@example.test"], cwd=lifecycle_skill, check=True)
+    subprocess.run(["git", "add", "."], cwd=lifecycle_skill, check=True)
+    subprocess.run(["git", "commit", "-qm", "fixture"], cwd=lifecycle_skill, check=True)
+    lifecycle_store = EvidenceStore(lifecycle_skill)
+    source_run = lifecycle_store.build("provider-source")
+    lifecycle_report = execute_provider_matrix(
+        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        matrix,
+        source_run.run_dir,
+        runner_for=runner_for,
+    )
+    lifecycle_blind, lifecycle_answers, lifecycle_templates = build_blind_materials(
+        lifecycle_report,
+        source_run.run_dir,
+    )
+    lifecycle_store.add_private_json(source_run, "provider_output_answer_key.json", lifecycle_answers)
+    for relative, payload in (
+        ("reports/provider_output_evaluation.json", lifecycle_report),
+        ("reports/provider_output_blind_pack.json", lifecycle_blind),
+        (
+            "reports/provider_output_answer_commitment.json",
+            {
+                "schema_version": "1.0",
+                "blind_pack_sha256": lifecycle_answers["blind_pack_sha256"],
+                "answer_key_sha256": canonical_sha256(lifecycle_answers),
+            },
+        ),
+    ):
+        source_run = lifecycle_store.add_json_artifact(source_run, relative, payload)
+    packet_paths = []
+    lifecycle_packets = []
+    for index, reviewer in enumerate(("reviewer-a", "reviewer-b", "reviewer-c")):
+        packet = copy.deepcopy(lifecycle_templates[reviewer])
+        packet["reviewer_attestation"] = {
+            "independent_blind_review_completed": True,
+            "submitted_at": f"2026-08-12T01:0{index}:00Z",
+            "controlled_submission_id": f"lifecycle-{index}",
+        }
+        packet["decisions"] = [
+            {
+                "pair_id": item["pair_id"],
+                "winner_variant": "A" if item["variant_a_role"] == "with_skill" else "B",
+                "critical_failure": False,
+                "reason": "The selected response satisfies the visible rubric.",
+            }
+            for item in lifecycle_answers["answers"]
+        ]
+        packet_path = tmp_root / f"{reviewer}.json"
+        packet_path.write_text(json.dumps(packet), encoding="utf-8")
+        packet_paths.append(packet_path)
+        lifecycle_packets.append(packet)
+    lifecycle_registry = {
+        "reviewers": {
+            packet["reviewer"]: {
+                "identity_verified": True,
+                "packet_sha256": canonical_sha256(packet),
+                "submitted_at": packet["reviewer_attestation"]["submitted_at"],
+                "controlled_submission_id": packet["reviewer_attestation"]["controlled_submission_id"],
+            }
+            for packet in lifecycle_packets
+        }
+    }
+    registry_path = tmp_root / "reviewer-registry.json"
+    registry_path.write_text(json.dumps(lifecycle_registry), encoding="utf-8")
+    final_payload = finalize(
+        lifecycle_skill,
+        source_run.run_id,
+        packet_paths,
+        registry_path,
+        "final-review",
+        False,
+    )
+    assert final_payload["quality_promotion"]["eligible"] is True, final_payload
+    resumed = finalize(
+        lifecycle_skill,
+        source_run.run_id,
+        packet_paths,
+        registry_path,
+        "final-review",
+        False,
+        True,
+    )
+    assert resumed["run_id"] == "final-review", resumed
+    final_run = lifecycle_store.verify_run(lifecycle_store.runs_dir / "final-review")
+    final_paths = {item["path"] for item in final_run.artifact_index["artifacts"]}
+    assert "reports/provider_output_adjudication.json" in final_paths, final_paths
+    assert not (final_run.run_dir / "private" / "provider_output_answer_key.json").exists(), final_run.run_dir
+    blinded_path = source_run.run_dir / lifecycle_blind["pairs"][0]["variant_a_raw_output"]
+    blinded_path.write_text("tampered reviewer material", encoding="utf-8")
+    try:
+        finalize(lifecycle_skill, source_run.run_id, packet_paths, registry_path, "tampered-review", False)
+    except EvidenceError as exc:
+        assert exc.code == "blind-output-hash-mismatch", exc
+    else:
+        raise AssertionError("tampered blinded output reached finalization")
 
     print(json.dumps({"ok": True}, indent=2))
 

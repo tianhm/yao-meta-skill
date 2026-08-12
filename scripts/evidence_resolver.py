@@ -80,6 +80,15 @@ def resolve_evidence_path(skill_dir: Path | str, relative_path: str | Path) -> P
     entry = entries.get(relative.as_posix())
     if entry is None:
         raise EvidenceError("artifact-not-published", f"Artifact is outside the current evidence collection: {relative}")
+    if pointer.get("mode") == "portable":
+        if pointer.get("artifact_index") != CANONICAL_INDEX_PATH.as_posix():
+            raise EvidenceError("invalid-current-run", "Portable evidence pointer names an unexpected artifact index")
+        candidate = canonical
+        if not candidate.is_file():
+            raise EvidenceError("artifact-missing", f"Portable evidence artifact is missing: {relative}")
+        if sha256_file(candidate) != entry.get("sha256"):
+            raise EvidenceError("artifact-hash-mismatch", f"Portable evidence artifact hash mismatch: {relative}")
+        return candidate
     release_relative = _safe_relative(str(pointer.get("release_dir", "")))
     if len(release_relative.parts) != 3 or release_relative.parts[:2] != (".yao", "releases"):
         raise EvidenceError("unsafe-evidence-path", f"Current release pointer is outside .yao/releases: {release_relative}")

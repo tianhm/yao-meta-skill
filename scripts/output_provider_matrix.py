@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Execute a fixed provider matrix and build deterministic blind-review materials."""
+"""Execute a fixed provider matrix and build identity-safe blind-review materials."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import os
-import random
+import secrets
+import shutil
 import sys
 from pathlib import Path
 from typing import Any, Callable
@@ -77,7 +78,7 @@ def provider_status(matrix: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def default_runner_for(matrix: dict[str, Any], model: dict[str, Any]) -> list[str]:
+def default_runner_for(matrix: dict[str, Any], model: dict[str, Any], skill_dir: Path) -> list[str]:
     return [
         sys.executable,
         str(ROOT / "scripts" / "provider_output_eval_runner.py"),
@@ -97,6 +98,10 @@ def default_runner_for(matrix: dict[str, Any], model: dict[str, Any]) -> list[st
         str(model["max_output_tokens"]),
         "--timeout-seconds",
         str(matrix["limits"]["timeout_seconds"]),
+        "--input-root",
+        str(skill_dir / "evals" / "output"),
+        "--skill-file",
+        str(skill_dir / "SKILL.md"),
     ]
 
 
@@ -127,8 +132,10 @@ def execute_provider_matrix(
     matrix: dict[str, Any],
     run_dir: Path,
     *,
+    skill_dir: Path | None = None,
     runner_for: Callable[[dict[str, Any]], list[str]] | None = None,
 ) -> dict[str, Any]:
+    skill_dir = Path(skill_dir or cases_path.parents[2]).resolve()
     cases = load_cases(cases_path)
     failures = [failure for case in cases for failure in validate_case(case, cases_path.parent)]
     if len(cases) != 10:
@@ -145,7 +152,8 @@ def execute_provider_matrix(
         for case in cases:
             for variant in VARIANTS:
                 call_count = sum(1 for item in runs if item.get("command_executed"))
-                if call_count >= max_calls or total_tokens >= max_tokens:
+                reservation = request_token_reservation(case, variant, cases_path.parent, skill_dir, model)
+                if call_count >= max_calls or total_tokens + reservation > max_tokens:
                     runs.append(
                         {
                             "case_id": str(case["id"]),
@@ -168,11 +176,12 @@ def execute_provider_matrix(
                             "response_id": "",
                             "system_fingerprint": "",
                             "failure": "provider budget exhausted before request",
+                            "reserved_tokens": reservation,
                         }
                     )
                     budget_exhausted = True
                     break
-                command = runner_for(model) if runner_for else default_runner_for(matrix, model)
+                command = runner_for(model) if runner_for else default_runner_for(matrix, model, skill_dir)
                 assertions = case.get("assertions", []) if isinstance(case.get("assertions"), list) else []
                 result = command_run(
                     case,
@@ -183,6 +192,14 @@ def execute_provider_matrix(
                     raw_output_dir=run_dir / "raw-outputs",
                     raw_output_path_override=raw_output_path(run_dir, str(model["model"]), str(case["id"]), variant),
                 )
+                if (
+                    result.get("status") != "pass"
+                    or result.get("model_executed") is not True
+                    or result.get("provider") != matrix["provider"]
+                    or result.get("model") != model["model"]
+                ):
+                    result["status"] = "fail"
+                    result["failure"] = result.get("failure") or "provider execution identity did not match the fixed matrix"
                 raw_path_value = str(result.get("raw_output_path", ""))
                 if raw_path_value:
                     raw_path = Path(raw_path_value)
@@ -191,6 +208,7 @@ def execute_provider_matrix(
                     except ValueError:
                         result["raw_output_path"] = ""
                 total_tokens += int(result.get("usage", {}).get("total_tokens", 0) or 0)
+                result["reserved_tokens"] = reservation
                 if total_tokens > max_tokens:
                     result["status"] = "fail"
                     result["failure"] = "total token budget exceeded"
@@ -200,6 +218,29 @@ def execute_provider_matrix(
         if budget_exhausted:
             break
     return provider_report(matrix, cases, runs, total_tokens, failures)
+
+
+def request_token_reservation(
+    case: dict[str, Any],
+    variant: str,
+    input_root: Path,
+    skill_dir: Path,
+    model: dict[str, Any],
+) -> int:
+    """Reserve a conservative request ceiling before spending provider budget."""
+    input_bytes = len(str(case.get("prompt", "")).encode("utf-8")) + 2048
+    if variant == "with_skill":
+        skill_path = skill_dir / "SKILL.md"
+        if skill_path.is_file():
+            input_bytes += len(skill_path.read_bytes()[:8000])
+    for value in case.get("input_files", []) if isinstance(case.get("input_files"), list) else []:
+        relative = Path(str(value))
+        if relative.is_absolute() or ".." in relative.parts:
+            continue
+        path = input_root / relative
+        if path.is_file() and not path.is_symlink():
+            input_bytes += len(path.read_bytes()[:6000])
+    return input_bytes + int(model["max_output_tokens"])
 
 
 def provider_report(
@@ -214,6 +255,7 @@ def provider_report(
     failure_count = len(all_failures)
     payload = {
         "schema_version": "1.0",
+        "ok": failure_count == 0 and len(runs) == 40,
         "provider_matrix": matrix,
         "summary": {
             "case_count": len(cases),
@@ -240,35 +282,67 @@ def provider_report(
     return payload
 
 
-def blind_order(pair_id: str) -> tuple[str, str]:
-    digest = hashlib.sha256(f"yao-output-matrix-v1:{pair_id}".encode()).digest()
-    return ("baseline", "with_skill") if digest[0] % 2 == 0 else ("with_skill", "baseline")
+def canonical_sha256(payload: dict[str, Any]) -> str:
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def validate_provider_run_set(report: dict[str, Any]) -> dict[tuple[str, str, str], dict[str, Any]]:
+    models = [str(item["model"]) for item in report.get("provider_matrix", {}).get("models", [])]
+    runs = report.get("runs", [])
+    case_ids = sorted({str(item.get("case_id", "")) for item in runs})
+    expected = {(model, case_id, variant) for model in models for case_id in case_ids for variant in VARIANTS}
+    indexed: dict[tuple[str, str, str], dict[str, Any]] = {}
+    failures: list[str] = []
+    for item in runs:
+        key = (str(item.get("model", "")), str(item.get("case_id", "")), str(item.get("variant", "")))
+        if key in indexed:
+            failures.append(f"duplicate provider run: {key}")
+        indexed[key] = item
+        if (
+            item.get("status") != "pass"
+            or item.get("model_executed") is not True
+            or item.get("provider") != report.get("provider_matrix", {}).get("provider")
+            or key[0] not in models
+        ):
+            failures.append(f"untrusted provider run: {key}")
+    if len(models) != 2 or len(case_ids) != 10 or set(indexed) != expected or len(runs) != 40:
+        failures.append("provider runs must exactly cover 2 models x 10 cases x 2 variants")
+    if failures:
+        raise ValueError("; ".join(failures))
+    return indexed
 
 
 def build_blind_materials(report: dict[str, Any], run_dir: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, dict[str, Any]]]:
     if report.get("summary", {}).get("failure_count") or len(report.get("runs", [])) != 40:
         raise ValueError("blind materials require 40 successful provider runs")
-    runs = {(item["model"], item["case_id"], item["variant"]): item for item in report["runs"]}
+    runs = validate_provider_run_set(report)
+    blinded_root = run_dir / "review-materials" / secrets.token_hex(16)
+    blinded_root.mkdir(parents=True)
     pairs = []
     answers = []
     for model in [item["model"] for item in report["provider_matrix"]["models"]]:
         case_ids = sorted({item["case_id"] for item in report["runs"] if item["model"] == model})
         for case_id in case_ids:
             pair_id = f"{model}:{case_id}"
-            role_a, role_b = blind_order(pair_id)
+            role_a, role_b = ("baseline", "with_skill") if secrets.randbits(1) == 0 else ("with_skill", "baseline")
             run_a = runs[(model, case_id, role_a)]
             run_b = runs[(model, case_id, role_b)]
             path_a = raw_output_path(run_dir, model, case_id, role_a)
             path_b = raw_output_path(run_dir, model, case_id, role_b)
             validate_raw_output(path_a, run_dir, run_a["output_sha256"], pair_id, "A")
             validate_raw_output(path_b, run_dir, run_b["output_sha256"], pair_id, "B")
+            blind_a = blinded_root / f"{secrets.token_hex(16)}.txt"
+            blind_b = blinded_root / f"{secrets.token_hex(16)}.txt"
+            shutil.copyfile(path_a, blind_a)
+            shutil.copyfile(path_b, blind_b)
             pairs.append(
                 {
                     "pair_id": pair_id,
                     "model_alias": "Model A" if model.endswith("flash") else "Model B",
                     "case_id": case_id,
-                    "variant_a_raw_output": path_a.relative_to(run_dir).as_posix(),
-                    "variant_b_raw_output": path_b.relative_to(run_dir).as_posix(),
+                    "variant_a_raw_output": blind_a.relative_to(run_dir).as_posix(),
+                    "variant_b_raw_output": blind_b.relative_to(run_dir).as_posix(),
                     "variant_a_sha256": run_a["output_sha256"],
                     "variant_b_sha256": run_b["output_sha256"],
                     "review_instruction": "Select A or B using only visible quality and boundary evidence.",
@@ -283,20 +357,30 @@ def build_blind_materials(report: dict[str, Any], run_dir: Path) -> tuple[dict[s
                     "variant_b_role": role_b,
                 }
             )
-    random.Random("yao-matrix-review-v1").shuffle(pairs)
+    secrets.SystemRandom().shuffle(pairs)
     order = {pair["pair_id"]: index for index, pair in enumerate(pairs)}
     answers.sort(key=lambda item: order[item["pair_id"]])
     blind_pack = {"schema_version": "1.0", "summary": {"pair_count": len(pairs)}, "pairs": pairs}
+    if len(pairs) != 20:
+        raise ValueError(f"blind materials require 20 pairs, found {len(pairs)}")
+    blind_pack_sha256 = canonical_sha256(blind_pack)
     answer_key = {
         "schema_version": "1.0",
         "summary": {"pair_count": len(answers)},
         "promotion": report["provider_matrix"]["promotion"],
+        "blind_pack_sha256": blind_pack_sha256,
         "answers": answers,
     }
     templates = {
         reviewer: {
             "schema_version": "1.0",
             "reviewer": reviewer,
+            "review_integrity": {"blind_pack_sha256": blind_pack_sha256},
+            "reviewer_attestation": {
+                "independent_blind_review_completed": False,
+                "submitted_at": "",
+                "controlled_submission_id": "",
+            },
             "decisions": [
                 {"pair_id": pair["pair_id"], "winner_variant": "", "critical_failure": False, "reason": ""}
                 for pair in pairs

@@ -35,8 +35,8 @@ This runbook coordinates evidence collection only. It does not accept submission
 | Step | Evidence | Owner | Needs user | User action | Assistant action | Command | Pass condition |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `prepare-evidence-session` | `all` | assistant + user | `true` | Confirm provider access, reviewer availability, target client path, and telemetry client path before collection starts. | Run preflight and prepare submission drafts without accepting them as evidence. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts` | Preflight lists the same pending evidence keys and no credential values are printed. |
-| `collect-provider-holdout` | `provider-holdout` | assistant + operator with provider credentials | `true` | Provide the selected provider API key through an environment variable and confirm the provider, model, endpoint, and API format to use. | Run provider-backed output execution, verify aggregate timing and token metadata, then prepare the evidence packet. | `python3 scripts/yao.py output-exec . --provider-runner <openai|deepseek> --provider-model <model> --timeout-seconds 60` | reports/output_execution_runs.json has model_executed_count > 0 and token_observed_count > 0. |
-| `collect-human-adjudication` | `human-adjudication` | human reviewer + assistant | `true` | Open the blind review kit, choose winners for all pairs, add reviewer metadata and reasons, and keep the answer key hidden until decisions are saved. | Generate the review kit, import decisions, validate integrity, and prepare the human evidence packet. | `python3 scripts/yao.py output-review-kit . && python3 scripts/yao.py output-review .` | reports/output_review_adjudication.json has pending_count == 0 and ready_for_human_evidence == true. |
+| `collect-provider-holdout` | `provider-holdout` | assistant + operator with provider credentials | `true` | Provide DEEPSEEK_API_KEY through the environment for the fixed Flash+Pro matrix. | Run evidence-build, verify 40 governed calls and the private blind-review material boundary, then prepare the evidence packet. | `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>` | reports/provider_output_evaluation.json records 40/40 model calls, zero failures, and total_tokens <= 250000. |
+| `collect-human-adjudication` | `human-adjudication` | human reviewer + assistant | `true` | Have reviewer-a, reviewer-b, and reviewer-c independently complete the same 20-pair role-neutral pack through controlled submissions. | Verify the three packet identities and commitments, then finalize the source provider run without rerunning the matrix. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json>` | reports/provider_output_adjudication.json has reviewer_count == 3, pair_count == 20, and failure_count == 0. |
 | `collect-native-permission-enforcement` | `native-permission-enforcement` | target client or installer integrator + assistant | `true` | Select a real target client or external installer guard that can enforce declared capabilities instead of metadata-only fallback. | Run runtime permission probes, package verification, install simulation, and prepare the native enforcement evidence packet. | `python3 scripts/yao.py runtime-permissions . --package-dir dist` | reports/runtime_permission_probes.json has native_enforcement_count > 0 and failure_count == 0. |
 | `collect-native-client-telemetry` | `native-client-telemetry` | real client integrator + assistant | `true` | Install the native host manifest in a real Browser, Chrome, IDE, or provider client and trigger a metadata-only event. | Generate native host assets, import the external event JSONL, refresh adoption drift, and prepare the telemetry evidence packet. | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --source external` | reports/adoption_drift_report.json has source_types.external > 0 and adoption_sample_count > 0. |
 | `review-and-release-gate` | `all` | assistant + ledger reviewer | `true` | Approve only validated evidence packets and confirm the release wording after the claim guard passes. | Run intake, submission review, ledger, claim guard, benchmark, evidence consistency, Review Studio, and CI before final publish. | `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-claim-guard . && make ci-test` | Ledger ready_to_claim_world_class, benchmark public_claim_ready, claim guard violation_count == 0, Review Studio has no blockers, and CI passes. |
@@ -45,25 +45,25 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 | Phase | Status | Rows | Blocked | Owners | Next action | Verify |
 | --- | --- | ---: | ---: | --- | --- | --- |
-| `unblock-access` | `blocked` | `4` | `4` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Assign a real reviewer identity before claiming human adjudication. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
-| `collect-source` | `blocked` | `8` | `8` | Browser/Chrome/IDE/provider client integrator, human reviewer, target client or installer integrator | Set reviewer_attestation only after choices are completed before opening the answer key. | `python3 scripts/yao.py output-review && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
+| `unblock-access` | `blocked` | `4` | `4` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Assign three independent controlled reviewer identities before claiming human adjudication. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
+| `collect-source` | `blocked` | `8` | `8` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Bind adjudication to the reviewed blind pack SHA256. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
 
 ## Evidence Items
 
 | Evidence | Ledger | Intake | Review | Blocked checks | Next source action | Owner |
 | --- | --- | --- | --- | ---: | --- | --- |
-| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `0` | none | operator with provider credentials |
-| `human-adjudication` | `pending` | `awaiting-submission` | `awaiting-submission` | `5` | Record a reviewer choice and reason for every pair. | human reviewer |
+| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `2` | Complete all 40 fixed DeepSeek calls. | operator with provider credentials |
+| `human-adjudication` | `pending` | `awaiting-submission` | `awaiting-submission` | `3` | Collect reviewer-a, reviewer-b, and reviewer-c. | human reviewer |
 | `native-permission-enforcement` | `pending` | `awaiting-submission` | `awaiting-submission` | `1` | Collect real target-client or external runtime guard proof. | target client or installer integrator |
 | `native-client-telemetry` | `pending` | `awaiting-submission` | `awaiting-submission` | `2` | Import at least one metadata-only event from a real client. | Browser/Chrome/IDE/provider client integrator |
 
 ## Provider Holdout
 
-- objective: Collect at least one provider-backed output-eval holdout run with model, timing, and token metadata.
+- objective: Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.
 - blocking reason: No evidence packet has been submitted for review.
-- blocked source checks: `0`
-- repair rows: `1` blocked
-- phase queue: `1` blocked phases
+- blocked source checks: `2`
+- repair rows: `3` blocked
+- phase queue: `2` blocked phases
 - submission: `evidence/world_class/submissions/provider-holdout.json`
 - template: `evidence/world_class/templates/provider-holdout.intake.json`
 
@@ -71,13 +71,14 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 | Phase | Status | Rows | Blocked | Next action |
 | --- | --- | ---: | ---: | --- |
-| `unblock-access` | `blocked` | `1` | `1` | Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value. |
+| `unblock-access` | `blocked` | `1` | `1` | Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value. |
+| `collect-source` | `blocked` | `2` | `2` | Complete all 40 fixed DeepSeek calls. |
 
 ### Source Runbook
 
-- Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.
-- For OpenAI Responses: python3 scripts/yao.py output-exec --provider-runner openai --provider-model ${YAO_OUTPUT_EVAL_MODEL:-gpt-4.1-mini} --timeout-seconds 60
-- For DeepSeek Chat Completions: python3 scripts/yao.py output-exec --provider-runner deepseek --provider-model deepseek-v4-flash --provider-api-format chat-completions --provider-thinking disabled --api-key-env DEEPSEEK_API_KEY --timeout-seconds 120
+- Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.
+- python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>
+- Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.
 - python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
 - Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.
 - python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
@@ -98,9 +99,10 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Success Checks
 
-- reports/output_execution_runs.json summary.model_executed_count > 0
-- reports/output_execution_runs.json summary.timing_observed_count > 0
-- reports/output_execution_runs.json summary.token_observed_count > 0
+- reports/provider_output_evaluation.json summary.call_count == 40
+- reports/provider_output_evaluation.json summary.model_executed_count == 40
+- reports/provider_output_evaluation.json summary.failure_count == 0
+- reports/provider_output_evaluation.json summary.total_tokens <= 250000
 - reports/skill_os2_audit.json item provider-holdout status becomes pass
 
 ### Privacy Contract
@@ -110,8 +112,10 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Evidence Artifacts
 
-- reports/output_execution_runs.json
-- reports/output_execution_runs.md
+- evals/output/provider_matrix.json
+- reports/provider_output_evaluation.json
+- reports/provider_output_blind_pack.json
+- reports/provider_output_answer_commitment.json
 - reports/skill_os2_audit.json
 - evidence/world_class/intake.schema.json
 - evidence/world_class/templates/provider-holdout.intake.json
@@ -120,22 +124,24 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Next Source Actions
 
-- No blocked source checks.
+- Complete all 40 fixed DeepSeek calls.
+- Require model identity on all 40 calls.
 
 ### Source Evidence Snapshot
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Provider model run | `10` | `>0` | `pass` | Run provider-backed output-exec with real credentials. |
-| Timing observed | `10` | `>0` | `pass` | Provider execution should record timing metadata. |
-| Token usage observed | `10` | `>0` | `pass` | Provider execution should return non-estimated token usage. |
+| Provider calls | `0` | `==40` | `blocked` | Complete all 40 fixed DeepSeek calls. |
+| Provider model runs | `0` | `==40` | `blocked` | Require model identity on all 40 calls. |
+| Provider failures | `0` | `==0` | `pass` | Resolve every fixed-matrix failure. |
+| Token budget | `0` | `<=250000` | `pass` | Keep the matrix within the 250000-token ceiling. |
 
 ## Human Adjudication
 
-- objective: Record real blind A/B reviewer decisions before claiming human output review completion.
+- objective: Collect three controlled, independent reviews of the same 20-pair provider blind pack.
 - blocking reason: No evidence packet has been submitted for review.
-- blocked source checks: `5`
-- repair rows: `6` blocked
+- blocked source checks: `3`
+- repair rows: `4` blocked
 - phase queue: `2` blocked phases
 - submission: `evidence/world_class/submissions/human-adjudication.json`
 - template: `evidence/world_class/templates/human-adjudication.intake.json`
@@ -144,17 +150,15 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 | Phase | Status | Rows | Blocked | Next action |
 | --- | --- | ---: | ---: | --- |
-| `unblock-access` | `blocked` | `1` | `1` | Assign a real reviewer identity before claiming human adjudication. |
-| `collect-source` | `blocked` | `5` | `5` | Set reviewer_attestation only after choices are completed before opening the answer key. |
+| `unblock-access` | `blocked` | `1` | `1` | Assign three independent controlled reviewer identities before claiming human adjudication. |
+| `collect-source` | `blocked` | `3` | `3` | Bind adjudication to the reviewed blind pack SHA256. |
 
 ### Source Runbook
 
-- python3 scripts/yao.py output-review-kit --write-template
-- Open reports/output_review_kit.md and choose A or B for each pair without opening the answer key.
-- python3 scripts/adjudicate_output_review.py --write-template
-- Record reviewer choices in a separate JSON, JSONL, or CSV decision source with reviewer, reviewed_at, case_id, winner_variant, confidence, required reason, and truthful reviewer_attestation only.
-- python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication
-- python3 scripts/yao.py output-review
+- Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.
+- Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.
+- Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.
+- python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>
 - python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
 - Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.
 - python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
@@ -175,33 +179,26 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Success Checks
 
-- reports/output_review_adjudication.json summary.pending_count == 0
-- reports/output_review_adjudication.json summary.judgment_count == summary.pair_count
-- reports/output_review_adjudication.json summary.invalid_decision_count == 0
-- reports/output_review_adjudication.json summary.reviewer_metadata_present is true
-- reports/output_review_adjudication.json summary.blind_review_attested is true
-- reports/output_review_adjudication.json review_integrity.blind_pack_sha256 exists and matches reports/output_review_decisions.json
-- reports/output_review_adjudication.json pairs and reviewer_checklist store prompt_sha256, not raw prompt text
-- reports/output_review_adjudication.json summary.ready_for_human_evidence is true
+- reports/provider_output_adjudication.json summary.reviewer_count == 3
+- reports/provider_output_adjudication.json summary.pair_count == 20
+- reports/provider_output_adjudication.json summary.failure_count == 0
+- reports/provider_output_adjudication.json evidence_binding.blind_pack_sha256 matches the source run
 - reports/skill_os2_audit.json item human-adjudication status becomes pass
 
 ### Privacy Contract
 
-- Reviewer decisions should not include raw user data or private customer detail.
-- Reviewer reasons must be rubric-based and must not include raw user data or private customer detail.
-- The decision importer rejects raw prompt, output, transcript, message, and answer-key fields.
-- The adjudication evidence stores prompt_sha256 instead of raw prompt text.
-- The decision and adjudication artifacts preserve blind_pack_sha256 so reviewers can audit exactly which pack was judged.
-- Keep the answer key separate until after decisions are recorded.
+- Reviewer packets contain choices, reasons, hashes, and controlled submission metadata without raw prompts or answer-key roles.
+- The private answer key remains under .yao/runs and is opened by the finalizer after all controlled packets are fixed.
+- The adjudication and lineage artifacts preserve blind_pack_sha256 and answer_key_sha256 commitments.
 
 ### Evidence Artifacts
 
-- reports/output_blind_review_pack.md
-- reports/output_review_kit.md
-- reports/output_review_decisions.json
-- reports/output_review_adjudication.json
-- reports/output_review_adjudication.md
-- scripts/import_output_review_decisions.py
+- reports/provider_output_blind_pack.json
+- reports/provider_reviewer_registry.json
+- reports/provider_output_adjudication.json
+- reports/provider_review_lineage.json
+- scripts/adjudicate_multi_reviewer.py
+- scripts/finalize_provider_review.py
 - evidence/world_class/intake.schema.json
 - evidence/world_class/templates/human-adjudication.intake.json
 - reports/world_class_evidence_intake.json
@@ -209,26 +206,18 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Next Source Actions
 
-- Record a reviewer choice and reason for every pair.
-- Every pair needs one valid human judgment.
-- Record reviewer and reviewed_at before adjudication can count.
-- Set reviewer_attestation only after choices are completed before opening the answer key.
-- Complete all reviewer decisions with metadata and rationale, plus blind-review attestation and integrity fingerprints.
+- Collect reviewer-a, reviewer-b, and reviewer-c.
+- Complete all 20 blind pairs.
+- Bind adjudication to the reviewed blind pack SHA256.
 
 ### Source Evidence Snapshot
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Review pairs exist | `5` | `>0` | `pass` | Generate the blind A/B review pack. |
-| No pending decisions | `5` | `==0` | `blocked` | Record a reviewer choice and reason for every pair. |
-| Judgments complete | `0` | `==pair_count` | `blocked` | Every pair needs one valid human judgment. |
-| No invalid decisions | `0` | `==0` | `pass` | Fix malformed winner/confidence entries. |
-| Reviewer metadata | `False` | `true` | `blocked` | Record reviewer and reviewed_at before adjudication can count. |
-| Reason required | `True` | `true` | `pass` | Keep reason mandatory for every imported or direct reviewer decision. |
-| Blind review attested | `False` | `true` | `blocked` | Set reviewer_attestation only after choices are completed before opening the answer key. |
-| Raw content attested | `True` | `true` | `pass` | Attest that reviewer decisions exclude raw prompts, outputs, transcripts, messages, and private user content. |
-| Raw content blocked | `False` | `false` | `pass` | Adjudication evidence should store prompt hashes and reviewer metadata, not raw prompts, outputs, transcripts, or messages. |
-| Human evidence ready | `False` | `true` | `blocked` | Complete all reviewer decisions with metadata and rationale, plus blind-review attestation and integrity fingerprints. |
+| Registered reviewers | `0` | `==3` | `blocked` | Collect reviewer-a, reviewer-b, and reviewer-c. |
+| Blind pairs | `0` | `==20` | `blocked` | Complete all 20 blind pairs. |
+| Review failures | `0` | `==0` | `pass` | Resolve packet, identity, or adjudication failures. |
+| Blind pack binding | `False` | `true` | `blocked` | Bind adjudication to the reviewed blind pack SHA256. |
 
 ## Native Permission Enforcement
 

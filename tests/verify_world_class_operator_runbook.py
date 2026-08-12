@@ -160,10 +160,10 @@ def main() -> None:
     assert all(step["counts_as_completion"] is False for step in coordination_plan), coordination_plan
     coordination_by_key = {step["evidence_key"]: step for step in coordination_plan if step["evidence_key"]}
     assert set(coordination_by_key) == set(items), coordination_by_key
-    assert "output-exec . --provider-runner <openai|deepseek>" in coordination_by_key["provider-holdout"]["command"], (
+    assert "evidence-build . --run-id <PROVIDER_RUN_ID>" in coordination_by_key["provider-holdout"]["command"], (
         coordination_by_key
     )
-    assert "output-review-kit" in coordination_by_key["human-adjudication"]["command"], coordination_by_key
+    assert "evidence-finalize-review" in coordination_by_key["human-adjudication"]["command"], coordination_by_key
     assert "runtime-permissions" in coordination_by_key["native-permission-enforcement"]["command"], (
         coordination_by_key
     )
@@ -180,32 +180,34 @@ def main() -> None:
     assert release_checks["evidence_consistency_clean"]["passed"] is True, release_checks
     provider = items["provider-holdout"]
     assert provider["review_state"] == "awaiting-submission", provider
-    assert provider["source_accepted"] is True, provider
-    assert provider["blocked_source_check_count"] == 0, provider
-    assert provider["repair_blocked_count"] == 1, provider
+    assert provider["source_accepted"] is False, provider
+    assert provider["blocked_source_check_count"] == 2, provider
+    assert provider["repair_blocked_count"] == 3, provider
     assert provider["repair_counts_as_completion"] is False, provider
-    assert provider["phase_queue_blocked_count"] == 1, provider
+    assert provider["phase_queue_blocked_count"] == 2, provider
     assert provider["phase_queue_counts_as_completion"] is False, provider
-    assert [item["phase"] for item in provider["phase_queue"]] == ["unblock-access"], provider
-    assert any("--provider-runner openai" in step for step in provider["execution_runbook"]), provider
-    assert any("--provider-runner deepseek" in step for step in provider["execution_runbook"]), provider
+    assert [item["phase"] for item in provider["phase_queue"]] == ["unblock-access", "collect-source"], provider
+    assert any("evidence-build . --run-id" in step for step in provider["execution_runbook"]), provider
+    assert not any("--provider-runner" in step for step in provider["execution_runbook"]), provider
     assert not any("<redacted>" in step or "OPENAI_API_KEY=" in step for step in provider["execution_runbook"]), provider
-    assert provider["next_source_actions"] == [], provider
+    assert len(provider["next_source_actions"]) == 2, provider
     assert provider["commands"]["prepare_submission"].startswith("python3 scripts/yao.py world-class-submission-kit"), provider
     assert "world-class-intake" in provider["commands"]["validate_intake"], provider
     assert "world-class-submission-review" in provider["commands"]["review_queue"], provider
     assert "world-class-ledger" in provider["commands"]["refresh_ledger"], provider
     assert "world-class-claim-guard" in provider["commands"]["guard_claim"], provider
     assert "provider-backed model run" in provider["must_collect"]["provenance_requirements"], provider
-    assert "reports/output_execution_runs.json summary.model_executed_count > 0" in provider["must_collect"]["success_checks"], provider
+    assert "reports/provider_output_evaluation.json summary.model_executed_count == 40" in provider["must_collect"]["success_checks"], provider
     provider_source = {item["field"]: item for item in provider["source_checklist"]}
-    assert provider_source["model_executed_count"]["status"] == "pass", provider_source
-    assert provider_source["timing_observed_count"]["status"] == "pass", provider_source
-    assert provider_source["token_observed_count"]["status"] == "pass", provider_source
+    assert provider_source["call_count"]["status"] == "blocked", provider_source
+    assert provider_source["model_executed_count"]["status"] == "blocked", provider_source
+    assert provider_source["failure_count"]["status"] == "pass", provider_source
+    assert provider_source["total_tokens"]["status"] == "pass", provider_source
     human = items["human-adjudication"]
     human_source = {item["field"]: item for item in human["source_checklist"]}
-    assert human["observed_state"]["raw_content_allowed"] is False, human
-    assert human_source["raw_content_allowed"]["status"] == "pass", human_source
+    assert human["observed_state"]["contract_version"] == "phase1", human
+    assert human["observed_state"]["reviewer_count"] == 0, human
+    assert human_source["reviewer_count"]["status"] == "blocked", human_source
     markdown = output_md.read_text(encoding="utf-8")
     assert "World-Class Operator Runbook" in markdown, markdown
     assert "runbook counts as completion: `false`" in markdown, markdown
@@ -220,18 +222,18 @@ def main() -> None:
     assert "| `unblock-access` | `blocked` |" in markdown, markdown
     assert "Valid intake means ready for submission review; ledger review still requires passing source evidence." in markdown, markdown
     assert "| Evidence | Ledger | Intake | Review | Blocked checks | Next source action | Owner |" in markdown, markdown
-    assert "| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `0` | none | operator with provider credentials |" in markdown, markdown
+    assert "| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `2`" in markdown, markdown
     assert "Source Runbook" in markdown, markdown
     assert "### Phase Queue" in markdown, markdown
-    assert "--provider-runner openai" in markdown, markdown
-    assert "--provider-runner deepseek" in markdown, markdown
+    assert "evidence-build . --run-id" in markdown, markdown
+    assert "--provider-runner" not in markdown, markdown
     assert "<redacted>" not in markdown, markdown
     assert "OPENAI_API_KEY=<redacted>" not in markdown, markdown
     assert "### Next Source Actions" in markdown, markdown
-    assert "| Token usage observed | `10` | `>0` | `pass` |" in markdown, markdown
+    assert "| Token budget | `0` | `<=250000` | `pass` |" in markdown, markdown
     assert "Source Evidence Snapshot" in markdown, markdown
     assert "| Check | Current | Expected | Status | Next action |" in markdown, markdown
-    assert "| Provider model run | `10` | `>0` | `pass` | Run provider-backed output-exec with real credentials. |" in markdown, markdown
+    assert "| Provider calls | `0` | `==40` | `blocked` | Complete all 40 fixed DeepSeek calls. |" in markdown, markdown
     html = output_html.read_text(encoding="utf-8")
     assert "World-Class Operator Runbook" in html, html[:400]
     assert "ledger and claim guard" in html, html
@@ -240,8 +242,8 @@ def main() -> None:
     assert "<span>Invalid</span><strong>0</strong>" in html, html
     assert f"<span>Queue</span><strong>{summary['phase_queue_blocked_count']}/{summary['phase_queue_count']}</strong>" in html, html
     assert f"<span>Blocked</span><strong>{summary['source_blocked_count']}</strong>" in html, html
-    assert "<dt>Blocked</dt><dd><code>0</code></dd>" in html, html
-    assert "<dt>Queue</dt><dd><code>1</code></dd>" in html, html
+    assert "<dt>Blocked</dt><dd><code>2</code></dd>" in html, html
+    assert "<dt>Queue</dt><dd><code>2</code></dd>" in html, html
     assert "Phase Queue" in html, html
     assert "Coordination Plan" in html, html
     assert "Release Gate" in html, html
@@ -249,14 +251,14 @@ def main() -> None:
     assert "blocked-until-evidence-accepted" in html, html
     assert "Next Source Actions" in html, html
     assert "Source Runbook" in html, html
-    assert "--provider-runner openai" in html, html
-    assert "--provider-runner deepseek" in html, html
+    assert "evidence-build . --run-id" in html, html
+    assert "--provider-runner" not in html, html
     assert "&lt;redacted&gt;" not in html and "<redacted>" not in html, html
     assert "OPENAI_API_KEY=&lt;redacted&gt;" not in html, html
     assert "Source Evidence Snapshot" in html, html
     assert "model_executed_count" in html, html
-    assert "model_executed_count: 10 / &gt;0" in html, html
-    assert "raw_content_allowed: False / false" in html, html
+    assert "model_executed_count: 0 / ==40" in html, html
+    assert "reviewer_count: 0 / ==3" in html, html
     assert "<script" not in html.lower(), html
     assert "http://" not in html and "https://" not in html, html
 
@@ -285,9 +287,9 @@ def main() -> None:
     )
     submitted_summary = submitted["summary"]
     assert submitted_summary["awaiting_submission_count"] == 3, submitted_summary
-    assert submitted_summary["valid_packet_source_incomplete_count"] == 0, submitted_summary
+    assert submitted_summary["valid_packet_source_incomplete_count"] == 1, submitted_summary
     assert submitted_summary["invalid_submission_count"] == 0, submitted_summary
-    assert submitted_summary["accepted_count"] == 1, submitted_summary
+    assert submitted_summary["accepted_count"] == 0, submitted_summary
     assert submitted_summary["ready_for_ledger_review_count"] == 0, submitted_summary
     assert submitted_summary["source_pass_count"] + submitted_summary["source_blocked_count"] == submitted_summary["source_check_count"], submitted_summary
     assert submitted_summary["source_blocked_count"] >= 6, submitted_summary
@@ -296,13 +298,13 @@ def main() -> None:
     assert submitted_summary["phase_queue_counts_as_completion"] is False, submitted_summary
     assert submitted_summary["ready_to_claim_world_class"] is False, submitted_summary
     submitted_provider = {item["evidence_key"]: item for item in submitted["items"]}["provider-holdout"]
-    assert submitted_provider["ledger_status"] == "accepted", submitted_provider
-    assert submitted_provider["intake_readiness"] == "ready-for-ledger-review", submitted_provider
-    assert submitted_provider["review_state"] == "accepted", submitted_provider
-    assert submitted_provider["source_accepted"] is True, submitted_provider
-    assert submitted_provider["blocked_source_check_count"] == 0, submitted_provider
-    assert submitted_provider["phase_queue_blocked_count"] == 0, submitted_provider
-    assert submitted_provider["next_source_actions"] == [], submitted_provider
+    assert submitted_provider["ledger_status"] == "pending", submitted_provider
+    assert submitted_provider["intake_readiness"] == "source-evidence-incomplete", submitted_provider
+    assert submitted_provider["review_state"] == "source-evidence-incomplete", submitted_provider
+    assert submitted_provider["source_accepted"] is False, submitted_provider
+    assert submitted_provider["blocked_source_check_count"] == 2, submitted_provider
+    assert submitted_provider["phase_queue_blocked_count"] == 2, submitted_provider
+    assert len(submitted_provider["next_source_actions"]) == 2, submitted_provider
     assert "tests/tmp_world_class_operator_runbook/valid_submissions" in submitted_provider["commands"]["validate_intake"], submitted_provider
     assert "tests/tmp_world_class_operator_runbook/valid_submissions" in submitted_provider["commands"]["review_queue"], submitted_provider
     assert "tests/tmp_world_class_operator_runbook/valid_submissions" in submitted_provider["commands"]["refresh_ledger"], submitted_provider

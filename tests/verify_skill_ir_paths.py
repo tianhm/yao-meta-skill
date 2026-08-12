@@ -3,6 +3,7 @@
 
 import json
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -126,6 +127,22 @@ def main() -> None:
     write_skill(escape, source="../outside.json")
     write_json(TMP / "outside.json", ir_payload())
     expect_error(escape, "unsafe-manifest-source")
+
+    invalid_manifest = TMP / "invalid-manifest-contract"
+    write_skill(invalid_manifest)
+    write_json(invalid_manifest / "reports" / "skill-ir.json", ir_payload())
+    manifest_payload = json.loads((invalid_manifest / "manifest.json").read_text(encoding="utf-8"))
+    manifest_payload["skill_ir_source"] = 123
+    write_json(invalid_manifest / "manifest.json", manifest_payload)
+    invalid_manifest_proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "validate_skill.py"), str(invalid_manifest)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert invalid_manifest_proc.returncode == 2, invalid_manifest_proc.stdout
+    invalid_manifest_result = json.loads(invalid_manifest_proc.stdout)
+    assert any("skill_ir_source" in failure for failure in invalid_manifest_result["failures"]), invalid_manifest_result
 
     symlink_fallback = TMP / "symlink-fallback"
     write_skill(symlink_fallback)

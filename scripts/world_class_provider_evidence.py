@@ -143,3 +143,42 @@ def validate_provider_execution_report(
         bool(provider_model_runs(execution, provenance)),
         "provider-holdout output execution runs must include a passing model run with matching provider, model, timing, non-estimated usage, and output hash",
     )
+
+
+def validate_phase1_provider_report(execution: dict[str, Any], errors: list[str]) -> None:
+    execution_summary = summary(execution)
+    runs = run_rows(execution)
+    validate_no_raw_fields(execution, errors)
+    expected_models = {"deepseek-v4-flash", "deepseek-v4-pro"}
+    observed_keys = {
+        (str(run.get("model", "")), str(run.get("case_id", "")), str(run.get("variant", "")))
+        for run in runs
+    }
+    case_ids = {str(run.get("case_id", "")) for run in runs}
+    expected_keys = {
+        (model, case_id, variant)
+        for model in expected_models
+        for case_id in case_ids
+        for variant in ("baseline", "with_skill")
+    }
+    add_error(errors, execution_summary.get("call_count") == 40, "phase1 provider report summary.call_count must be 40")
+    add_error(errors, execution_summary.get("model_executed_count") == 40, "phase1 provider report summary.model_executed_count must be 40")
+    add_error(errors, execution_summary.get("run_record_count") == 40, "phase1 provider report summary.run_record_count must be 40")
+    add_error(errors, execution_summary.get("failure_count") == 0, "phase1 provider report summary.failure_count must be 0")
+    total_tokens = real_int(execution_summary.get("total_tokens"))
+    add_error(errors, total_tokens is not None and total_tokens <= 250000, "phase1 provider report total_tokens must be <= 250000")
+    add_error(errors, len(case_ids) == 10 and observed_keys == expected_keys, "phase1 provider report must cover 2 models x 10 cases x 2 variants")
+    add_error(
+        errors,
+        all(
+            run.get("status") == "pass"
+            and run.get("model_executed") is True
+            and run.get("provider") == "deepseek"
+            and run.get("model") in expected_models
+            and observed_usage(run)
+            and positive_duration(run.get("duration_ms"))
+            and SHA256_RE.match(str(run.get("output_sha256", "")))
+            for run in runs
+        ),
+        "phase1 provider report rows must be successful DeepSeek model calls with timing, observed usage, and output hashes",
+    )

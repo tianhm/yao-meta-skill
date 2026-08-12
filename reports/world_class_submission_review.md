@@ -21,8 +21,8 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 
 | Evidence | Review state | Intake | Source accepted | Submission | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `provider-holdout` | `awaiting-submission` | `missing` | `true` | `missing` | Run provider-backed holdout cases with real credentials and commit only aggregate evidence. |
-| `human-adjudication` | `awaiting-submission` | `missing` | `false` | `missing` | Record real A/B choices, reviewer metadata, and blind-review attestation, then regenerate adjudication. |
+| `provider-holdout` | `awaiting-submission` | `missing` | `false` | `missing` | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| `human-adjudication` | `awaiting-submission` | `missing` | `false` | `missing` | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | `native-permission-enforcement` | `awaiting-submission` | `missing` | `false` | `missing` | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
 | `native-client-telemetry` | `awaiting-submission` | `missing` | `false` | `missing` | Install a real client against the native host and import production metadata-only events. |
 
@@ -35,20 +35,22 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 - ledger status: `pending`
 - submission status: `missing`
 - intake status: `missing`
-- source accepted: `true`
+- source accepted: `false`
 - submission path: `evidence/world_class/submissions/provider-holdout.json`
 
 #### Source Checks
 
-- Provider model run: 10 / >0 => pass
-- Timing observed: 10 / >0 => pass
-- Token usage observed: 10 / >0 => pass
+- Provider calls: 0 / ==40 => blocked
+- Provider model runs: 0 / ==40 => blocked
+- Provider failures: 0 / ==0 => pass
+- Token budget: 0 / <=250000 => pass
 
 #### Completion Assertions
 
-- reports/output_execution_runs.json summary.model_executed_count > 0
-- reports/output_execution_runs.json summary.timing_observed_count > 0
-- reports/output_execution_runs.json summary.token_observed_count > 0
+- reports/provider_output_evaluation.json summary.call_count == 40
+- reports/provider_output_evaluation.json summary.model_executed_count == 40
+- reports/provider_output_evaluation.json summary.failure_count == 0
+- reports/provider_output_evaluation.json summary.total_tokens <= 250000
 - reports/skill_os2_audit.json item provider-holdout status becomes pass
 
 #### Intake Errors
@@ -72,27 +74,17 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 
 #### Source Checks
 
-- Review pairs exist: 5 / >0 => pass
-- No pending decisions: 5 / ==0 => blocked
-- Judgments complete: 0 / ==pair_count => blocked
-- No invalid decisions: 0 / ==0 => pass
-- Reviewer metadata: False / true => blocked
-- Reason required: True / true => pass
-- Blind review attested: False / true => blocked
-- Raw content attested: True / true => pass
-- Raw content blocked: False / false => pass
-- Human evidence ready: False / true => blocked
+- Registered reviewers: 0 / ==3 => blocked
+- Blind pairs: 0 / ==20 => blocked
+- Review failures: 0 / ==0 => pass
+- Blind pack binding: False / true => blocked
 
 #### Completion Assertions
 
-- reports/output_review_adjudication.json summary.pending_count == 0
-- reports/output_review_adjudication.json summary.judgment_count == summary.pair_count
-- reports/output_review_adjudication.json summary.invalid_decision_count == 0
-- reports/output_review_adjudication.json summary.reviewer_metadata_present is true
-- reports/output_review_adjudication.json summary.blind_review_attested is true
-- reports/output_review_adjudication.json review_integrity.blind_pack_sha256 exists and matches reports/output_review_decisions.json
-- reports/output_review_adjudication.json pairs and reviewer_checklist store prompt_sha256, not raw prompt text
-- reports/output_review_adjudication.json summary.ready_for_human_evidence is true
+- reports/provider_output_adjudication.json summary.reviewer_count == 3
+- reports/provider_output_adjudication.json summary.pair_count == 20
+- reports/provider_output_adjudication.json summary.failure_count == 0
+- reports/provider_output_adjudication.json evidence_binding.blind_pack_sha256 matches the source run
 - reports/skill_os2_audit.json item human-adjudication status becomes pass
 
 #### Intake Errors
@@ -101,12 +93,9 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 
 #### Privacy Contract
 
-- Reviewer decisions should not include raw user data or private customer detail.
-- Reviewer reasons must be rubric-based and must not include raw user data or private customer detail.
-- The decision importer rejects raw prompt, output, transcript, message, and answer-key fields.
-- The adjudication evidence stores prompt_sha256 instead of raw prompt text.
-- The decision and adjudication artifacts preserve blind_pack_sha256 so reviewers can audit exactly which pack was judged.
-- Keep the answer key separate until after decisions are recorded.
+- Reviewer packets contain choices, reasons, hashes, and controlled submission metadata without raw prompts or answer-key roles.
+- The private answer key remains under .yao/runs and is opened by the finalizer after all controlled packets are fixed.
+- The adjudication and lineage artifacts preserve blind_pack_sha256 and answer_key_sha256 commitments.
 
 ### Native Permission Enforcement
 

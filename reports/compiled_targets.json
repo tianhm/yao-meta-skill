@@ -602,7 +602,7 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 90,
+            "checked_count": 91,
             "failed_count": 0,
             "failed_scripts": []
           },
@@ -869,7 +869,7 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 90,
+          "checked_count": 91,
           "failed_count": 0,
           "failed_scripts": []
         },
@@ -1587,7 +1587,7 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 90,
+            "checked_count": 91,
             "failed_count": 0,
             "failed_scripts": []
           },
@@ -1854,7 +1854,7 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 90,
+          "checked_count": 91,
           "failed_count": 0,
           "failed_scripts": []
         },
@@ -2572,7 +2572,7 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 90,
+            "checked_count": 91,
             "failed_count": 0,
             "failed_scripts": []
           },
@@ -2832,7 +2832,7 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 90,
+          "checked_count": 91,
           "failed_count": 0,
           "failed_scripts": []
         },
@@ -3541,7 +3541,7 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 90,
+            "checked_count": 91,
             "failed_count": 0,
             "failed_scripts": []
           },
@@ -3801,7 +3801,7 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 90,
+          "checked_count": 91,
           "failed_count": 0,
           "failed_scripts": []
         },
@@ -4510,7 +4510,7 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 90,
+            "checked_count": 91,
             "failed_count": 0,
             "failed_scripts": []
           },
@@ -4774,7 +4774,7 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 90,
+          "checked_count": 91,
           "failed_count": 0,
           "failed_scripts": []
         },

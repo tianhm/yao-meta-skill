@@ -22,6 +22,7 @@ from yao_cli_distribution_commands import (
     command_compile_skill,
     command_conformance,
     command_evidence_build,
+    command_evidence_finalize_review,
     command_install_simulate,
     command_package,
     command_package_verify,
@@ -75,6 +76,9 @@ from yao_cli_report_commands import (
     command_world_class_submission_review,
 )
 from yao_cli_runtime import ROOT, allow_report_status, run_adoption_drift_if_source_exists, run_script
+
+
+COMMAND_LINE_TOOLS_MAKE = Path("/Library/Developer/CommandLineTools/usr/bin/make")
 from yao_cli_telemetry import add_telemetry_args, maybe_record_cli_event
 
 
@@ -507,8 +511,9 @@ def command_workspace_flow(args: argparse.Namespace) -> int:
 
 
 def command_test(args: argparse.Namespace) -> int:
+    make_executable = str(COMMAND_LINE_TOOLS_MAKE) if COMMAND_LINE_TOOLS_MAKE.is_file() else "make"
     proc = subprocess.run(
-        ["make", args.target],
+        [make_executable, args.target],
         cwd=ROOT,
         capture_output=True,
         text=True,

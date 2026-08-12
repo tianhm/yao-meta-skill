@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import json
 import contextlib
+import hashlib
+import os
 import shutil
 import subprocess
 import sys
@@ -58,6 +60,24 @@ def main() -> None:
         assert beta_run.run_dir.parent == (beta / ".yao" / "runs").resolve(), beta_run
         assert alpha_run.manifest["skill_name"] == "alpha-skill", alpha_run.manifest
         assert beta_run.manifest["skill_name"] == "beta-skill", beta_run.manifest
+
+        for crash_point in ("after-artifact", "after-index"):
+            before_manifest = json.loads((beta_run.run_dir / "run-manifest.json").read_text(encoding="utf-8"))
+            before_index = json.loads((beta_run.run_dir / "artifact-index.json").read_text(encoding="utf-8"))
+            try:
+                os.environ["YAO_EVIDENCE_ARTIFACT_CRASH_AFTER"] = crash_point
+                beta_store.add_json_artifact(beta_run, "reports/crash-test.json", {"point": crash_point})
+            except RuntimeError as exc:
+                assert "simulated artifact mutation crash" in str(exc), exc
+            else:
+                raise AssertionError(f"{crash_point} mutation crash point did not fire")
+            finally:
+                os.environ.pop("YAO_EVIDENCE_ARTIFACT_CRASH_AFTER", None)
+            beta_run = beta_store.verify_run(beta_run.run_dir)
+            assert beta_run.manifest == before_manifest, beta_run.manifest
+            assert beta_run.artifact_index == before_index, beta_run.artifact_index
+            assert not (beta_run.run_dir / "artifacts" / "reports" / "crash-test.json").exists()
+            assert not (beta_run.run_dir / ".artifact-mutation.json").exists()
 
         try:
             alpha_store.build("../escape")
@@ -146,12 +166,50 @@ def main() -> None:
             restored_payload = json.loads((crash_skill / "reports" / "quality.json").read_text(encoding="utf-8"))
             assert restored_payload["marker"] == "stable", (crash_point, restored_payload)
 
+        first_publish_skill = temp_root / "first-publish-crash"
+        first_publish_skill.mkdir()
+        write_skill(first_publish_skill, "first-publish-crash", "original")
+        first_publish_store = EvidenceStore(first_publish_skill)
+        first_publish_run = first_publish_store.build("first-run")
+        try:
+            first_publish_store.publish(first_publish_run, crash_at="after-mirrors")
+        except RuntimeError:
+            pass
+        else:
+            raise AssertionError("first publish crash point did not fire")
+        pending_dry = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "yao.py"), "evidence-build", str(first_publish_skill)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert pending_dry.returncode == 2, pending_dry.stdout
+        assert json.loads(pending_dry.stdout)["error"]["code"] == "recovery-required", pending_dry.stdout
+        assert (first_publish_skill / ".yao" / "publish-transaction.json").exists()
+        recovered_cli = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "yao.py"), "evidence-build", str(first_publish_skill), "--recover"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert recovered_cli.returncode == 0, recovered_cli.stderr or recovered_cli.stdout
+        assert not (first_publish_skill / ".yao" / "publish-transaction.json").exists()
+        assert not (first_publish_skill / ".yao" / "releases" / "first-run").exists()
+        assert not (first_publish_skill / "reports" / ".current-run.json").exists()
+        assert not (first_publish_skill / "reports" / "artifact-index.json").exists()
+        first_publish_store.publish(first_publish_run)
+
         with beta_store.publish_lock():
             try:
                 with beta_store.publish_lock():
                     raise AssertionError("second publisher acquired an active lock")
             except EvidenceError as exc:
                 assert exc.code == "publish-locked", exc
+
+        stale_lock = beta / ".yao" / "publish.lock"
+        stale_lock.write_text("pid=99999999\n", encoding="utf-8")
+        with beta_store.publish_lock():
+            pass
 
         race_skill = temp_root / "race-skill"
         race_skill.mkdir()
@@ -175,6 +233,51 @@ def main() -> None:
         else:
             raise AssertionError("publish accepted a worktree mutation after lock acquisition")
         assert not (race_skill / ".yao" / "releases" / "race-run").exists()
+
+        run_race_skill = temp_root / "run-race-skill"
+        run_race_skill.mkdir()
+        write_skill(run_race_skill, "run-race-skill", "stable")
+
+        class RunRacingEvidenceStore(EvidenceStore):
+            @contextlib.contextmanager
+            def publish_lock(self):
+                run_dir = self.runs_dir / "run-race"
+                artifact = run_dir / "artifacts" / "reports" / "quality.json"
+                artifact.write_text(json.dumps({"marker": "mutated-after-verify"}), encoding="utf-8")
+                index_path = run_dir / "artifact-index.json"
+                index = json.loads(index_path.read_text(encoding="utf-8"))
+                index["artifacts"][0]["sha256"] = hashlib.sha256(artifact.read_bytes()).hexdigest()
+                index["artifacts"][0]["size"] = artifact.stat().st_size
+                index_path.write_text(json.dumps(index), encoding="utf-8")
+                manifest_path = run_dir / "run-manifest.json"
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                manifest["artifact_index_sha256"] = hashlib.sha256(index_path.read_bytes()).hexdigest()
+                manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                yield
+
+        run_race_store = RunRacingEvidenceStore(run_race_skill)
+        run_race = run_race_store.build("run-race")
+        try:
+            run_race_store.publish(run_race)
+        except EvidenceError as exc:
+            assert exc.code == "run-changed", exc
+        else:
+            raise AssertionError("publish accepted a rehashed run mutation after initial verification")
+
+        source_drift_skill = temp_root / "source-drift-skill"
+        source_drift_skill.mkdir()
+        write_skill(source_drift_skill, "source-drift-skill", "stable")
+        source_drift_store = EvidenceStore(source_drift_skill)
+        stale_source_run = source_drift_store.build("stale-source-run")
+        (source_drift_skill / "SOURCE.txt").write_text("new source commit\n", encoding="utf-8")
+        subprocess.run(["git", "add", "SOURCE.txt"], cwd=source_drift_skill, check=True)
+        subprocess.run(["git", "commit", "-qm", "source drift"], cwd=source_drift_skill, check=True)
+        try:
+            source_drift_store.publish(stale_source_run)
+        except EvidenceError as exc:
+            assert exc.code == "run-source-mismatch", exc
+        else:
+            raise AssertionError("publish accepted evidence built from an older source commit")
 
         recovery_skill = temp_root / "recovery-skill"
         recovery_skill.mkdir()

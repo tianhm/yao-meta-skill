@@ -130,11 +130,23 @@ def main() -> None:
         skill_entries = sorted(name for name in archive_names if name.endswith("/SKILL.md"))
     assert skill_entries == ["yao-meta-skill/SKILL.md"], skill_entries
     assert not [name for name in archive_names if "/.yao/" in name], "local .yao state leaked into package"
-    assert not [
-        name
-        for name in archive_names
-        if name.endswith("/reports/.current-run.json") or name.endswith("/reports/artifact-index.json")
-    ], "local evidence pointers leaked into a package without their immutable release bundle"
+    assert "yao-meta-skill/reports/.current-run.json" in archive_names, archive_names
+    assert "yao-meta-skill/reports/artifact-index.json" in archive_names, archive_names
+    with zipfile.ZipFile(valid_dir / "yao-meta-skill.zip") as archive:
+        portable_pointer = json.loads(archive.read("yao-meta-skill/reports/.current-run.json"))
+    assert portable_pointer["mode"] == "portable", portable_pointer
+
+    first_hash = payload["summary"]["archive_sha256"]
+    verification_report = ROOT / "reports" / "package_verification.json"
+    original_verification = verification_report.read_bytes()
+    try:
+        verification_report.write_text('{"archive_sha256":"excluded-consumer-change"}\n', encoding="utf-8")
+        rebuilt = build_package(valid_dir)
+        assert rebuilt["ok"], rebuilt
+        second_hash = __import__("hashlib").sha256((valid_dir / "yao-meta-skill.zip").read_bytes()).hexdigest()
+    finally:
+        verification_report.write_bytes(original_verification)
+    assert second_hash == first_hash, (first_hash, second_hash)
 
     with tempfile.TemporaryDirectory(prefix="renamed-package-root-") as temp_root:
         renamed_root = Path(temp_root) / "checkout-alias"

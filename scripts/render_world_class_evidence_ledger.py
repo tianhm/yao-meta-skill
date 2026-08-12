@@ -17,8 +17,26 @@ SCRIPT_INTERFACE_REASON = "Renders a machine-checkable ledger for world-class ex
 
 
 def provider_state(skill_dir: Path) -> dict[str, Any]:
+    phase1 = load_json(skill_dir / "reports" / "provider_output_evaluation.json")
+    if phase1:
+        summary = phase1.get("summary", {})
+        accepted = (
+            summary.get("call_count") == 40
+            and summary.get("model_executed_count") == 40
+            and summary.get("failure_count") == 0
+            and int(summary.get("total_tokens", 250001) or 0) <= 250000
+        )
+        return {
+            "contract_version": "phase1",
+            "call_count": summary.get("call_count", 0),
+            "model_executed_count": summary.get("model_executed_count", 0),
+            "failure_count": summary.get("failure_count", 0),
+            "total_tokens": summary.get("total_tokens", 0),
+            "accepted": accepted,
+        }
     summary = load_json(skill_dir / "reports" / "output_execution_runs.json").get("summary", {})
     return {
+        "contract_version": "legacy",
         "model_executed_count": summary.get("model_executed_count", 0),
         "timing_observed_count": summary.get("timing_observed_count", 0),
         "token_observed_count": summary.get("token_observed_count", 0),
@@ -31,10 +49,30 @@ def provider_state(skill_dir: Path) -> dict[str, Any]:
 
 
 def human_state(skill_dir: Path) -> dict[str, Any]:
+    phase1 = load_json(skill_dir / "reports" / "provider_output_adjudication.json")
+    phase1_provider = load_json(skill_dir / "reports" / "provider_output_evaluation.json")
+    if phase1 or phase1_provider:
+        summary = phase1.get("summary", {})
+        binding = phase1.get("evidence_binding", {})
+        accepted = (
+            summary.get("reviewer_count") == 3
+            and summary.get("pair_count") == 20
+            and summary.get("failure_count") == 0
+            and not phase1.get("failures")
+        )
+        return {
+            "contract_version": "phase1",
+            "reviewer_count": summary.get("reviewer_count", 0),
+            "pair_count": summary.get("pair_count", 0),
+            "failure_count": summary.get("failure_count", 0),
+            "blind_pack_bound": bool(binding.get("blind_pack_sha256")),
+            "accepted": accepted,
+        }
     adjudication = load_json(skill_dir / "reports" / "output_review_adjudication.json")
     summary = adjudication.get("summary", {})
     raw_content_paths = forbidden_raw_content_field_paths(adjudication, "output_review_adjudication")
     return {
+        "contract_version": "legacy",
         "pair_count": summary.get("pair_count", 0),
         "judgment_count": summary.get("judgment_count", 0),
         "pending_count": summary.get("pending_count", 0),

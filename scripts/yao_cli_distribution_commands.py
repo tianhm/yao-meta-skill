@@ -31,7 +31,23 @@ def command_evidence_build(args: argparse.Namespace) -> int:
         cmd.extend(["--run-id", args.run_id])
     if args.publish:
         cmd.append("--publish")
+    if args.recover:
+        cmd.append("--recover")
     return emit_result(run_script("run_evidence_build.py", cmd))
+
+
+def command_evidence_finalize_review(args: argparse.Namespace) -> int:
+    cmd = [str(Path(args.skill_dir).resolve()), "--source-run", args.source_run]
+    for path in args.decisions:
+        cmd.extend(["--decisions", path])
+    cmd.extend(["--reviewer-registry", args.reviewer_registry])
+    if args.run_id:
+        cmd.extend(["--run-id", args.run_id])
+    if args.resume:
+        cmd.append("--resume")
+    if args.publish:
+        cmd.append("--publish")
+    return emit_result(run_script("finalize_provider_review.py", cmd))
 
 
 def command_compile_skill(args: argparse.Namespace) -> int:

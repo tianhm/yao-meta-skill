@@ -12,6 +12,7 @@ except ImportError:  # pragma: no cover
     yaml = None
 
 from skill_ir_paths import find_skill_ir as find_skill_ir_document
+from evidence_resolver import resolve_report_path
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,6 +40,7 @@ def display_path(path: Path, root: Path = ROOT) -> str:
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:

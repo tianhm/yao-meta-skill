@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from benchmark_release_lock import git_status, release_lock_status
+from evidence_resolver import resolve_report_path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT_INTERFACE = "cli"
@@ -168,16 +169,15 @@ REPRODUCTION_COMMANDS = [
     },
 ]
 
-
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return {}
     return payload if isinstance(payload, dict) else {}
-
 
 def rel_path(path: Path, root: Path) -> str:
     try:
@@ -185,14 +185,12 @@ def rel_path(path: Path, root: Path) -> str:
     except ValueError:
         return str(path.resolve())
 
-
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
-
 
 def git_commit(skill_dir: Path) -> str:
     try:
@@ -283,6 +281,8 @@ def public_claim_blockers(
     world_class_source_check_count: int,
     world_class_source_pass_count: int,
     world_class_source_blocked_count: int,
+    phase1_provider_matrix_complete: bool,
+    phase1_human_review_complete: bool,
 ) -> list[str]:
     blockers = []
     if not local_reproducibility_ready:
@@ -293,6 +293,10 @@ def public_claim_blockers(
         blockers.append("provider-backed model holdout evidence is incomplete")
     if not human_review_complete:
         blockers.append("human blind-review adjudication is incomplete")
+    if not phase1_provider_matrix_complete:
+        blockers.append("phase-one provider matrix is incomplete")
+    if not phase1_human_review_complete:
+        blockers.append("phase-one three-reviewer adjudication is incomplete")
     if not world_class_ready:
         blockers.append(
             f"world-class evidence is not accepted yet ({world_class_open_gap_count} open gaps, "
@@ -376,6 +380,8 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
     output_quality = load_json(reports / "output_quality_scorecard.json")
     output_execution = load_json(reports / "output_execution_runs.json")
     output_review = load_json(reports / "output_review_adjudication.json")
+    phase1_provider = load_json(reports / "provider_output_evaluation.json")
+    phase1_adjudication = load_json(reports / "provider_output_adjudication.json")
     skill_os2 = load_json(reports / "skill_os2_audit.json")
     world_class_plan = load_json(reports / "world_class_evidence_plan.json")
     world_class_ledger = load_json(reports / "world_class_evidence_ledger.json")
@@ -388,6 +394,8 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
     output_summary = output_quality.get("summary", {})
     execution_summary = output_execution.get("summary", {})
     review_summary = output_review.get("summary", {})
+    phase1_provider_summary = phase1_provider.get("summary", {})
+    phase1_review_summary = phase1_adjudication.get("summary", {})
     failure_case_count = count_failure_cases(skill_dir / "evals" / "failure-cases.md")
     output_case_count = count_jsonl(skill_dir / "evals" / "output" / "cases.jsonl")
     status = git_status(skill_dir)
@@ -404,6 +412,23 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
     )
     human_review_complete = review_summary.get("pair_count", 0) > 0 and review_summary.get("pending_count", 0) == 0
     provider_evidence_complete = execution_summary.get("model_executed_count", 0) > 0 and execution_summary.get("token_observed_count", 0) > 0
+    phase1_provider_matrix_complete = (
+        phase1_provider_summary.get("call_count") == 40
+        and phase1_provider_summary.get("model_executed_count") == 40
+        and phase1_provider_summary.get("failure_count") == 0
+        and int(phase1_provider_summary.get("total_tokens", 250001) or 0) <= 250000
+    )
+    phase1_human_review_complete = (
+        phase1_review_summary.get("reviewer_count") == 3
+        and phase1_review_summary.get("pair_count") == 20
+        and phase1_review_summary.get("failure_count") == 0
+    )
+    phase1_quality_promotion_complete = (
+        phase1_provider_matrix_complete
+        and phase1_human_review_complete
+        and phase1_adjudication.get("quality_promotion", {}).get("eligible") is True
+    )
+    phase1_completion_ready = phase1_quality_promotion_complete
     world_class_ready = bool(skill_os2.get("summary", {}).get("world_class_ready", False))
     world_class_open_gap_count = int(skill_os2.get("summary", {}).get("open_gap_count", 0) or 0)
     world_class_summary = world_class_ledger.get("summary", {})
@@ -422,6 +447,8 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
         world_class_source_check_count,
         world_class_source_pass_count,
         world_class_source_blocked_count,
+        phase1_provider_matrix_complete,
+        phase1_human_review_complete,
     )
     public_claim_ready = not claim_blockers
     beta_blockers = beta_test_blockers(
@@ -472,6 +499,10 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             "token_observed_count": execution_summary.get("token_observed_count", 0),
             "human_review_complete": human_review_complete,
             "provider_evidence_complete": provider_evidence_complete,
+            "phase1_provider_matrix_complete": phase1_provider_matrix_complete,
+            "phase1_human_review_complete": phase1_human_review_complete,
+            "phase1_quality_promotion_complete": phase1_quality_promotion_complete,
+            "phase1_completion_ready": phase1_completion_ready,
             "world_class_ready": world_class_ready,
             "world_class_open_gap_count": world_class_open_gap_count,
             "world_class_task_count": world_class_plan.get("summary", {}).get("task_count", 0),
@@ -549,6 +580,9 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- disclosed failure cases: `{summary['failure_disclosure_count']}`",
         f"- reproduction commands: `{summary['command_count']}`",
         f"- provider evidence complete: `{str(summary['provider_evidence_complete']).lower()}`",
+        f"- phase-one provider matrix complete: `{str(summary['phase1_provider_matrix_complete']).lower()}`",
+        f"- phase-one three-reviewer adjudication complete: `{str(summary['phase1_human_review_complete']).lower()}`",
+        f"- phase-one quality promotion complete: `{str(summary['phase1_quality_promotion_complete']).lower()}`",
         f"- human review complete: `{str(summary['human_review_complete']).lower()}`",
         f"- world-class ready: `{str(summary['world_class_ready']).lower()}`",
         f"- world-class source checks: `{summary.get('world_class_source_pass_count', 0)}` pass / `{summary.get('world_class_source_check_count', 0)}` total; `{summary.get('world_class_source_blocked_count', 0)}` blocked",

@@ -185,13 +185,13 @@ def main() -> None:
     assert provider_checks["provider-api-key"]["status"] == "missing", provider_checks
     assert provider_checks["provider-api-key"]["actual"] == "not-set", provider_checks
     assert provider_checks["provider-api-key"]["secret_value_redacted"] is True, provider_checks
-    assert provider_checks["provider-api-key"]["env_any"] == ["OPENAI_API_KEY", "DEEPSEEK_API_KEY"], provider_checks
+    assert provider_checks["provider-api-key"]["env"] == "DEEPSEEK_API_KEY", provider_checks
     assert "sk-test-secret" not in proc.stdout, proc.stdout
-    assert "OPENAI_API_KEY" in proc.stdout, proc.stdout
+    assert "OPENAI_API_KEY" not in proc.stdout, proc.stdout
     assert "DEEPSEEK_API_KEY" in proc.stdout, proc.stdout
     provider_repairs = {item["target"]: item for item in provider["repair_checklist"]}
     provider_phases = {item["phase"]: item for item in provider["phase_queue"]}
-    assert set(provider_phases) == {"unblock-access"}, provider_phases
+    assert set(provider_phases) == {"unblock-access", "collect-source"}, provider_phases
     assert provider_phases["unblock-access"]["next_action_id"] == "provider-holdout-precheck-provider-api-key", provider_phases
     assert provider_repairs["provider-api-key"]["repair_type"] == "precheck", provider_repairs
     assert provider_repairs["provider-api-key"]["action_id"] == "provider-holdout-precheck-provider-api-key", provider_repairs
@@ -203,23 +203,23 @@ def main() -> None:
     ), provider_repairs
     assert provider_repairs["provider-api-key"]["counts_as_completion"] is False, provider_repairs
     provider_source = {item["field"]: item for item in provider["source_checklist"]}
-    assert provider_source["model_executed_count"]["status"] == "pass", provider_source
-    assert provider_source["timing_observed_count"]["status"] == "pass", provider_source
-    assert provider_source["token_observed_count"]["status"] == "pass", provider_source
+    assert provider_source["call_count"]["status"] == "blocked", provider_source
+    assert provider_source["model_executed_count"]["status"] == "blocked", provider_source
+    assert provider_source["failure_count"]["status"] == "pass", provider_source
+    assert provider_source["total_tokens"]["status"] == "pass", provider_source
 
     human = by_key(payload["items"], "human-adjudication")
     assert human["status"] == "ready-for-human-review", human
     human_checks = {item["key"]: item for item in human["prechecks"]}
     assert human_checks["human-reviewer"]["status"] == "human-required", human_checks
-    assert "reviewer identity" in human["next_action"], human
-    assert any("Record a reviewer choice and reason" in row["next_action"] for row in human["source_checklist"]), human
-    assert any("required rationale" in item["next_action"] for item in human["prechecks"]), human
-    assert any("reviewed_at" in item["next_action"] for item in human["prechecks"]), human
+    assert "three independent controlled reviewer identities" in human["next_action"], human
+    assert any("reviewer-a, reviewer-b, and reviewer-c" in row["next_action"] for row in human["source_checklist"]), human
+    assert any("20-pair reviewer packets" in item["next_action"] for item in human["prechecks"]), human
     human_repairs = {item["target"]: item for item in human["repair_checklist"]}
     assert human_repairs["human-reviewer"]["repair_type"] == "precheck", human_repairs
     assert human_repairs["human-reviewer"]["owner"] == "human reviewer", human_repairs
-    assert human_repairs["pending_count"]["repair_type"] == "source-check", human_repairs
-    assert "output-review" in human_repairs["pending_count"]["verification_command"], human_repairs
+    assert human_repairs["reviewer_count"]["repair_type"] == "source-check", human_repairs
+    assert "evidence-finalize-review" in human_repairs["reviewer_count"]["verification_command"], human_repairs
 
     native = by_key(payload["items"], "native-permission-enforcement")
     assert native["status"] == "blocked", native
@@ -244,7 +244,7 @@ def main() -> None:
     assert "`unblock-access`" in markdown, markdown
     assert "operator with provider credentials" in markdown, markdown
     assert "`provider-api-key`" in markdown, markdown
-    assert "Provider model run" in markdown, markdown
+    assert "Provider calls" in markdown, markdown
     assert "world-class-submission-kit . --output-dir evidence/world_class/submissions" in markdown, markdown
     assert "world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts" in markdown, markdown
     assert "world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions" in markdown, markdown
@@ -275,7 +275,7 @@ def main() -> None:
     assert "operator with provider credentials" in html, html
     assert "world-class-preflight . --submissions-dir evidence/world_class/submissions" in html, html
     assert "<strong>provider-api-key</strong>" in html, html
-    assert "<strong>Provider model run</strong>" in html, html
+    assert "<strong>Provider calls</strong>" in html, html
     assert "world-class-submission-kit . --output-dir evidence/world_class/submissions" in html, html
     assert "world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts" in html, html
     assert "provider-holdout" in html, html
@@ -303,8 +303,8 @@ def main() -> None:
     env_provider_checks = {item["key"]: item for item in env_provider["prechecks"]}
     assert env_provider_checks["provider-api-key"]["status"] == "pass", env_provider_checks
     assert env_provider_checks["provider-api-key"]["actual"] == "set", env_provider_checks
-    assert env_provider_checks["provider-api-key"]["set_envs"] == ["DEEPSEEK_API_KEY"], env_provider_checks
-    assert env_provider_checks["provider-model"]["status"] == "pass", env_provider_checks
+    assert env_provider_checks["provider-api-key"]["env"] == "DEEPSEEK_API_KEY", env_provider_checks
+    assert "provider-model" not in env_provider_checks, env_provider_checks
     assert "sk-test-secret" not in env_proc.stdout, env_proc.stdout
     assert "sk-test-secret" not in (TMP / "preflight_with_env.html").read_text(encoding="utf-8"), env_payload
     assert env_payload["summary"]["credential_value_exposed"] is False, env_payload

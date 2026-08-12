@@ -5,6 +5,9 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from evidence_resolver import resolve_report_path
+from skill_ir_paths import find_skill_ir
+
 
 ROOT = Path(__file__).resolve().parent.parent
 STATUS_LABELS = {
@@ -19,6 +22,7 @@ STATUS_LABELS = {
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
@@ -72,11 +76,15 @@ def count_sources(events_summary: dict[str, Any]) -> dict[str, int]:
 
 def build_audit(skill_dir: Path, generated_at: str) -> dict[str, Any]:
     reports = skill_dir / "reports"
-    skill_ir = load_json(skill_dir / "skill-ir" / "examples" / "yao-meta-skill.json")
+    manifest = load_json(skill_dir / "manifest.json")
+    skill_name = str(manifest.get("name") or skill_dir.name)
+    skill_ir = find_skill_ir(skill_dir, skill_name)[0]
     compiled = load_json(reports / "compiled_targets.json")
     output_quality = load_json(reports / "output_quality_scorecard.json")
     output_execution = load_json(reports / "output_execution_runs.json")
     output_review = load_json(reports / "output_review_adjudication.json")
+    provider_output = load_json(reports / "provider_output_evaluation.json")
+    provider_adjudication = load_json(reports / "provider_output_adjudication.json")
     benchmark_reproducibility = load_json(reports / "benchmark_reproducibility.json")
     conformance = load_json(reports / "conformance_matrix.json")
     trust = load_json(reports / "security_trust_report.json")
@@ -93,6 +101,8 @@ def build_audit(skill_dir: Path, generated_at: str) -> dict[str, Any]:
     output_summary = output_quality.get("summary", {})
     execution_summary = output_execution.get("summary", {})
     review_summary = output_review.get("summary", {})
+    provider_summary = provider_output.get("summary", {})
+    provider_review_summary = provider_adjudication.get("summary", {})
     benchmark_summary = benchmark_reproducibility.get("summary", {})
     conformance_summary = conformance.get("summary", {})
     trust_summary = trust.get("summary", {})
@@ -158,20 +168,45 @@ def build_audit(skill_dir: Path, generated_at: str) -> dict[str, Any]:
         audit_item(
             "provider-holdout",
             "Provider Holdout",
-            "pass" if execution_summary.get("model_executed_count", 0) > 0 else "external_required",
-            f"model-executed {execution_summary.get('model_executed_count', 0)}; token-observed {execution_summary.get('token_observed_count', 0)}",
-            "At least one real provider-backed holdout run with observed model/timing/token metadata",
-            evidence(skill_dir, "scripts/provider_output_eval_runner.py", "reports/output_execution_runs.json"),
-            "Run provider-backed holdout cases with real credentials and commit only aggregate evidence.",
+            "pass"
+            if provider_summary.get("call_count") == 40
+            and provider_summary.get("model_executed_count") == 40
+            and provider_summary.get("failure_count") == 0
+            else "external_required",
+            (
+                f"phase1 model-executed {provider_summary.get('model_executed_count', 0)}/40; "
+                f"calls {provider_summary.get('call_count', 0)}/40; status {provider_output.get('status', 'pending')}"
+            ),
+            "The fixed DeepSeek Flash+Pro matrix completes 40 real calls within the governed token and timeout budgets",
+            evidence(
+                skill_dir,
+                "evals/output/provider_matrix.json",
+                "scripts/provider_output_eval_runner.py",
+                "reports/provider_output_evaluation.json",
+            ),
+            "Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory.",
         ),
         audit_item(
             "human-adjudication",
             "Human Adjudication",
-            "pass" if review_summary.get("ready_for_human_evidence") is True else "human_required",
-            f"{review_summary.get('judgment_count', 0)}/{review_summary.get('pair_count', 0)} decisions; pending {review_summary.get('pending_count', 0)}",
-            "Real reviewer decisions, blind-review attestation, and integrity fingerprints recorded before claiming output review completion",
-            evidence(skill_dir, "reports/output_review_decisions.json", "reports/output_review_adjudication.json", "scripts/adjudicate_output_review.py"),
-            "Record real A/B choices, reviewer metadata, and blind-review attestation, then regenerate adjudication.",
+            "pass"
+            if provider_review_summary.get("reviewer_count") == 3
+            and provider_review_summary.get("pair_count") == 20
+            and provider_review_summary.get("failure_count") == 0
+            else "human_required",
+            (
+                f"phase1 reviewers {provider_review_summary.get('reviewer_count', 0)}/3; "
+                f"pairs {provider_review_summary.get('pair_count', 0)}/20; "
+                f"promotion {provider_adjudication.get('quality_promotion', {}).get('status', 'pending')}"
+            ),
+            "Three controlled, independent blind reviews are bound to the same 20-pair pack before quality promotion",
+            evidence(
+                skill_dir,
+                "reports/provider_output_blind_pack.json",
+                "reports/provider_output_adjudication.json",
+                "scripts/adjudicate_multi_reviewer.py",
+            ),
+            "Collect three controlled reviewer packets and adjudicate them against the private run answer key.",
         ),
         audit_item(
             "benchmark-reproducibility",

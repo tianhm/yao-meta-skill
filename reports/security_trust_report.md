@@ -1,9 +1,9 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `261`
-- Scripts: `162`
-- Internal script modules: `72`
+- Scanned files: `264`
+- Scripts: `165`
+- Internal script modules: `74`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
@@ -11,12 +11,12 @@
 - File-write scripts: `79`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `90`
+- CLI help smoke checked: `91`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `261`
-- Package SHA256: `db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70`
+- Package hash files: `264`
+- Package SHA256: `5dfb0ebb066588580f83ad216cf2bc07d59fdff6d9c39432c4e6ed0b476e16c9`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `90`
-- Passed scripts: `90`
+- Checked scripts: `91`
+- Passed scripts: `91`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -88,17 +88,20 @@
 | scripts/evidence_consistency_core.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py for shared report loading, comparison, and Markdown rendering helpers. |
 | scripts/evidence_consistency_phase_queue.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to prevent preflight and Review Studio phase-queue drift. |
 | scripts/evidence_consistency_release.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to verify release evidence refresh instructions. |
+| scripts/evidence_consistency_review_studio.py | internal-module | True | False | False | False | False | False | False | Keeps Review Studio mirror validation isolated from the evidence-consistency orchestrator. |
 | scripts/evidence_consistency_skill_os2_review.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to keep Skill OS 2.0 review summary drift checks out of the main consistency renderer. |
 | scripts/evidence_consistency_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to isolate world-class evidence workflow consistency checks. |
 | scripts/evidence_resolver.py | internal-module | True | False | False | False | False | False | True | Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection. |
 | scripts/evidence_store.py | internal-module | True | False | False | False | False | True | True | Imported by evidence-build and evidence consumers for transactional local evidence publishing. |
 | scripts/export_skill_ir.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/finalize_provider_review.py | cli | True | True | True | False | False | False | False | Binds three controlled reviewer submissions to one immutable provider run without rerunning the model matrix. |
 | scripts/github_benchmark_scan.py | cli | False | True | True | False | True | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/governance_check.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/html_rendering.py | internal-module | True | False | False | False | False | False | False | Used by report renderers to escape HTML while preserving meaningful falsey values. |
 | scripts/import_output_review_decisions.py | cli | True | True | True | False | False | True | False | Imports human blind A/B reviewer decisions into the canonical output-review decision file. |
 | scripts/import_telemetry_events.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/init_skill.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/json_schema_validation.py | internal-module | True | False | False | False | False | False | False | Imported by manifest and Skill IR validation to enforce their committed JSON Schema contracts. |
 | scripts/judge_blind_eval.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/lint_skill.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/local_output_eval_runner.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |

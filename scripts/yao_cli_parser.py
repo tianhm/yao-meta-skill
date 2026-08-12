@@ -80,7 +80,21 @@ def build_parser(command_handlers: dict[str, Callable[[argparse.Namespace], int]
     evidence_build_cmd.add_argument("skill_dir", nargs="?", default=".")
     evidence_build_cmd.add_argument("--run-id")
     evidence_build_cmd.add_argument("--publish", action="store_true")
+    evidence_build_cmd.add_argument("--recover", action="store_true")
     evidence_build_cmd.set_defaults(func=_handler(command_handlers, "command_evidence_build"))
+
+    finalize_review_cmd = subparsers.add_parser(
+        "evidence-finalize-review",
+        help="Bind three controlled blind reviews to one provider evidence run.",
+    )
+    finalize_review_cmd.add_argument("skill_dir", nargs="?", default=".")
+    finalize_review_cmd.add_argument("--source-run", required=True)
+    finalize_review_cmd.add_argument("--decisions", action="append", required=True)
+    finalize_review_cmd.add_argument("--reviewer-registry", required=True)
+    finalize_review_cmd.add_argument("--run-id")
+    finalize_review_cmd.add_argument("--resume", action="store_true")
+    finalize_review_cmd.add_argument("--publish", action="store_true")
+    finalize_review_cmd.set_defaults(func=_handler(command_handlers, "command_evidence_finalize_review"))
 
     optimize_cmd = subparsers.add_parser("optimize-description", help="Optimize description candidates for a target.")
     optimize_cmd.add_argument(

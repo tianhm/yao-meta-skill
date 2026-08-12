@@ -9,6 +9,8 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
+from json_schema_validation import validate_json_schema
+
 try:
     import yaml
 except ImportError:  # pragma: no cover
@@ -19,6 +21,8 @@ SCRIPT_INTERFACE = "internal-module"
 SCRIPT_INTERFACE_REASON = "Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR."
 
 IR_SCHEMA_VERSION = "2.0.0"
+ROOT = Path(__file__).resolve().parent.parent
+IR_SCHEMA_PATH = ROOT / "skill-ir" / "schema.json"
 REQUIRED_IR_FIELDS = {
     "schema_version",
     "name",
@@ -66,7 +70,9 @@ def load_manifest(skill_dir: Path) -> dict[str, Any]:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         raise SkillIRResolutionError("invalid-manifest", f"Invalid manifest JSON: {exc}", path=path) from exc
-    return payload if isinstance(payload, dict) else {}
+    if not isinstance(payload, dict):
+        raise SkillIRResolutionError("invalid-manifest", "Manifest root must be an object", path=path)
+    return payload
 
 
 def read_frontmatter(skill_dir: Path) -> dict[str, Any]:
@@ -137,6 +143,12 @@ def candidate_paths(skill_dir: Path, name: str) -> list[Path]:
     manifest = load_manifest(root)
     candidates: list[Path] = []
     declared = manifest.get("skill_ir_source")
+    if declared is not None and (not isinstance(declared, str) or not declared.strip()):
+        raise SkillIRResolutionError(
+            "invalid-manifest-source",
+            "manifest.skill_ir_source must be a non-empty relative JSON path",
+            path=root / "manifest.json",
+        )
     if isinstance(declared, str) and declared.strip():
         candidates.append(_safe_manifest_source(root, declared.strip()))
     candidates.extend(
@@ -166,6 +178,14 @@ def validate_identity(payload: dict[str, Any], skill_dir: Path, name: str, path:
             f"Skill IR schema must be {IR_SCHEMA_VERSION}: {display_path(path, skill_dir)}",
             path=path,
         )
+    schema = load_json(IR_SCHEMA_PATH)
+    schema_failures = validate_json_schema(payload, schema)
+    if schema_failures:
+        raise SkillIRResolutionError(
+            "schema-invalid",
+            f"Skill IR schema validation failed at {display_path(path, skill_dir)}: {'; '.join(schema_failures)}",
+            path=path,
+        )
     if str(payload.get("name", "")).strip() != name:
         raise SkillIRResolutionError(
             "name-mismatch",
@@ -176,6 +196,22 @@ def validate_identity(payload: dict[str, Any], skill_dir: Path, name: str, path:
     if not isinstance(trigger, dict) or not normalize_description(trigger.get("description")):
         raise SkillIRResolutionError("schema-invalid", f"Skill IR trigger description is missing: {path}", path=path)
     frontmatter = read_frontmatter(skill_dir)
+    manifest = load_manifest(skill_dir)
+    manifest_name = str(manifest.get("name", "")).strip()
+    frontmatter_name = str(frontmatter.get("name", "")).strip()
+    if manifest_name and frontmatter_name and manifest_name != frontmatter_name:
+        raise SkillIRResolutionError(
+            "identity-drift",
+            f"manifest.json and SKILL.md names differ: {manifest_name} != {frontmatter_name}",
+            path=path,
+        )
+    canonical_name = manifest_name or frontmatter_name or name
+    if canonical_name != name:
+        raise SkillIRResolutionError(
+            "name-mismatch",
+            f"Requested Skill IR identity {name} differs from canonical identity {canonical_name}",
+            path=path,
+        )
     frontmatter_description = normalize_description(frontmatter.get("description"))
     ir_description = normalize_description(trigger.get("description"))
     if frontmatter_description and ir_description != frontmatter_description:

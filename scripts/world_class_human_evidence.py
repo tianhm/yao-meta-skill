@@ -315,3 +315,36 @@ def validate_human_adjudication_report(
         adjudication.get("reviewed_at") == reviewed_at,
         "human-adjudication adjudication reviewed_at must match decisions.reviewed_at",
     )
+
+
+def validate_phase1_human_report(
+    adjudication: dict[str, Any],
+    registry: dict[str, Any],
+    errors: list[str],
+) -> None:
+    validate_adjudication_raw_content(adjudication, errors)
+    summary = adjudication.get("summary", {}) if isinstance(adjudication.get("summary"), dict) else {}
+    add_error(errors, summary.get("reviewer_count") == 3, "phase1 human adjudication reviewer_count must be 3")
+    add_error(errors, summary.get("pair_count") == 20, "phase1 human adjudication pair_count must be 20")
+    add_error(errors, summary.get("failure_count") == 0, "phase1 human adjudication failure_count must be 0")
+    add_error(errors, not adjudication.get("failures"), "phase1 human adjudication failures must be empty")
+    binding = adjudication.get("evidence_binding", {}) if isinstance(adjudication.get("evidence_binding"), dict) else {}
+    add_error(
+        errors,
+        bool(re.fullmatch(r"[0-9a-f]{64}", str(binding.get("blind_pack_sha256", "")))),
+        "phase1 human adjudication must bind a blind_pack_sha256",
+    )
+    reviewers = registry.get("reviewers", {}) if isinstance(registry.get("reviewers"), dict) else {}
+    add_error(errors, set(reviewers) == {"reviewer-a", "reviewer-b", "reviewer-c"}, "phase1 reviewer registry must contain reviewer-a, reviewer-b, and reviewer-c")
+    add_error(
+        errors,
+        all(
+            isinstance(item, dict)
+            and item.get("identity_verified") is True
+            and bool(re.fullmatch(r"[0-9a-f]{64}", str(item.get("packet_sha256", ""))))
+            and bool(str(item.get("controlled_submission_id", "")).strip())
+            and bool(str(item.get("submitted_at", "")).strip())
+            for item in reviewers.values()
+        ),
+        "phase1 reviewer registry must contain verified controlled packet commitments",
+    )

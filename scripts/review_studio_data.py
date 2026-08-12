@@ -21,9 +21,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def load_json(path: Path) -> dict[str, Any]:
-    path = resolve_report_path(path)
     if not path.exists():
         return {}
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
@@ -101,6 +101,7 @@ def evidence_paths(skill_dir: Path) -> dict[str, str]:
         "output_eval": "reports/output_quality_scorecard.md",
         "output_execution": "reports/output_execution_runs.md",
         "provider_output_evaluation": "reports/provider_output_evaluation.json",
+        "provider_output_adjudication": "reports/provider_output_adjudication.json",
         "output_blind_review": "reports/output_blind_review_pack.md",
         "output_review_kit": "reports/output_review_kit.md",
         "output_review_kit_html": "reports/output_review_kit.html",
@@ -160,6 +161,7 @@ def load_review_data(skill_dir: Path) -> dict[str, dict[str, Any]]:
         "output_quality": load_json(reports / "output_quality_scorecard.json"),
         "output_execution": load_json(reports / "output_execution_runs.json"),
         "provider_output_evaluation": load_json(reports / "provider_output_evaluation.json"),
+        "provider_output_adjudication": load_json(reports / "provider_output_adjudication.json"),
         "output_blind_review": load_json(reports / "output_blind_review_pack.json"),
         "output_review_kit": load_json(reports / "output_review_kit.json"),
         "output_review_adjudication": load_json(reports / "output_review_adjudication.json"),

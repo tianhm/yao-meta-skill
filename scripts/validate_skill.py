@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import yaml
 
+from json_schema_validation import validate_json_schema
 from skill_ir_paths import SkillIRResolutionError, find_skill_ir
 
 
@@ -76,7 +77,17 @@ def main() -> None:
                 failures.append(f"Missing compatibility.degradation entry for target: {target}")
 
     if manifest.exists():
-        data = json.loads(manifest.read_text(encoding="utf-8"))
+        try:
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            failures.append(f"Invalid manifest JSON: {exc}")
+            data = {}
+        if not isinstance(data, dict):
+            failures.append("Manifest root must be an object")
+            data = {}
+        schema_path = Path(__file__).resolve().parent.parent / "schemas" / "manifest.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        failures.extend(f"Invalid manifest schema: {failure}" for failure in validate_json_schema(data, schema))
         for field in ("name", "version", "owner", "updated_at"):
             if not data.get(field):
                 failures.append(f"Missing manifest field: {field}")
@@ -87,7 +98,7 @@ def main() -> None:
         if not data.get("maturity_tier"):
             warnings.append("Manifest exists without maturity_tier.")
         skill_ir_source = data.get("skill_ir_source")
-        if skill_ir_source:
+        if skill_ir_source is not None:
             name = str(data.get("name") or root.name)
             try:
                 find_skill_ir(root, name, require_schema=True)

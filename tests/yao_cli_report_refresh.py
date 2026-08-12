@@ -6,6 +6,7 @@ def refresh_root_report_consistency_inputs(run: Callable[..., dict], root: Path)
     """Refresh root reports that evidence-consistency compares by value."""
 
     for refresh_args in [
+        ("skill-os2-audit", str(root), "--generated-at", "2026-06-15"),
         ("benchmark-reproducibility", str(root), "--generated-at", "2026-06-15"),
         ("skill-report", str(root)),
         ("skill-interpretation", str(root)),

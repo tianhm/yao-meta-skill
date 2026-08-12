@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 import shlex
 import subprocess
 import time
@@ -172,8 +173,9 @@ def command_run(
         safe_case = "".join(character if character.isalnum() or character in "-_." else "_" for character in request["case_id"])
         raw_path = raw_output_dir / f"{safe_case}.{variant}.txt"
     if output and raw_path is not None:
-        raw_path.parent.mkdir(parents=True, exist_ok=True)
-        raw_path.write_text(output, encoding="utf-8")
+        if raw_output_dir is None:
+            raise ValueError("raw_output_dir is required when a raw output path is configured")
+        secure_write_raw_output(raw_output_dir, raw_path, output)
     redacted_summary = ""
     if output:
         redacted_summary = f"{len(output)} chars; {grade['passed_count']}/{len(assertions)} assertions passed"
@@ -199,6 +201,40 @@ def command_run(
         "system_fingerprint": str(payload.get("system_fingerprint", "")),
         "failure": "" if proc.returncode == 0 and output else (proc.stderr.strip() or "runner returned no output"),
     }
+
+
+def secure_write_raw_output(raw_root: Path, path: Path, output: str) -> None:
+    """Create a raw output without following symlinks in any path component."""
+    raw_root = raw_root.absolute()
+    path = path.absolute()
+    try:
+        relative = path.relative_to(raw_root)
+    except ValueError as exc:
+        raise ValueError(f"raw output path escapes run directory: {path}") from exc
+    if not relative.parts:
+        raise ValueError("raw output path must identify a file")
+    raw_root.mkdir(parents=True, exist_ok=True)
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    directory = os.open(raw_root, os.O_RDONLY | os.O_DIRECTORY | nofollow)
+    try:
+        for part in relative.parts[:-1]:
+            try:
+                os.mkdir(part, mode=0o700, dir_fd=directory)
+            except FileExistsError:
+                pass
+            child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | nofollow, dir_fd=directory)
+            os.close(directory)
+            directory = child
+        descriptor = os.open(
+            relative.name,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | nofollow,
+            0o600,
+            dir_fd=directory,
+        )
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(output)
+    finally:
+        os.close(directory)
 
 
 def build_summary(runs: list[dict[str, Any]]) -> dict[str, Any]:
