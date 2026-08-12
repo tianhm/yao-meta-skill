@@ -72,12 +72,12 @@
     },
     {
       "path": "reports/benchmark_reproducibility.json",
-      "sha256": "bf3e9779e86f13d252a1da1bb0aa24cda1195256c56f894cb8e758745228e33a",
-      "size": 17070
+      "sha256": "1306834f5d1adffa49fd90c746a6203204e2d7314dc8a7b64ff6dcbf27468dfb",
+      "size": 17054
     },
     {
       "path": "reports/benchmark_reproducibility.md",
-      "sha256": "050e0b148b44704a55f5485e5afb480a66a2ba7af79883a12b664816b91e0113",
+      "sha256": "3ffa579a6756dbf7f1e46ded1d56be7e6105f156a118d0b09c49475ade29863c",
       "size": 9898
     },
     {
@@ -182,17 +182,17 @@
     },
     {
       "path": "reports/context_budget.json",
-      "sha256": "6b3da170a7aebbca1ca79379e2f2a5d01214105c43d0b05143c3fd17b8a98df3",
+      "sha256": "e571662cd81f6e8da37fd2f8f53777468adcbae26875c2ff5a453601c837e903",
       "size": 2045
     },
     {
       "path": "reports/context_budget.md",
-      "sha256": "f871440d648ff96a1caf79f5fa0d4077da91f74b628b176cca76c5ec0027728d",
+      "sha256": "6de167f90959f87e29b5ae3ddfd3c2a72b14793eeeff27ef4ba5e8e1ee619813",
       "size": 769
     },
     {
       "path": "reports/context_budget_summary.json",
-      "sha256": "808421bd410b2b65ae611c68266516ebc444fed3ef231cdfb79ca279d0ac7683",
+      "sha256": "d564fa1e36264c9f56f57378993c5385b6688cee253a7508a4dafcf0a41411fc",
       "size": 2939
     },
     {
@@ -227,8 +227,8 @@
     },
     {
       "path": "reports/evidence_consistency.json",
-      "sha256": "52c14f4c58fdd75d370eda1e1873686105ab2c18156fd00c025eebfbcb6bbf5e",
-      "size": 162355
+      "sha256": "6c4a384b51f6fb75e86d39a2fd4e43eb7cfce777769d45abf44e1db56a66988e",
+      "size": 162356
     },
     {
       "path": "reports/evidence_consistency.md",
@@ -257,7 +257,7 @@
     },
     {
       "path": "reports/install_simulation.json",
-      "sha256": "79c9bed7e4e24e09f6430e81fd07fe913ed99a72369d89baeab6e06b8daac008",
+      "sha256": "e2af1d7d544e034f04843ef8dbf5f03a161558e89e2a66ff9c3c75e65be619b8",
       "size": 8793
     },
     {
@@ -427,18 +427,18 @@
     },
     {
       "path": "reports/package_verification.json",
-      "sha256": "56b7b91dc263d96e13fc842abcf3684b0dd671a61ee31f5171139e33544e6154",
-      "size": 19756
+      "sha256": "f126943c3de80b1b58da52bc375a7bb33f868c1f0aeae68ffccce3ac60ca0394",
+      "size": 19653
     },
     {
       "path": "reports/package_verification.md",
-      "sha256": "7a0d7de026c5e797ed76926f2905dd9c013805dfa60ecb31eca80065441f827b",
-      "size": 12567
+      "sha256": "d16c0ace414e4dfb02433915d30bf3d25d6f376ec04bd37e03a92a163431c272",
+      "size": 12517
     },
     {
       "path": "reports/phase1-review-repair-checklist.md",
-      "sha256": "7cd55ca6ec2cd78130bde5128f6bc707e18c8918cdf6a4c20c7266dee2391de9",
-      "size": 12874
+      "sha256": "d795462ce6a84afbe6ce4f96c6f576df9a83b3e2850fc73fcee74f3e44b290b6",
+      "size": 13609
     },
     {
       "path": "reports/phase1_trigger_holdout.json",
@@ -487,12 +487,12 @@
     },
     {
       "path": "reports/python_compatibility.json",
-      "sha256": "2e9aea2822c5c90a386ec6100d5d7d4feef51bd6c2c2655565734c9f0ea7f92e",
-      "size": 35151
+      "sha256": "c5076a2cf8e89104ee682016cadf2cbdbafd73df5332ef8175e539971cf188f5",
+      "size": 35545
     },
     {
       "path": "reports/python_compatibility.md",
-      "sha256": "94eb8f7c384174a59b58f6ac337228ad714b29091d459055ccc13b1f4556eb4d",
+      "sha256": "dbd5a0da1132e36103fbb371b3fa1b59d91af75696dde663f786e30501213b35",
       "size": 454
     },
     {
@@ -517,12 +517,12 @@
     },
     {
       "path": "reports/registry_audit.json",
-      "sha256": "ed9b59540b58f1913c476ade37412316ccffc5412b2f50cbe99f2fd4fb69895d",
+      "sha256": "49e3f56280ddcc751ed444da94390f9449a6a3a49dd8cbd900f9bf8adf9c65c8",
       "size": 3234
     },
     {
       "path": "reports/registry_audit.md",
-      "sha256": "5e01fc9ed777e49d8a352c7af6de556eb672816a61605e9d2d2defb2bed737d6",
+      "sha256": "8e3dcdfbf20d9e770c395c6872c3eadedddbee2e245d4b922e54154dceddd050",
       "size": 762
     },
     {
@@ -531,34 +531,14 @@
       "size": 1117
     },
     {
-      "path": "reports/release_snapshots/yao-meta-skill/2026-08-12-cli-flow.json",
-      "sha256": "1ae255d0603b39a691a86b147557d885be58e884a71da09e118cf340074964d7",
-      "size": 1670
-    },
-    {
-      "path": "reports/release_snapshots/yao-meta-skill/2026-08-12-cli-flow.md",
-      "sha256": "bc5f434894418bbeae875d549546f5abde6c370754a729273b5ed9acf314e711",
-      "size": 1534
-    },
-    {
-      "path": "reports/release_snapshots/yao-meta-skill/2026-08-12-cli-smoke.json",
-      "sha256": "ada232de6b21fbf6a9442239fa59637811637b4a6928efbddda7dd15de91195a",
-      "size": 1671
-    },
-    {
-      "path": "reports/release_snapshots/yao-meta-skill/2026-08-12-cli-smoke.md",
-      "sha256": "b8ff126b8b2f716942abca801c5915e8d72de99518dcea0a84e7fd983d958d6c",
-      "size": 1535
-    },
-    {
       "path": "reports/review-studio.html",
-      "sha256": "8d1ae6044f85b434c6e4bfcc4611999b9e3a53ecd89a66dbf007a409ac9678ca",
-      "size": 134889
+      "sha256": "2a931b927a5bca3fd488ac9824007c0a267331b2fcefeb31222d47caac0d734e",
+      "size": 134653
     },
     {
       "path": "reports/review-studio.json",
-      "sha256": "0ea455d07812a77d3477ce1eb6435f9d3eba3881255445b2ea5691eccbc550dc",
-      "size": 1265034
+      "sha256": "cdc0beea7875f7a390ee6d6de179ca7fa55ecb69e1d7fd058a69bb5deeaad261",
+      "size": 1265337
     },
     {
       "path": "reports/review-viewer.html",
@@ -567,7 +547,7 @@
     },
     {
       "path": "reports/review-viewer.json",
-      "sha256": "99fabb91db762d9cb691e8c5dff4dbfb2926edad893428db6a33f37a67530491",
+      "sha256": "8bf1ac62451146de297425f546262dafb09473eea9cdab20d0a2bf2e0bc1792c",
       "size": 538688
     },
     {
@@ -612,12 +592,12 @@
     },
     {
       "path": "reports/security_trust_report.json",
-      "sha256": "7d838fab862e62b77180b555d727b1049b3d19e270ebfcf57b4678a3bdb5a6e8",
+      "sha256": "cddc572d53c72cf71be392615aba5a37f73092895cb61dcc513229877e8576d9",
       "size": 147560
     },
     {
       "path": "reports/security_trust_report.md",
-      "sha256": "5e27ed201a9763096b2bd38557eca75d992754f41f4d64e438e65798cf926d86",
+      "sha256": "4a21da33c201acebe9dc7a1794c66a6f147e399c82ca7491fcc84066da249624",
       "size": 33246
     },
     {
@@ -627,12 +607,12 @@
     },
     {
       "path": "reports/skill-interpretation.json",
-      "sha256": "02421391fbe0901bae1807dbab101d92b8f1e1b2770f91c0be756237a8f826cd",
+      "sha256": "5e8280806f763b1e9dc8e699770f90cf85f7b006bfe6bc1b474403ce8a354bd9",
       "size": 90906
     },
     {
       "path": "reports/skill-os-2-review.md",
-      "sha256": "15b902f2dd4050dec3166c6d9572d73921c7690f1eaea3c09bf7897880f571c4",
+      "sha256": "44451463b820b7d9e41ebb26ee278a410a8cad1aae956c915eb43cdd11797dfe",
       "size": 32591
     },
     {
@@ -647,7 +627,7 @@
     },
     {
       "path": "reports/skill-overview.json",
-      "sha256": "008e245d04345a03f0fce9b951c01798ceb0f3dc293ecb832c6177250d873f95",
+      "sha256": "0602f58162cc5417585bc57cc754a119e958d76676fdc7891f14ad438a240f25",
       "size": 89850
     },
     {
@@ -662,22 +642,22 @@
     },
     {
       "path": "reports/skill_os2_audit.json",
-      "sha256": "630b92696b3f0fc29601cd673ccb780efc0945fd7c9b96fd5ce6a0a8c25ab0f0",
+      "sha256": "3aeb8a561241f0e90319c29d6d17ed70c86ea69b815d9cf4fca40229af01e029",
       "size": 14790
     },
     {
       "path": "reports/skill_os2_audit.md",
-      "sha256": "969323ca06cb61538f557e5663bc7600d877e41349b04112616159638a254782",
+      "sha256": "1f390af780168ab9144f09b80b3d2a164ce6aa46999f3110c3cb05cf5ab3a313",
       "size": 7144
     },
     {
       "path": "reports/skill_os2_coverage.json",
-      "sha256": "08605c5b4d4dc93bd3c25f3d4386f113179421257f8f55143b35931035597d5d",
+      "sha256": "b4a99e51f7aa34bd1b4cd1c0cc0e510103969de0c51814a316edf6d3c3972850",
       "size": 26281
     },
     {
       "path": "reports/skill_os2_coverage.md",
-      "sha256": "f8fc5461ab45b78eee98b9aa26d510eff166d62364083e3e6f03fab62b788e8e",
+      "sha256": "e82d434f11f97c82b75d6162b4d35b569bde644b90d25ace219603395d80e4dd",
       "size": 16351
     },
     {
@@ -812,7 +792,7 @@
     },
     {
       "path": "reports/upgrade_check.json",
-      "sha256": "9276ddc2b6f58b4797dfaffdbdbd3f162781fa39f9068b77dfdb8f142f1bf7f0",
+      "sha256": "affc92c8c40d2511ed16f5c839a5bd625daacc7bf1452473b64537269311ecab",
       "size": 2763
     },
     {
@@ -911,7 +891,7 @@
       "size": 6172
     }
   ],
-  "run_id": "phase1-review-final-20260812",
+  "run_id": "phase1-review-final-v2-20260812",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
