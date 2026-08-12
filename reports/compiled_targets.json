@@ -37,11 +37,11 @@
       "compiled_contract": {
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
         "trigger": {
-          "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "should_trigger": [
             "Create a skill from this repeated workflow.",
             "Turn this runbook into a reusable agent skill.",
@@ -79,16 +79,15 @@
           "steps": [
             "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
             "Capture job, output, exclusions, constraints, standards, lightest fit.",
-            "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-            "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-            "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+            "Scan `3-5` external/user/local references when useful.",
+            "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+            "Add deeper profiles and iteration directions only when earned."
           ],
           "decision_points": [
-            "Route by frontmatter `description`.",
-            "Keep `SKILL.md` lean; put guidance in `references/`, logic in `scripts/`, and evidence in `reports/`.",
-            "Use the lightest reliable process.",
-            "`Scaffold`: exploratory/personal. `Production`: team reuse. `Library`: shared infra. `Governed`: high-trust/release-critical.",
-            "Rules: [Method](references/skill-engineering-method.md), [Operating Modes](references/operating-modes.md), [Resource Boundaries](references/resource-boundaries.md).",
+            "Route by frontmatter `description`; use the lightest reliable process.",
+            "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
+            "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+            "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
             "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
@@ -214,6 +213,7 @@
             "scripts/render_iteration_directions.py",
             "scripts/render_iteration_ledger.py",
             "scripts/render_output_risk_profile.py",
+            "scripts/render_phase1_trigger_holdout.py",
             "scripts/render_portability_report.py",
             "scripts/render_prompt_quality_profile.py",
             "scripts/render_provider_output_status.py",
@@ -364,7 +364,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           }
@@ -375,6 +375,8 @@
             "evals/adaptation/user_signals.example.jsonl",
             "evals/adversarial/trigger_cases.json",
             "evals/blind_holdout/trigger_cases.json",
+            "evals/blind_holdout/trigger_cases_v2.json",
+            "evals/blind_holdout/trigger_cases_v2.lock.json",
             "evals/confusion/route_cases.json",
             "evals/dev/trigger_cases.json",
             "evals/failure-cases.md",
@@ -413,7 +415,7 @@
           ],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 29,
+            "trigger": 31,
             "output": 5,
             "adversarial": 1,
             "baseline": 1
@@ -428,7 +430,7 @@
           "owner": "Yao Team",
           "maturity": "governed",
           "review_cadence": "quarterly",
-          "review_due": ""
+          "review_due": "2026-11-10"
         },
         "runtime": {
           "activation": {
@@ -475,7 +477,7 @@
             },
             "file_write": {
               "required": true,
-              "script_count": 78,
+              "script_count": 79,
               "scripts": [
                 "scripts/adjudicate_multi_reviewer.py",
                 "scripts/adjudicate_output_review.py",
@@ -518,6 +520,7 @@
                 "scripts/render_iteration_directions.py",
                 "scripts/render_iteration_ledger.py",
                 "scripts/render_output_risk_profile.py",
+                "scripts/render_phase1_trigger_holdout.py",
                 "scripts/render_portability_report.py",
                 "scripts/render_prompt_quality_profile.py",
                 "scripts/render_provider_output_status.py",
@@ -599,14 +602,14 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 89,
+            "checked_count": 90,
             "failed_count": 0,
             "failed_scripts": []
           },
           "trust_summary": {
             "secret_findings": 0,
             "network_script_count": 3,
-            "file_write_script_count": 78,
+            "file_write_script_count": 79,
             "subprocess_script_count": 15,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
@@ -628,7 +631,7 @@
           ],
           "capability_counts": {
             "network": 3,
-            "file_write": 78,
+            "file_write": 79,
             "subprocess": 15,
             "interactive": 0
           },
@@ -641,7 +644,7 @@
           "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
           "activation": {
             "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
-            "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+            "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "manual_activation_supported": true,
             "automatic_activation_note": "Depends on the target client route/catalog implementation."
           },
@@ -649,7 +652,7 @@
             "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
             "counts": {
               "references": 37,
-              "scripts": 161,
+              "scripts": 162,
               "assets": 6,
               "reports": 43
             },
@@ -660,7 +663,7 @@
           },
           "scripts": {
             "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-            "script_count": 161,
+            "script_count": 162,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -741,7 +744,7 @@
           },
           "file_write": {
             "required": true,
-            "script_count": 78,
+            "script_count": 79,
             "scripts": [
               "scripts/adjudicate_multi_reviewer.py",
               "scripts/adjudicate_output_review.py",
@@ -784,6 +787,7 @@
               "scripts/render_iteration_directions.py",
               "scripts/render_iteration_ledger.py",
               "scripts/render_output_risk_profile.py",
+              "scripts/render_phase1_trigger_holdout.py",
               "scripts/render_portability_report.py",
               "scripts/render_prompt_quality_profile.py",
               "scripts/render_provider_output_status.py",
@@ -865,14 +869,14 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 89,
+          "checked_count": 90,
           "failed_count": 0,
           "failed_scripts": []
         },
         "trust_summary": {
           "secret_findings": 0,
           "network_script_count": 3,
-          "file_write_script_count": 78,
+          "file_write_script_count": 79,
           "subprocess_script_count": 15,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
@@ -892,7 +896,7 @@
         ],
         "capability_counts": {
           "network": 3,
-          "file_write": 78,
+          "file_write": 79,
           "subprocess": 15,
           "interactive": 0
         },
@@ -905,7 +909,7 @@
         "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
         "activation": {
           "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
-          "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "manual_activation_supported": true,
           "automatic_activation_note": "Depends on the target client route/catalog implementation."
         },
@@ -913,7 +917,7 @@
           "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           },
@@ -924,7 +928,7 @@
         },
         "scripts": {
           "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-          "script_count": 161,
+          "script_count": 162,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -1018,11 +1022,11 @@
       "compiled_contract": {
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
         "trigger": {
-          "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "should_trigger": [
             "Create a skill from this repeated workflow.",
             "Turn this runbook into a reusable agent skill.",
@@ -1060,16 +1064,15 @@
           "steps": [
             "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
             "Capture job, output, exclusions, constraints, standards, lightest fit.",
-            "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-            "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-            "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+            "Scan `3-5` external/user/local references when useful.",
+            "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+            "Add deeper profiles and iteration directions only when earned."
           ],
           "decision_points": [
-            "Route by frontmatter `description`.",
-            "Keep `SKILL.md` lean; put guidance in `references/`, logic in `scripts/`, and evidence in `reports/`.",
-            "Use the lightest reliable process.",
-            "`Scaffold`: exploratory/personal. `Production`: team reuse. `Library`: shared infra. `Governed`: high-trust/release-critical.",
-            "Rules: [Method](references/skill-engineering-method.md), [Operating Modes](references/operating-modes.md), [Resource Boundaries](references/resource-boundaries.md).",
+            "Route by frontmatter `description`; use the lightest reliable process.",
+            "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
+            "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+            "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
             "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
@@ -1195,6 +1198,7 @@
             "scripts/render_iteration_directions.py",
             "scripts/render_iteration_ledger.py",
             "scripts/render_output_risk_profile.py",
+            "scripts/render_phase1_trigger_holdout.py",
             "scripts/render_portability_report.py",
             "scripts/render_prompt_quality_profile.py",
             "scripts/render_provider_output_status.py",
@@ -1345,7 +1349,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           }
@@ -1356,6 +1360,8 @@
             "evals/adaptation/user_signals.example.jsonl",
             "evals/adversarial/trigger_cases.json",
             "evals/blind_holdout/trigger_cases.json",
+            "evals/blind_holdout/trigger_cases_v2.json",
+            "evals/blind_holdout/trigger_cases_v2.lock.json",
             "evals/confusion/route_cases.json",
             "evals/dev/trigger_cases.json",
             "evals/failure-cases.md",
@@ -1394,7 +1400,7 @@
           ],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 29,
+            "trigger": 31,
             "output": 5,
             "adversarial": 1,
             "baseline": 1
@@ -1409,7 +1415,7 @@
           "owner": "Yao Team",
           "maturity": "governed",
           "review_cadence": "quarterly",
-          "review_due": ""
+          "review_due": "2026-11-10"
         },
         "runtime": {
           "activation": {
@@ -1456,7 +1462,7 @@
             },
             "file_write": {
               "required": true,
-              "script_count": 78,
+              "script_count": 79,
               "scripts": [
                 "scripts/adjudicate_multi_reviewer.py",
                 "scripts/adjudicate_output_review.py",
@@ -1499,6 +1505,7 @@
                 "scripts/render_iteration_directions.py",
                 "scripts/render_iteration_ledger.py",
                 "scripts/render_output_risk_profile.py",
+                "scripts/render_phase1_trigger_holdout.py",
                 "scripts/render_portability_report.py",
                 "scripts/render_prompt_quality_profile.py",
                 "scripts/render_provider_output_status.py",
@@ -1580,14 +1587,14 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 89,
+            "checked_count": 90,
             "failed_count": 0,
             "failed_scripts": []
           },
           "trust_summary": {
             "secret_findings": 0,
             "network_script_count": 3,
-            "file_write_script_count": 78,
+            "file_write_script_count": 79,
             "subprocess_script_count": 15,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
@@ -1609,7 +1616,7 @@
           ],
           "capability_counts": {
             "network": 3,
-            "file_write": 78,
+            "file_write": 79,
             "subprocess": 15,
             "interactive": 0
           },
@@ -1622,7 +1629,7 @@
           "native_surface": "Claude-compatible neutral source folder with adapter notes",
           "activation": {
             "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
-            "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+            "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "manual_activation_supported": true,
             "automatic_activation_note": "Depends on the target client route/catalog implementation."
           },
@@ -1630,7 +1637,7 @@
             "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
             "counts": {
               "references": 37,
-              "scripts": 161,
+              "scripts": 162,
               "assets": 6,
               "reports": 43
             },
@@ -1641,7 +1648,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-            "script_count": 161,
+            "script_count": 162,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -1722,7 +1729,7 @@
           },
           "file_write": {
             "required": true,
-            "script_count": 78,
+            "script_count": 79,
             "scripts": [
               "scripts/adjudicate_multi_reviewer.py",
               "scripts/adjudicate_output_review.py",
@@ -1765,6 +1772,7 @@
               "scripts/render_iteration_directions.py",
               "scripts/render_iteration_ledger.py",
               "scripts/render_output_risk_profile.py",
+              "scripts/render_phase1_trigger_holdout.py",
               "scripts/render_portability_report.py",
               "scripts/render_prompt_quality_profile.py",
               "scripts/render_provider_output_status.py",
@@ -1846,14 +1854,14 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 89,
+          "checked_count": 90,
           "failed_count": 0,
           "failed_scripts": []
         },
         "trust_summary": {
           "secret_findings": 0,
           "network_script_count": 3,
-          "file_write_script_count": 78,
+          "file_write_script_count": 79,
           "subprocess_script_count": 15,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
@@ -1873,7 +1881,7 @@
         ],
         "capability_counts": {
           "network": 3,
-          "file_write": 78,
+          "file_write": 79,
           "subprocess": 15,
           "interactive": 0
         },
@@ -1886,7 +1894,7 @@
         "native_surface": "Claude-compatible neutral source folder with adapter notes",
         "activation": {
           "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
-          "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "manual_activation_supported": true,
           "automatic_activation_note": "Depends on the target client route/catalog implementation."
         },
@@ -1894,7 +1902,7 @@
           "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           },
@@ -1905,7 +1913,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-          "script_count": 161,
+          "script_count": 162,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -1999,11 +2007,11 @@
       "compiled_contract": {
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
         "trigger": {
-          "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "should_trigger": [
             "Create a skill from this repeated workflow.",
             "Turn this runbook into a reusable agent skill.",
@@ -2041,16 +2049,15 @@
           "steps": [
             "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
             "Capture job, output, exclusions, constraints, standards, lightest fit.",
-            "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-            "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-            "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+            "Scan `3-5` external/user/local references when useful.",
+            "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+            "Add deeper profiles and iteration directions only when earned."
           ],
           "decision_points": [
-            "Route by frontmatter `description`.",
-            "Keep `SKILL.md` lean; put guidance in `references/`, logic in `scripts/`, and evidence in `reports/`.",
-            "Use the lightest reliable process.",
-            "`Scaffold`: exploratory/personal. `Production`: team reuse. `Library`: shared infra. `Governed`: high-trust/release-critical.",
-            "Rules: [Method](references/skill-engineering-method.md), [Operating Modes](references/operating-modes.md), [Resource Boundaries](references/resource-boundaries.md).",
+            "Route by frontmatter `description`; use the lightest reliable process.",
+            "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
+            "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+            "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
             "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
@@ -2176,6 +2183,7 @@
             "scripts/render_iteration_directions.py",
             "scripts/render_iteration_ledger.py",
             "scripts/render_output_risk_profile.py",
+            "scripts/render_phase1_trigger_holdout.py",
             "scripts/render_portability_report.py",
             "scripts/render_prompt_quality_profile.py",
             "scripts/render_provider_output_status.py",
@@ -2326,7 +2334,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           }
@@ -2337,6 +2345,8 @@
             "evals/adaptation/user_signals.example.jsonl",
             "evals/adversarial/trigger_cases.json",
             "evals/blind_holdout/trigger_cases.json",
+            "evals/blind_holdout/trigger_cases_v2.json",
+            "evals/blind_holdout/trigger_cases_v2.lock.json",
             "evals/confusion/route_cases.json",
             "evals/dev/trigger_cases.json",
             "evals/failure-cases.md",
@@ -2375,7 +2385,7 @@
           ],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 29,
+            "trigger": 31,
             "output": 5,
             "adversarial": 1,
             "baseline": 1
@@ -2390,7 +2400,7 @@
           "owner": "Yao Team",
           "maturity": "governed",
           "review_cadence": "quarterly",
-          "review_due": ""
+          "review_due": "2026-11-10"
         },
         "runtime": {
           "activation": {
@@ -2437,7 +2447,7 @@
             },
             "file_write": {
               "required": true,
-              "script_count": 78,
+              "script_count": 79,
               "scripts": [
                 "scripts/adjudicate_multi_reviewer.py",
                 "scripts/adjudicate_output_review.py",
@@ -2480,6 +2490,7 @@
                 "scripts/render_iteration_directions.py",
                 "scripts/render_iteration_ledger.py",
                 "scripts/render_output_risk_profile.py",
+                "scripts/render_phase1_trigger_holdout.py",
                 "scripts/render_portability_report.py",
                 "scripts/render_prompt_quality_profile.py",
                 "scripts/render_provider_output_status.py",
@@ -2561,14 +2572,14 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 89,
+            "checked_count": 90,
             "failed_count": 0,
             "failed_scripts": []
           },
           "trust_summary": {
             "secret_findings": 0,
             "network_script_count": 3,
-            "file_write_script_count": 78,
+            "file_write_script_count": 79,
             "subprocess_script_count": 15,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
@@ -2590,7 +2601,7 @@
           ],
           "capability_counts": {
             "network": 3,
-            "file_write": 78,
+            "file_write": 79,
             "subprocess": 15,
             "interactive": 0
           },
@@ -2603,7 +2614,7 @@
           "native_surface": "Agent Skills compatible neutral package",
           "activation": {
             "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
-            "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+            "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "manual_activation_supported": true,
             "automatic_activation_note": "Depends on the target client route/catalog implementation."
           },
@@ -2611,7 +2622,7 @@
             "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
             "counts": {
               "references": 37,
-              "scripts": 161,
+              "scripts": 162,
               "assets": 6,
               "reports": 43
             },
@@ -2621,7 +2632,7 @@
           },
           "scripts": {
             "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-            "script_count": 161,
+            "script_count": 162,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -2696,7 +2707,7 @@
           },
           "file_write": {
             "required": true,
-            "script_count": 78,
+            "script_count": 79,
             "scripts": [
               "scripts/adjudicate_multi_reviewer.py",
               "scripts/adjudicate_output_review.py",
@@ -2739,6 +2750,7 @@
               "scripts/render_iteration_directions.py",
               "scripts/render_iteration_ledger.py",
               "scripts/render_output_risk_profile.py",
+              "scripts/render_phase1_trigger_holdout.py",
               "scripts/render_portability_report.py",
               "scripts/render_prompt_quality_profile.py",
               "scripts/render_provider_output_status.py",
@@ -2820,14 +2832,14 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 89,
+          "checked_count": 90,
           "failed_count": 0,
           "failed_scripts": []
         },
         "trust_summary": {
           "secret_findings": 0,
           "network_script_count": 3,
-          "file_write_script_count": 78,
+          "file_write_script_count": 79,
           "subprocess_script_count": 15,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
@@ -2847,7 +2859,7 @@
         ],
         "capability_counts": {
           "network": 3,
-          "file_write": 78,
+          "file_write": 79,
           "subprocess": 15,
           "interactive": 0
         },
@@ -2860,7 +2872,7 @@
         "native_surface": "Agent Skills compatible neutral package",
         "activation": {
           "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
-          "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "manual_activation_supported": true,
           "automatic_activation_note": "Depends on the target client route/catalog implementation."
         },
@@ -2868,7 +2880,7 @@
           "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           },
@@ -2878,7 +2890,7 @@
         },
         "scripts": {
           "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-          "script_count": 161,
+          "script_count": 162,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -2964,11 +2976,11 @@
       "compiled_contract": {
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
         "trigger": {
-          "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "should_trigger": [
             "Create a skill from this repeated workflow.",
             "Turn this runbook into a reusable agent skill.",
@@ -3006,16 +3018,15 @@
           "steps": [
             "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
             "Capture job, output, exclusions, constraints, standards, lightest fit.",
-            "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-            "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-            "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+            "Scan `3-5` external/user/local references when useful.",
+            "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+            "Add deeper profiles and iteration directions only when earned."
           ],
           "decision_points": [
-            "Route by frontmatter `description`.",
-            "Keep `SKILL.md` lean; put guidance in `references/`, logic in `scripts/`, and evidence in `reports/`.",
-            "Use the lightest reliable process.",
-            "`Scaffold`: exploratory/personal. `Production`: team reuse. `Library`: shared infra. `Governed`: high-trust/release-critical.",
-            "Rules: [Method](references/skill-engineering-method.md), [Operating Modes](references/operating-modes.md), [Resource Boundaries](references/resource-boundaries.md).",
+            "Route by frontmatter `description`; use the lightest reliable process.",
+            "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
+            "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+            "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
             "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
@@ -3141,6 +3152,7 @@
             "scripts/render_iteration_directions.py",
             "scripts/render_iteration_ledger.py",
             "scripts/render_output_risk_profile.py",
+            "scripts/render_phase1_trigger_holdout.py",
             "scripts/render_portability_report.py",
             "scripts/render_prompt_quality_profile.py",
             "scripts/render_provider_output_status.py",
@@ -3291,7 +3303,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           }
@@ -3302,6 +3314,8 @@
             "evals/adaptation/user_signals.example.jsonl",
             "evals/adversarial/trigger_cases.json",
             "evals/blind_holdout/trigger_cases.json",
+            "evals/blind_holdout/trigger_cases_v2.json",
+            "evals/blind_holdout/trigger_cases_v2.lock.json",
             "evals/confusion/route_cases.json",
             "evals/dev/trigger_cases.json",
             "evals/failure-cases.md",
@@ -3340,7 +3354,7 @@
           ],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 29,
+            "trigger": 31,
             "output": 5,
             "adversarial": 1,
             "baseline": 1
@@ -3355,7 +3369,7 @@
           "owner": "Yao Team",
           "maturity": "governed",
           "review_cadence": "quarterly",
-          "review_due": ""
+          "review_due": "2026-11-10"
         },
         "runtime": {
           "activation": {
@@ -3402,7 +3416,7 @@
             },
             "file_write": {
               "required": true,
-              "script_count": 78,
+              "script_count": 79,
               "scripts": [
                 "scripts/adjudicate_multi_reviewer.py",
                 "scripts/adjudicate_output_review.py",
@@ -3445,6 +3459,7 @@
                 "scripts/render_iteration_directions.py",
                 "scripts/render_iteration_ledger.py",
                 "scripts/render_output_risk_profile.py",
+                "scripts/render_phase1_trigger_holdout.py",
                 "scripts/render_portability_report.py",
                 "scripts/render_prompt_quality_profile.py",
                 "scripts/render_provider_output_status.py",
@@ -3526,14 +3541,14 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 89,
+            "checked_count": 90,
             "failed_count": 0,
             "failed_scripts": []
           },
           "trust_summary": {
             "secret_findings": 0,
             "network_script_count": 3,
-            "file_write_script_count": 78,
+            "file_write_script_count": 79,
             "subprocess_script_count": 15,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
@@ -3555,7 +3570,7 @@
           ],
           "capability_counts": {
             "network": 3,
-            "file_write": 78,
+            "file_write": 79,
             "subprocess": 15,
             "interactive": 0
           },
@@ -3568,7 +3583,7 @@
           "native_surface": "Agent Skills standard source tree",
           "activation": {
             "policy": "Use SKILL.md frontmatter name and description for progressive disclosure.",
-            "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+            "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "manual_activation_supported": true,
             "automatic_activation_note": "Depends on the target client route/catalog implementation."
           },
@@ -3576,7 +3591,7 @@
             "strategy": "Keep optional directories as relative resources next to SKILL.md.",
             "counts": {
               "references": 37,
-              "scripts": 161,
+              "scripts": 162,
               "assets": 6,
               "reports": 43
             },
@@ -3587,7 +3602,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-            "script_count": 161,
+            "script_count": 162,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -3661,7 +3676,7 @@
           },
           "file_write": {
             "required": true,
-            "script_count": 78,
+            "script_count": 79,
             "scripts": [
               "scripts/adjudicate_multi_reviewer.py",
               "scripts/adjudicate_output_review.py",
@@ -3704,6 +3719,7 @@
               "scripts/render_iteration_directions.py",
               "scripts/render_iteration_ledger.py",
               "scripts/render_output_risk_profile.py",
+              "scripts/render_phase1_trigger_holdout.py",
               "scripts/render_portability_report.py",
               "scripts/render_prompt_quality_profile.py",
               "scripts/render_provider_output_status.py",
@@ -3785,14 +3801,14 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 89,
+          "checked_count": 90,
           "failed_count": 0,
           "failed_scripts": []
         },
         "trust_summary": {
           "secret_findings": 0,
           "network_script_count": 3,
-          "file_write_script_count": 78,
+          "file_write_script_count": 79,
           "subprocess_script_count": 15,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
@@ -3812,7 +3828,7 @@
         ],
         "capability_counts": {
           "network": 3,
-          "file_write": 78,
+          "file_write": 79,
           "subprocess": 15,
           "interactive": 0
         },
@@ -3825,7 +3841,7 @@
         "native_surface": "Agent Skills standard source tree",
         "activation": {
           "policy": "Use SKILL.md frontmatter name and description for progressive disclosure.",
-          "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "manual_activation_supported": true,
           "automatic_activation_note": "Depends on the target client route/catalog implementation."
         },
@@ -3833,7 +3849,7 @@
           "strategy": "Keep optional directories as relative resources next to SKILL.md.",
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           },
@@ -3844,7 +3860,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-          "script_count": 161,
+          "script_count": 162,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -3929,11 +3945,11 @@
       "compiled_contract": {
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
         "trigger": {
-          "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "should_trigger": [
             "Create a skill from this repeated workflow.",
             "Turn this runbook into a reusable agent skill.",
@@ -3971,16 +3987,15 @@
           "steps": [
             "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
             "Capture job, output, exclusions, constraints, standards, lightest fit.",
-            "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-            "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-            "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+            "Scan `3-5` external/user/local references when useful.",
+            "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+            "Add deeper profiles and iteration directions only when earned."
           ],
           "decision_points": [
-            "Route by frontmatter `description`.",
-            "Keep `SKILL.md` lean; put guidance in `references/`, logic in `scripts/`, and evidence in `reports/`.",
-            "Use the lightest reliable process.",
-            "`Scaffold`: exploratory/personal. `Production`: team reuse. `Library`: shared infra. `Governed`: high-trust/release-critical.",
-            "Rules: [Method](references/skill-engineering-method.md), [Operating Modes](references/operating-modes.md), [Resource Boundaries](references/resource-boundaries.md).",
+            "Route by frontmatter `description`; use the lightest reliable process.",
+            "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
+            "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+            "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
             "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
@@ -4106,6 +4121,7 @@
             "scripts/render_iteration_directions.py",
             "scripts/render_iteration_ledger.py",
             "scripts/render_output_risk_profile.py",
+            "scripts/render_phase1_trigger_holdout.py",
             "scripts/render_portability_report.py",
             "scripts/render_prompt_quality_profile.py",
             "scripts/render_provider_output_status.py",
@@ -4256,7 +4272,7 @@
           ],
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           }
@@ -4267,6 +4283,8 @@
             "evals/adaptation/user_signals.example.jsonl",
             "evals/adversarial/trigger_cases.json",
             "evals/blind_holdout/trigger_cases.json",
+            "evals/blind_holdout/trigger_cases_v2.json",
+            "evals/blind_holdout/trigger_cases_v2.lock.json",
             "evals/confusion/route_cases.json",
             "evals/dev/trigger_cases.json",
             "evals/failure-cases.md",
@@ -4305,7 +4323,7 @@
           ],
           "baseline": "without_skill",
           "counts": {
-            "trigger": 29,
+            "trigger": 31,
             "output": 5,
             "adversarial": 1,
             "baseline": 1
@@ -4320,7 +4338,7 @@
           "owner": "Yao Team",
           "maturity": "governed",
           "review_cadence": "quarterly",
-          "review_due": ""
+          "review_due": "2026-11-10"
         },
         "runtime": {
           "activation": {
@@ -4367,7 +4385,7 @@
             },
             "file_write": {
               "required": true,
-              "script_count": 78,
+              "script_count": 79,
               "scripts": [
                 "scripts/adjudicate_multi_reviewer.py",
                 "scripts/adjudicate_output_review.py",
@@ -4410,6 +4428,7 @@
                 "scripts/render_iteration_directions.py",
                 "scripts/render_iteration_ledger.py",
                 "scripts/render_output_risk_profile.py",
+                "scripts/render_phase1_trigger_holdout.py",
                 "scripts/render_portability_report.py",
                 "scripts/render_prompt_quality_profile.py",
                 "scripts/render_provider_output_status.py",
@@ -4491,14 +4510,14 @@
           },
           "help_smoke": {
             "enabled": true,
-            "checked_count": 89,
+            "checked_count": 90,
             "failed_count": 0,
             "failed_scripts": []
           },
           "trust_summary": {
             "secret_findings": 0,
             "network_script_count": 3,
-            "file_write_script_count": 78,
+            "file_write_script_count": 79,
             "subprocess_script_count": 15,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
@@ -4520,7 +4539,7 @@
           ],
           "capability_counts": {
             "network": 3,
-            "file_write": 78,
+            "file_write": 79,
             "subprocess": 15,
             "interactive": 0
           },
@@ -4533,7 +4552,7 @@
           "native_surface": "VS Code/Copilot Agent Skills project or user scope",
           "activation": {
             "policy": "Use folder name plus SKILL.md name/description; keep description under platform limits.",
-            "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+            "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "manual_activation_supported": true,
             "automatic_activation_note": "Depends on the target client route/catalog implementation."
           },
@@ -4541,7 +4560,7 @@
             "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
             "counts": {
               "references": 37,
-              "scripts": 161,
+              "scripts": 162,
               "assets": 6,
               "reports": 43
             },
@@ -4552,7 +4571,7 @@
           },
           "scripts": {
             "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-            "script_count": 161,
+            "script_count": 162,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -4630,7 +4649,7 @@
           },
           "file_write": {
             "required": true,
-            "script_count": 78,
+            "script_count": 79,
             "scripts": [
               "scripts/adjudicate_multi_reviewer.py",
               "scripts/adjudicate_output_review.py",
@@ -4673,6 +4692,7 @@
               "scripts/render_iteration_directions.py",
               "scripts/render_iteration_ledger.py",
               "scripts/render_output_risk_profile.py",
+              "scripts/render_phase1_trigger_holdout.py",
               "scripts/render_portability_report.py",
               "scripts/render_prompt_quality_profile.py",
               "scripts/render_provider_output_status.py",
@@ -4754,14 +4774,14 @@
         },
         "help_smoke": {
           "enabled": true,
-          "checked_count": 89,
+          "checked_count": 90,
           "failed_count": 0,
           "failed_scripts": []
         },
         "trust_summary": {
           "secret_findings": 0,
           "network_script_count": 3,
-          "file_write_script_count": 78,
+          "file_write_script_count": 79,
           "subprocess_script_count": 15,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
@@ -4781,7 +4801,7 @@
         ],
         "capability_counts": {
           "network": 3,
-          "file_write": 78,
+          "file_write": 79,
           "subprocess": 15,
           "interactive": 0
         },
@@ -4794,7 +4814,7 @@
         "native_surface": "VS Code/Copilot Agent Skills project or user scope",
         "activation": {
           "policy": "Use folder name plus SKILL.md name/description; keep description under platform limits.",
-          "trigger_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+          "trigger_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "manual_activation_supported": true,
           "automatic_activation_note": "Depends on the target client route/catalog implementation."
         },
@@ -4802,7 +4822,7 @@
           "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
           "counts": {
             "references": 37,
-            "scripts": 161,
+            "scripts": 162,
             "assets": 6,
             "reports": 43
           },
@@ -4813,7 +4833,7 @@
         },
         "scripts": {
           "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-          "script_count": 161,
+          "script_count": 162,
           "help_smoke_failed_count": 0
         },
         "permissions": {

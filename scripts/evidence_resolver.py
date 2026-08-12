@@ -28,6 +28,22 @@ def _safe_relative(value: str) -> Path:
     return relative
 
 
+def _assert_safe_candidate(path: Path, boundary: Path) -> None:
+    try:
+        relative = path.relative_to(boundary)
+    except ValueError as exc:
+        raise EvidenceError("unsafe-evidence-path", f"Evidence path escapes its boundary: {path}") from exc
+    cursor = boundary
+    for part in relative.parts:
+        cursor /= part
+        if cursor.is_symlink():
+            raise EvidenceError("unsafe-evidence-path", f"Evidence path traverses a symlink: {path}")
+    try:
+        path.resolve(strict=False).relative_to(boundary.resolve())
+    except ValueError as exc:
+        raise EvidenceError("unsafe-evidence-path", f"Evidence path escapes its boundary: {path}") from exc
+
+
 def _authoring_candidate_active(root: Path) -> bool:
     status = subprocess.run(
         ["git", "status", "--porcelain=v1", "--untracked-files=all"],
@@ -41,7 +57,10 @@ def _authoring_candidate_active(root: Path) -> bool:
 def resolve_evidence_path(skill_dir: Path | str, relative_path: str | Path) -> Path:
     root = Path(skill_dir).resolve()
     relative = _safe_relative(Path(relative_path).as_posix())
+    if not relative.parts or relative.parts[0] != "reports":
+        raise EvidenceError("unsafe-evidence-path", f"Published evidence must stay under reports/: {relative}")
     canonical = root / relative
+    _assert_safe_candidate(canonical, root)
     pointer_path = root / POINTER_PATH
     if not pointer_path.exists():
         return canonical
@@ -62,9 +81,15 @@ def resolve_evidence_path(skill_dir: Path | str, relative_path: str | Path) -> P
     if entry is None:
         raise EvidenceError("artifact-not-published", f"Artifact is outside the current evidence collection: {relative}")
     release_relative = _safe_relative(str(pointer.get("release_dir", "")))
+    if len(release_relative.parts) != 3 or release_relative.parts[:2] != (".yao", "releases"):
+        raise EvidenceError("unsafe-evidence-path", f"Current release pointer is outside .yao/releases: {release_relative}")
+    release_root = root / release_relative
+    _assert_safe_candidate(release_root, root)
+    _assert_safe_candidate(release_root, root / ".yao" / "releases")
     release_candidate = root / release_relative / "artifacts" / relative
+    _assert_safe_candidate(release_candidate, release_root / "artifacts")
     candidate = release_candidate if release_candidate.is_file() else canonical
-    if candidate.is_symlink() or not candidate.is_file():
+    if not candidate.is_file():
         raise EvidenceError("artifact-missing", f"Published artifact is missing: {relative}")
     if sha256_file(candidate) != entry.get("sha256"):
         raise EvidenceError("artifact-hash-mismatch", f"Published artifact hash mismatch: {relative}")

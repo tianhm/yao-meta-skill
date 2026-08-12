@@ -130,7 +130,7 @@
       "label": "Trust Security",
       "status": "pass",
       "objective": "Scripts, dependencies, permissions, secrets, and package hash are reviewable for team distribution.",
-      "current": "161 scripts; secrets 0; help failures 0",
+      "current": "162 scripts; secrets 0; help failures 0",
       "command": "python3 scripts/yao.py trust .",
       "test": "python3 tests/verify_trust_check.py",
       "evidence": [
@@ -204,7 +204,7 @@
       "label": "Registry Distribution",
       "status": "pass",
       "objective": "Skill packages are installable, versioned, checksumed, and upgrade-reviewable.",
-      "current": "archive entries 612; install failures 0",
+      "current": "archive entries 641; install failures 0",
       "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip && python3 scripts/yao.py registry-audit .",
       "test": "python3 tests/verify_registry_audit.py",
       "evidence": [
@@ -245,7 +245,7 @@
       "label": "Review Studio",
       "status": "pass",
       "objective": "One HTML page supports first-pass production review across trigger, output, runtime, trust, release, and evidence actions.",
-      "current": "16 gates; decision review; warnings 3",
+      "current": "16 gates; decision review; warnings 5",
       "command": "python3 scripts/yao.py review-studio .",
       "test": "python3 tests/verify_review_studio.py",
       "evidence": [
@@ -274,7 +274,7 @@
       "label": "Telemetry Drift",
       "status": "pass",
       "objective": "Real usage feedback is captured as metadata-only local-first drift signals.",
-      "current": "events 1; recipes 5; risk low",
+      "current": "events 0; recipes 5; risk no-data",
       "command": "python3 scripts/yao.py telemetry-hooks . && python3 scripts/yao.py adoption-drift .",
       "test": "python3 tests/verify_telemetry_hooks.py",
       "evidence": [

@@ -52,20 +52,37 @@ def build_gates(skill_dir: Path, output_html: Path, data: dict[str, dict[str, An
     route_summary = route.get("summary", {})
     misroutes = int(route_summary.get("misroute_count", len(route.get("misroutes", []))) or 0)
     ambiguous = int(route_summary.get("ambiguous_case_count", len(route.get("ambiguous_cases", []))) or 0)
+    phase1_trigger = data.get("phase1_trigger_holdout", {})
+    phase1_summary = phase1_trigger.get("summary", {})
     if not route:
         route_status = "warn"
         route_detail = "route scorecard is missing; run route-scorecard before release review"
     else:
         route_status = "block" if misroutes else ("warn" if ambiguous else "pass")
         route_detail = f"{route_summary.get('total_cases', 0)} trigger cases; {misroutes} misroutes; {ambiguous} ambiguous"
+        if phase1_trigger:
+            if not phase1_trigger.get("ok"):
+                route_status = "block"
+            route_detail += (
+                f"; frozen 30 P={phase1_summary.get('precision', 0)} R={phase1_summary.get('recall', 0)}; "
+                f"hard-negative FP {phase1_summary.get('hard_negative_false_positives', 0)}"
+            )
     gates.append(
         gate(
             "trigger-lab",
             "触发实验",
             route_status,
             route_detail,
-            "reports/route_scorecard.json",
-            report_link(output_html, skill_dir, "reports/route_scorecard.md"),
+            (
+                "reports/route_scorecard.json + reports/phase1_trigger_holdout.json"
+                if phase1_trigger
+                else "reports/route_scorecard.json"
+            ),
+            report_link(
+                output_html,
+                skill_dir,
+                "reports/phase1_trigger_holdout.md" if phase1_trigger else "reports/route_scorecard.md",
+            ),
         )
     )
 

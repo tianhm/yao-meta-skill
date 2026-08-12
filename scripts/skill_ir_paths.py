@@ -113,8 +113,27 @@ def _safe_manifest_source(skill_dir: Path, raw_source: str) -> Path:
     return candidate
 
 
+def _safe_default_source(skill_dir: Path, candidate: Path) -> Path:
+    try:
+        relative = candidate.relative_to(skill_dir)
+    except ValueError as exc:
+        raise SkillIRResolutionError("unsafe-ir-source", f"Skill IR source escapes the Skill root: {candidate}") from exc
+    cursor = skill_dir
+    for part in relative.parts:
+        cursor /= part
+        if cursor.is_symlink():
+            raise SkillIRResolutionError("unsafe-ir-source", f"Skill IR source cannot traverse a symlink: {candidate}")
+    try:
+        candidate.resolve().relative_to(skill_dir.resolve())
+    except ValueError as exc:
+        raise SkillIRResolutionError("unsafe-ir-source", f"Skill IR source escapes the Skill root: {candidate}") from exc
+    return candidate
+
+
 def candidate_paths(skill_dir: Path, name: str) -> list[Path]:
     root = Path(skill_dir).resolve()
+    if not name or name in {".", ".."} or Path(name).name != name or "/" in name or "\\" in name:
+        raise SkillIRResolutionError("unsafe-skill-name", f"Unsafe Skill IR identity: {name}")
     manifest = load_manifest(root)
     candidates: list[Path] = []
     declared = manifest.get("skill_ir_source")
@@ -122,8 +141,8 @@ def candidate_paths(skill_dir: Path, name: str) -> list[Path]:
         candidates.append(_safe_manifest_source(root, declared.strip()))
     candidates.extend(
         [
-            root / "reports" / "skill-ir.json",
-            root / "skill-ir" / "examples" / f"{name}.json",
+            _safe_default_source(root, root / "reports" / "skill-ir.json"),
+            _safe_default_source(root, root / "skill-ir" / "examples" / f"{name}.json"),
         ]
     )
     unique: list[Path] = []

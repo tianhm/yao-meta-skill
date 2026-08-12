@@ -122,8 +122,8 @@ def score_prompt_semantic(description: str, prompt: str, config: dict) -> tuple[
 
     score = (semantic_coverage * 0.92) + min(0.12, support_score * 0.25) + min(0.06, lexical * 0.08) + coverage_boost
     score -= negative_penalty
-    if exclusive_negative and semantic_coverage < 0.9:
-        score -= 0.15
+    if exclusive_negative:
+        score = min(score - 0.15, 0.25)
     score = max(0.0, min(1.0, score))
 
     score_detail = {

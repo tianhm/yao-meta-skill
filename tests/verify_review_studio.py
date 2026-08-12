@@ -4,7 +4,7 @@ import re
 import sys
 
 
-from review_studio_helpers import ROOT, prepare_tmp_root, render_review_studio_fixture
+from review_studio_helpers import ROOT, prepare_tmp_root, render_review_studio_fixture, restore_review_studio_inputs
 from review_studio_world_class_assertions import assert_world_class_action
 
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -550,6 +550,7 @@ def main() -> None:
     assert "期望 Gate" in html, html[:9000]
     assert "实际 Gate" in html, html[:9000]
     assert review_layout.render_review_nav([]) == ""
+    restore_review_studio_inputs()
     print(json.dumps({"ok": True}, ensure_ascii=False, indent=2))
 
 

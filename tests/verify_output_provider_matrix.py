@@ -75,6 +75,30 @@ def main() -> None:
     assert all((run_dir / pair["variant_a_raw_output"]).is_file() for pair in blind_pack["pairs"]), blind_pack
     assert all((run_dir / pair["variant_b_raw_output"]).is_file() for pair in blind_pack["pairs"]), blind_pack
 
+    tampered_path = run_dir / blind_pack["pairs"][0]["variant_a_raw_output"]
+    original_output = tampered_path.read_text(encoding="utf-8")
+    tampered_path.write_text("tampered after provider execution", encoding="utf-8")
+    try:
+        build_blind_materials(report, run_dir)
+    except ValueError as exc:
+        assert "hash mismatch" in str(exc), exc
+    else:
+        raise AssertionError("tampered raw output produced blind-review materials")
+    tampered_path.write_text(original_output, encoding="utf-8")
+
+    linked_output = tmp_root / "linked-output.txt"
+    linked_output.write_text(original_output, encoding="utf-8")
+    tampered_path.unlink()
+    tampered_path.symlink_to(linked_output)
+    try:
+        build_blind_materials(report, run_dir)
+    except ValueError as exc:
+        assert "unsafe raw output" in str(exc), exc
+    else:
+        raise AssertionError("symlinked raw output produced blind-review materials")
+    tampered_path.unlink()
+    tampered_path.write_text(original_output, encoding="utf-8")
+
     decisions = []
     for reviewer in ("reviewer-a", "reviewer-b", "reviewer-c"):
         decisions.append(

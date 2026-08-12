@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import json
+import contextlib
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -151,6 +153,48 @@ def main() -> None:
             except EvidenceError as exc:
                 assert exc.code == "publish-locked", exc
 
+        race_skill = temp_root / "race-skill"
+        race_skill.mkdir()
+        write_skill(race_skill, "race-skill", "race")
+
+        class RacingEvidenceStore(EvidenceStore):
+            @contextlib.contextmanager
+            def publish_lock(self):
+                (self.skill_dir / "SKILL.md").write_text(
+                    (self.skill_dir / "SKILL.md").read_text(encoding="utf-8") + "\nConcurrent mutation.\n",
+                    encoding="utf-8",
+                )
+                yield
+
+        race_store = RacingEvidenceStore(race_skill)
+        race_run = race_store.build("race-run")
+        try:
+            race_store.publish(race_run)
+        except EvidenceError as exc:
+            assert exc.code == "dirty-worktree", exc
+        else:
+            raise AssertionError("publish accepted a worktree mutation after lock acquisition")
+        assert not (race_skill / ".yao" / "releases" / "race-run").exists()
+
+        recovery_skill = temp_root / "recovery-skill"
+        recovery_skill.mkdir()
+        write_skill(recovery_skill, "recovery-skill", "stable")
+        recovery_store = EvidenceStore(recovery_skill)
+        recovery_run = recovery_store.build("stable-run")
+        recovery_release = recovery_store.publish(recovery_run)
+        release_index_path = recovery_release / "artifact-index.json"
+        release_index = json.loads(release_index_path.read_text(encoding="utf-8"))
+        release_index["artifacts"].append(
+            {"path": "../../escaped.json", "sha256": "0" * 64, "size": 0}
+        )
+        release_index_path.write_text(json.dumps(release_index), encoding="utf-8")
+        try:
+            recovery_store._restore_bundle(recovery_release)
+        except EvidenceError as exc:
+            assert exc.code == "unsafe-artifact", exc
+        else:
+            raise AssertionError("recovery accepted a release artifact path escape")
+
         dry = subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "yao.py"), "evidence-build", str(beta), "--run-id", "cli-dry"],
             cwd=ROOT,
@@ -182,6 +226,18 @@ def main() -> None:
         resolved_quality = resolve_evidence_path(beta, "reports/quality.json")
         assert ".yao/releases/cli-publish/" in resolved_quality.as_posix(), resolved_quality
         assert json.loads(resolved_quality.read_text(encoding="utf-8"))["marker"] == "beta-v1"
+        published_reports = beta / ".yao" / "releases" / "cli-publish" / "artifacts" / "reports"
+        external_published_reports = temp_root / "external-published-reports"
+        shutil.move(str(published_reports), external_published_reports)
+        published_reports.symlink_to(external_published_reports, target_is_directory=True)
+        try:
+            resolve_evidence_path(beta, "reports/quality.json")
+        except EvidenceError as exc:
+            assert exc.code == "unsafe-evidence-path", exc
+        else:
+            raise AssertionError("evidence resolver followed a symlink outside the immutable release")
+        published_reports.unlink()
+        shutil.move(str(external_published_reports), published_reports)
         (beta / "SKILL.md").write_text((beta / "SKILL.md").read_text(encoding="utf-8") + "\nDirty.\n", encoding="utf-8")
         rejected = subprocess.run(
             [

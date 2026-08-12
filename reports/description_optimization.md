@@ -2,24 +2,24 @@
 
 Winner: `Current`
 
-- current tokens: `54`
-- winner tokens: `54`
+- current tokens: `74`
+- winner tokens: `74`
 - baseline tokens: `8`
 
 ## Winner
 
-Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.
+Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.
 
 ## Candidate Ranking
 
 | Candidate | Tokens | Dev FP | Dev FN | Dev Near | Holdout FP | Holdout FN |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `Current` | 54 | 0 | 0 | 1.0 | 0 | 0 |
-| `Minimal` | 41 | 1 | 1 | 1.0 | 0 | 0 |
-| `Guardrail` | 56 | 1 | 1 | 1.0 | 0 | 0 |
-| `Balanced` | 60 | 1 | 1 | 1.0 | 0 | 0 |
-| `Artifact Aware` | 77 | 1 | 1 | 1.0 | 0 | 0 |
-| `Boundary` | 83 | 1 | 1 | 1.0 | 0 | 0 |
+| `Current` | 74 | 0 | 0 | 1.0 | 0 | 0 |
+| `Minimal` | 41 | 0 | 1 | 1.0 | 0 | 0 |
+| `Guardrail` | 56 | 0 | 1 | 1.0 | 0 | 0 |
+| `Balanced` | 60 | 0 | 1 | 1.0 | 0 | 0 |
+| `Artifact Aware` | 77 | 0 | 1 | 1.0 | 0 | 0 |
+| `Boundary` | 83 | 0 | 1 | 1.0 | 0 | 0 |
 
 ## Acceptance Gates
 

@@ -38,6 +38,10 @@ ALLOW_UNTRACKED_ROOT_FILES = {
     "requirements-ci.txt",
 }
 PROTECTED_INSTALL_PREFIXES = {".git"}
+LOCAL_ONLY_PATHS = {
+    Path("reports/.current-run.json"),
+    Path("reports/artifact-index.json"),
+}
 
 
 def git_files(root: Path, *args: str) -> list[Path]:
@@ -59,7 +63,7 @@ def allow_untracked(path: Path) -> bool:
 
 
 def candidate_files(root: Path) -> tuple[list[Path], list[Path]]:
-    tracked = set(git_files(root))
+    tracked = set(git_files(root)) - LOCAL_ONLY_PATHS
     untracked = set(git_files(root, "--others", "--exclude-standard"))
     allowed_untracked = {path for path in untracked if allow_untracked(path)}
     skipped_untracked = sorted(untracked - allowed_untracked)

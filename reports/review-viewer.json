@@ -4,9 +4,9 @@
       "name": "yao-meta-skill",
       "title": "Yao Meta Skill",
       "display_name": "Yao Meta Skill",
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "maturity": "governed",
-      "updated_at": "2026-03-31",
+      "updated_at": "2026-08-12",
       "core_value": "把一次性经验沉淀为可复用、可评估、可迁移的 Skill 包体。",
       "audience": "Skill 作者、复用团队和后续 reviewer。",
       "deliverables": [
@@ -81,7 +81,7 @@
         "label": "可维护性",
         "score": 100,
         "reasons": [
-          "SKILL.md 约 314 个词/字。",
+          "SKILL.md 约 309 个词/字。",
           "入口文件保持克制，可维护性较好。",
           "references/ 已承载扩展指导。",
           "scripts/ 已承载确定性逻辑。",
@@ -102,7 +102,7 @@
         "label": "上下文成本",
         "score": 42,
         "reasons": [
-          "入口约 314 个词/字，references 约 17483 个词/字。",
+          "入口约 309 个词/字，references 约 17483 个词/字。",
           "分数越高代表上下文成本越低。",
           "上下文成本偏高，建议压缩入口或拆分 references。"
         ]
@@ -110,7 +110,7 @@
     },
     "capability_profile": {
       "archetype": "governed",
-      "task_family": "Execution operation",
+      "task_family": "Creative generation",
       "maturity": "governed",
       "trigger_strength": "手动触发 + description 路由",
       "reuse_scope": "跨平台",
@@ -156,7 +156,7 @@
     },
     "contract_boundary": {
       "trigger": {
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "activation": "manual",
         "execution": "inline",
         "shell": "bash"
@@ -184,7 +184,7 @@
       "boundary_cards": [
         {
           "label": "Owned",
-          "body": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs."
+          "body": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests."
         },
         {
           "label": "Adjacent",
@@ -206,7 +206,7 @@
         "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
       ],
       "gaps": [
-        "上下文成本需要补强：入口约 314 个词/字，references 约 17483 个词/字。"
+        "上下文成本需要补强：入口约 309 个词/字，references 约 17483 个词/字。"
       ],
       "recommendations": [
         "先改触发边界，再扩展工作流。",
@@ -225,7 +225,7 @@
       "prompt_quality": {
         "overall_quality_score": 89.0,
         "highlights": [
-          "Primary prompt task family: Execution operation.",
+          "Primary prompt task family: Creative generation.",
           "Complexity: expert — multiple task families plus governance, evaluation, or expert-level constraints",
           "Completeness: 100/100.",
           "Clarity: 85/100."
@@ -271,7 +271,7 @@
           "name": "包体膨胀风险",
           "impact": 2,
           "probability": 1,
-          "signal": "SKILL.md 约 314 个词/字。",
+          "signal": "SKILL.md 约 309 个词/字。",
           "response": "先补证据和边界，再增加包体复杂度。"
         },
         {
@@ -412,7 +412,7 @@
       "external_pending_count": 3,
       "human_pending_count": 1,
       "source_check_count": 19,
-      "source_pass_count": 12,
+      "source_pass_count": 11,
       "conclusion_zh": "世界级证据尚未完成：4 项待补，0 项已接受。",
       "conclusion_en": "World-class evidence is not complete: 4 pending, 0 accepted.",
       "entries": [
@@ -469,7 +469,8 @@
           "summary_zh": "真实外部客户端 metadata-only 事件仍未导入。",
           "summary_en": "Real external-client metadata-only events have not been imported yet.",
           "blocked_checks": [
-            "External events"
+            "External events",
+            "Adoption sample"
           ]
         }
       ]
@@ -510,22 +511,22 @@
           "path": "scripts",
           "label": "Deterministic helpers or local tooling",
           "kind": "folder",
-          "file_count": 161
+          "file_count": 162
         },
         {
           "path": "evals",
           "label": "Trigger and quality checks",
           "kind": "folder",
-          "file_count": 31
+          "file_count": 33
         },
         {
           "path": "reports",
           "label": "Generated evidence and overview artifacts",
           "kind": "folder",
-          "file_count": 181
+          "file_count": 183
         }
       ],
-      "file_count": 414,
+      "file_count": 419,
       "folder_count": 4,
       "distribution": [
         {
@@ -550,15 +551,15 @@
         },
         {
           "label": "scripts",
-          "value": 161
+          "value": 162
         },
         {
           "label": "evals",
-          "value": 31
+          "value": 33
         },
         {
           "label": "reports",
-          "value": 181
+          "value": 183
         }
       ]
     },
@@ -633,17 +634,17 @@
     "name": "yao-meta-skill",
     "title": "Yao Meta Skill",
     "display_name": "Yao Meta Skill",
-    "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "logic_steps": [
       "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
       "Capture job, output, exclusions, constraints, standards, lightest fit.",
-      "Scan up to `3-5` references: external, user, local; skip tiny edits; surface only uncertainty/conflict.",
-      "Write `description` early; route/boundary edits need `trigger_eval.py`; releases need risk-matched gates before folders.",
-      "Add output-risk, artifact-design, prompt-quality, system-model, next directions only when earned."
+      "Scan `3-5` external/user/local references when useful.",
+      "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+      "Add deeper profiles and iteration directions only when earned."
     ],
     "usage_steps": [
-      "Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals.",
-      "Use this skill when the request matches: Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs."
+      "Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals.",
+      "Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests."
     ],
     "package_map": [
       {
@@ -680,19 +681,19 @@
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 161
+        "file_count": 162
       },
       {
         "path": "evals",
         "label": "Trigger and quality checks",
         "kind": "folder",
-        "file_count": 31
+        "file_count": 33
       },
       {
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 181
+        "file_count": 183
       }
     ],
     "strengths": [
@@ -707,10 +708,10 @@
       "把重复流程沉淀为可复用的 agent skill。",
       "把分散提示词、对话记录或操作规范整理为稳定能力。",
       "团队复用前，需要明确触发边界、质量证据和维护责任。",
-      "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals."
+      "用户说出类似需求时：Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals."
     ],
     "trigger_contract": {
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "activation": "manual",
       "execution": "inline",
       "shell": "bash"
@@ -1012,13 +1013,13 @@
       "ok": true,
       "summary": {
         "reproducibility_ready": true,
-        "release_lock_ready": false,
+        "release_lock_ready": true,
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "f297ea0e9375f272d0ff4d4b61a3673b8165b1e275c9a998fe261e81cc4a334b",
-        "source_contract_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5",
-        "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
+        "evidence_bundle_sha256": "1edd6dcf9488e58824c32cce3f6bd4b82fba9c08e65c1ab3129e5c1d0b806ab4",
+        "source_contract_sha256": "db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70",
+        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
         "command_count": 23,
@@ -1033,21 +1034,21 @@
         "world_class_task_count": 4,
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
-        "world_class_source_pass_count": 12,
-        "world_class_source_blocked_count": 7,
-        "beta_test_ready": false,
-        "beta_test_blocker_count": 1,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 8,
+        "beta_test_ready": true,
+        "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 4,
+        "public_claim_blocker_count": 3,
         "working_tree_dirty": true,
-        "changed_file_count": 68,
-        "source_tree_dirty": true,
-        "source_changed_file_count": 21,
+        "changed_file_count": 1,
+        "source_tree_dirty": false,
+        "source_changed_file_count": 0,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 47
+        "generated_changed_file_count": 1
       },
-      "commit": "ac19921b7062a56ca0ea541f8c5b757786b7bec2",
+      "commit": "7a6089028b0e02ccdb32f54a175c392c15c71cab",
       "missing_artifacts": [],
       "limitations": [
         "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1132,8 +1133,8 @@
       "failures": []
     },
     "trust_security": {
-      "scanned_files": 257,
-      "script_count": 161,
+      "scanned_files": 261,
+      "script_count": 162,
       "internal_module_count": 72,
       "secret_findings": 0,
       "dependency_files": [
@@ -1142,18 +1143,18 @@
       "network_script_count": 3,
       "network_policy_covered_count": 3,
       "network_policy_missing_count": 0,
-      "file_write_script_count": 78,
+      "file_write_script_count": 79,
       "permission_required_count": 3,
       "permission_approved_count": 3,
       "permission_missing_count": 0,
       "permission_invalid_count": 0,
       "permission_expired_count": 0,
-      "help_smoke_checked_count": 89,
+      "help_smoke_checked_count": 90,
       "help_smoke_failed_count": 0,
       "interactive_script_count": 0,
       "package_hash_scope": "source-contract-without-generated-reports",
-      "package_hash_file_count": 257,
-      "package_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5"
+      "package_hash_file_count": 261,
+      "package_sha256": "db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70"
     },
     "skill_atlas": {
       "skill_count": 11,
@@ -1162,22 +1163,22 @@
       "actionable_route_collision_count": 0,
       "owner_gap_count": 8,
       "actionable_owner_gap_count": 0,
-      "stale_count": 9,
+      "stale_count": 10,
       "actionable_stale_count": 0,
       "shared_resource_count": 0,
       "no_route_opportunity_count": 0,
       "telemetry_report_count": 1,
-      "drift_signal_count": 0,
-      "actionable_drift_signal_count": 0,
-      "non_actionable_issue_count": 22
+      "drift_signal_count": 1,
+      "actionable_drift_signal_count": 1,
+      "non_actionable_issue_count": 23
     },
     "registry_distribution": {
       "ok": true,
       "package": {
         "schema_version": "2.0",
         "name": "yao-meta-skill",
-        "version": "1.1.0",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "version": "1.2.0",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "targets": [
           "openai",
           "claude",
@@ -1191,8 +1192,8 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5",
-          "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
+          "package_sha256": "db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70",
+          "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257"
         },
         "compatibility": {
           "openai": "pass",
@@ -1223,12 +1224,12 @@
         },
         "distribution": {
           "archive_verified": true,
-          "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
+          "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
           "package_verification": "reports/package_verification.json",
           "install_simulated": true,
           "install_simulation": "reports/install_simulation.json"
         },
-        "generated_at": "2026-06-13"
+        "generated_at": "2026-08-12"
       },
       "failures": [],
       "warnings": []
@@ -1239,8 +1240,8 @@
         "target_count": 4,
         "adapter_count": 4,
         "archive_present": true,
-        "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
-        "archive_entry_count": 612,
+        "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+        "archive_entry_count": 641,
         "nested_skill_entry_count": 0,
         "failure_count": 0,
         "warning_count": 0
@@ -1252,7 +1253,7 @@
       "ok": true,
       "summary": {
         "archive_present": true,
-        "archive_entry_count": 1537,
+        "archive_entry_count": 641,
         "nested_skill_entry_count": 0,
         "archive_extracted": true,
         "entrypoint_loaded": true,
@@ -1313,19 +1314,19 @@
           {
             "field": "description",
             "from": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes.",
-            "to": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs."
+            "to": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests."
           }
         ],
         "checksum_changes": [
           {
             "field": "archive_sha256",
             "from": "",
-            "to": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
+            "to": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257"
           },
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5"
+            "to": "db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70"
           }
         ]
       },
@@ -1341,32 +1342,33 @@
     "adoption_drift": {
       "ok": true,
       "summary": {
-        "event_count": 1,
-        "adoption_sample_count": 1,
-        "activation_count": 1,
-        "accepted_count": 1,
+        "event_count": 0,
+        "adoption_sample_count": 0,
+        "activation_count": 0,
+        "accepted_count": 0,
         "edited_count": 0,
         "rejected_count": 0,
         "missed_count": 0,
         "failed_count": 0,
-        "adoption_rate": 100.0,
+        "adoption_rate": 0,
         "missed_trigger_count": 0,
         "wrong_trigger_count": 0,
         "bad_output_count": 0,
         "script_error_count": 0,
         "missing_resource_count": 0,
         "review_overdue_count": 0,
-        "risk_band": "low",
-        "event_types": {
-          "skill_activation": 1
-        },
+        "risk_band": "no-data",
+        "event_types": {},
         "failure_types": {},
-        "source_types": {
-          "manual": 1
-        },
+        "source_types": {},
         "command_counts": {}
       },
-      "next_iteration_candidates": [],
+      "next_iteration_candidates": [
+        {
+          "signal": "no telemetry",
+          "recommendation": "Start with a small metadata-only sample before using telemetry for release decisions."
+        }
+      ],
       "privacy_contract": {
         "storage": "local-first",
         "event_scope": "metadata-only",
@@ -1633,7 +1635,7 @@
           "status": "external_required",
           "category": "external",
           "owner": "Browser/Chrome/IDE/provider client integrator",
-          "current": "external source events 0; adoption samples 1",
+          "current": "external source events 0; adoption samples 0",
           "objective": "Import production metadata-only events from a real external client into the local drift loop.",
           "runbook": [
             "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
@@ -1686,8 +1688,8 @@
         "missing_submission_count": 4,
         "invalid_submission_count": 0,
         "source_check_count": 19,
-        "source_pass_count": 12,
-        "source_blocked_count": 7,
+        "source_pass_count": 11,
+        "source_blocked_count": 8,
         "submitted_but_pending_count": 0,
         "source_accepted_without_valid_submission_count": 1,
         "overclaim_guard_active": true,
@@ -2113,7 +2115,7 @@
           "status": "pending",
           "source_status": "external_required",
           "source_accepted": false,
-          "current": "external source events 0; adoption samples 1",
+          "current": "external source events 0; adoption samples 0",
           "objective": "Import production metadata-only events from a real external client into the local drift loop.",
           "runbook": [
             "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
@@ -2150,9 +2152,9 @@
           ],
           "observed_state": {
             "external_source_events": 0,
-            "adoption_sample_count": 1,
+            "adoption_sample_count": 0,
             "raw_content_allowed": false,
-            "risk_band": "low",
+            "risk_band": "no-data",
             "accepted": false
           },
           "source_checklist": [
@@ -2171,8 +2173,8 @@
               "label": "Adoption sample",
               "field": "adoption_sample_count",
               "expected": ">0",
-              "actual": 1,
-              "status": "pass",
+              "actual": 0,
+              "status": "blocked",
               "source_accepted": false,
               "next_action": "Telemetry must include adoption outcome evidence."
             },
@@ -2188,8 +2190,8 @@
             }
           ],
           "source_check_count": 3,
-          "source_pass_count": 2,
-          "source_blocked_count": 1,
+          "source_pass_count": 1,
+          "source_blocked_count": 2,
           "submission_state": {
             "status": "missing",
             "path": "evidence/world_class/submissions/native-client-telemetry.json",
@@ -2234,7 +2236,7 @@
     "prompt_quality": {
       "overall_quality_score": 89.0,
       "highlights": [
-        "Primary prompt task family: Execution operation.",
+        "Primary prompt task family: Creative generation.",
         "Complexity: expert — multiple task families plus governance, evaluation, or expert-level constraints",
         "Completeness: 100/100.",
         "Clarity: 85/100."
@@ -2262,7 +2264,7 @@
       ],
       "maturity_tier": "governed",
       "skill_archetype": "governed",
-      "updated_at": "2026-03-31"
+      "updated_at": "2026-08-12"
     }
   },
   "intent_confidence": {
@@ -2512,7 +2514,7 @@
           "adversarial_errors": 0
         },
         "current": {
-          "tokens": 54,
+          "tokens": 74,
           "dev_errors": 0,
           "holdout_errors": 0,
           "blind_errors": 0,
@@ -2520,7 +2522,7 @@
           "adversarial_errors": 0
         },
         "winner": {
-          "tokens": 54,
+          "tokens": 74,
           "dev_errors": 0,
           "holdout_errors": 0,
           "blind_errors": 0,
@@ -2602,13 +2604,13 @@
     ]
   },
   "compare": {
-    "current_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "current_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "current_candidate": {
       "id": "current",
       "label": "Current",
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "strategy": "current",
-      "estimated_tokens": 54,
+      "estimated_tokens": 74,
       "dev": {
         "false_positives": 0,
         "false_negatives": 0,
@@ -2624,7 +2626,7 @@
         -1.0,
         -1.0,
         -1.0,
-        54
+        74
       ],
       "holdout": {
         "false_positives": 0,
@@ -3499,7 +3501,7 @@
             {
               "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
               "family": "long_context_summary_only",
-              "score": 0.257,
+              "score": 0.25,
               "predicted_trigger": false,
               "expected_trigger": false,
               "passed": true,
@@ -4769,9 +4771,9 @@
     "winner": {
       "id": "current",
       "label": "Current",
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "strategy": "current",
-      "estimated_tokens": 54,
+      "estimated_tokens": 74,
       "dev": {
         "false_positives": 0,
         "false_negatives": 0,
@@ -4787,7 +4789,7 @@
         -1.0,
         -1.0,
         -1.0,
-        54
+        74
       ],
       "holdout": {
         "false_positives": 0,
@@ -5038,7 +5040,7 @@
           {
             "prompt": "We have a messy release runbook, export process, and a prompt history; turn all of that into one reusable skill package with evals and packaging checks.",
             "family": "complex_multi_asset",
-            "score": 0.816,
+            "score": 0.819,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -5063,7 +5065,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.804,
               "support_score": 0,
-              "lexical_support": 0.208,
+              "lexical_support": 0.25,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -5095,7 +5097,7 @@
           {
             "prompt": "Turn these workflow fragments, transcripts, and prompts into one production-ready skill with scripts and references.",
             "family": "complex_multi_asset",
-            "score": 0.454,
+            "score": 0.459,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -5119,7 +5121,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.411,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.267,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -5144,7 +5146,7 @@
           {
             "prompt": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
             "family": "iterate_existing_skill",
-            "score": 0.514,
+            "score": 0.52,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -5170,7 +5172,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.464,
               "support_score": 0.04,
-              "lexical_support": 0.214,
+              "lexical_support": 0.286,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -5305,7 +5307,7 @@
           {
             "prompt": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
             "family": "long_context_trigger",
-            "score": 0.871,
+            "score": 0.874,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -5333,7 +5335,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.857,
               "support_score": 0.04,
-              "lexical_support": 0.154,
+              "lexical_support": 0.192,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -5584,7 +5586,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.0,
+              "lexical_support": 0.111,
               "negative_penalty": 0.3,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -5632,7 +5634,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.0,
+              "lexical_support": 0.043,
               "negative_penalty": 0.68,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -5657,7 +5659,7 @@
           {
             "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
             "family": "long_context_summary_only",
-            "score": 0.236,
+            "score": 0.24,
             "predicted_trigger": false,
             "expected_trigger": false,
             "passed": true,
@@ -5685,7 +5687,7 @@
               ],
               "semantic_coverage": 0.661,
               "support_score": 0,
-              "lexical_support": 0.222,
+              "lexical_support": 0.278,
               "negative_penalty": 0.3,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -5743,7 +5745,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.1,
+              "lexical_support": 0.0,
               "negative_penalty": 0.68,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -5898,7 +5900,7 @@
               ],
               "semantic_coverage": 0.321,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.267,
               "negative_penalty": 0.64,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -6009,7 +6011,7 @@
               ],
               "semantic_coverage": 0.482,
               "support_score": 0,
-              "lexical_support": 0.048,
+              "lexical_support": 0.095,
               "negative_penalty": 0.82,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -6072,7 +6074,7 @@
               ],
               "semantic_coverage": 0.482,
               "support_score": 0,
-              "lexical_support": 0.158,
+              "lexical_support": 0.211,
               "negative_penalty": 0.64,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -6269,7 +6271,7 @@
           {
             "prompt": "Take this existing skill draft, tighten the trigger boundary, add near-neighbor evals, and package it for distribution.",
             "family": "iterate_existing_skill",
-            "score": 0.684,
+            "score": 0.688,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -6296,7 +6298,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.643,
               "support_score": 0.04,
-              "lexical_support": 0.278,
+              "lexical_support": 0.333,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -6525,7 +6527,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.143,
+              "lexical_support": 0.214,
               "negative_penalty": 0.72,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -6756,7 +6758,7 @@
               ],
               "semantic_coverage": 0.304,
               "support_score": 0,
-              "lexical_support": 0.077,
+              "lexical_support": 0.154,
               "negative_penalty": 0.46,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -6805,7 +6807,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.214,
+              "lexical_support": 0.357,
               "negative_penalty": 0.64,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -7182,7 +7184,7 @@
           {
             "prompt": "We have a messy release runbook, export process, and a prompt history; turn all of that into one reusable skill package with evals and packaging checks.",
             "family": "complex_multi_asset",
-            "score": 0.816,
+            "score": 0.819,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -7207,7 +7209,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.804,
               "support_score": 0,
-              "lexical_support": 0.208,
+              "lexical_support": 0.25,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -7239,7 +7241,7 @@
           {
             "prompt": "Turn these workflow fragments, transcripts, and prompts into one production-ready skill with scripts and references.",
             "family": "complex_multi_asset",
-            "score": 0.454,
+            "score": 0.459,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -7263,7 +7265,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.411,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.267,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -7288,7 +7290,7 @@
           {
             "prompt": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
             "family": "iterate_existing_skill",
-            "score": 0.514,
+            "score": 0.52,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -7314,7 +7316,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.464,
               "support_score": 0.04,
-              "lexical_support": 0.214,
+              "lexical_support": 0.286,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -7449,7 +7451,7 @@
           {
             "prompt": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
             "family": "long_context_trigger",
-            "score": 0.871,
+            "score": 0.874,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -7477,7 +7479,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.857,
               "support_score": 0.04,
-              "lexical_support": 0.154,
+              "lexical_support": 0.192,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -7728,7 +7730,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.0,
+              "lexical_support": 0.111,
               "negative_penalty": 0.3,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -7776,7 +7778,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.0,
+              "lexical_support": 0.043,
               "negative_penalty": 0.68,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -7801,7 +7803,7 @@
           {
             "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
             "family": "long_context_summary_only",
-            "score": 0.236,
+            "score": 0.24,
             "predicted_trigger": false,
             "expected_trigger": false,
             "passed": true,
@@ -7829,7 +7831,7 @@
               ],
               "semantic_coverage": 0.661,
               "support_score": 0,
-              "lexical_support": 0.222,
+              "lexical_support": 0.278,
               "negative_penalty": 0.3,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -7887,7 +7889,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.1,
+              "lexical_support": 0.0,
               "negative_penalty": 0.68,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -8042,7 +8044,7 @@
               ],
               "semantic_coverage": 0.321,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.267,
               "negative_penalty": 0.64,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -8153,7 +8155,7 @@
               ],
               "semantic_coverage": 0.482,
               "support_score": 0,
-              "lexical_support": 0.048,
+              "lexical_support": 0.095,
               "negative_penalty": 0.82,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -8216,7 +8218,7 @@
               ],
               "semantic_coverage": 0.482,
               "support_score": 0,
-              "lexical_support": 0.158,
+              "lexical_support": 0.211,
               "negative_penalty": 0.64,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -8413,7 +8415,7 @@
           {
             "prompt": "Take this existing skill draft, tighten the trigger boundary, add near-neighbor evals, and package it for distribution.",
             "family": "iterate_existing_skill",
-            "score": 0.684,
+            "score": 0.688,
             "predicted_trigger": true,
             "expected_trigger": true,
             "passed": true,
@@ -8440,7 +8442,7 @@
               "exclusive_negative_concepts": [],
               "semantic_coverage": 0.643,
               "support_score": 0.04,
-              "lexical_support": 0.278,
+              "lexical_support": 0.333,
               "negative_penalty": 0,
               "coverage_boost": 0.06,
               "concept_evidence": {
@@ -8669,7 +8671,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.143,
+              "lexical_support": 0.214,
               "negative_penalty": 0.72,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -8900,7 +8902,7 @@
               ],
               "semantic_coverage": 0.304,
               "support_score": 0,
-              "lexical_support": 0.077,
+              "lexical_support": 0.154,
               "negative_penalty": 0.46,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -8949,7 +8951,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.214,
+              "lexical_support": 0.357,
               "negative_penalty": 0.64,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -9323,7 +9325,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.1,
               "negative_penalty": 0.26,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -9367,7 +9369,7 @@
               ],
               "semantic_coverage": 0.054,
               "support_score": 0,
-              "lexical_support": 0.154,
+              "lexical_support": 0.231,
               "negative_penalty": 0.22,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -9387,7 +9389,7 @@
           {
             "prompt": "Review this process and suggest improvements for later; no packaging yet.",
             "family": "blind_brainstorm_only",
-            "score": 0.013,
+            "score": 0.006,
             "predicted_trigger": false,
             "expected_trigger": false,
             "passed": true,
@@ -9414,7 +9416,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.182,
+              "lexical_support": 0.091,
               "negative_penalty": 0.22,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -9674,7 +9676,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.2,
+              "lexical_support": 0.1,
               "negative_penalty": 0.26,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -9718,7 +9720,7 @@
               ],
               "semantic_coverage": 0.054,
               "support_score": 0,
-              "lexical_support": 0.154,
+              "lexical_support": 0.231,
               "negative_penalty": 0.22,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -9738,7 +9740,7 @@
           {
             "prompt": "Review this process and suggest improvements for later; no packaging yet.",
             "family": "blind_brainstorm_only",
-            "score": 0.013,
+            "score": 0.006,
             "predicted_trigger": false,
             "expected_trigger": false,
             "passed": true,
@@ -9765,7 +9767,7 @@
               ],
               "semantic_coverage": 0.357,
               "support_score": 0,
-              "lexical_support": 0.182,
+              "lexical_support": 0.091,
               "negative_penalty": 0.22,
               "coverage_boost": 0.04,
               "concept_evidence": {
@@ -11449,7 +11451,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.062,
+              "lexical_support": 0.125,
               "negative_penalty": 1.25,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -11507,7 +11509,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.1,
+              "lexical_support": 0.15,
               "negative_penalty": 0.64,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -11559,7 +11561,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.091,
+              "lexical_support": 0.182,
               "negative_penalty": 0.88,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -11853,7 +11855,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.062,
+              "lexical_support": 0.125,
               "negative_penalty": 1.25,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -11911,7 +11913,7 @@
               ],
               "semantic_coverage": 0.0,
               "support_score": 0,
-              "lexical_support": 0.1,
+              "lexical_support": 0.15,
               "negative_penalty": 0.64,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -11963,7 +11965,7 @@
               ],
               "semantic_coverage": 0.179,
               "support_score": 0,
-              "lexical_support": 0.091,
+              "lexical_support": 0.182,
               "negative_penalty": 0.88,
               "coverage_boost": 0.0,
               "concept_evidence": {
@@ -12392,9 +12394,9 @@
       {
         "id": "current",
         "label": "Current",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "strategy": "current",
-        "estimated_tokens": 54,
+        "estimated_tokens": 74,
         "dev": {
           "false_positives": 0,
           "false_negatives": 0,
@@ -12410,7 +12412,7 @@
           -1.0,
           -1.0,
           -1.0,
-          54
+          74
         ],
         "holdout": {
           "false_positives": 0,
@@ -12428,19 +12430,19 @@
         "strategy": "minimal_template",
         "estimated_tokens": 41,
         "dev": {
-          "false_positives": 1,
+          "false_positives": 0,
           "false_negatives": 1,
-          "precision": 0.875,
+          "precision": 1.0,
           "recall": 0.875,
           "near_neighbor_pass_rate": 1.0,
-          "should_not_trigger_pass_rate": 0.857
+          "should_not_trigger_pass_rate": 1.0
         },
         "selection_key": [
-          1,
+          0,
           1,
           -1.0,
-          -0.857,
-          -0.875,
+          -1.0,
+          -1.0,
           -0.875,
           41
         ],
@@ -12460,19 +12462,19 @@
         "strategy": "guardrail_template",
         "estimated_tokens": 56,
         "dev": {
-          "false_positives": 1,
+          "false_positives": 0,
           "false_negatives": 1,
-          "precision": 0.875,
+          "precision": 1.0,
           "recall": 0.875,
           "near_neighbor_pass_rate": 1.0,
-          "should_not_trigger_pass_rate": 0.857
+          "should_not_trigger_pass_rate": 1.0
         },
         "selection_key": [
-          1,
+          0,
           1,
           -1.0,
-          -0.857,
-          -0.875,
+          -1.0,
+          -1.0,
           -0.875,
           56
         ],
@@ -12492,19 +12494,19 @@
         "strategy": "balanced_template",
         "estimated_tokens": 60,
         "dev": {
-          "false_positives": 1,
+          "false_positives": 0,
           "false_negatives": 1,
-          "precision": 0.875,
+          "precision": 1.0,
           "recall": 0.875,
           "near_neighbor_pass_rate": 1.0,
-          "should_not_trigger_pass_rate": 0.857
+          "should_not_trigger_pass_rate": 1.0
         },
         "selection_key": [
-          1,
+          0,
           1,
           -1.0,
-          -0.857,
-          -0.875,
+          -1.0,
+          -1.0,
           -0.875,
           60
         ],
@@ -12524,19 +12526,19 @@
         "strategy": "artifact_template",
         "estimated_tokens": 77,
         "dev": {
-          "false_positives": 1,
+          "false_positives": 0,
           "false_negatives": 1,
-          "precision": 0.875,
+          "precision": 1.0,
           "recall": 0.875,
           "near_neighbor_pass_rate": 1.0,
-          "should_not_trigger_pass_rate": 0.857
+          "should_not_trigger_pass_rate": 1.0
         },
         "selection_key": [
-          1,
+          0,
           1,
           -1.0,
-          -0.857,
-          -0.875,
+          -1.0,
+          -1.0,
           -0.875,
           77
         ],
@@ -12556,19 +12558,19 @@
         "strategy": "boundary_template",
         "estimated_tokens": 83,
         "dev": {
-          "false_positives": 1,
+          "false_positives": 0,
           "false_negatives": 1,
-          "precision": 0.875,
+          "precision": 1.0,
           "recall": 0.875,
           "near_neighbor_pass_rate": 1.0,
-          "should_not_trigger_pass_rate": 0.857
+          "should_not_trigger_pass_rate": 1.0
         },
         "selection_key": [
-          1,
+          0,
           1,
           -1.0,
-          -0.857,
-          -0.875,
+          -1.0,
+          -1.0,
           -0.875,
           83
         ],
@@ -12744,7 +12746,7 @@
         },
         "winner_calibration": {
           "threshold": 0.33,
-          "mean_positive_score": 0.704,
+          "mean_positive_score": 0.705,
           "mean_non_trigger_score": 0.0,
           "mean_near_neighbor_score": 0.0,
           "min_positive_score": 0.465,
@@ -12759,7 +12761,7 @@
         },
         "current_calibration": {
           "threshold": 0.33,
-          "mean_positive_score": 0.704,
+          "mean_positive_score": 0.705,
           "mean_non_trigger_score": 0.0,
           "mean_near_neighbor_score": 0.0,
           "min_positive_score": 0.465,
@@ -12846,8 +12848,8 @@
         "winner_calibration": {
           "threshold": 0.33,
           "mean_positive_score": 0.377,
-          "mean_non_trigger_score": 0.024,
-          "mean_near_neighbor_score": 0.006,
+          "mean_non_trigger_score": 0.023,
+          "mean_near_neighbor_score": 0.003,
           "min_positive_score": 0.374,
           "max_non_trigger_score": 0.084,
           "score_gap": 0.29,
@@ -12861,8 +12863,8 @@
         "current_calibration": {
           "threshold": 0.33,
           "mean_positive_score": 0.377,
-          "mean_non_trigger_score": 0.024,
-          "mean_near_neighbor_score": 0.006,
+          "mean_non_trigger_score": 0.023,
+          "mean_near_neighbor_score": 0.003,
           "min_positive_score": 0.374,
           "max_non_trigger_score": 0.084,
           "score_gap": 0.29,
@@ -13097,8 +13099,8 @@
     },
     "summary": {
       "winner_label": "Current",
-      "winner_tokens": 54,
-      "current_tokens": 54,
+      "winner_tokens": 74,
+      "current_tokens": 74,
       "winner_dev_total_errors": 0,
       "current_dev_total_errors": 0,
       "winner_holdout_total_errors": 0,
@@ -13132,9 +13134,9 @@
       {
         "name": "yao-meta-skill",
         "winner_label": "Current",
-        "winner_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
-        "winner_tokens": 54,
-        "current_tokens": 54,
+        "winner_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
+        "winner_tokens": 74,
+        "current_tokens": 74,
         "winner_holdout_fp": 0,
         "winner_holdout_fn": 0,
         "current_holdout_fp": 0,
@@ -13165,7 +13167,7 @@
         "calibration": {
           "holdout": {
             "threshold": 0.33,
-            "mean_positive_score": 0.704,
+            "mean_positive_score": 0.705,
             "mean_non_trigger_score": 0.0,
             "mean_near_neighbor_score": 0.0,
             "min_positive_score": 0.465,
@@ -13181,8 +13183,8 @@
           "blind_holdout": {
             "threshold": 0.33,
             "mean_positive_score": 0.377,
-            "mean_non_trigger_score": 0.024,
-            "mean_near_neighbor_score": 0.006,
+            "mean_non_trigger_score": 0.023,
+            "mean_near_neighbor_score": 0.003,
             "min_positive_score": 0.374,
             "max_non_trigger_score": 0.084,
             "score_gap": 0.29,
@@ -13293,7 +13295,7 @@
           "route_metrics": {
             "precision": 1.0,
             "recall": 1.0,
-            "average_margin": 0.644,
+            "average_margin": 0.646,
             "misroute_count": 0,
             "ambiguous_case_count": 0
           }
@@ -13316,8 +13318,8 @@
             "label": "Current",
             "ranking_state": "selected_by_dev",
             "promotion_state": "kept_current",
-            "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
-            "tokens": 54,
+            "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
+            "tokens": 74,
             "dev_errors": 0,
             "holdout_errors": 0,
             "reason_tags": []
@@ -13330,7 +13332,7 @@
             "promotion_state": "blocked",
             "description": "Create, refactor, evaluate, and package agent skills. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
             "tokens": 41,
-            "dev_errors": 2,
+            "dev_errors": 1,
             "holdout_errors": 0,
             "reason_tags": [
               "weaker_dev_fit"
@@ -13344,11 +13346,10 @@
             "promotion_state": "blocked",
             "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Do not use for summary-only requests, translation-only requests, or plain documentation tasks.",
             "tokens": 56,
-            "dev_errors": 2,
+            "dev_errors": 1,
             "holdout_errors": 0,
             "reason_tags": [
-              "weaker_dev_fit",
-              "longer_without_gain"
+              "weaker_dev_fit"
             ]
           },
           {
@@ -13359,11 +13360,10 @@
             "promotion_state": "blocked",
             "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
             "tokens": 60,
-            "dev_errors": 2,
+            "dev_errors": 1,
             "holdout_errors": 0,
             "reason_tags": [
-              "weaker_dev_fit",
-              "longer_without_gain"
+              "weaker_dev_fit"
             ]
           },
           {
@@ -13374,7 +13374,7 @@
             "promotion_state": "blocked",
             "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Trigger when requests mention workflows, prompts, transcripts, or docs and the job is to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
             "tokens": 77,
-            "dev_errors": 2,
+            "dev_errors": 1,
             "holdout_errors": 0,
             "reason_tags": [
               "weaker_dev_fit",
@@ -13389,7 +13389,7 @@
             "promotion_state": "blocked",
             "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill. Do not use for summary-only requests, translation-only requests, or plain documentation tasks.",
             "tokens": 83,
-            "dev_errors": 2,
+            "dev_errors": 1,
             "holdout_errors": 0,
             "reason_tags": [
               "weaker_dev_fit",
@@ -13719,17 +13719,17 @@
           "adversarial_holdout": {
             "threshold": 0.34,
             "mean_positive_score": 0.907,
-            "mean_non_trigger_score": 0.083,
-            "mean_near_neighbor_score": 0.139,
+            "mean_non_trigger_score": 0.076,
+            "mean_near_neighbor_score": 0.125,
             "min_positive_score": 0.815,
-            "max_non_trigger_score": 0.277,
-            "score_gap": 0.538,
-            "threshold_margin": 0.063,
+            "max_non_trigger_score": 0.25,
+            "score_gap": 0.565,
+            "threshold_margin": 0.09,
             "positive_threshold_buffer": 0.475,
-            "negative_threshold_buffer": 0.063,
-            "boundary_case_count": 1,
-            "boundary_case_rate": 0.167,
-            "risk_band": "watch"
+            "negative_threshold_buffer": 0.09,
+            "boundary_case_count": 0,
+            "boundary_case_rate": 0.0,
+            "risk_band": "healthy"
           }
         },
         "judge_blind": {
@@ -13808,8 +13808,7 @@
           "causes": [
             "no_candidate_outperformed_current",
             "current_holdout_gap_present",
-            "current_holdout_risk",
-            "adversarial_watch_risk"
+            "current_holdout_risk"
           ],
           "next_action": "Keep the current description and open a new candidate only when fresh route evidence appears.",
           "gate_status": {
@@ -14106,7 +14105,7 @@
   },
   "reference_synthesis": {
     "skill_name": "yao-meta-skill",
-    "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "intent_confidence": {
       "score": 100,
       "band": "high",
@@ -14636,14 +14635,26 @@
     "skill_name": "yao-meta-skill-trusted-generation-core-v1",
     "relevance": "prompt-aware",
     "primary_task_family": {
-      "key": "execution_operation",
-      "label": "Execution operation",
+      "key": "creative_generation",
+      "label": "Creative generation",
       "matched_keywords": [
-        "workflow",
-        "runbook"
+        "copy",
+        "content"
       ]
     },
     "task_families": [
+      {
+        "key": "creative_generation",
+        "label": "Creative generation",
+        "score": 2,
+        "matched_keywords": [
+          "copy",
+          "content"
+        ],
+        "role_guidance": "Use a taste-aware creator role with clear audience, tone, and originality boundaries.",
+        "task_guidance": "Generate variants, explain selection logic, and preserve the user's distinctive constraints.",
+        "format_guidance": "Return options with rationale, selection criteria, and refinement paths."
+      },
       {
         "key": "execution_operation",
         "label": "Execution operation",
@@ -14655,17 +14666,6 @@
         "role_guidance": "Use an operator role with explicit boundaries, inputs, outputs, and failure handling.",
         "task_guidance": "Convert the job into ordered steps with validation checks and stop conditions.",
         "format_guidance": "Return a runbook-like handoff with commands, checks, owners, and next actions when relevant."
-      },
-      {
-        "key": "creative_generation",
-        "label": "Creative generation",
-        "score": 1,
-        "matched_keywords": [
-          "content"
-        ],
-        "role_guidance": "Use a taste-aware creator role with clear audience, tone, and originality boundaries.",
-        "task_guidance": "Generate variants, explain selection logic, and preserve the user's distinctive constraints.",
-        "format_guidance": "Return options with rationale, selection criteria, and refinement paths."
       },
       {
         "key": "analytical_reasoning",
@@ -14703,9 +14703,9 @@
       "success_standard": "trigger boundaries must be tested with should-trigger and should-not-trigger cases, production and higher maturity work needs output eval, trust, runtime conformance, and Review Studio evidence, governed work needs owner, review cadence, permission approvals, registry metadata, package verification, and install simulation, generated reports should be bilingual or reviewer-friendly when they are user-facing, each new asset must earn its place by reducing ambiguity, risk, or repeated work"
     },
     "rtf_to_skill": {
-      "role": "Use an operator role with explicit boundaries, inputs, outputs, and failure handling.",
-      "task": "Convert the job into ordered steps with validation checks and stop conditions.",
-      "format": "Return a runbook-like handoff with commands, checks, owners, and next actions when relevant."
+      "role": "Use a taste-aware creator role with clear audience, tone, and originality boundaries.",
+      "task": "Generate variants, explain selection logic, and preserve the user's distinctive constraints.",
+      "format": "Return options with rationale, selection criteria, and refinement paths."
     },
     "quality_matrix": [
       {

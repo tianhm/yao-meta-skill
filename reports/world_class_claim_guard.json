@@ -6,9 +6,9 @@
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 212,
-    "json_claim_surface_count": 104,
-    "metadata_claim_surface_count": 105,
+    "claim_surface_count": 215,
+    "json_claim_surface_count": 105,
+    "metadata_claim_surface_count": 106,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -96,6 +96,10 @@
     },
     {
       "path": "docs/README.zh-CN.md",
+      "violation_count": 0
+    },
+    {
+      "path": "docs/migration-1.2.0.md",
       "violation_count": 0
     },
     {
@@ -500,6 +504,14 @@
     },
     {
       "path": "reports/package_verification.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1_trigger_holdout.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1_trigger_holdout.md",
       "violation_count": 0
     },
     {

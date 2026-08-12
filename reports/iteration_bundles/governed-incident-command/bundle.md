@@ -10,7 +10,6 @@
 - `no_candidate_outperformed_current`
 - `current_holdout_gap_present`
 - `current_holdout_risk`
-- `adversarial_watch_risk`
 
 ## Gate Status
 

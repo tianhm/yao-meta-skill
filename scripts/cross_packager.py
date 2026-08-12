@@ -251,12 +251,18 @@ def build_manifest(skill_dir: Path, platform: str) -> dict:
     }
 
 
-EXCLUDED_ARCHIVE_PARTS = {".git", ".previews", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+EXCLUDED_ARCHIVE_PARTS = {".git", ".previews", ".yao", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+EXCLUDED_LOCAL_EVIDENCE_PATHS = {
+    ("reports", ".current-run.json"),
+    ("reports", "artifact-index.json"),
+}
 
 
 def should_skip_archive_path(rel_path: Path) -> bool:
     parts = rel_path.parts
     if any(part in EXCLUDED_ARCHIVE_PARTS for part in parts):
+        return True
+    if parts in EXCLUDED_LOCAL_EVIDENCE_PATHS:
         return True
     if rel_path.name == "SKILL.md" and parts != ("SKILL.md",):
         return True

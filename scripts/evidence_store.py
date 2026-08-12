@@ -261,14 +261,33 @@ class EvidenceStore:
             with contextlib.suppress(FileNotFoundError):
                 lock_path.unlink()
 
-    def _restore_bundle(self, bundle_dir: Path) -> None:
-        index = read_json(bundle_dir / "artifact-index.json", code="invalid-artifact-index")
+    def _restore_bundle(self, bundle_dir: Path, *, expected_index_sha256: str | None = None) -> None:
+        index_path = bundle_dir / "artifact-index.json"
+        if expected_index_sha256 and sha256_file(index_path) != expected_index_sha256:
+            raise EvidenceError("release-hash-mismatch", "Immutable release artifact index was modified")
+        index = read_json(index_path, code="invalid-artifact-index")
+        artifacts_root = (bundle_dir / "artifacts").resolve()
         for entry in index.get("artifacts", []):
             relative = Path(str(entry["path"]))
+            if relative.is_absolute() or ".." in relative.parts or not relative.parts or relative.parts[0] != "reports":
+                raise EvidenceError("unsafe-artifact", f"Unsafe release artifact path: {relative}")
             source = bundle_dir / "artifacts" / relative
-            if not source.is_file() or sha256_file(source) != entry.get("sha256"):
+            try:
+                source.resolve().relative_to(artifacts_root)
+            except ValueError as exc:
+                raise EvidenceError("unsafe-artifact", f"Release artifact escapes its bundle: {relative}") from exc
+            if source.is_symlink() or not source.is_file() or sha256_file(source) != entry.get("sha256"):
                 raise EvidenceError("release-hash-mismatch", f"Immutable release is invalid: {relative}")
             destination = self.skill_dir / relative
+            cursor = self.skill_dir
+            for part in relative.parts:
+                cursor /= part
+                if cursor.is_symlink():
+                    raise EvidenceError("unsafe-artifact", f"Canonical artifact path contains a symlink: {relative}")
+            try:
+                destination.resolve(strict=False).relative_to(self.skill_dir)
+            except ValueError as exc:
+                raise EvidenceError("unsafe-artifact", f"Canonical artifact escapes the skill root: {relative}") from exc
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
         atomic_write_json(self.skill_dir / CANONICAL_INDEX_PATH, index)
@@ -285,7 +304,7 @@ class EvidenceStore:
             previous.resolve().relative_to(self.releases_dir.resolve())
         except ValueError as exc:
             raise EvidenceError("unsafe-release-path", "Current release pointer escapes .yao/releases") from exc
-        self._restore_bundle(previous)
+        self._restore_bundle(previous, expected_index_sha256=str(pointer.get("artifact_index_sha256", "")) or None)
         self.transaction_path.unlink()
         return True
 
@@ -297,6 +316,7 @@ class EvidenceStore:
         verified = self.verify_run(run.run_dir)
         self.assert_clean()
         with self.publish_lock():
+            self.assert_clean()
             self.recover()
             release_dir = self.releases_dir / verified.run_id
             if release_dir.exists():

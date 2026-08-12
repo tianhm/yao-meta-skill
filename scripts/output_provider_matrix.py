@@ -105,6 +105,23 @@ def raw_output_path(run_dir: Path, model: str, case_id: str, variant: str) -> Pa
     return run_dir / "raw-outputs" / model / f"{safe_case}.{variant}.txt"
 
 
+def validate_raw_output(path: Path, run_dir: Path, expected_sha256: str, pair_id: str, label: str) -> None:
+    raw_root = (run_dir / "raw-outputs").resolve()
+    try:
+        path.resolve().relative_to(raw_root)
+    except ValueError as exc:
+        raise ValueError(f"unsafe raw output for blind pair {pair_id} variant {label}") from exc
+    cursor = run_dir
+    for part in path.relative_to(run_dir).parts:
+        cursor /= part
+        if cursor.is_symlink():
+            raise ValueError(f"unsafe raw output for blind pair {pair_id} variant {label}")
+    if not path.is_file():
+        raise ValueError(f"missing raw output for blind pair {pair_id}")
+    if hashlib.sha256(path.read_bytes()).hexdigest() != expected_sha256:
+        raise ValueError(f"raw output hash mismatch for blind pair {pair_id} variant {label}")
+
+
 def execute_provider_matrix(
     cases_path: Path,
     matrix: dict[str, Any],
@@ -243,8 +260,8 @@ def build_blind_materials(report: dict[str, Any], run_dir: Path) -> tuple[dict[s
             run_b = runs[(model, case_id, role_b)]
             path_a = raw_output_path(run_dir, model, case_id, role_a)
             path_b = raw_output_path(run_dir, model, case_id, role_b)
-            if not path_a.is_file() or not path_b.is_file():
-                raise ValueError(f"missing raw output for blind pair {pair_id}")
+            validate_raw_output(path_a, run_dir, run_a["output_sha256"], pair_id, "A")
+            validate_raw_output(path_b, run_dir, run_b["output_sha256"], pair_id, "B")
             pairs.append(
                 {
                     "pair_id": pair_id,

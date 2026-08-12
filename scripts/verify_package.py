@@ -54,7 +54,11 @@ def generated_zip_entries(names: list[str]) -> list[str]:
     generated = []
     for name in names:
         parts = PurePosixPath(name).parts
-        if ".previews" in parts or "dist" in parts or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:])):
+        local_evidence_pointer = len(parts) >= 3 and parts[-2:] in {
+            ("reports", ".current-run.json"),
+            ("reports", "artifact-index.json"),
+        }
+        if ".previews" in parts or ".yao" in parts or "dist" in parts or local_evidence_pointer or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:])):
             generated.append(name)
     return generated
 
@@ -155,7 +159,7 @@ def verify_package(
                 "Archive exposes only the root SKILL.md entrypoint",
             )
             generated_entries = generated_zip_entries(archive_entries)
-            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes generated dist/, .previews/, and tests/tmp* contents")
+            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes local .yao state, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents")
     elif require_zip:
         add_check(checks, failures, "archive-present", False, f"Missing required package archive: {display_path(archive_path)}")
     else:

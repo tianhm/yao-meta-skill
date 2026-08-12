@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-03-31",
+  "generated_at": "2026-08-12",
   "targets": [
     {
       "label": "root",
       "path": ".",
       "budget_tier": "production",
       "budget_limit": 1000,
-      "initial_tokens": 987,
-      "skill_body_tokens": 794,
-      "deferred_resource_tokens": 546485,
+      "initial_tokens": 947,
+      "skill_body_tokens": 764,
+      "deferred_resource_tokens": 551312,
       "large_deferred_resource_dirs": [
         {
           "path": "scripts",
-          "estimated_tokens": 482960,
-          "file_count": 161
+          "estimated_tokens": 486356,
+          "file_count": 162
         }
       ],
       "deferred_resource_governance": {
@@ -35,14 +35,14 @@
             ],
             "missing": [],
             "path": "scripts",
-            "estimated_tokens": 482960,
-            "file_count": 161,
+            "estimated_tokens": 486356,
+            "file_count": 162,
             "rationale": "Script resources are deterministic deferred tools, not initial-load prompt context."
           }
         ],
         "summary": "Large deferred resources are indexed and backed by evidence."
       },
-      "quality_density": 141.8,
+      "quality_density": 147.8,
       "unused_resource_dirs": [],
       "ok": true,
       "warnings": []

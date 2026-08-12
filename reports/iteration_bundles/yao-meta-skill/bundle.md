@@ -27,18 +27,18 @@
 | Role | Label | Ranking State | Promotion State | Tokens | Dev Errors | Holdout Errors |
 | --- | --- | --- | --- | ---: | ---: | ---: |
 | baseline | `Baseline` | reference | reference | 8 | 1 | 0 |
-| current | `Current` | selected_by_dev | kept_current | 54 | 0 | 0 |
-| candidate | `Minimal` | not_selected | blocked | 41 | 2 | 0 |
-| candidate | `Guardrail` | not_selected | blocked | 56 | 2 | 0 |
-| candidate | `Balanced` | not_selected | blocked | 60 | 2 | 0 |
-| candidate | `Artifact Aware` | not_selected | blocked | 77 | 2 | 0 |
-| candidate | `Boundary` | not_selected | blocked | 83 | 2 | 0 |
+| current | `Current` | selected_by_dev | kept_current | 74 | 0 | 0 |
+| candidate | `Minimal` | not_selected | blocked | 41 | 1 | 0 |
+| candidate | `Guardrail` | not_selected | blocked | 56 | 1 | 0 |
+| candidate | `Balanced` | not_selected | blocked | 60 | 1 | 0 |
+| candidate | `Artifact Aware` | not_selected | blocked | 77 | 1 | 0 |
+| candidate | `Boundary` | not_selected | blocked | 83 | 1 | 0 |
 
 ## Human Review Stub
 
 - target: yao-meta-skill
-- current description: Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.
-- candidate description: Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.
+- current description: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.
+- candidate description: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.
 - review focus: no_candidate_outperformed_current
 
 ## Artifact Paths

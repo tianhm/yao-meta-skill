@@ -8,14 +8,14 @@
     "actionable_route_collision_count": 0,
     "owner_gap_count": 8,
     "actionable_owner_gap_count": 0,
-    "stale_count": 9,
+    "stale_count": 10,
     "actionable_stale_count": 0,
     "shared_resource_count": 0,
     "no_route_opportunity_count": 0,
     "telemetry_report_count": 1,
-    "drift_signal_count": 0,
-    "actionable_drift_signal_count": 0,
-    "non_actionable_issue_count": 22
+    "drift_signal_count": 1,
+    "actionable_drift_signal_count": 1,
+    "non_actionable_issue_count": 23
   },
   "scope_policy": {
     "present": true,
@@ -44,17 +44,17 @@
   },
   "catalog": {
     "workspace_root": ".",
-    "generated_at": "2026-06-13",
+    "generated_at": "2026-08-12",
     "skills": [
       {
         "name": "yao-meta-skill",
         "path": ".",
-        "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+        "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "owner": "Yao Team",
-        "version": "1.1.0",
+        "version": "1.2.0",
         "status": "active",
         "maturity": "governed",
-        "updated_at": "2026-03-31",
+        "updated_at": "2026-08-12",
         "review_cadence": "quarterly",
         "targets": [
           "openai",
@@ -131,6 +131,7 @@
           "scripts/render_iteration_directions.py",
           "scripts/render_iteration_ledger.py",
           "scripts/render_output_risk_profile.py",
+          "scripts/render_phase1_trigger_holdout.py",
           "scripts/render_portability_report.py",
           "scripts/render_prompt_quality_profile.py",
           "scripts/render_provider_output_status.py",
@@ -270,18 +271,25 @@
           "templates/complex_skill.md.j2"
         ],
         "token_set": [
+          "brainstorming",
           "checks",
+          "copy-only",
           "docs",
+          "edits",
           "evals",
           "evaluate",
           "exclude",
+          "existing",
           "improve",
           "install",
           "migration",
-          "no-skill",
+          "one-off",
+          "or",
+          "outline-only",
           "package",
           "prompts",
           "release",
+          "requests",
           "routing",
           "scripts",
           "sops",
@@ -289,6 +297,7 @@
           "tests",
           "translation",
           "trigger",
+          "trust",
           "workflows",
           "优化已有",
           "评测"
@@ -299,11 +308,11 @@
         "telemetry": {
           "report_present": true,
           "report": "reports/adoption_drift_report.json",
-          "risk_band": "low",
-          "event_count": 1,
-          "adoption_sample_count": 1,
-          "adoption_rate": 100.0,
-          "candidate_count": 0
+          "risk_band": "no-data",
+          "event_count": 0,
+          "adoption_sample_count": 0,
+          "adoption_rate": 0,
+          "candidate_count": 1
         }
       },
       {
@@ -749,14 +758,14 @@
       "actionable_route_collision_count": 0,
       "owner_gap_count": 8,
       "actionable_owner_gap_count": 0,
-      "stale_count": 9,
+      "stale_count": 10,
       "actionable_stale_count": 0,
       "shared_resource_count": 0,
       "no_route_opportunity_count": 0,
       "telemetry_report_count": 1,
-      "drift_signal_count": 0,
-      "actionable_drift_signal_count": 0,
-      "non_actionable_issue_count": 22
+      "drift_signal_count": 1,
+      "actionable_drift_signal_count": 1,
+      "non_actionable_issue_count": 23
     }
   },
   "route_collisions": [
@@ -868,6 +877,15 @@
   },
   "stale_skills": [
     {
+      "name": "release-orchestrator",
+      "path": "examples/complex-release-orchestrator/generated-skill",
+      "reason": "review overdue by cadence quarterly",
+      "age_days": 134,
+      "allowed_days": 100,
+      "actionable": false,
+      "scope": "example"
+    },
+    {
       "name": "frontend-review",
       "path": "examples/evolution-frontend-review/final",
       "reason": "missing updated_at",
@@ -892,7 +910,7 @@
       "name": "incident-command-governor",
       "path": "examples/governed-incident-command/generated-skill",
       "reason": "review overdue by cadence monthly",
-      "age_days": 74,
+      "age_days": 134,
       "allowed_days": 31,
       "actionable": false,
       "scope": "example"
@@ -1024,8 +1042,56 @@
     }
   ],
   "actionable_owner_review_gaps": [],
-  "drift_signals": [],
-  "actionable_drift_signals": [],
+  "drift_signals": [
+    {
+      "name": "yao-meta-skill",
+      "path": ".",
+      "source": "reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Start with a small metadata-only sample before using telemetry for release decisions.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0,
+        "adoption_rate": 0,
+        "missed_trigger_count": 0,
+        "wrong_trigger_count": 0,
+        "bad_output_count": 0,
+        "missing_resource_count": 0,
+        "script_error_count": 0,
+        "review_overdue_count": 0
+      }
+    }
+  ],
+  "actionable_drift_signals": [
+    {
+      "name": "yao-meta-skill",
+      "path": ".",
+      "source": "reports/adoption_drift_report.json",
+      "risk_band": "no-data",
+      "signal_types": [
+        "no telemetry"
+      ],
+      "recommendation": "Start with a small metadata-only sample before using telemetry for release decisions.",
+      "actionable": true,
+      "scope": "release",
+      "summary": {
+        "event_count": 0,
+        "adoption_sample_count": 0,
+        "adoption_rate": 0,
+        "missed_trigger_count": 0,
+        "wrong_trigger_count": 0,
+        "bad_output_count": 0,
+        "missing_resource_count": 0,
+        "script_error_count": 0,
+        "review_overdue_count": 0
+      }
+    }
+  ],
   "no_route_opportunities": [],
   "artifacts": {
     "catalog": "skill_atlas/catalog.json",

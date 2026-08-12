@@ -35,7 +35,7 @@ Build governed incident command packets. Use when asked to standardize incident 
 | --- | ---: | --- | ---: | ---: | ---: |
 | Holdout | 0.023 | overlap | 0.0 | 0.023 | 0.101 |
 | Blind Holdout | 0.417 | healthy | 0.0 | 0.417 | 0.374 |
-| Adversarial Holdout | 0.538 | watch | 0.167 | 0.538 | 0.467 |
+| Adversarial Holdout | 0.565 | healthy | 0.0 | 0.565 | 0.467 |
 
 ## Judge Blind Summary
 

@@ -127,6 +127,22 @@ def main() -> None:
     write_json(TMP / "outside.json", ir_payload())
     expect_error(escape, "unsafe-manifest-source")
 
+    symlink_fallback = TMP / "symlink-fallback"
+    write_skill(symlink_fallback)
+    external_reports = TMP / "external-reports"
+    write_json(external_reports / "skill-ir.json", ir_payload())
+    (symlink_fallback / "reports").symlink_to(external_reports, target_is_directory=True)
+    expect_error(symlink_fallback, "unsafe-ir-source")
+
+    unsafe_name = TMP / "unsafe-name"
+    write_skill(unsafe_name)
+    try:
+        find_skill_ir(unsafe_name, "../../outside", require_schema=True)
+    except SkillIRResolutionError as exc:
+        assert exc.code == "unsafe-skill-name", exc
+    else:
+        raise AssertionError("path traversal in Skill IR identity was accepted")
+
     paths = [str(path.relative_to(reports_fallback)) for path in candidate_paths(reports_fallback, "demo-skill")]
     assert paths == ["reports/skill-ir.json", "skill-ir/examples/demo-skill.json"], paths
 

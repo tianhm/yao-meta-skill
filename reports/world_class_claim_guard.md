@@ -7,9 +7,9 @@ Generated at: `2026-08-12`
 - decision: `claim-guard-pass-evidence-pending`
 - ledger ready to claim world-class: `false`
 - ledger pending evidence: `4`
-- claim surfaces scanned: `212`
-- JSON claim surfaces scanned: `104`
-- metadata claim surfaces scanned: `105`
+- claim surfaces scanned: `215`
+- JSON claim surfaces scanned: `105`
+- metadata claim surfaces scanned: `106`
 - package/runtime claim surfaces scanned: `17`
 - violations: `0`
 - overclaim guard active: `true`

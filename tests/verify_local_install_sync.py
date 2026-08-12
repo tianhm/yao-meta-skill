@@ -161,6 +161,8 @@ def main() -> None:
         "sync_ok": result["ok"],
         "skill_md_copied": (install_dir / "SKILL.md").exists(),
         "script_copied": (install_dir / "scripts" / "yao.py").exists(),
+        "local_evidence_pointer_skipped": not (install_dir / "reports" / ".current-run.json").exists(),
+        "local_evidence_index_skipped": not (install_dir / "reports" / "artifact-index.json").exists(),
         "untracked_file_skipped": not (install_dir / "sync-local-untracked.tmp").exists(),
         "untracked_business_skill_skipped": not (install_dir / "geo-ranking-article-generator").exists(),
         "stale_file_removed": not stale_file.exists(),

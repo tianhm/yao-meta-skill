@@ -5,7 +5,7 @@
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 249,
+    "file_count": 259,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -35,6 +35,30 @@
       "issues": []
     },
     {
+      "path": ".yao/releases/phase1-m3/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/releases/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/releases/phase1-m4-review/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/releases/phase1-m4/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": ".yao/runs/m1-27b07ea/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
       "ok": true,
       "issue_count": 0,
@@ -48,6 +72,30 @@
     },
     {
       "path": ".yao/runs/m3-missing-key-dry/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-m3/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-m4-review/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-m4/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -468,6 +516,12 @@
     },
     {
       "path": "scripts/render_output_risk_profile.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/render_phase1_trigger_holdout.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1230,6 +1284,12 @@
     },
     {
       "path": "tests/verify_packager_failures.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_phase1_trigger_holdout.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

@@ -3,12 +3,12 @@
 | Target | Role | Label | Ranking State | Promotion State | Tokens | Dev Errors | Holdout Errors | Reason Tags |
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | --- |
 | `yao-meta-skill` | baseline | `Baseline` | reference | reference | 8 | 1 | 0 | - |
-| `yao-meta-skill` | current | `Current` | selected_by_dev | kept_current | 54 | 0 | 0 | - |
-| `yao-meta-skill` | candidate | `Minimal` | not_selected | blocked | 41 | 2 | 0 | weaker_dev_fit |
-| `yao-meta-skill` | candidate | `Guardrail` | not_selected | blocked | 56 | 2 | 0 | weaker_dev_fit, longer_without_gain |
-| `yao-meta-skill` | candidate | `Balanced` | not_selected | blocked | 60 | 2 | 0 | weaker_dev_fit, longer_without_gain |
-| `yao-meta-skill` | candidate | `Artifact Aware` | not_selected | blocked | 77 | 2 | 0 | weaker_dev_fit, longer_without_gain |
-| `yao-meta-skill` | candidate | `Boundary` | not_selected | blocked | 83 | 2 | 0 | weaker_dev_fit, longer_without_gain |
+| `yao-meta-skill` | current | `Current` | selected_by_dev | kept_current | 74 | 0 | 0 | - |
+| `yao-meta-skill` | candidate | `Minimal` | not_selected | blocked | 41 | 1 | 0 | weaker_dev_fit |
+| `yao-meta-skill` | candidate | `Guardrail` | not_selected | blocked | 56 | 1 | 0 | weaker_dev_fit |
+| `yao-meta-skill` | candidate | `Balanced` | not_selected | blocked | 60 | 1 | 0 | weaker_dev_fit |
+| `yao-meta-skill` | candidate | `Artifact Aware` | not_selected | blocked | 77 | 1 | 0 | weaker_dev_fit, longer_without_gain |
+| `yao-meta-skill` | candidate | `Boundary` | not_selected | blocked | 83 | 1 | 0 | weaker_dev_fit, longer_without_gain |
 | `team-frontend-review` | baseline | `Baseline` | reference | reference | 52 | 3 | 0 | - |
 | `team-frontend-review` | current | `Current` | selected_by_dev | kept_current | 50 | 3 | 0 | - |
 | `team-frontend-review` | candidate | `Guardrail` | not_selected | blocked | 62 | 3 | 0 | longer_without_gain |

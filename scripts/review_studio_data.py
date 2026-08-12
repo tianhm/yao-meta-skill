@@ -97,6 +97,7 @@ def evidence_paths(skill_dir: Path) -> dict[str, str]:
     rels = {
         "skill_overview": "reports/skill-overview.html",
         "review_viewer": "reports/review-viewer.html",
+        "phase1_trigger_holdout": "reports/phase1_trigger_holdout.md",
         "output_eval": "reports/output_quality_scorecard.md",
         "output_execution": "reports/output_execution_runs.md",
         "provider_output_evaluation": "reports/provider_output_evaluation.json",
@@ -155,6 +156,7 @@ def load_review_data(skill_dir: Path) -> dict[str, dict[str, Any]]:
         "intent_confidence": load_json(reports / "intent-confidence.json"),
         "intent_dialogue": load_json(reports / "intent-dialogue.json"),
         "route_scorecard": load_json(reports / "route_scorecard.json"),
+        "phase1_trigger_holdout": load_json(reports / "phase1_trigger_holdout.json"),
         "output_quality": load_json(reports / "output_quality_scorecard.json"),
         "output_execution": load_json(reports / "output_execution_runs.json"),
         "provider_output_evaluation": load_json(reports / "provider_output_evaluation.json"),

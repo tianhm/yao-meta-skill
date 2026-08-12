@@ -6,8 +6,8 @@ Overall quality score: `89.0/100`
 
 ## Primary Task Family
 
-**Execution operation**
-- Matched keywords: workflow, runbook
+**Creative generation**
+- Matched keywords: copy, content
 
 ## Complexity
 
@@ -25,9 +25,9 @@ Overall quality score: `89.0/100`
 
 ## RTF To Skill Mapping
 
-- Role: Use an operator role with explicit boundaries, inputs, outputs, and failure handling.
-- Task: Convert the job into ordered steps with validation checks and stop conditions.
-- Format: Return a runbook-like handoff with commands, checks, owners, and next actions when relevant.
+- Role: Use a taste-aware creator role with clear audience, tone, and originality boundaries.
+- Task: Generate variants, explain selection logic, and preserve the user's distinctive constraints.
+- Format: Return options with rationale, selection criteria, and refinement paths.
 
 ## Quality Matrix
 
@@ -53,19 +53,19 @@ Overall quality score: `89.0/100`
 
 ## Matched Task Families
 
+### Creative generation
+- Score: `2`
+- Keywords: copy, content
+- Role: Use a taste-aware creator role with clear audience, tone, and originality boundaries.
+- Task: Generate variants, explain selection logic, and preserve the user's distinctive constraints.
+- Format: Return options with rationale, selection criteria, and refinement paths.
+
 ### Execution operation
 - Score: `2`
 - Keywords: workflow, runbook
 - Role: Use an operator role with explicit boundaries, inputs, outputs, and failure handling.
 - Task: Convert the job into ordered steps with validation checks and stop conditions.
 - Format: Return a runbook-like handoff with commands, checks, owners, and next actions when relevant.
-
-### Creative generation
-- Score: `1`
-- Keywords: content
-- Role: Use a taste-aware creator role with clear audience, tone, and originality boundaries.
-- Task: Generate variants, explain selection logic, and preserve the user's distinctive constraints.
-- Format: Return options with rationale, selection criteria, and refinement paths.
 
 ### Analytical reasoning
 - Score: `1`

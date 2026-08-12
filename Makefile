@@ -19,6 +19,7 @@ route-scorecard:
 
 route-confusion-check:
 	$(PYTHON) tests/verify_route_confusion.py
+	$(PYTHON) tests/verify_phase1_trigger_holdout.py
 
 description-optimization:
 	$(PYTHON) scripts/run_description_optimization_suite.py

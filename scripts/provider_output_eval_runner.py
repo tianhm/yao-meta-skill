@@ -98,6 +98,20 @@ def read_input_files(paths: Any, input_root: Path, max_chars: int) -> list[dict[
             files.append({"path": str(item), "status": "skipped-unsafe-path", "content": ""})
             continue
         path = input_root / rel
+        unsafe = False
+        cursor = input_root
+        for part in rel.parts:
+            cursor /= part
+            if cursor.is_symlink():
+                unsafe = True
+                break
+        try:
+            path.resolve(strict=False).relative_to(input_root)
+        except ValueError:
+            unsafe = True
+        if unsafe:
+            files.append({"path": str(item), "status": "skipped-unsafe-path", "content": ""})
+            continue
         if not path.exists() or not path.is_file():
             files.append({"path": str(item), "status": "missing", "content": ""})
             continue

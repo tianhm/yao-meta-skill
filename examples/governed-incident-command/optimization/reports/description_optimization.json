@@ -4678,7 +4678,7 @@
         {
           "prompt": "Sketch a future incident review playbook for later, but do not package a reusable workflow.",
           "family": "adversarial_future_playbook_not_packet",
-          "score": 0.277,
+          "score": 0.25,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -4731,8 +4731,7 @@
                 ]
               }
             }
-          },
-          "boundary_case": true
+          }
         },
         {
           "prompt": "Troubleshoot the outage and fix the service before we talk about reusable incident packets.",
@@ -5054,7 +5053,7 @@
         {
           "prompt": "Sketch a future incident review playbook for later, but do not package a reusable workflow.",
           "family": "adversarial_future_playbook_not_packet",
-          "score": 0.277,
+          "score": 0.25,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -5107,8 +5106,7 @@
                 ]
               }
             }
-          },
-          "boundary_case": true
+          }
         },
         {
           "prompt": "Troubleshoot the outage and fix the service before we talk about reusable incident packets.",
@@ -6159,32 +6157,32 @@
       "winner_calibration": {
         "threshold": 0.34,
         "mean_positive_score": 0.907,
-        "mean_non_trigger_score": 0.083,
-        "mean_near_neighbor_score": 0.139,
+        "mean_non_trigger_score": 0.076,
+        "mean_near_neighbor_score": 0.125,
         "min_positive_score": 0.815,
-        "max_non_trigger_score": 0.277,
-        "score_gap": 0.538,
-        "threshold_margin": 0.063,
+        "max_non_trigger_score": 0.25,
+        "score_gap": 0.565,
+        "threshold_margin": 0.09,
         "positive_threshold_buffer": 0.475,
-        "negative_threshold_buffer": 0.063,
-        "boundary_case_count": 1,
-        "boundary_case_rate": 0.167,
-        "risk_band": "watch"
+        "negative_threshold_buffer": 0.09,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
       },
       "current_calibration": {
         "threshold": 0.34,
         "mean_positive_score": 0.907,
-        "mean_non_trigger_score": 0.083,
-        "mean_near_neighbor_score": 0.139,
+        "mean_non_trigger_score": 0.076,
+        "mean_near_neighbor_score": 0.125,
         "min_positive_score": 0.815,
-        "max_non_trigger_score": 0.277,
-        "score_gap": 0.538,
-        "threshold_margin": 0.063,
+        "max_non_trigger_score": 0.25,
+        "score_gap": 0.565,
+        "threshold_margin": 0.09,
         "positive_threshold_buffer": 0.475,
-        "negative_threshold_buffer": 0.063,
-        "boundary_case_count": 1,
-        "boundary_case_rate": 0.167,
-        "risk_band": "watch"
+        "negative_threshold_buffer": 0.09,
+        "boundary_case_count": 0,
+        "boundary_case_rate": 0.0,
+        "risk_band": "healthy"
       },
       "baseline_calibration": {
         "threshold": 0.34,
@@ -6248,8 +6246,8 @@
     "winner_adversarial_holdout_total_errors": 0,
     "current_adversarial_holdout_total_errors": 0,
     "winner_judge_blind_agreement_rate": 1.0,
-    "winner_adversarial_risk_band": "watch",
-    "winner_adversarial_score_gap": 0.538,
+    "winner_adversarial_risk_band": "healthy",
+    "winner_adversarial_score_gap": 0.565,
     "candidate_count": 5,
     "baseline_tokens": 93,
     "baseline_dev_total_errors": 0,

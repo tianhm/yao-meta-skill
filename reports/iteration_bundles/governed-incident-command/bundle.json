@@ -7,8 +7,7 @@
   "cause_tags": [
     "no_candidate_outperformed_current",
     "current_holdout_gap_present",
-    "current_holdout_risk",
-    "adversarial_watch_risk"
+    "current_holdout_risk"
   ],
   "gate_status": {
     "visible_holdout_non_regression": true,

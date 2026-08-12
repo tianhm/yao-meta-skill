@@ -1,9 +1,9 @@
 {
   "artifact_index": "reports/artifact-index.json",
-  "artifact_index_sha256": "2ae045a1a1eee7f2d9b04de3aa050e120cafcb0c39d17bed9ec42eb72475b45e",
-  "published_at": "2026-08-12T13:04:56Z",
-  "release_dir": ".yao/releases/phase1-m3",
-  "run_id": "phase1-m3",
+  "artifact_index_sha256": "43000c56835678d6c97a3b52d763dbb8b44ba600b0cc1f986084b81c959ed8bd",
+  "published_at": "2026-08-12T14:07:01Z",
+  "release_dir": ".yao/releases/phase1-m4-install-safe",
+  "run_id": "phase1-m4-install-safe",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }

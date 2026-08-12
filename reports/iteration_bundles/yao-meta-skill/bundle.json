@@ -35,8 +35,8 @@
       "label": "Current",
       "ranking_state": "selected_by_dev",
       "promotion_state": "kept_current",
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
-      "tokens": 54,
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
+      "tokens": 74,
       "dev_errors": 0,
       "holdout_errors": 0,
       "reason_tags": []
@@ -49,7 +49,7 @@
       "promotion_state": "blocked",
       "description": "Create, refactor, evaluate, and package agent skills. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
       "tokens": 41,
-      "dev_errors": 2,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": [
         "weaker_dev_fit"
@@ -63,11 +63,10 @@
       "promotion_state": "blocked",
       "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Do not use for summary-only requests, translation-only requests, or plain documentation tasks.",
       "tokens": 56,
-      "dev_errors": 2,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": [
-        "weaker_dev_fit",
-        "longer_without_gain"
+        "weaker_dev_fit"
       ]
     },
     {
@@ -78,11 +77,10 @@
       "promotion_state": "blocked",
       "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
       "tokens": 60,
-      "dev_errors": 2,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": [
-        "weaker_dev_fit",
-        "longer_without_gain"
+        "weaker_dev_fit"
       ]
     },
     {
@@ -93,7 +91,7 @@
       "promotion_state": "blocked",
       "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Trigger when requests mention workflows, prompts, transcripts, or docs and the job is to create a skill, turn a repeated process into a reusable skill, or improve an existing skill.",
       "tokens": 77,
-      "dev_errors": 2,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": [
         "weaker_dev_fit",
@@ -108,7 +106,7 @@
       "promotion_state": "blocked",
       "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, notes, 流程, 提示词, 对话记录, 文档, or 笔记. Use when asked to create a skill, turn a repeated process into a reusable skill, or improve an existing skill. Do not use for summary-only requests, translation-only requests, or plain documentation tasks.",
       "tokens": 83,
-      "dev_errors": 2,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": [
         "weaker_dev_fit",
@@ -118,8 +116,8 @@
   ],
   "review_template": {
     "target": "yao-meta-skill",
-    "current_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
-    "candidate_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "current_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
+    "candidate_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "focus": [
       "no_candidate_outperformed_current"
     ]

@@ -1,22 +1,22 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `257`
-- Scripts: `161`
+- Scanned files: `261`
+- Scripts: `162`
 - Internal script modules: `72`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
 - Network policy missing scripts: `0`
-- File-write scripts: `78`
+- File-write scripts: `79`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `89`
+- CLI help smoke checked: `90`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `257`
-- Package SHA256: `7db7600535c968649c3905f1e7c3b4c04b62cca05f283dc88870fd15ec5937d5`
+- Package hash files: `261`
+- Package SHA256: `db5c2406f5d4d8761c2d2c9177ce02c3e4d9b889cfcd4dab2d9c724700079f70`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `89`
-- Passed scripts: `89`
+- Checked scripts: `90`
+- Passed scripts: `90`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -129,6 +129,7 @@
 | scripts/render_iteration_directions.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_iteration_ledger.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_output_risk_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/render_phase1_trigger_holdout.py | cli | True | True | True | False | False | True | False | Renders frozen phase-one trigger, regression, context, and metadata evidence. |
 | scripts/render_portability_report.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_prompt_quality_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_provider_output_status.py | cli | True | True | True | False | False | True | False | Renders credential-safe DeepSeek provider-matrix readiness without making API calls. |

@@ -94,7 +94,7 @@ def source_skill_entries(root: Path) -> list[Path]:
     entries = []
     for path in root.rglob("SKILL.md"):
         relative = path.relative_to(root)
-        if relative.parts[0] in {".agents", ".git", "dist"}:
+        if relative.parts[0] in {".agents", ".git", ".yao", "dist"}:
             continue
         if len(relative.parts) >= 2 and relative.parts[0] == "tests" and relative.parts[1].startswith("tmp"):
             continue
@@ -126,15 +126,22 @@ def main() -> None:
     assert not payload["failures"], payload
     assert (TMP / "package_verification.md").exists(), TMP
     with zipfile.ZipFile(valid_dir / "yao-meta-skill.zip") as archive:
-        skill_entries = sorted(name for name in archive.namelist() if name.endswith("/SKILL.md"))
+        archive_names = archive.namelist()
+        skill_entries = sorted(name for name in archive_names if name.endswith("/SKILL.md"))
     assert skill_entries == ["yao-meta-skill/SKILL.md"], skill_entries
+    assert not [name for name in archive_names if "/.yao/" in name], "local .yao state leaked into package"
+    assert not [
+        name
+        for name in archive_names
+        if name.endswith("/reports/.current-run.json") or name.endswith("/reports/artifact-index.json")
+    ], "local evidence pointers leaked into a package without their immutable release bundle"
 
     with tempfile.TemporaryDirectory(prefix="renamed-package-root-") as temp_root:
         renamed_root = Path(temp_root) / "checkout-alias"
         shutil.copytree(
             ROOT,
             renamed_root,
-            ignore=shutil.ignore_patterns(".git", ".previews", "dist", "__pycache__", ".pytest_cache", "tmp*"),
+            ignore=shutil.ignore_patterns(".git", ".previews", ".yao", "dist", "__pycache__", ".pytest_cache", "tmp*"),
         )
         renamed_dir = TMP / "renamed-dist"
         renamed_build = build_package(renamed_dir, renamed_root)

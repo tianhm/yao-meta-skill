@@ -1,5 +1,14 @@
 [
   {
+    "name": "release-orchestrator",
+    "path": "examples/complex-release-orchestrator/generated-skill",
+    "reason": "review overdue by cadence quarterly",
+    "age_days": 134,
+    "allowed_days": 100,
+    "actionable": false,
+    "scope": "example"
+  },
+  {
     "name": "frontend-review",
     "path": "examples/evolution-frontend-review/final",
     "reason": "missing updated_at",
@@ -24,7 +33,7 @@
     "name": "incident-command-governor",
     "path": "examples/governed-incident-command/generated-skill",
     "reason": "review overdue by cadence monthly",
-    "age_days": 74,
+    "age_days": 134,
     "allowed_days": 31,
     "actionable": false,
     "scope": "example"

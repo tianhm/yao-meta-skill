@@ -1,15 +1,15 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-08-12",
   "skill_dir": ".",
   "package_dir": "dist",
   "summary": {
     "target_count": 4,
     "adapter_count": 4,
     "archive_present": true,
-    "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
-    "archive_entry_count": 612,
+    "archive_sha256": "08bbe76d8d590be67b9530545d91c12922e30c8c45b26d1430a460febf34f257",
+    "archive_entry_count": 641,
     "nested_skill_entry_count": 0,
     "failure_count": 0,
     "warning_count": 0
@@ -623,7 +623,7 @@
     {
       "id": "archive-excludes-generated",
       "status": "pass",
-      "detail": "Archive excludes generated dist/, .previews/, and tests/tmp* contents"
+      "detail": "Archive excludes local .yao state, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents"
     },
     {
       "id": "registry-ok",
