@@ -257,7 +257,12 @@ EXCLUDED_LOCAL_EVIDENCE_PATHS = {
     ("reports", ".current-run.json"),
     ("reports", "artifact-index.json"),
 }
-ARCHIVE_ATTESTATION_MARKERS = (b'"archive_sha256"', b"Archive SHA256", b"yao-meta-skill.zip")
+ARCHIVE_ATTESTATION_MARKERS = (
+    b'"archive_sha256"',
+    b"Archive SHA256",
+    "归档哈希".encode("utf-8"),
+    b"yao-meta-skill.zip",
+)
 
 
 def should_skip_archive_path(rel_path: Path) -> bool:
@@ -270,12 +275,16 @@ def should_skip_archive_path(rel_path: Path) -> bool:
         return True
     if parts == ("reports", "telemetry_events.jsonl"):
         return True
+    if len(parts) >= 2 and parts[:2] == ("reports", "release_snapshots"):
+        return True
     if parts and parts[0] == "tests" and any(part.startswith("tmp") for part in parts[1:]):
         return True
     return False
 
 
 def is_archive_attestation_consumer(rel_path: Path, path: Path) -> bool:
+    if rel_path == Path("registry/index.json") or rel_path.parts[:2] == ("registry", "packages"):
+        return True
     if not rel_path.parts or rel_path.parts[0] != "reports":
         return False
     if rel_path in {Path("reports/package_verification.json"), Path("reports/package_verification.md")}:

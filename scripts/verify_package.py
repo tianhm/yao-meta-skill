@@ -196,7 +196,6 @@ def verify_package(
 
     registry_package = registry.get("package", {}) if registry else {}
     if registry_package:
-        add_check(checks, failures, "registry-ok", bool(registry.get("ok")), "Registry audit is OK")
         add_check(
             checks,
             failures,

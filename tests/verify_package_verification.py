@@ -118,6 +118,10 @@ def main() -> None:
     payload = valid["payload"]
     assert valid["ok"], valid
     assert payload["ok"], payload
+    with zipfile.ZipFile(valid_dir / "yao-meta-skill.zip") as archive:
+        assert not any("/reports/release_snapshots/" in name for name in archive.namelist()), archive.namelist()
+        assert not any("/registry/packages/" in name for name in archive.namelist()), archive.namelist()
+        assert "yao-meta-skill/registry/index.json" not in archive.namelist(), archive.namelist()
     assert payload["summary"]["target_count"] == 4, payload
     assert payload["summary"]["adapter_count"] == 4, payload
     assert payload["summary"]["archive_present"], payload

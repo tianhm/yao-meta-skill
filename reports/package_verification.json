@@ -8,8 +8,8 @@
     "target_count": 4,
     "adapter_count": 4,
     "archive_present": true,
-    "archive_sha256": "6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9",
-    "archive_entry_count": 633,
+    "archive_sha256": "a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0",
+    "archive_entry_count": 627,
     "nested_skill_entry_count": 0,
     "failure_count": 0,
     "warning_count": 0
@@ -629,11 +629,6 @@
       "id": "archive-portable-evidence-index",
       "status": "pass",
       "detail": "Archive includes a self-contained portable evidence pointer and verified report index"
-    },
-    {
-      "id": "registry-ok",
-      "status": "pass",
-      "detail": "Registry audit is OK"
     },
     {
       "id": "registry-name-match",

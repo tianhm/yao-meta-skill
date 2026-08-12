@@ -4,7 +4,7 @@
 - Package directory: `dist`
 - Targets: `4 / 4` adapters present
 - Archive present: `True`
-- Archive SHA256: `6f49b7efbb71e6de09bd04696199c0a4f1fdff461fcf267a4e1a9d1c9aad36e9`
+- Archive SHA256: `a179ac47550428c881174bb489359af129d8e65810db17e2a53f53837fe618f0`
 - Nested SKILL.md entries: `0`
 - Failures: `0`
 - Warnings: `0`
@@ -136,7 +136,6 @@
 | `archive-single-skill-entrypoint` | `pass` | Archive exposes only the root SKILL.md entrypoint |
 | `archive-excludes-generated` | `pass` | Archive excludes local .yao state, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents |
 | `archive-portable-evidence-index` | `pass` | Archive includes a self-contained portable evidence pointer and verified report index |
-| `registry-ok` | `pass` | Registry audit is OK |
 | `registry-name-match` | `pass` | Registry package name matches package manifest |
 | `registry-version-match` | `pass` | Registry package version matches package manifest |
 | `registry-compat-openai` | `pass` | Registry compatibility is reviewable for target: openai |

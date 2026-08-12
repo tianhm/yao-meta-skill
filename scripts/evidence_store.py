@@ -160,6 +160,8 @@ class EvidenceStore:
                 raise EvidenceError("unsafe-artifact", f"Symlink evidence artifacts are forbidden: {path}")
             if not path.is_file() or path.parent == reports_dir and path.name in excluded:
                 continue
+            if path.is_relative_to(reports_dir / "release_snapshots"):
+                continue
             try:
                 path.resolve().relative_to(self.skill_dir)
             except ValueError as exc:

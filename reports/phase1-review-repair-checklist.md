@@ -12,7 +12,7 @@
 | 类别 | 数量 | 结果 |
 |---|---:|---|
 | P1 / 高优先级本地问题 | 9 | 已修复并覆盖回归测试 |
-| P2 / 中优先级本地问题 | 8 | 已修复并覆盖回归测试 |
+| P2 / 中优先级本地问题 | 10 | 已修复并覆盖回归测试 |
 | P3 / 清理与审计项 | 3 | 已处理或形成可审计记录 |
 | 外部依赖项 | 2 | 保持 pending，未降低门槛 |
 | 当前分支完整 CI | 83 / 83 | 通过 |
@@ -27,7 +27,7 @@
 | R-03 | P1 | 发布在首个 release、镜像刷新和 pointer 更新阶段存在崩溃窗口 | 增加 canonical snapshot、publish transaction、首发恢复、pointer-last 协议和三个崩溃点恢复 | `after-release`、`after-mirrors`、`before-pointer` 故障注入 |
 | R-04 | P1 | run artifact 更新存在 artifact、index、manifest 三文件部分写入窗口 | 增加 artifact mutation journal；重入校验前自动回滚到完整旧状态 | artifact 后崩溃、index 后崩溃、恢复后 hash 校验 |
 | R-05 | P1 | run、release、raw output 和 canonical report 路径存在 symlink 或路径逃逸风险 | 对现有路径组件执行 symlink 拒绝与 trusted-root 校验；raw output 使用安全创建方式 | `..`、绝对路径、父目录 symlink、raw-output symlink 测试 |
-| R-06 | P1 | 正式 ZIP 与 package、registry、benchmark 中的归档 hash 漂移，release lock 可出现假阳性 | 定义非自引用 payload scope；归档排除 checksum consumers；ZIP 写入固定时间戳与权限；一致性闸门直接计算实际 ZIP hash | 两次构建 hash 相同、实际 ZIP ↔ 三份报告 lockstep |
+| R-06 | P1 | 正式 ZIP 与 package、registry、benchmark 中的归档 hash 漂移，release lock 可出现假阳性 | 定义非自引用 payload scope；归档排除 report 与 registry checksum consumers；ZIP 写入固定时间戳与权限；一致性闸门直接计算实际 ZIP hash | 连续构建 hash 相同、实际 ZIP ↔ 三份报告 lockstep |
 | R-07 | P1 | sync target 会在 attestation 之后重建 ZIP，安装源可能与验证报告不一致 | sync target 保留已验证 ZIP；同步前校验 ZIP SHA256 与 `package_verification.json`；安装精确解压归档内容 | 篡改 ZIP 被拒绝、源码后改动不影响安装字节、portable index 安装测试 |
 | R-08 | P1 | 发布包缺少可移植证据入口，本地 `.yao/releases` 路径无法在安装后解析 | ZIP 内生成 portable `.current-run.json` 与 `artifact-index.json`；逐项校验包内报告 hash | portable pointer/index、缺失报告、hash 篡改测试 |
 | R-09 | P1 | M3 官方 0/40 状态与旧 10-run 证据混用，benchmark 与 Skill OS 可能显示错误完成 | 新增 `phase1_provider_matrix_complete`、`phase1_human_review_complete`、`phase1_quality_promotion_complete` 与 `phase1_completion_ready`；正式阶段只读取 Phase 1 报告 | provider 0/40 时四项均 false；一致性闸门阻断矛盾状态 |
@@ -44,6 +44,8 @@
 | R-20 | P2 | 证据 provenance 曾引用 amend 后的悬空中间提交 | 最终发布要求 source commit 等于锁内当前 clean HEAD；最终 bundle 的 source commit 通过分支父提交保持可达；发布前后重新校验 run manifest 与 artifact index | source commit 变化、run mutation、dirty publish 拒绝测试 |
 | R-21 | P2 | Review Studio 同时展示 legacy 10-run 与 Phase 1 0/40，语义不清 | legacy output eval 明确作为既有基线；Phase 1 Provider、三人评审和 promotion 使用独立字段与 pending 提示 | Output Lab 显示 `external-required`、`0/3`、`promotion pending` |
 | R-22 | P2 | `ci_test.py` 的执行顺序可能在 package verification 后再次重建 archive | `package-check` 前移到 registry/package verification 之前；sync target 移除隐式重建 | CI 顺序契约、最终实际 ZIP hash gate |
+| R-26 | P2 | ignored `reports/release_snapshots` 会进入 ZIP 和 evidence bundle，测试运行可改变正式包 hash | package 与 evidence source discovery 明确排除本地 release snapshots；正式报告仍由 canonical artifact index 管理 | ZIP snapshot 条目为 0、两次构建 hash 稳定、artifact index scope 测试 |
+| R-27 | P2 | package verifier 要求 registry 总体 `ok`，registry 又要求 package verification 通过，旧失败状态会形成循环阻断 | package verifier 直接校验 registry 的 name、version 与 target compatibility；registry 总体状态在 package verification 更新后独立重算 | 从双方 stale-fail 状态恢复到双 pass、metadata parity 测试 |
 | R-23 | P3 | 仓库缺少可独立审计的 M1–M4 完整 CI 运行记录 | 2026-08-12 在四个临时 detached worktree 回放对应提交的 83 项完整 CI，四组均通过；本报告记录 commit、命令和结果 | `5bf7efb`、`ac19921`、`4f0e96d`、`4e5cede` 均为 83/83 |
 | R-24 | P3 | 当前 host 的系统 make 受未接受 Xcode license 影响 | CLI test runner 优先使用 Command Line Tools make；测试在无需修改系统 license 的环境下完成 | 当前完整 CI 与四提交回放 |
 | R-25 | P3 | `tests/tmp*` 遗留目录影响工作区审计 | 验证结束后按 `AGENTS.md` 的精确范围清理 test scratch；保留其他 untracked 文件 | 清理前后目录计数、原工作区状态复核 |
