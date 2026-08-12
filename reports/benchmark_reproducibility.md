@@ -1,16 +1,16 @@
 # Benchmark Reproducibility
 
 Generated at: `2026-08-12`
-Commit: `ce97789bb3fb61ebe5480f85f60f3457f878cfa8`
+Commit: `7fd86f66fe720a56a6e13957c070ff28b8666c58`
 Working tree dirty at generation: `true`
-Source tree dirty at generation: `true`
+Source tree dirty at generation: `false`
 Generated evidence dirty at generation: `true`
 Evidence bundle SHA256: `2d3826ffc2bad53de8af5e5181c6d15a4faf4f2170a09795c632626cf44b1da8`
 
 ## Summary
 
 - reproducibility ready: `true`
-- release lock ready: `false`
+- release lock ready: `true`
 - methodology complete: `true`
 - required artifacts: `25`
 - missing artifacts: `0`
@@ -26,27 +26,27 @@ Evidence bundle SHA256: `2d3826ffc2bad53de8af5e5181c6d15a4faf4f2170a09795c632626
 - human review complete: `false`
 - world-class ready: `false`
 - world-class source checks: `6` pass / `14` total; `8` blocked
-- beta test ready: `false`
-- beta test blockers: `1`
+- beta test ready: `true`
+- beta test blockers: `0`
 - beta deferred evidence: `4`
 - public claim ready: `false`
-- public claim blockers: `6`
-- changed files at generation: `39`
-- source changed files at generation: `6`
-- generated changed files at generation: `33`
+- public claim blockers: `5`
+- changed files at generation: `1`
+- source changed files at generation: `0`
+- generated changed files at generation: `1`
 
 This report proves local benchmark reproducibility only. It keeps external provider and human-review gaps visible instead of counting them as complete. The git commit and dirty samples are generation-time context; the evidence bundle SHA is the durable anchor for the artifacts listed below.
 
 ## Beta Test Boundary
 
-- ready: `false`
+- ready: `true`
 - scope: beta/public test release without superiority, fully-reviewed, or world-class claims
 - policy: Human blind-review, native permission enforcement, real client telemetry, and ledger acceptance may be deferred for beta/public testing, but public claims must remain blocked until those evidence entries are accepted.
 - required wording: Use beta, public test, or technical preview wording; do not claim world-class readiness, fully reviewed quality, or proven superiority over baseline.
 
 | Blocker |
 | --- |
-| release lock is not clean or commit is unavailable |
+| none |
 
 | Deferred evidence | Reason |
 | --- | --- |
@@ -63,7 +63,6 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 | Blocker |
 | --- |
-| release lock is not clean or commit is unavailable |
 | human blind-review adjudication is incomplete |
 | phase-one provider matrix is incomplete |
 | phase-one three-reviewer adjudication is incomplete |
@@ -72,8 +71,8 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 ## Release Lock
 
-- ready: `false`
-- reason: source files were dirty at generation time
+- ready: `true`
+- reason: only generated evidence artifacts were dirty at generation time
 - status scope: generation-time status before this report is written
 
 ## Evidence Bundle

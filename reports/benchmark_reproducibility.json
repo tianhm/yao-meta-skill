@@ -3,50 +3,21 @@
   "ok": true,
   "generated_at": "2026-08-12",
   "skill_dir": ".",
-  "commit": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
+  "commit": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 39,
+    "changed_file_count": 1,
     "generated_dirty": true,
-    "generated_changed_file_count": 33,
-    "source_dirty": true,
-    "source_changed_file_count": 6,
+    "generated_changed_file_count": 1,
+    "source_dirty": false,
+    "source_changed_file_count": 0,
     "sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/benchmark_reproducibility.json",
-      " M reports/benchmark_reproducibility.md",
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json",
-      " M reports/evidence_consistency.json",
-      " M reports/install_simulation.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md",
-      " M reports/phase1-review-repair-checklist.md"
+      " M reports/context_budget.json"
     ],
-    "source_sample": [
-      " M scripts/cross_packager.py",
-      " M scripts/evidence_store.py",
-      " M scripts/render_review_studio.py",
-      " M scripts/verify_package.py",
-      " M tests/verify_evidence_build.py",
-      " M tests/verify_package_verification.py"
-    ],
+    "source_sample": [],
     "generated_sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/benchmark_reproducibility.json",
-      " M reports/benchmark_reproducibility.md",
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json",
-      " M reports/evidence_consistency.json",
-      " M reports/install_simulation.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md",
-      " M reports/phase1-review-repair-checklist.md"
+      " M reports/context_budget.json"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -60,7 +31,7 @@
   },
   "summary": {
     "reproducibility_ready": true,
-    "release_lock_ready": false,
+    "release_lock_ready": true,
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
@@ -87,24 +58,22 @@
     "world_class_source_check_count": 14,
     "world_class_source_pass_count": 6,
     "world_class_source_blocked_count": 8,
-    "beta_test_ready": false,
-    "beta_test_blocker_count": 1,
+    "beta_test_ready": true,
+    "beta_test_blocker_count": 0,
     "beta_test_deferred_evidence_count": 4,
     "public_claim_ready": false,
-    "public_claim_blocker_count": 6,
+    "public_claim_blocker_count": 5,
     "working_tree_dirty": true,
-    "changed_file_count": 39,
-    "source_tree_dirty": true,
-    "source_changed_file_count": 6,
+    "changed_file_count": 1,
+    "source_tree_dirty": false,
+    "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 33
+    "generated_changed_file_count": 1
   },
   "beta_test_release": {
-    "ready": false,
+    "ready": true,
     "scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
-    "blockers": [
-      "release lock is not clean or commit is unavailable"
-    ],
+    "blockers": [],
     "allowed_deferred_evidence": [
       {
         "key": "provider-holdout",
@@ -134,7 +103,6 @@
     "ready": false,
     "scope": "public benchmark or world-class readiness claim",
     "blockers": [
-      "release lock is not clean or commit is unavailable",
       "human blind-review adjudication is incomplete",
       "phase-one provider matrix is incomplete",
       "phase-one three-reviewer adjudication is incomplete",
@@ -144,12 +112,12 @@
     "policy": "Local reproducibility can pass before public claims; public claims require provider evidence, human adjudication, clean release lock, accepted world-class evidence, and complete source checks."
   },
   "release_lock": {
-    "ready": false,
-    "commit": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
+    "ready": true,
+    "commit": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
     "status_scope": "generation-time status before this report is written",
-    "source_changed_file_count": 6,
-    "generated_changed_file_count": 33,
-    "reason": "source files were dirty at generation time"
+    "source_changed_file_count": 0,
+    "generated_changed_file_count": 1,
+    "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
     "algorithm": "sha256(path,label,exists,artifact_sha256)",

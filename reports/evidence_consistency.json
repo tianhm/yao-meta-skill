@@ -455,8 +455,8 @@
       "key": "benchmark-release-lock-self-consistency",
       "label": "Benchmark release lock matches source dirty state",
       "status": "pass",
-      "expected": false,
-      "actual": false,
+      "expected": true,
+      "actual": true,
       "paths": [
         "reports/benchmark_reproducibility.json"
       ],
@@ -470,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 39
+        "changed_file_count": 12
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -511,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
-      "actual": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
+      "expected": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+      "actual": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -524,7 +524,7 @@
       "label": "overview embeds benchmark summary fields",
       "status": "pass",
       "expected": {
-        "release_lock_ready": false,
+        "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
@@ -533,14 +533,14 @@
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
         "world_class_source_blocked_count": 8,
-        "beta_test_ready": false,
-        "beta_test_blocker_count": 1,
+        "beta_test_ready": true,
+        "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 6
+        "public_claim_blocker_count": 5
       },
       "actual": {
-        "release_lock_ready": false,
+        "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
@@ -549,11 +549,11 @@
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
         "world_class_source_blocked_count": 8,
-        "beta_test_ready": false,
-        "beta_test_blocker_count": 1,
+        "beta_test_ready": true,
+        "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 6
+        "public_claim_blocker_count": 5
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -655,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
-      "actual": "ce97789bb3fb61ebe5480f85f60f3457f878cfa8",
+      "expected": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
+      "actual": "7fd86f66fe720a56a6e13957c070ff28b8666c58",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -668,7 +668,7 @@
       "label": "interpretation embeds benchmark summary fields",
       "status": "pass",
       "expected": {
-        "release_lock_ready": false,
+        "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
@@ -677,14 +677,14 @@
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
         "world_class_source_blocked_count": 8,
-        "beta_test_ready": false,
-        "beta_test_blocker_count": 1,
+        "beta_test_ready": true,
+        "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 6
+        "public_claim_blocker_count": 5
       },
       "actual": {
-        "release_lock_ready": false,
+        "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
         "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
@@ -693,11 +693,11 @@
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
         "world_class_source_blocked_count": 8,
-        "beta_test_ready": false,
-        "beta_test_blocker_count": 1,
+        "beta_test_ready": true,
+        "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 6
+        "public_claim_blocker_count": 5
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -2094,10 +2094,10 @@
       "label": "Benchmark separates beta testing from public claims",
       "status": "pass",
       "expected": {
-        "beta_test_ready": false,
+        "beta_test_ready": true,
         "public_claim_ready": false,
         "human_review_complete": false,
-        "beta_release_ready": false,
+        "beta_release_ready": true,
         "beta_release_scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
         "deferred_evidence_keys": [
           "human-adjudication",
@@ -2108,10 +2108,10 @@
         "deferred_human_review": true
       },
       "actual": {
-        "beta_test_ready": false,
+        "beta_test_ready": true,
         "public_claim_ready": false,
         "human_review_complete": false,
-        "beta_release_ready": false,
+        "beta_release_ready": true,
         "beta_release_scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
         "deferred_evidence_keys": [
           "human-adjudication",
