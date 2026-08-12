@@ -102,7 +102,7 @@
       "label": "上下文成本",
       "score": 42,
       "reasons": [
-        "入口约 314 个词/字，references 约 17200 个词/字。",
+        "入口约 314 个词/字，references 约 17216 个词/字。",
         "分数越高代表上下文成本越低。",
         "上下文成本偏高，建议压缩入口或拆分 references。"
       ]
@@ -206,7 +206,7 @@
       "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
     ],
     "gaps": [
-      "上下文成本需要补强：入口约 314 个词/字，references 约 17200 个词/字。"
+      "上下文成本需要补强：入口约 314 个词/字，references 约 17216 个词/字。"
     ],
     "recommendations": [
       "先改触发边界，再扩展工作流。",
@@ -522,10 +522,10 @@
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 178
+        "file_count": 180
       }
     ],
-    "file_count": 405,
+    "file_count": 407,
     "folder_count": 4,
     "distribution": [
       {
@@ -558,7 +558,7 @@
       },
       {
         "label": "reports",
-        "value": 178
+        "value": 180
       }
     ]
   },
@@ -696,7 +696,7 @@
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 178
+      "file_count": 180
     }
   ],
   "strengths": [
@@ -1020,8 +1020,8 @@
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "b5471c3d022cae967508a0704faa0a6c8cfc8f2170de58970b2aa77097b05471",
-      "source_contract_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893",
+      "evidence_bundle_sha256": "9463972d8fdb01113391b0ce54309267c73b2cfdbc881b666df83064600fa7d5",
+      "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
       "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
@@ -1045,13 +1045,13 @@
       "public_claim_ready": false,
       "public_claim_blocker_count": 4,
       "working_tree_dirty": true,
-      "changed_file_count": 76,
+      "changed_file_count": 46,
       "source_tree_dirty": true,
-      "source_changed_file_count": 15,
+      "source_changed_file_count": 9,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 61
+      "generated_changed_file_count": 37
     },
-    "commit": "4cbb6d19f76b556162072070adddb3490017308e",
+    "commit": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1157,7 +1157,7 @@
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
     "package_hash_file_count": 251,
-    "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
+    "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
   },
   "skill_atlas": {
     "skill_count": 11,
@@ -1195,7 +1195,7 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893",
+        "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
       },
       "compatibility": {
@@ -1256,7 +1256,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 623,
+      "archive_entry_count": 986,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1329,7 +1329,7 @@
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
+          "to": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
         }
       ]
     },

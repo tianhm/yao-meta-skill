@@ -23,7 +23,7 @@
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
     "package_hash_file_count": 251,
-    "package_sha256": "dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893"
+    "package_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25"
   },
   "failures": [],
   "warnings": [],
@@ -422,7 +422,7 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": false,
-      "uses_subprocess": false,
+      "uses_subprocess": true,
       "network_urls": [],
       "network_hosts": []
     },
@@ -1606,7 +1606,7 @@
       "path": "scripts/skill_ir_paths.py",
       "interface": "internal-module",
       "interface_declared": true,
-      "interface_reason": "Imported by compiler, registry, conformance, and report scripts to locate canonical Skill IR artifacts.",
+      "interface_reason": "Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR.",
       "has_argparse": false,
       "has_main_guard": false,
       "uses_input": false,
@@ -3608,6 +3608,7 @@
           "scripts/apply_adaptation.py",
           "scripts/benchmark_release_lock.py",
           "scripts/ci_test.py",
+          "scripts/evidence_resolver.py",
           "scripts/evidence_store.py",
           "scripts/render_benchmark_reproducibility.py",
           "scripts/render_eval_dashboard.py",

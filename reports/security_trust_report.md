@@ -16,7 +16,7 @@
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
 - Package hash files: `251`
-- Package SHA256: `dd221f9cfe1188571d83336d699a73e283ac36de8fb23027ace7a7a57bf5a893`
+- Package SHA256: `8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25`
 
 ## Failures
 
@@ -89,7 +89,7 @@
 | scripts/evidence_consistency_release.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to verify release evidence refresh instructions. |
 | scripts/evidence_consistency_skill_os2_review.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to keep Skill OS 2.0 review summary drift checks out of the main consistency renderer. |
 | scripts/evidence_consistency_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to isolate world-class evidence workflow consistency checks. |
-| scripts/evidence_resolver.py | internal-module | True | False | False | False | False | False | False | Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection. |
+| scripts/evidence_resolver.py | internal-module | True | False | False | False | False | False | True | Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection. |
 | scripts/evidence_store.py | internal-module | True | False | False | False | False | True | True | Imported by evidence-build and evidence consumers for transactional local evidence publishing. |
 | scripts/export_skill_ir.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/github_benchmark_scan.py | cli | False | True | True | False | True | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
@@ -173,7 +173,7 @@
 | scripts/run_output_eval.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_output_execution.py | cli | False | True | True | False | False | True | True | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/simulate_install.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
-| scripts/skill_ir_paths.py | internal-module | True | False | False | False | False | False | False | Imported by compiler, registry, conformance, and report scripts to locate canonical Skill IR artifacts. |
+| scripts/skill_ir_paths.py | internal-module | True | False | False | False | False | False | False | Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR. |
 | scripts/skill_os2_coverage_markdown.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_os2_coverage.py to keep coverage data assembly separate from Markdown rendering. |
 | scripts/skill_report_charts.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to render inline SVG report charts. |
 | scripts/skill_report_i18n.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to keep bilingual report copy and fallback rules out of HTML rendering. |

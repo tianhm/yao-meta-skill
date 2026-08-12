@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 import yaml
 
+from skill_ir_paths import SkillIRResolutionError, find_skill_ir
+
 
 VALID_EXECUTION_CONTEXTS = {"inline", "fork"}
 VALID_SHELLS = {"bash", "powershell"}
@@ -84,6 +86,15 @@ def main() -> None:
             warnings.append("Manifest exists without status.")
         if not data.get("maturity_tier"):
             warnings.append("Manifest exists without maturity_tier.")
+        skill_ir_source = data.get("skill_ir_source")
+        if skill_ir_source:
+            name = str(data.get("name") or root.name)
+            try:
+                find_skill_ir(root, name, require_schema=True)
+            except SkillIRResolutionError as exc:
+                failures.append(f"Invalid canonical Skill IR ({exc.code}): {exc}")
+        else:
+            warnings.append("Manifest exists without skill_ir_source; canonical fallback resolution is active.")
 
     print(json.dumps({"ok": not failures, "failures": failures, "warnings": warnings}, ensure_ascii=False, indent=2))
     if failures:

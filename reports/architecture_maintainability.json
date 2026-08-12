@@ -42,7 +42,7 @@
     },
     {
       "path": "tests/verify_yao_cli.py",
-      "lines": 700,
+      "lines": 702,
       "kind": "test",
       "severity": "pass",
       "early_watch": true,
@@ -141,7 +141,7 @@
     },
     {
       "path": "tests/verify_yao_cli.py",
-      "lines": 700,
+      "lines": 702,
       "kind": "test",
       "severity": "pass",
       "early_watch": true,

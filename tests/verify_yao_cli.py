@@ -38,6 +38,8 @@ def main() -> None:
     init_skill_ir = init_result["payload"]["skill_ir"]
     assert init_skill_ir["name"] == "cli-demo-skill", init_skill_ir
     assert init_skill_ir["trigger_samples"] >= 1, init_skill_ir
+    created_manifest = json.loads((created / "manifest.json").read_text(encoding="utf-8"))
+    assert created_manifest["skill_ir_source"] == "reports/skill-ir.json", created_manifest
 
     telemetry_log = tmp_root / "cli-telemetry-events.jsonl"
     telemetry_env = {

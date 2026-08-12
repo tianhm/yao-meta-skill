@@ -6,9 +6,9 @@
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 209,
-    "json_claim_surface_count": 101,
-    "metadata_claim_surface_count": 102,
+    "claim_surface_count": 211,
+    "json_claim_surface_count": 103,
+    "metadata_claim_surface_count": 104,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -151,6 +151,10 @@
       "violation_count": 0
     },
     {
+      "path": "reports/.current-run.json",
+      "violation_count": 0
+    },
+    {
       "path": "reports/adaptation_approval_ledger.json",
       "violation_count": 0
     },
@@ -192,6 +196,10 @@
     },
     {
       "path": "reports/artifact-design-profile.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/artifact-index.json",
       "violation_count": 0
     },
     {

@@ -37,7 +37,7 @@ No near-threshold files found.
 | --- | ---: | --- | --- |
 | `tests/verify_evidence_consistency.py` | `719` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
 | `tests/verify_world_class_evidence_intake.py` | `703` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
-| `tests/verify_yao_cli.py` | `700` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
+| `tests/verify_yao_cli.py` | `702` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
 | `scripts/render_benchmark_reproducibility.py` | `685` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
 | `scripts/render_evidence_consistency.py` | `676` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
 | `scripts/render_world_class_operator_runbook.py` | `651` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
@@ -48,7 +48,7 @@ No near-threshold files found.
 | --- | ---: | --- | --- |
 | `tests/verify_evidence_consistency.py` | `719` | `test` | `pass` |
 | `tests/verify_world_class_evidence_intake.py` | `703` | `test` | `pass` |
-| `tests/verify_yao_cli.py` | `700` | `test` | `pass` |
+| `tests/verify_yao_cli.py` | `702` | `test` | `pass` |
 | `scripts/render_benchmark_reproducibility.py` | `685` | `cli-script` | `pass` |
 | `scripts/render_evidence_consistency.py` | `676` | `cli-script` | `pass` |
 | `scripts/render_world_class_operator_runbook.py` | `651` | `cli-script` | `pass` |

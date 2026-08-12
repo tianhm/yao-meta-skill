@@ -324,12 +324,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 987/1000; deferred 537218/120000; top deferred scripts 474505; resource governance governed; quality density 141.8",
+        "detail": "initial load 987/1000; deferred 538871/120000; top deferred scripts 476131; resource governance governed; quality density 141.8",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 987/1000; deferred 537218/120000; top deferred scripts 474505; resource governance governed; quality density 141.8",
+        "detail": "initial load 987/1000; deferred 538871/120000; top deferred scripts 476131; resource governance governed; quality density 141.8",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -357,7 +357,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 75
+        "changed_file_count": 51
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -398,8 +398,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "4cbb6d19f76b556162072070adddb3490017308e",
-      "actual": "4cbb6d19f76b556162072070adddb3490017308e",
+      "expected": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
+      "actual": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -414,7 +414,7 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "7b72e969f03a9a61f4d53feba08ca4a5659891d437a40f48d9cf3d1eacbf713c",
+        "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
@@ -430,7 +430,7 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "7b72e969f03a9a61f4d53feba08ca4a5659891d437a40f48d9cf3d1eacbf713c",
+        "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
@@ -550,8 +550,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "4cbb6d19f76b556162072070adddb3490017308e",
-      "actual": "4cbb6d19f76b556162072070adddb3490017308e",
+      "expected": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
+      "actual": "5bf7efb857660ed7c3bde839f094a57adffb5ffb",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -566,7 +566,7 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "7b72e969f03a9a61f4d53feba08ca4a5659891d437a40f48d9cf3d1eacbf713c",
+        "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
@@ -582,7 +582,7 @@
         "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "7b72e969f03a9a61f4d53feba08ca4a5659891d437a40f48d9cf3d1eacbf713c",
+        "source_contract_sha256": "8d7e8c8148ff2c615396f8993d504d40d5efc11835ffdf1350b13e0cf6175b25",
         "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
@@ -760,7 +760,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 314 个词/字，references 约 17200 个词/字。",
+            "入口约 314 个词/字，references 约 17216 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -824,7 +824,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 314 个词/字，references 约 17200 个词/字。",
+            "入口约 314 个词/字，references 约 17216 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1056,7 +1056,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 314 个词/字，references 约 17200 个词/字。"
+          "上下文成本需要补强：入口约 314 个词/字，references 约 17216 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1104,7 +1104,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 314 个词/字，references 约 17200 个词/字。"
+          "上下文成本需要补强：入口约 314 个词/字，references 约 17216 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1680,10 +1680,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 178
+            "file_count": 180
           }
         ],
-        "file_count": 405,
+        "file_count": 407,
         "folder_count": 4,
         "distribution": [
           {
@@ -1716,7 +1716,7 @@
           },
           {
             "label": "reports",
-            "value": 178
+            "value": 180
           }
         ]
       },
@@ -1768,10 +1768,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 178
+            "file_count": 180
           }
         ],
-        "file_count": 405,
+        "file_count": 407,
         "folder_count": 4,
         "distribution": [
           {
@@ -1804,7 +1804,7 @@
           },
           {
             "label": "reports",
-            "value": 178
+            "value": 180
           }
         ]
       },
