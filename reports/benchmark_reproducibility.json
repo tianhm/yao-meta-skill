@@ -3,46 +3,21 @@
   "ok": true,
   "generated_at": "2026-08-12",
   "skill_dir": ".",
-  "commit": "5fd6da792505655599b6e98361d24e25d0f90ae7",
+  "commit": "67d53e6a8d2f8d476dfe539890ae9e028398d1a8",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 44,
+    "changed_file_count": 1,
     "generated_dirty": true,
-    "generated_changed_file_count": 42,
-    "source_dirty": true,
-    "source_changed_file_count": 2,
+    "generated_changed_file_count": 1,
+    "source_dirty": false,
+    "source_changed_file_count": 0,
     "sample": [
-      " M AGENTS.md",
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
-      " M reports/benchmark_reproducibility.json",
-      " M reports/benchmark_reproducibility.md",
-      " M reports/compiled_targets.json",
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json",
-      " M reports/evidence_consistency.json"
+      " M reports/context_budget_summary.json"
     ],
-    "source_sample": [
-      " M AGENTS.md",
-      " M scripts/evidence_consistency_release.py"
-    ],
+    "source_sample": [],
     "generated_sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
-      " M reports/benchmark_reproducibility.json",
-      " M reports/benchmark_reproducibility.md",
-      " M reports/compiled_targets.json",
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json",
-      " M reports/evidence_consistency.json",
-      " M reports/evidence_consistency.md"
+      " M reports/context_budget_summary.json"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -56,7 +31,7 @@
   },
   "summary": {
     "reproducibility_ready": true,
-    "release_lock_ready": false,
+    "release_lock_ready": true,
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
@@ -83,24 +58,22 @@
     "world_class_source_check_count": 14,
     "world_class_source_pass_count": 6,
     "world_class_source_blocked_count": 8,
-    "beta_test_ready": false,
-    "beta_test_blocker_count": 1,
+    "beta_test_ready": true,
+    "beta_test_blocker_count": 0,
     "beta_test_deferred_evidence_count": 4,
     "public_claim_ready": false,
-    "public_claim_blocker_count": 6,
+    "public_claim_blocker_count": 5,
     "working_tree_dirty": true,
-    "changed_file_count": 44,
-    "source_tree_dirty": true,
-    "source_changed_file_count": 2,
+    "changed_file_count": 1,
+    "source_tree_dirty": false,
+    "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 42
+    "generated_changed_file_count": 1
   },
   "beta_test_release": {
-    "ready": false,
+    "ready": true,
     "scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
-    "blockers": [
-      "release lock is not clean or commit is unavailable"
-    ],
+    "blockers": [],
     "allowed_deferred_evidence": [
       {
         "key": "provider-holdout",
@@ -130,7 +103,6 @@
     "ready": false,
     "scope": "public benchmark or world-class readiness claim",
     "blockers": [
-      "release lock is not clean or commit is unavailable",
       "human blind-review adjudication is incomplete",
       "phase-one provider matrix is incomplete",
       "phase-one three-reviewer adjudication is incomplete",
@@ -140,12 +112,12 @@
     "policy": "Local reproducibility can pass before public claims; public claims require provider evidence, human adjudication, clean release lock, accepted world-class evidence, and complete source checks."
   },
   "release_lock": {
-    "ready": false,
-    "commit": "5fd6da792505655599b6e98361d24e25d0f90ae7",
+    "ready": true,
+    "commit": "67d53e6a8d2f8d476dfe539890ae9e028398d1a8",
     "status_scope": "generation-time status before this report is written",
-    "source_changed_file_count": 2,
-    "generated_changed_file_count": 42,
-    "reason": "source files were dirty at generation time"
+    "source_changed_file_count": 0,
+    "generated_changed_file_count": 1,
+    "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
     "algorithm": "sha256(path,label,exists,artifact_sha256)",
