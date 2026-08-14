@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "report": "phase1-trusted-generation-visual-report-v2.html",
+  "baseline_commit": "4cbb6d19f76b556162072070adddb3490017308e",
+  "evidence_head": "5338d51c956d18cdd28eccddb111b1b3f236b0de",
+  "data_baseline": "2026-08-12",
+  "evidence": {
+    "overall_maturity": {
+      "status": "derived",
+      "inputs": ["five-contract scoring rubric", "ten equal-weight dimensions"]
+    },
+    "context_change": {
+      "status": "verified",
+      "sources": ["reports/context_budget.json", "baseline reports/context_budget.json"]
+    },
+    "quality_gates": {
+      "status": "verified",
+      "sources": [
+        "reports/benchmark_reproducibility.json",
+        "reports/evidence_consistency.json",
+        "reports/conformance_matrix.json",
+        "reports/phase1_trigger_holdout.json",
+        "reports/context_budget.json"
+      ]
+    },
+    "repair_inventory": {
+      "status": "verified",
+      "sources": ["reports/phase1-review-repair-checklist.md"]
+    },
+    "provider_matrix": {
+      "status": "source-stated",
+      "sources": ["evals/output/provider_matrix.json", "reports/provider_output_evaluation.json"]
+    },
+    "human_review": {
+      "status": "missing",
+      "sources": ["reports/provider_output_evaluation.json", "reports/benchmark_reproducibility.json"]
+    },
+    "package_and_release": {
+      "status": "verified",
+      "sources": [
+        "reports/package_verification.json",
+        "reports/registry_audit.json",
+        "reports/install_simulation.json",
+        "reports/artifact-index.json"
+      ]
+    }
+  },
+  "external_gaps": [
+    "DeepSeek provider matrix 0/40",
+    "registered reviewer submissions 0/3",
+    "quality promotion pending",
+    "world-class ledger pending"
+  ]
+}

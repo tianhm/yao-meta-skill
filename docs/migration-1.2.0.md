@@ -2,6 +2,8 @@
 
 Version 1.2.0 introduces the first-phase trusted generation core. The release adds transactional evidence publication, canonical Skill IR resolution, a fixed DeepSeek output-evaluation matrix, a frozen trigger holdout, and tighter initial-context gates.
 
+See the [1.2.0 release candidate notes](release-notes-1.2.0.md) for the user-facing change summary and the [Phase 1 visual report](../reports/phase1-trusted-generation-visual-report-v2.html) for the engineering evidence snapshot.
+
 ## Required migration steps
 
 1. Add `skill_ir_source` to `manifest.json`. Point it to the Skill's canonical IR JSON. The resolver order is manifest declaration, name-matched `reports/skill-ir.json`, then `skill-ir/examples/<name>.json`. Wildcard example discovery is no longer supported.
