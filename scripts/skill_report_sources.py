@@ -3,6 +3,7 @@
 
 import json
 import re
+import subprocess
 from pathlib import Path
 
 from evidence_resolver import resolve_report_path
@@ -29,6 +30,19 @@ KNOWN_ENTRIES = [
 ]
 
 IGNORED_PACKAGE_PARTS = {".git", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+
+
+def tracked_package_paths(skill_dir: Path) -> set[Path] | None:
+    result = subprocess.run(
+        ["git", "ls-files", "-z", "--", "."],
+        cwd=skill_dir,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    paths = {Path(item.decode("utf-8")) for item in result.stdout.split(b"\0") if item}
+    return paths if Path("SKILL.md") in paths else None
 
 
 def parse_frontmatter(text: str) -> tuple[dict, str]:
@@ -136,22 +150,28 @@ def summarize_usage(sections: dict[str, str], default_prompt: str, description: 
 
 def package_entries(skill_dir: Path) -> list[dict]:
     items = []
+    tracked_paths = tracked_package_paths(skill_dir)
     for rel_path, label in KNOWN_ENTRIES:
         target = skill_dir / rel_path
         if target.exists():
             kind = "folder" if target.is_dir() else "file"
             if target.is_dir():
-                count = len(
-                    [
-                        path
-                        for path in target.rglob("*")
-                        if path.is_file()
-                        and not path.is_symlink()
-                        and not any(part in IGNORED_PACKAGE_PARTS for part in path.relative_to(target).parts)
-                        and path.suffix not in {".pyc", ".pyo"}
-                    ]
+                candidates = (
+                    [skill_dir / path for path in tracked_paths if Path(rel_path) in path.parents]
+                    if tracked_paths is not None
+                    else target.rglob("*")
+                )
+                count = sum(
+                    1
+                    for path in candidates
+                    if path.is_file()
+                    and not path.is_symlink()
+                    and not any(part in IGNORED_PACKAGE_PARTS for part in path.relative_to(target).parts)
+                    and path.suffix not in {".pyc", ".pyo"}
                 )
             else:
+                if tracked_paths is not None and Path(rel_path) not in tracked_paths:
+                    continue
                 count = 1
             items.append({"path": rel_path, "label": label, "kind": kind, "file_count": count})
     return items
