@@ -525,10 +525,10 @@
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 189
+        "file_count": 185
       }
     ],
-    "file_count": 428,
+    "file_count": 424,
     "folder_count": 4,
     "distribution": [
       {
@@ -561,7 +561,7 @@
       },
       {
         "label": "reports",
-        "value": 189
+        "value": 185
       }
     ]
   },
@@ -695,7 +695,7 @@
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 189
+      "file_count": 185
     }
   ],
   "strengths": [
