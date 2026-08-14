@@ -1,5 +1,5 @@
 {
-  "skill_name": "yao-meta-skill-trusted-generation-core-v1",
+  "skill_name": "repo",
   "relevance": "prompt-aware",
   "primary_task_family": {
     "key": "creative_generation",

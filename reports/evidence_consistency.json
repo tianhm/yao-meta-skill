@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-12",
+  "generated_at": "2026-08-14",
   "skill_dir": ".",
   "summary": {
     "check_count": 41,
@@ -396,13 +396,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701"
+        "all_equal_to_actual_archive": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3"
       },
       "actual": {
-        "actual_archive": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
-        "package_verification": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
-        "registry": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
-        "benchmark": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701"
+        "actual_archive": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
+        "package_verification": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
+        "registry": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
+        "benchmark": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -470,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 11
+        "changed_file_count": 63
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -511,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
-      "actual": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
+      "expected": "2c97ccb4b08b7567466307fea3f461a7f3a11df4",
+      "actual": "2c97ccb4b08b7567466307fea3f461a7f3a11df4",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -527,8 +527,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+        "archive_sha256": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -543,8 +543,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+        "archive_sha256": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -655,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
-      "actual": "326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04",
+      "expected": "2c97ccb4b08b7567466307fea3f461a7f3a11df4",
+      "actual": "2c97ccb4b08b7567466307fea3f461a7f3a11df4",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -671,8 +671,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+        "archive_sha256": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -687,8 +687,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d",
-        "archive_sha256": "23be0ac8117e83aa9361cefb1ee54c12833be6c01391f84d6fbcfcb317336701",
+        "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+        "archive_sha256": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -1785,10 +1785,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 184
+            "file_count": 189
           }
         ],
-        "file_count": 423,
+        "file_count": 428,
         "folder_count": 4,
         "distribution": [
           {
@@ -1821,7 +1821,7 @@
           },
           {
             "label": "reports",
-            "value": 184
+            "value": 189
           }
         ]
       },
@@ -1873,10 +1873,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 184
+            "file_count": 189
           }
         ],
-        "file_count": 423,
+        "file_count": 428,
         "folder_count": 4,
         "distribution": [
           {
@@ -1909,7 +1909,7 @@
           },
           {
             "label": "reports",
-            "value": 184
+            "value": 189
           }
         ]
       },
@@ -3788,8 +3788,8 @@
         "`5` warnings",
         "`74` declared internal modules",
         "`91 / 91` CLI help smoke checks passing across `165` scripts",
-        "`627` zip entries",
-        "archive with `627` entries",
+        "`633` zip entries",
+        "archive with `633` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",

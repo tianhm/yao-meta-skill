@@ -1,6 +1,6 @@
 # Prompt Quality Profile
 
-Skill: `yao-meta-skill-trusted-generation-core-v1`
+Skill: `repo`
 Relevance: `prompt-aware`
 Overall quality score: `89.0/100`
 

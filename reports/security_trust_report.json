@@ -2,7 +2,7 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 264,
+    "scanned_files": 265,
     "script_count": 165,
     "internal_module_count": 74,
     "secret_findings": 0,
@@ -22,8 +22,8 @@
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 264,
-    "package_sha256": "d201e48dcf2ad7f3defc888a812d52011b16ee17ef717cab2d2c47a493a1843d"
+    "package_hash_file_count": 265,
+    "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
   },
   "failures": [],
   "warnings": [],

@@ -1,11 +1,11 @@
 # Benchmark Reproducibility
 
-Generated at: `2026-08-12`
-Commit: `326fcf2e9c4dc8dac6cfd2da042494dd3a0d8d04`
+Generated at: `2026-08-14`
+Commit: `2c97ccb4b08b7567466307fea3f461a7f3a11df4`
 Working tree dirty at generation: `true`
 Source tree dirty at generation: `false`
 Generated evidence dirty at generation: `true`
-Evidence bundle SHA256: `3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a176aa010674`
+Evidence bundle SHA256: `1b43f4615f32054e36ad267f45b75091d81e56ac7bf9a3e8c747e1785c14aea5`
 
 ## Summary
 
@@ -14,8 +14,8 @@ Evidence bundle SHA256: `3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a17
 - methodology complete: `true`
 - required artifacts: `25`
 - missing artifacts: `0`
-- source contract sha256: `d201e48dcf2a`
-- archive sha256: `23be0ac8117e`
+- source contract sha256: `c4fab8a26c25`
+- archive sha256: `0dc0421fe5b2`
 - output cases: `5`
 - disclosed failure cases: `3`
 - reproduction commands: `23`
@@ -31,9 +31,9 @@ Evidence bundle SHA256: `3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a17
 - beta deferred evidence: `4`
 - public claim ready: `false`
 - public claim blockers: `5`
-- changed files at generation: `5`
+- changed files at generation: `63`
 - source changed files at generation: `0`
-- generated changed files at generation: `5`
+- generated changed files at generation: `63`
 
 This report proves local benchmark reproducibility only. It keeps external provider and human-review gaps visible instead of counting them as complete. The git commit and dirty samples are generation-time context; the evidence bundle SHA is the durable anchor for the artifacts listed below.
 
@@ -79,7 +79,7 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 - algorithm: `sha256(path,label,exists,artifact_sha256)`
 - artifacts: `25` / `25`
-- sha256: `3445606f1c24921879da5e7c31fa4455caac618bf7fdb5fe1ce7a176aa010674`
+- sha256: `1b43f4615f32054e36ad267f45b75091d81e56ac7bf9a3e8c747e1785c14aea5`
 
 ## Methodology Sections
 
@@ -106,21 +106,21 @@ This report proves local benchmark reproducibility only. It keeps external provi
 | review_adjudication | `reports/output_review_adjudication.json` | present | `91fd88dd9b0f` |
 | trigger_scorecard | `reports/route_scorecard.json` | present | `06d7ad6eb002` |
 | runtime_conformance | `reports/conformance_matrix.json` | present | `de8093861e68` |
-| trust_report | `reports/security_trust_report.json` | present | `cddc572d53c7` |
-| python_compatibility | `reports/python_compatibility.json` | present | `c5076a2cf8e8` |
-| registry_audit | `reports/registry_audit.json` | present | `8253c3da9594` |
-| package_verification | `reports/package_verification.json` | present | `cd0b1e851e17` |
-| install_simulation | `reports/install_simulation.json` | present | `e2af1d7d544e` |
-| skill_os2_audit | `reports/skill_os2_audit.json` | present | `3aeb8a561241` |
-| world_class_evidence_plan | `reports/world_class_evidence_plan.json` | present | `e2d8379621c5` |
-| world_class_evidence_ledger | `reports/world_class_evidence_ledger.json` | present | `35a12ecc86bd` |
-| world_class_evidence_intake | `reports/world_class_evidence_intake.json` | present | `3dd208a141a3` |
-| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `ee5e06d33ff1` |
-| world_class_submission_review | `reports/world_class_submission_review.json` | present | `aa7ba493d38a` |
-| world_class_operator_runbook | `reports/world_class_operator_runbook.json` | present | `a9cef5cb112e` |
-| world_class_operator_runbook_markdown | `reports/world_class_operator_runbook.md` | present | `882a6ef12b33` |
+| trust_report | `reports/security_trust_report.json` | present | `c2812733d9c4` |
+| python_compatibility | `reports/python_compatibility.json` | present | `ff1d6146fe3b` |
+| registry_audit | `reports/registry_audit.json` | present | `057bcf90bf13` |
+| package_verification | `reports/package_verification.json` | present | `31463a9ed01a` |
+| install_simulation | `reports/install_simulation.json` | present | `6eb14cde63fe` |
+| skill_os2_audit | `reports/skill_os2_audit.json` | present | `9b58e7929335` |
+| world_class_evidence_plan | `reports/world_class_evidence_plan.json` | present | `5d516612400e` |
+| world_class_evidence_ledger | `reports/world_class_evidence_ledger.json` | present | `32da564d4cf1` |
+| world_class_evidence_intake | `reports/world_class_evidence_intake.json` | present | `6cba7c48d260` |
+| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `c69945916f74` |
+| world_class_submission_review | `reports/world_class_submission_review.json` | present | `d1d4a1ae4219` |
+| world_class_operator_runbook | `reports/world_class_operator_runbook.json` | present | `cf1e84a2fab4` |
+| world_class_operator_runbook_markdown | `reports/world_class_operator_runbook.md` | present | `c9e28c355e4a` |
 | world_class_operator_runbook_html | `reports/world_class_operator_runbook.html` | present | `77cf5642332d` |
-| world_class_claim_guard | `reports/world_class_claim_guard.json` | present | `0d8ca964d76b` |
+| world_class_claim_guard | `reports/world_class_claim_guard.json` | present | `8911569b75e0` |
 
 ## Reproduction Commands
 

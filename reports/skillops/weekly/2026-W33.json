@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-12",
+  "generated_at": "2026-08-14",
   "skill_dir": ".",
   "decision": "curator-review",
   "week_id": "2026-W33",
-  "daily_report_count": 7,
-  "opportunity_count": 35,
+  "daily_report_count": 8,
+  "opportunity_count": 40,
   "unique_opportunity_count": 5,
   "ready_for_approval_review_count": 1,
   "proposal_review_count": 4,
@@ -25,8 +25,8 @@
   "summary": {
     "decision": "curator-review",
     "week_id": "2026-W33",
-    "daily_report_count": 7,
-    "opportunity_count": 35,
+    "daily_report_count": 8,
+    "opportunity_count": 40,
     "unique_opportunity_count": 5,
     "ready_for_approval_review_count": 1,
     "proposal_review_count": 4,
@@ -95,7 +95,8 @@
     "reports/skillops/daily/2026-06-21.json",
     "reports/skillops/daily/2026-07-02.json",
     "reports/skillops/daily/2026-07-16.json",
-    "reports/skillops/daily/2026-08-12.json"
+    "reports/skillops/daily/2026-08-12.json",
+    "reports/skillops/daily/2026-08-14.json"
   ],
   "opportunity_summary": {
     "action_type_counts": {

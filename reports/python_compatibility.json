@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-12",
+  "generated_at": "2026-08-14",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 267,
+    "file_count": 250,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -22,108 +22,6 @@
     }
   ],
   "files": [
-    {
-      "path": ".yao/releases/m1-27b07ea/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/m2-6fd79ef/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-m3/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-m4-install-safe/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-m4-review/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-m4/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-review-final-20260812/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/m1-27b07ea/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/m2-6fd79ef/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/m3-missing-key-dry/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-m3/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-m4-final/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-m4-install-safe/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-m4-review/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-m4/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-review-final-20260812/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
     {
       "path": "examples/complex-release-orchestrator/generated-skill/scripts/build_release_packet.py",
       "ok": true,
