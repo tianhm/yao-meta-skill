@@ -122,6 +122,23 @@ def main() -> None:
         subprocess.run(["rm", "-rf", str(tmp_root)], check=True)
     tmp_root.mkdir(parents=True, exist_ok=True)
 
+    unrelated_ir_root = tmp_root / "unrelated-ir-skill"
+    unrelated_ir_root.mkdir()
+    (unrelated_ir_root / "SKILL.md").write_text(
+        "---\nname: unrelated-ir-skill\ndescription: Verify canonical Skill IR reporting.\n---\n\n# Unrelated IR Skill\n",
+        encoding="utf-8",
+    )
+    unrelated_examples = unrelated_ir_root / "skill-ir" / "examples"
+    unrelated_examples.mkdir(parents=True)
+    (unrelated_examples / "other-skill.json").write_text(
+        json.dumps({"name": "other-skill"}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    unrelated_ir_model = build_report_model(unrelated_ir_root)
+    assert all("已生成 Skill IR" not in item for item in unrelated_ir_model["strengths"]), unrelated_ir_model[
+        "strengths"
+    ]
+
     init_result = run(
         "init",
         "skill-overview-demo",

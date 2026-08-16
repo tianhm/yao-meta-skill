@@ -14,7 +14,7 @@ Version 1.2.0 adds the first trusted generation core for governed skill delivery
 ## Compatibility and migration
 
 - The declared version bump is minor, with no removed targets or reported breaking changes.
-- Agent Skills compatible and VS Code targets join the existing OpenAI, Claude, and generic targets.
+- Agent Skills-compatible, VS Code, OpenAI, Claude, and generic targets remain supported in 1.2.0.
 - Governed packages should add `skill_ir_source` and adopt the evidence pointer, recovery, provider, and review contracts in [Migration to 1.2.0](migration-1.2.0.md).
 
 ## Verified candidate state

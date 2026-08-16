@@ -61,9 +61,9 @@ def compact_unique(items: list[str], limit: int = 6) -> list[str]:
     return result
 
 
-def derive_strengths(skill_dir: Path, metadata: dict) -> list[str]:
+def derive_strengths(skill_dir: Path, metadata: dict, skill_ir: dict | None = None) -> list[str]:
     strengths = ["触发面保持精简，并锚定在 frontmatter description。"]
-    if (skill_dir / "reports" / "skill-ir.json").exists() or (skill_dir / "skill-ir" / "examples").exists():
+    if skill_ir:
         strengths.append("已生成 Skill IR，核心语义可先于平台打包被审查和迁移。")
     if (skill_dir / "reports" / "compiled_targets.json").exists():
         strengths.append("已生成目标编译报告，可审查 IR 到 OpenAI、Claude、generic 等目标契约的映射。")
@@ -265,8 +265,8 @@ def build_report_model(skill_dir: Path) -> dict:
     logic_steps = summarize_logic(sections)
     usage_steps = summarize_usage(sections, default_prompt, description)
     package_map = package_entries(skill_dir)
-    scorecard = calculate_scorecard(skill_dir)
-    strengths = derive_strengths(skill_dir, manifest)
+    scorecard = calculate_scorecard(skill_dir, skill_ir=skill_ir)
+    strengths = derive_strengths(skill_dir, manifest, skill_ir)
     trigger = trigger_contract(interface_data, description)
     io = io_contract(intent, package_map, description)
     principles = principle_nodes(system_model)

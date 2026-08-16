@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
 
+from skill_ir_paths import find_skill_ir, read_frontmatter
+
 
 SCRIPT_INTERFACE = "internal-module"
 SCRIPT_INTERFACE_REASON = "Imported by skill_report_model.py to calculate overview report metrics."
@@ -130,12 +132,20 @@ def trigger_metric(skill_dir: Path) -> dict:
     return metric("触发清晰", score, reasons[:5])
 
 
-def evidence_metric(skill_dir: Path) -> dict:
+def resolve_skill_ir(skill_dir: Path) -> dict:
+    frontmatter = read_frontmatter(skill_dir)
+    name = str(frontmatter.get("name") or skill_dir.name)
+    return find_skill_ir(skill_dir, name)[0]
+
+
+def evidence_metric(skill_dir: Path, skill_ir: dict | None = None) -> dict:
     reports_dir = skill_dir / "reports"
+    if skill_ir is None:
+        skill_ir = resolve_skill_ir(skill_dir)
     present = []
     for name in REPORT_EVIDENCE:
         if name == "skill-ir.json":
-            if (reports_dir / name).exists() or any((skill_dir / "skill-ir" / "examples").glob("*.json")):
+            if skill_ir:
                 present.append(name)
             continue
         if (reports_dir / name).exists():
@@ -236,12 +246,12 @@ def context_cost_metric(skill_dir: Path) -> dict:
     return metric("上下文成本", score, reasons)
 
 
-def calculate_scorecard(skill_dir: Path) -> dict:
+def calculate_scorecard(skill_dir: Path, *, skill_ir: dict | None = None) -> dict:
     skill_dir = skill_dir.resolve()
     return {
         "completeness_score": completeness_metric(skill_dir),
         "trigger_score": trigger_metric(skill_dir),
-        "evidence_score": evidence_metric(skill_dir),
+        "evidence_score": evidence_metric(skill_dir, skill_ir),
         "maintainability_score": maintainability_metric(skill_dir),
         "portability_score": portability_metric(skill_dir),
         "context_cost": context_cost_metric(skill_dir),
