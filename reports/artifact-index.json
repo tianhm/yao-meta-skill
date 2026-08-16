@@ -512,8 +512,8 @@
     },
     {
       "path": "reports/provider_output_evaluation.json",
-      "sha256": "b3644e44ead1d8362b01ff03408b116b66680c997b928382b6ee4171f0074349",
-      "size": 583
+      "sha256": "813bb867ebb76b6a7caed076695c93eea070b36e0290891ad1e17a80274356f2",
+      "size": 32666
     },
     {
       "path": "reports/provider_review_lineage.json",
@@ -946,7 +946,7 @@
       "size": 6159
     }
   ],
-  "run_id": "phase1-zh-output-eval-20260816",
+  "run_id": "phase1-zh-output-eval-20260816-v2",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }

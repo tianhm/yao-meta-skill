@@ -1,9 +1,9 @@
 {
   "artifact_index": "reports/artifact-index.json",
-  "artifact_index_sha256": "0e8043639fb15050ff8b4c4c6f8ea73ff1b0cb00974620fdd27d2bd092bc89e2",
-  "published_at": "2026-08-16T06:32:24Z",
-  "release_dir": ".yao/releases/phase1-zh-output-eval-20260816",
-  "run_id": "phase1-zh-output-eval-20260816",
+  "artifact_index_sha256": "73a40084f035a879d97c80685adf6eebfa9462a3b91c6ffdc0edc03fe788fbbe",
+  "published_at": "2026-08-16T06:35:54Z",
+  "release_dir": ".yao/releases/phase1-zh-output-eval-20260816-v2",
+  "run_id": "phase1-zh-output-eval-20260816-v2",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
