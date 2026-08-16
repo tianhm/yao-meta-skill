@@ -1092,7 +1092,7 @@
     "generated_at": "2026-08-16",
     "source_run_id": "phase1-provider-zh-cn-adjudicated-20260816",
     "source_commit": "94e8c7e18aa60f3457011cac243832dfe33263cb",
-    "current_commit_at_export": "94e8c7e18aa60f3457011cac243832dfe33263cb",
+    "current_commit_at_export": "2cca8c1c668c079b9235a7339c0dc052c34cf46e",
     "blind_pack_sha256": "ed8601ce3ac7dbc1a58c75f1df7a9d04bd6e569c74992f34c1bee8524408e7fc",
     "answer_key_sha256": "df8c1198e0d604766c11e87b19319e9c7c917049b2b15ae6f524a9d8c6714ade",
     "raw_outputs_published": false,

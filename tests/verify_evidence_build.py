@@ -314,6 +314,56 @@ def main() -> None:
         dry_payload = json.loads(dry.stdout)
         assert dry_payload["mode"] == "dry-run", dry_payload
         assert not (beta / "reports" / ".current-run.json").exists()
+
+        completed_provider_skill = temp_root / "completed-provider-skill"
+        completed_provider_skill.mkdir()
+        write_skill(completed_provider_skill, "completed-provider-skill", "completed-provider")
+        (completed_provider_skill / "evals" / "output").mkdir(parents=True)
+        shutil.copy2(
+            ROOT / "evals" / "output" / "provider_matrix.json",
+            completed_provider_skill / "evals" / "output" / "provider_matrix.json",
+        )
+        shutil.copy2(
+            ROOT / "evals" / "output" / "holdout_cases.zh-CN.jsonl",
+            completed_provider_skill / "evals" / "output" / "holdout_cases.zh-CN.jsonl",
+        )
+        shutil.copy2(
+            ROOT / "reports" / "provider_output_evaluation.json",
+            completed_provider_skill / "reports" / "provider_output_evaluation.json",
+        )
+        subprocess.run(["git", "add", "."], cwd=completed_provider_skill, check=True)
+        subprocess.run(["git", "commit", "-qm", "add completed public provider evidence"], cwd=completed_provider_skill, check=True)
+        preserve_completed = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "yao.py"),
+                "evidence-build",
+                str(completed_provider_skill),
+                "--run-id",
+                "preserve-completed-provider",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert preserve_completed.returncode == 0, preserve_completed.stderr or preserve_completed.stdout
+        preserved_provider = json.loads(
+            (
+                completed_provider_skill
+                / ".yao"
+                / "runs"
+                / "preserve-completed-provider"
+                / "artifacts"
+                / "reports"
+                / "provider_output_evaluation.json"
+            ).read_text(encoding="utf-8")
+        )
+        assert preserved_provider["schema_version"] == "1.1-public", preserved_provider
+        assert preserved_provider["status"] == "completed", preserved_provider
+        assert preserved_provider["summary"]["call_count"] == 40, preserved_provider
+        assert preserved_provider["summary"]["model_executed_count"] == 40, preserved_provider
+        assert preserved_provider["summary"]["failure_count"] == 0, preserved_provider
+
         publish = subprocess.run(
             [
                 sys.executable,
