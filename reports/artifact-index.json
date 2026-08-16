@@ -72,13 +72,13 @@
     },
     {
       "path": "reports/benchmark_reproducibility.json",
-      "sha256": "af26ec97eca1da4e0ba96e6f67defafc9d713d0706a498ed351bdc82ccc8427a",
-      "size": 16948
+      "sha256": "eee903ca96817a73d0b462c1fb9d56a1f07c128e361b162fc47734708e04431b",
+      "size": 17488
     },
     {
       "path": "reports/benchmark_reproducibility.md",
-      "sha256": "fe51f2355e8ecd024bd1a8af2fedf7ca122513654ef0019ded144c49560a6f0a",
-      "size": 9878
+      "sha256": "b49fc690a8ae57ebd9d38d8145e2877f44e08e01f967e6f2670f5c33084d6b54",
+      "size": 9898
     },
     {
       "path": "reports/blind-human-review-2026-06-29/DO_NOT_OPEN_answer_key.html",
@@ -227,12 +227,12 @@
     },
     {
       "path": "reports/evidence_consistency.json",
-      "sha256": "247b903bd11e65348972c2156c1e239a5871f3c808d5f2d024774e7954a1287e",
-      "size": 162355
+      "sha256": "dbf01c45989e9c4f62860b43bf6dd6aedc3e569dc6b5ffd5aad607277c7fd285",
+      "size": 162356
     },
     {
       "path": "reports/evidence_consistency.md",
-      "sha256": "0d9d6f43f484afa0ac3b9b0ce3bb0f7ae1704ddbfef4f7b9c807c0c5e2fee480",
+      "sha256": "bf0eec1a6f3e217c5be7624828460ac41ff852e5cca54cfa32cbe9a3c8697f31",
       "size": 12886
     },
     {
@@ -427,12 +427,12 @@
     },
     {
       "path": "reports/package_verification.json",
-      "sha256": "fd593dae867ebcb53b868b9bd7ed28a5757e8feff7f24de059fc8c4701304929",
+      "sha256": "f5887cf3492b137d3f418ccc86aa01305a2540b56f9af90e89afe93815e13140",
       "size": 19653
     },
     {
       "path": "reports/package_verification.md",
-      "sha256": "c42060554e0b8c1fec8806eade332aab66d30a552ee3a38a6f104eb87bef55d0",
+      "sha256": "0ccae1e478615f7548bf6b7cc820323e3e2602161eafbf050a9281c8853c8059",
       "size": 12517
     },
     {
@@ -532,12 +532,12 @@
     },
     {
       "path": "reports/registry_audit.json",
-      "sha256": "55eaffc8e42c09defb5b34a8a7fab61cb72a24fd26016ab4f62153e3becaa5ca",
+      "sha256": "58818d7628b6428bec76128e05c62bd96420f26ead60094d2fcb76549da251f3",
       "size": 3234
     },
     {
       "path": "reports/registry_audit.md",
-      "sha256": "07a7ec1a96f63e33a59e2a9c12608410585341ad94107e8541678dacfdb7a1cd",
+      "sha256": "2964f82084d431b760fa6330b85355ab281a52acdf54b954cfc63f466e138b96",
       "size": 762
     },
     {
@@ -552,8 +552,8 @@
     },
     {
       "path": "reports/review-studio.json",
-      "sha256": "3797bacb2925e56fc991c8372ac3592ad41a84cf4c26ab51d17787cb793daf20",
-      "size": 1262503
+      "sha256": "400d871c40b7de07e45f23b1b94df5c1e678fea92eb4dfc1d6bda25ea549165b",
+      "size": 1263097
     },
     {
       "path": "reports/review-viewer.html",
@@ -562,8 +562,8 @@
     },
     {
       "path": "reports/review-viewer.json",
-      "sha256": "86c9a70cfa79e5879b57fa161a7a1f84b0466b08f0804e3efe392f570ca666e2",
-      "size": 538616
+      "sha256": "86afe12835723e34fd54adcd1e3453af6cf5ef7570038c3d90047e017b5c4d59",
+      "size": 538614
     },
     {
       "path": "reports/review_annotations.json",
@@ -622,8 +622,8 @@
     },
     {
       "path": "reports/skill-interpretation.json",
-      "sha256": "fed2975b326c77c517d6e80cb97501b73b679564b08406e811edbe59478dedf3",
-      "size": 90908
+      "sha256": "8e84ce6b00af9b5f63d73a528ad8ad0e660bf32df4d6aafd0d27d4b39a212b17",
+      "size": 90906
     },
     {
       "path": "reports/skill-os-2-review.md",
@@ -642,8 +642,8 @@
     },
     {
       "path": "reports/skill-overview.json",
-      "sha256": "b0ebb999254408190fee62b13d2d7922a4fcf40a3ee795e66d8a75fb8416164d",
-      "size": 89852
+      "sha256": "7ed8ad4742fcf9baf53a2caa183a4ba9cffcc5dd32baffa3525de8fc4ad80601",
+      "size": 89850
     },
     {
       "path": "reports/skill_atlas.html",
@@ -817,7 +817,7 @@
     },
     {
       "path": "reports/upgrade_check.json",
-      "sha256": "993483f556fee303886592b4e7582c7b8a3b5574ffe5ee0da46611a73e33cbcb",
+      "sha256": "f23643b43e179bfec3d7cbcb2cea8de8aa506290e2c96fc3008874c872d623dd",
       "size": 2763
     },
     {
@@ -916,7 +916,7 @@
       "size": 6172
     }
   ],
-  "run_id": "phase1-pr-canonical-ir-final-20260816",
+  "run_id": "phase1-pr-canonical-ir-attested-20260816",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
