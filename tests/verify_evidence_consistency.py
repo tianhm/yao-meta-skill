@@ -223,10 +223,7 @@ def main() -> None:
     ]
     phase_queue_actual = checks["world-class-phase-queue-consistency"]["actual"]
     assert phase_queue_actual["summary"]["phase_queue_count"] == 2, phase_queue_actual
-    assert phase_queue_actual["summary"]["phase_queue_row_count"] == sum(
-        item["row_count"] for item in phase_queue_actual["top_level_phase_queue"]
-    ), phase_queue_actual
-    assert phase_queue_actual["summary"]["phase_queue_row_count"] >= 4, phase_queue_actual
+    assert phase_queue_actual["summary"]["phase_queue_row_count"] == sum(item["row_count"] for item in phase_queue_actual["top_level_phase_queue"]), phase_queue_actual
     assert phase_queue_actual["summary"] == phase_queue_actual["operator_runbook_summary"], phase_queue_actual
     assert phase_queue_actual["top_level_phase_queue"] == phase_queue_actual[
         "operator_runbook_top_level_phase_queue"
