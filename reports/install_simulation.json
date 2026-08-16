@@ -4,8 +4,8 @@
   "generated_at": "2026-08-14",
   "skill_dir": ".",
   "package_dir": "dist",
-  "install_root": "[temporary-install-root]",
-  "installed_skill_dir": "[temporary-install-root]/yao-meta-skill",
+  "install_root": "dist/install-simulation/simulate-yao-meta-skill",
+  "installed_skill_dir": "dist/install-simulation/simulate-yao-meta-skill/yao-meta-skill",
   "summary": {
     "archive_present": true,
     "archive_entry_count": 633,
@@ -19,7 +19,7 @@
     "installer_permission_failure_count": 0,
     "permission_target_count": 4,
     "permission_capability_count": 3,
-    "install_root_is_temp": true,
+    "install_root_is_temp": false,
     "failure_count": 0,
     "warning_count": 0
   },

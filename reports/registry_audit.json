@@ -21,7 +21,7 @@
     "trust_level": "local",
     "license": "MIT",
     "checksums": {
-      "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+      "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
       "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247"
     },
     "compatibility": {
@@ -78,7 +78,7 @@
           "vscode"
         ],
         "package_metadata": "registry/packages/yao-meta-skill.json",
-        "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+        "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
       }
     ]
   },

@@ -65,7 +65,7 @@
       "key": "context-budget",
       "label": "上下文",
       "status": "pass",
-      "detail": "initial load 947/1000; deferred 565944/120000; top deferred scripts 500846; resource governance governed; quality density 147.8",
+      "detail": "initial load 947/1000; deferred 566208/120000; top deferred scripts 501110; resource governance governed; quality density 147.8",
       "evidence": "reports/context_budget.json",
       "link": "context_budget.md",
       "review_action_id": "",
@@ -2618,9 +2618,9 @@
           "methodology_complete": true,
           "required_artifact_count": 25,
           "missing_artifact_count": 0,
-          "evidence_bundle_sha256": "38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a",
-          "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
-          "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247",
+          "evidence_bundle_sha256": "0e7609388feb3289a9244437d1802c27c6ea852f0a56871701df5a03f1180bdc",
+          "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
+          "archive_sha256": "1aa1ca75ad698017fe70f8bda924eac17fa63e491b8b31c2b0938ae19e6e479c",
           "output_case_count": 5,
           "failure_disclosure_count": 3,
           "command_count": 23,
@@ -2647,13 +2647,13 @@
           "public_claim_ready": false,
           "public_claim_blocker_count": 5,
           "working_tree_dirty": true,
-          "changed_file_count": 6,
+          "changed_file_count": 13,
           "source_tree_dirty": false,
           "source_changed_file_count": 0,
           "generated_tree_dirty": true,
-          "generated_changed_file_count": 6
+          "generated_changed_file_count": 13
         },
-        "commit": "dc836e3d6800fa31ad382478396945a0a8a0ba53",
+        "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
         "missing_artifacts": [],
         "limitations": [
           "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -2759,7 +2759,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 265,
-        "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+        "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
       },
       "skill_atlas": {
         "skill_count": 11,
@@ -2797,7 +2797,7 @@
           "trust_level": "local",
           "license": "MIT",
           "checksums": {
-            "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+            "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
             "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247"
           },
           "compatibility": {
@@ -2845,7 +2845,7 @@
           "target_count": 4,
           "adapter_count": 4,
           "archive_present": true,
-          "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247",
+          "archive_sha256": "1aa1ca75ad698017fe70f8bda924eac17fa63e491b8b31c2b0938ae19e6e479c",
           "archive_entry_count": 633,
           "nested_skill_entry_count": 0,
           "failure_count": 0,
@@ -2869,7 +2869,7 @@
           "installer_permission_failure_count": 0,
           "permission_target_count": 4,
           "permission_capability_count": 3,
-          "install_root_is_temp": true,
+          "install_root_is_temp": false,
           "failure_count": 0,
           "warning_count": 0
         },
@@ -2926,12 +2926,12 @@
             {
               "field": "archive_sha256",
               "from": "",
-              "to": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3"
+              "to": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247"
             },
             {
               "field": "package_sha256",
               "from": "0000000000000000000000000000000000000000000000000000000000000000",
-              "to": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+              "to": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
             }
           ]
         },
@@ -6500,31 +6500,43 @@
       "ok": true,
       "generated_at": "2026-08-14",
       "skill_dir": ".",
-      "commit": "dc836e3d6800fa31ad382478396945a0a8a0ba53",
+      "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
       "git_status": {
         "available": true,
         "dirty": true,
-        "changed_file_count": 6,
+        "changed_file_count": 13,
         "generated_dirty": true,
-        "generated_changed_file_count": 6,
+        "generated_changed_file_count": 13,
         "source_dirty": false,
         "source_changed_file_count": 0,
         "sample": [
+          " M registry/index.json",
           " M registry/packages/yao-meta-skill.json",
+          " M reports/context_budget.json",
+          " M reports/context_budget.md",
+          " M reports/context_budget_summary.json",
           " M reports/install_simulation.json",
           " M reports/package_verification.json",
           " M reports/package_verification.md",
           " M reports/registry_audit.json",
-          " M reports/registry_audit.md"
+          " M reports/registry_audit.md",
+          " M reports/security_trust_report.json",
+          " M reports/security_trust_report.md"
         ],
         "source_sample": [],
         "generated_sample": [
+          " M registry/index.json",
           " M registry/packages/yao-meta-skill.json",
+          " M reports/context_budget.json",
+          " M reports/context_budget.md",
+          " M reports/context_budget_summary.json",
           " M reports/install_simulation.json",
           " M reports/package_verification.json",
           " M reports/package_verification.md",
           " M reports/registry_audit.json",
-          " M reports/registry_audit.md"
+          " M reports/registry_audit.md",
+          " M reports/security_trust_report.json",
+          " M reports/security_trust_report.md"
         ],
         "generated_dirty_prefixes": [
           "dist/",
@@ -6542,9 +6554,9 @@
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a",
-        "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
-        "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247",
+        "evidence_bundle_sha256": "0e7609388feb3289a9244437d1802c27c6ea852f0a56871701df5a03f1180bdc",
+        "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
+        "archive_sha256": "1aa1ca75ad698017fe70f8bda924eac17fa63e491b8b31c2b0938ae19e6e479c",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
         "command_count": 23,
@@ -6571,11 +6583,11 @@
         "public_claim_ready": false,
         "public_claim_blocker_count": 5,
         "working_tree_dirty": true,
-        "changed_file_count": 6,
+        "changed_file_count": 13,
         "source_tree_dirty": false,
         "source_changed_file_count": 0,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 6
+        "generated_changed_file_count": 13
       },
       "beta_test_release": {
         "ready": true,
@@ -6620,10 +6632,10 @@
       },
       "release_lock": {
         "ready": true,
-        "commit": "dc836e3d6800fa31ad382478396945a0a8a0ba53",
+        "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
         "status_scope": "generation-time status before this report is written",
         "source_changed_file_count": 0,
-        "generated_changed_file_count": 6,
+        "generated_changed_file_count": 13,
         "reason": "only generated evidence artifacts were dirty at generation time"
       },
       "evidence_bundle": {
@@ -6632,7 +6644,7 @@
         "existing_count": 25,
         "missing_count": 0,
         "missing_paths": [],
-        "sha256": "38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a"
+        "sha256": "0e7609388feb3289a9244437d1802c27c6ea852f0a56871701df5a03f1180bdc"
       },
       "methodology": {
         "path": "reports/benchmark_methodology.md",
@@ -6740,8 +6752,8 @@
           "label": "trust_report",
           "path": "reports/security_trust_report.json",
           "exists": true,
-          "bytes": 147560,
-          "sha256": "c2812733d9c4743f9b25f62f79afeed0737c8e99ce0005f229f579023af2aeb5"
+          "bytes": 147604,
+          "sha256": "79367e3a3a1b80a341b01c8c8fdd5f768f0f9abe12141c5eedcc761e98115417"
         },
         {
           "label": "python_compatibility",
@@ -6755,21 +6767,21 @@
           "path": "reports/registry_audit.json",
           "exists": true,
           "bytes": 3234,
-          "sha256": "82ec0c41ee27395cda78ce556ec624ef10684642c005a7cf436e0c79535065d4"
+          "sha256": "55eaffc8e42c09defb5b34a8a7fab61cb72a24fd26016ab4f62153e3becaa5ca"
         },
         {
           "label": "package_verification",
           "path": "reports/package_verification.json",
           "exists": true,
           "bytes": 19653,
-          "sha256": "d75148fdb66324fa046f878902f4f80ccc3a23ec20d3dba63fb0ea1abf4b9dca"
+          "sha256": "fd593dae867ebcb53b868b9bd7ed28a5757e8feff7f24de059fc8c4701304929"
         },
         {
           "label": "install_simulation",
           "path": "reports/install_simulation.json",
           "exists": true,
-          "bytes": 8746,
-          "sha256": "704ca2f1acfa796bec9a296822c0521cd439176fa0c68e702f058439bd1ea76f"
+          "bytes": 8793,
+          "sha256": "6eb14cde63fe86aeebe3524b9591c20cd81515492e9e0d03761d28715715f880"
         },
         {
           "label": "skill_os2_audit",
@@ -13369,7 +13381,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 265,
-        "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+        "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
       },
       "failures": [],
       "warnings": [],
@@ -15168,7 +15180,7 @@
           "uses_input": false,
           "uses_network": false,
           "uses_file_write": false,
-          "uses_subprocess": false,
+          "uses_subprocess": true,
           "network_urls": [],
           "network_hosts": []
         },
@@ -17115,6 +17127,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -18869,15 +18882,15 @@
         "context_budget_tier": "production",
         "context_budget_limit": 1000,
         "skill_body_tokens": 764,
-        "other_text_tokens": 1288178,
+        "other_text_tokens": 1289511,
         "estimated_initial_load_tokens": 947,
-        "estimated_total_text_tokens": 1288942,
-        "deferred_resource_tokens": 565944,
+        "estimated_total_text_tokens": 1290275,
+        "deferred_resource_tokens": 566208,
         "deferred_resource_warn_threshold": 120000,
         "deferred_resource_dirs": [
           {
             "path": "scripts",
-            "estimated_tokens": 500846,
+            "estimated_tokens": 501110,
             "file_count": 165
           },
           {
@@ -18899,7 +18912,7 @@
         "large_deferred_resource_dirs": [
           {
             "path": "scripts",
-            "estimated_tokens": 500846,
+            "estimated_tokens": 501110,
             "file_count": 165
           }
         ],
@@ -18922,14 +18935,14 @@
               ],
               "missing": [],
               "path": "scripts",
-              "estimated_tokens": 500846,
+              "estimated_tokens": 501110,
               "file_count": 165,
               "rationale": "Script resources are deterministic deferred tools, not initial-load prompt context."
             }
           ],
           "summary": "Large deferred resources are indexed and backed by evidence."
         },
-        "relevant_file_count": 640,
+        "relevant_file_count": 628,
         "unused_resource_dirs": [],
         "quality_signal_points": 140,
         "quality_density": 147.8
@@ -28195,7 +28208,7 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
+          "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
           "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247"
         },
         "compatibility": {
@@ -28252,7 +28265,7 @@
               "vscode"
             ],
             "package_metadata": "registry/packages/yao-meta-skill.json",
-            "package_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+            "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
           }
         ]
       },
@@ -28275,7 +28288,7 @@
         "target_count": 4,
         "adapter_count": 4,
         "archive_present": true,
-        "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247",
+        "archive_sha256": "1aa1ca75ad698017fe70f8bda924eac17fa63e491b8b31c2b0938ae19e6e479c",
         "archive_entry_count": 633,
         "nested_skill_entry_count": 0,
         "failure_count": 0,
@@ -28943,8 +28956,8 @@
       "generated_at": "2026-08-14",
       "skill_dir": ".",
       "package_dir": "dist",
-      "install_root": "[temporary-install-root]",
-      "installed_skill_dir": "[temporary-install-root]/yao-meta-skill",
+      "install_root": "dist/install-simulation/simulate-yao-meta-skill",
+      "installed_skill_dir": "dist/install-simulation/simulate-yao-meta-skill/yao-meta-skill",
       "summary": {
         "archive_present": true,
         "archive_entry_count": 633,
@@ -28958,7 +28971,7 @@
         "installer_permission_failure_count": 0,
         "permission_target_count": 4,
         "permission_capability_count": 3,
-        "install_root_is_temp": true,
+        "install_root_is_temp": false,
         "failure_count": 0,
         "warning_count": 0
       },
@@ -29295,12 +29308,12 @@
           {
             "field": "archive_sha256",
             "from": "",
-            "to": "0dc0421fe5b2055a190dc6da7b61d0d6bceae5d66a58f547fe79bbd8776993b3"
+            "to": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247"
           },
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878"
+            "to": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
           }
         ]
       },

@@ -16,7 +16,7 @@
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
 - Package hash files: `265`
-- Package SHA256: `c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878`
+- Package SHA256: `d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202`
 
 ## Failures
 
@@ -188,7 +188,7 @@
 | scripts/skill_report_metrics.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to calculate overview report metrics. |
 | scripts/skill_report_model.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to build the v2 report data model. |
 | scripts/skill_report_sections.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to assemble overview report quality, risk, and asset sections. |
-| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to load source files and scan overview package assets. |
+| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | True | Imported by skill_report_model.py to load source files and scan overview package assets. |
 | scripts/skill_report_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to summarize world-class evidence readiness and roadmap actions. |
 | scripts/skillops_opportunity.py | internal-module | True | False | False | False | False | False | False | Imported by render_daily_skillops_report.py to score SkillOps opportunities without writing files. |
 | scripts/summarize_user_signals.py | cli | True | True | True | False | False | True | False | Scans an explicit local source file and summarizes redacted repeated user preference signals. |
