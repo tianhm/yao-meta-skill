@@ -30,7 +30,7 @@ PREFLIGHT_SPECS: dict[str, list[dict[str, Any]]] = {
             "key": "output-cases",
             "label": "Output eval cases",
             "kind": "file",
-            "path": "evals/output/holdout_cases.jsonl",
+            "path": "evals/output/holdout_cases.zh-CN.jsonl",
             "required": True,
             "next_action": "Keep output holdout cases available before provider execution.",
         },

@@ -9,7 +9,14 @@ import os
 from pathlib import Path
 
 from evidence_store import EvidenceError, EvidenceStore
-from output_provider_matrix import canonical_sha256, build_blind_materials, execute_provider_matrix, load_provider_matrix, provider_status
+from output_provider_matrix import (
+    canonical_sha256,
+    build_blind_materials,
+    execute_provider_matrix,
+    load_provider_matrix,
+    provider_status,
+    resolve_provider_cases_path,
+)
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -17,10 +24,10 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def provider_evidence(store: EvidenceStore, run, skill_dir: Path):
     matrix_path = skill_dir / "evals" / "output" / "provider_matrix.json"
-    cases_path = skill_dir / "evals" / "output" / "holdout_cases.jsonl"
-    if not matrix_path.exists() or not cases_path.exists():
+    if not matrix_path.exists():
         return run, {"status": "not-configured", "quality_promotion": {"status": "pending", "eligible": False}}
     matrix = load_provider_matrix(matrix_path)
+    cases_path = resolve_provider_cases_path(matrix_path, matrix)
     api_key_env = str(matrix["api_key_env"])
     if not os.environ.get(api_key_env):
         status = provider_status(matrix)
