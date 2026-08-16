@@ -72,13 +72,13 @@
     },
     {
       "path": "reports/benchmark_reproducibility.json",
-      "sha256": "de26bf5160e19360d5be1f7744925200e0159e479ccd19ef9193c2573770134c",
-      "size": 18003
+      "sha256": "af26ec97eca1da4e0ba96e6f67defafc9d713d0706a498ed351bdc82ccc8427a",
+      "size": 16948
     },
     {
       "path": "reports/benchmark_reproducibility.md",
-      "sha256": "d32155b9f7dc7b1d082b025dbc3804e82c412952aaeeef4b9eabd55e8871f9cc",
-      "size": 9900
+      "sha256": "fe51f2355e8ecd024bd1a8af2fedf7ca122513654ef0019ded144c49560a6f0a",
+      "size": 9878
     },
     {
       "path": "reports/blind-human-review-2026-06-29/DO_NOT_OPEN_answer_key.html",
@@ -227,8 +227,8 @@
     },
     {
       "path": "reports/evidence_consistency.json",
-      "sha256": "4c0f69d80b50367d6f625e368053a94ed51c1536a4781b8222f840a8f1eabfe8",
-      "size": 162356
+      "sha256": "247b903bd11e65348972c2156c1e239a5871f3c808d5f2d024774e7954a1287e",
+      "size": 162355
     },
     {
       "path": "reports/evidence_consistency.md",
@@ -552,8 +552,8 @@
     },
     {
       "path": "reports/review-studio.json",
-      "sha256": "4c7596b4d8e0c980bfa1092294ba77467c2e666f761b4c502c127a91aed2f2df",
-      "size": 1263662
+      "sha256": "3797bacb2925e56fc991c8372ac3592ad41a84cf4c26ab51d17787cb793daf20",
+      "size": 1262503
     },
     {
       "path": "reports/review-viewer.html",
@@ -562,7 +562,7 @@
     },
     {
       "path": "reports/review-viewer.json",
-      "sha256": "246941de21eef0f757e97940031fd0d14ff610906ec60c568ee9386ac4207d42",
+      "sha256": "86c9a70cfa79e5879b57fa161a7a1f84b0466b08f0804e3efe392f570ca666e2",
       "size": 538616
     },
     {
@@ -622,7 +622,7 @@
     },
     {
       "path": "reports/skill-interpretation.json",
-      "sha256": "b57f0ec9376230d4071a273e646a8f67f953262229428343b8a19efe633560d5",
+      "sha256": "fed2975b326c77c517d6e80cb97501b73b679564b08406e811edbe59478dedf3",
       "size": 90908
     },
     {
@@ -642,7 +642,7 @@
     },
     {
       "path": "reports/skill-overview.json",
-      "sha256": "956a1af15af9682ef1663a4b9004df53c1f709989d0356561c22a452e908cef7",
+      "sha256": "b0ebb999254408190fee62b13d2d7922a4fcf40a3ee795e66d8a75fb8416164d",
       "size": 89852
     },
     {
@@ -916,7 +916,7 @@
       "size": 6172
     }
   ],
-  "run_id": "phase1-pr-canonical-ir-20260816",
+  "run_id": "phase1-pr-canonical-ir-final-20260816",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }

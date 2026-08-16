@@ -1,9 +1,9 @@
 {
   "artifact_index": "reports/artifact-index.json",
-  "artifact_index_sha256": "9a8d8922d03d11436614854883bab2125a88ffc821bf0c4320584ec61df37c05",
-  "published_at": "2026-08-16T02:36:50Z",
-  "release_dir": ".yao/releases/phase1-pr-canonical-ir-20260816",
-  "run_id": "phase1-pr-canonical-ir-20260816",
+  "artifact_index_sha256": "48b790ab07674d045ebe940f49f75569282ecae906c498fd877d760d28fa4dbe",
+  "published_at": "2026-08-16T02:37:40Z",
+  "release_dir": ".yao/releases/phase1-pr-canonical-ir-final-20260816",
+  "run_id": "phase1-pr-canonical-ir-final-20260816",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
