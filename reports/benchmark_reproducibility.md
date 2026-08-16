@@ -1,21 +1,21 @@
 # Benchmark Reproducibility
 
-Generated at: `2026-08-14`
-Commit: `dc836e3d6800fa31ad382478396945a0a8a0ba53`
+Generated at: `2026-08-16`
+Commit: `8644a0db94e74ec9113ef8d72cbea2a11fabde9c`
 Working tree dirty at generation: `true`
-Source tree dirty at generation: `false`
+Source tree dirty at generation: `true`
 Generated evidence dirty at generation: `true`
-Evidence bundle SHA256: `38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a`
+Evidence bundle SHA256: `6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab`
 
 ## Summary
 
 - reproducibility ready: `true`
-- release lock ready: `true`
+- release lock ready: `false`
 - methodology complete: `true`
 - required artifacts: `25`
 - missing artifacts: `0`
-- source contract sha256: `c4fab8a26c25`
-- archive sha256: `90b938bd45c9`
+- source contract sha256: `fb734dcafe35`
+- archive sha256: `c1d48529b501`
 - output cases: `5`
 - disclosed failure cases: `3`
 - reproduction commands: `23`
@@ -26,27 +26,27 @@ Evidence bundle SHA256: `38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58af
 - human review complete: `false`
 - world-class ready: `false`
 - world-class source checks: `6` pass / `14` total; `8` blocked
-- beta test ready: `true`
-- beta test blockers: `0`
+- beta test ready: `false`
+- beta test blockers: `1`
 - beta deferred evidence: `4`
 - public claim ready: `false`
-- public claim blockers: `5`
-- changed files at generation: `6`
-- source changed files at generation: `0`
-- generated changed files at generation: `6`
+- public claim blockers: `6`
+- changed files at generation: `200`
+- source changed files at generation: `117`
+- generated changed files at generation: `83`
 
 This report proves local benchmark reproducibility only. It keeps external provider and human-review gaps visible instead of counting them as complete. The git commit and dirty samples are generation-time context; the evidence bundle SHA is the durable anchor for the artifacts listed below.
 
 ## Beta Test Boundary
 
-- ready: `true`
+- ready: `false`
 - scope: beta/public test release without superiority, fully-reviewed, or world-class claims
 - policy: Human blind-review, native permission enforcement, real client telemetry, and ledger acceptance may be deferred for beta/public testing, but public claims must remain blocked until those evidence entries are accepted.
 - required wording: Use beta, public test, or technical preview wording; do not claim world-class readiness, fully reviewed quality, or proven superiority over baseline.
 
 | Blocker |
 | --- |
-| none |
+| release lock is not clean or commit is unavailable |
 
 | Deferred evidence | Reason |
 | --- | --- |
@@ -63,6 +63,7 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 | Blocker |
 | --- |
+| release lock is not clean or commit is unavailable |
 | human blind-review adjudication is incomplete |
 | phase-one provider matrix is incomplete |
 | phase-one three-reviewer adjudication is incomplete |
@@ -71,15 +72,15 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 ## Release Lock
 
-- ready: `true`
-- reason: only generated evidence artifacts were dirty at generation time
+- ready: `false`
+- reason: source files were dirty at generation time
 - status scope: generation-time status before this report is written
 
 ## Evidence Bundle
 
 - algorithm: `sha256(path,label,exists,artifact_sha256)`
 - artifacts: `25` / `25`
-- sha256: `38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a`
+- sha256: `6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab`
 
 ## Methodology Sections
 
@@ -103,24 +104,24 @@ This report proves local benchmark reproducibility only. It keeps external provi
 | output_scorecard | `reports/output_quality_scorecard.json` | present | `0806258a8e08` |
 | output_execution | `reports/output_execution_runs.json` | present | `4df66b63d2e7` |
 | blind_review | `reports/output_blind_review_pack.json` | present | `bbe2db8ec277` |
-| review_adjudication | `reports/output_review_adjudication.json` | present | `91fd88dd9b0f` |
+| review_adjudication | `reports/output_review_adjudication.json` | present | `510fc207bf20` |
 | trigger_scorecard | `reports/route_scorecard.json` | present | `06d7ad6eb002` |
 | runtime_conformance | `reports/conformance_matrix.json` | present | `de8093861e68` |
-| trust_report | `reports/security_trust_report.json` | present | `c2812733d9c4` |
-| python_compatibility | `reports/python_compatibility.json` | present | `ff1d6146fe3b` |
-| registry_audit | `reports/registry_audit.json` | present | `82ec0c41ee27` |
-| package_verification | `reports/package_verification.json` | present | `d75148fdb663` |
-| install_simulation | `reports/install_simulation.json` | present | `704ca2f1acfa` |
-| skill_os2_audit | `reports/skill_os2_audit.json` | present | `9b58e7929335` |
-| world_class_evidence_plan | `reports/world_class_evidence_plan.json` | present | `5d516612400e` |
-| world_class_evidence_ledger | `reports/world_class_evidence_ledger.json` | present | `32da564d4cf1` |
-| world_class_evidence_intake | `reports/world_class_evidence_intake.json` | present | `6cba7c48d260` |
-| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `c69945916f74` |
-| world_class_submission_review | `reports/world_class_submission_review.json` | present | `d1d4a1ae4219` |
-| world_class_operator_runbook | `reports/world_class_operator_runbook.json` | present | `cf1e84a2fab4` |
-| world_class_operator_runbook_markdown | `reports/world_class_operator_runbook.md` | present | `c9e28c355e4a` |
-| world_class_operator_runbook_html | `reports/world_class_operator_runbook.html` | present | `77cf5642332d` |
-| world_class_claim_guard | `reports/world_class_claim_guard.json` | present | `8911569b75e0` |
+| trust_report | `reports/security_trust_report.json` | present | `ddab0390d91d` |
+| python_compatibility | `reports/python_compatibility.json` | present | `900f83cd84d3` |
+| registry_audit | `reports/registry_audit.json` | present | `64cef54f60f8` |
+| package_verification | `reports/package_verification.json` | present | `54681e0207e0` |
+| install_simulation | `reports/install_simulation.json` | present | `702b1daf443b` |
+| skill_os2_audit | `reports/skill_os2_audit.json` | present | `21e4ead21a8a` |
+| world_class_evidence_plan | `reports/world_class_evidence_plan.json` | present | `a71bed1b8592` |
+| world_class_evidence_ledger | `reports/world_class_evidence_ledger.json` | present | `6cf7b7d2577b` |
+| world_class_evidence_intake | `reports/world_class_evidence_intake.json` | present | `82f45e98d600` |
+| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `5938af7f2cba` |
+| world_class_submission_review | `reports/world_class_submission_review.json` | present | `4dee01a6d647` |
+| world_class_operator_runbook | `reports/world_class_operator_runbook.json` | present | `43b70c626888` |
+| world_class_operator_runbook_markdown | `reports/world_class_operator_runbook.md` | present | `6cfacee37936` |
+| world_class_operator_runbook_html | `reports/world_class_operator_runbook.html` | present | `03f5ea67786c` |
+| world_class_claim_guard | `reports/world_class_claim_guard.json` | present | `0a618dcf9b7e` |
 
 ## Reproduction Commands
 
@@ -128,45 +129,45 @@ This report proves local benchmark reproducibility only. It keeps external provi
   - evidence: `git commit hash`
 - `make eval-suite`
   - evidence: `reports/eval_suite.json`
-- `python3 scripts/yao.py output-eval`
+- `python3 scripts/yao.py output-eval --self`
   - evidence: `reports/output_quality_scorecard.json`
-- `python3 scripts/yao.py output-exec --runner-command '["python3","scripts/local_output_eval_runner.py"]'`
+- `python3 scripts/yao.py output-exec --runner-command '["python3","scripts/local_output_eval_runner.py"]' --self`
   - evidence: `reports/output_execution_runs.json`
-- `python3 scripts/yao.py output-review`
+- `python3 scripts/yao.py output-review --self`
   - evidence: `reports/output_review_adjudication.json`
-- `python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json`
+- `python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self`
   - evidence: `skill-ir/examples/yao-meta-skill.json`
-- `python3 scripts/yao.py conformance .`
+- `python3 scripts/yao.py conformance . --self`
   - evidence: `reports/conformance_matrix.json`
-- `python3 scripts/yao.py trust .`
+- `python3 scripts/yao.py trust . --self`
   - evidence: `reports/security_trust_report.json`
-- `python3 scripts/yao.py python-compat .`
+- `python3 scripts/yao.py python-compat . --self`
   - evidence: `reports/python_compatibility.json`
-- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip`
+- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip --self`
   - evidence: `dist/yao-meta-skill.zip`
-- `python3 scripts/yao.py package-verify . --package-dir dist --require-zip`
+- `python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self`
   - evidence: `reports/package_verification.json`
-- `python3 scripts/yao.py install-simulate . --package-dir dist`
+- `python3 scripts/yao.py install-simulate . --package-dir dist --self`
   - evidence: `reports/install_simulation.json`
-- `python3 scripts/yao.py registry-audit .`
+- `python3 scripts/yao.py registry-audit . --self`
   - evidence: `reports/registry_audit.json`
-- `python3 scripts/yao.py skill-os2-audit .`
+- `python3 scripts/yao.py skill-os2-audit . --self`
   - evidence: `reports/skill_os2_audit.json`
-- `python3 scripts/yao.py world-class-evidence .`
+- `python3 scripts/yao.py world-class-evidence . --self`
   - evidence: `reports/world_class_evidence_plan.json`
-- `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
   - evidence: `reports/world_class_evidence_ledger.json`
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
   - evidence: `reports/world_class_evidence_intake.json`
-- `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self`
   - evidence: `reports/world_class_evidence_preflight.json`
-- `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
   - evidence: `reports/world_class_submission_review.json`
-- `python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self`
   - evidence: `reports/world_class_operator_runbook.json`
-- `python3 scripts/yao.py world-class-claim-guard .`
+- `python3 scripts/yao.py world-class-claim-guard . --self`
   - evidence: `reports/world_class_claim_guard.json`
-- `python3 scripts/yao.py evidence-consistency .`
+- `python3 scripts/yao.py evidence-consistency . --self`
   - evidence: `reports/evidence_consistency.json`
 - `make ci-test`
   - evidence: `CI target output`

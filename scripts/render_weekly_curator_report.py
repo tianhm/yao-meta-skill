@@ -407,7 +407,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a weekly SkillOps curator report from generated SkillOps evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--daily-json", action="append", default=[], help="Explicit Daily SkillOps JSON report to include.")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")

@@ -11,8 +11,8 @@
     "existing_suite_case_count": 66,
     "existing_suite_false_positives": 0,
     "existing_suite_false_negatives": 0,
-    "skill_body_tokens": 764,
-    "initial_load_tokens": 947,
+    "skill_body_tokens": 758,
+    "initial_load_tokens": 936,
     "decision": "pass"
   },
   "thresholds": {

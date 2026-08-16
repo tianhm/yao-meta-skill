@@ -564,7 +564,7 @@ def render_review_studio(skill_dir: Path, output_html: Path | None = None, outpu
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render Review Studio 2.0 for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-html")
     parser.add_argument("--output-json")
     args = parser.parse_args()

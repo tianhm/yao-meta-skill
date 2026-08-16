@@ -193,7 +193,7 @@ def main() -> None:
     assert kit_draft["attestation"]["ledger_reviewed_at"] == "", kit_draft
     assert "sha256" not in kit_draft["artifact_refs"][0], kit_draft
     assert kit_draft["provenance"]["run_command"] == (
-        "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>"
+        "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self"
     ), kit_draft
     assert kit_draft["provenance"]["credential_env"] == "DEEPSEEK_API_KEY", kit_draft
     assert "<redacted>" not in json.dumps(kit_draft), kit_draft

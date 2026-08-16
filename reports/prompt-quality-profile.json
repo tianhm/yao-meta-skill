@@ -1,5 +1,5 @@
 {
-  "skill_name": "repo",
+  "skill_name": "yao-meta-skill",
   "relevance": "prompt-aware",
   "primary_task_family": {
     "key": "creative_generation",

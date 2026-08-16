@@ -1,6 +1,6 @@
 # World-Class Evidence Ledger
 
-Generated at: `2026-08-14`
+Generated at: `2026-08-16`
 
 ## Summary
 
@@ -18,7 +18,7 @@ Generated at: `2026-08-14`
 - reviewer approved submissions: `0`
 - submitted but pending: `0`
 - source accepted without valid submission: `0`
-- invalid submissions: `0`
+- invalid submissions: `1`
 - overclaim guard active: `true`
 
 This ledger records the current evidence state. It requires both passing source evidence and a validated intake submission with artifact SHA-256 checks before accepting an item. It does not treat planned work, metadata fallback, pending review, or local command-runner output as world-class completion evidence.
@@ -27,7 +27,7 @@ This ledger records the current evidence state. It requires both passing source 
 
 | Evidence | Status | Submission | Category | Current | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `provider-holdout` | `pending` | `missing` | `external` | phase1 model-executed 0/40; calls 0/40; status external-required | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| `provider-holdout` | `pending` | `invalid-contract` | `external` | phase1 model-executed 0/40; calls 0/40; status external-required | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
 | `human-adjudication` | `pending` | `missing` | `human` | phase1 reviewers 0/3; pairs 0/20; promotion pending | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | `native-permission-enforcement` | `pending` | `missing` | `external` | native-enforced targets 0; installer-enforced targets 4 | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
 | `native-client-telemetry` | `pending` | `missing` | `external` | external source events 0; adoption samples 0 | Install a real client against the native host and import production metadata-only events. |
@@ -38,7 +38,7 @@ This ledger records the current evidence state. It requires both passing source 
 - source status: `external_required`
 - observed state: `{"contract_version": "phase1", "call_count": 0, "model_executed_count": 0, "failure_count": 0, "total_tokens": 0, "accepted": false}`
 - source checks: `2` pass / `4` total
-- submission state: `{"status": "missing", "path": "evidence/world_class/submissions/provider-holdout.json", "artifact_ref_count": 0, "attested_real_evidence": false, "privacy_contract_satisfied": false, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "ledger_counts_as_completion": false}`
+- submission state: `{"status": "invalid-contract", "path": "evidence/world_class/submissions/provider-holdout.json", "submitted_by": "Codex operator using DeepSeek official API", "submitted_at": "2026-06-17", "artifact_ref_count": 1, "artifact_existing_count": 1, "artifact_sha256_verified_count": 1, "attested_real_evidence": true, "reviewer_or_operator_identity_present": true, "privacy_contract_satisfied": true, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "errors": ["attestation.ledger_reviewer_approved must be true for a real submission", "attestation.ledger_reviewer is required", "attestation.ledger_reviewed_at must use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ", "attestation.ledger_reviewer must be different from submitted_by", "attestation.ledger_reviewed_at must be at or after submitted_at"], "ledger_counts_as_completion": false}`
 
 ### Provenance Requirements
 
@@ -49,11 +49,11 @@ This ledger records the current evidence state. It requires both passing source 
 ### Source Runbook
 
 - Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.
-- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>`
+- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self`
 - Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Source Evidence Checks
 
@@ -96,10 +96,10 @@ This ledger records the current evidence state. It requires both passing source 
 - Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.
 - Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.
 - Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.
-- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Source Evidence Checks
 
@@ -142,12 +142,12 @@ This ledger records the current evidence state. It requires both passing source 
 
 - Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.
 - Update the generated target adapter only when the guard is actually enforced by that target.
-- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip`
-- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation`
-- `python3 scripts/yao.py runtime-permissions . --package-dir dist`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self`
+- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self`
+- `python3 scripts/yao.py runtime-permissions . --package-dir dist --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Source Evidence Checks
 
@@ -173,7 +173,7 @@ This ledger records the current evidence state. It requires both passing source 
 
 - objective: Import production metadata-only events from a real external client into the local drift loop.
 - source status: `external_required`
-- observed state: `{"external_source_events": 0, "adoption_sample_count": 0, "raw_content_allowed": false, "risk_band": "no-data", "accepted": false}`
+- observed state: `{"external_source_events": 0, "adoption_sample_count": 0, "raw_content_allowed": false, "risk_band": "low", "accepted": false}`
 - source checks: `1` pass / `3` total
 - submission state: `{"status": "missing", "path": "evidence/world_class/submissions/native-client-telemetry.json", "artifact_ref_count": 0, "attested_real_evidence": false, "privacy_contract_satisfied": false, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "ledger_counts_as_completion": false}`
 
@@ -187,11 +187,11 @@ This ledger records the current evidence state. It requires both passing source 
 
 - `python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/`
 - Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.
-- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl`
-- `python3 scripts/yao.py skill-atlas --workspace-root .`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self`
+- `python3 scripts/yao.py skill-atlas --workspace-root . --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Source Evidence Checks
 

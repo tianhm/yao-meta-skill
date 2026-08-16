@@ -323,7 +323,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Check Python source compatibility for supported CI/runtime versions.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--path", action="append", default=[], help="Optional file or directory to scan relative to skill_dir.")
     parser.add_argument("--target-python", default="3.11")
     parser.add_argument("--output-json", default="reports/python_compatibility.json")

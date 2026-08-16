@@ -16,7 +16,6 @@ from render_adoption_drift_report import display_path, normalize_event, skill_de
 SCHEMA_VERSION = "1.0"
 DEFAULT_HOST_NAME = "com.yao.meta_skill.telemetry"
 DEFAULT_DESCRIPTION = "Yao metadata-only telemetry native messaging host"
-SKILL_DIR_ENV = "YAO_TELEMETRY_SKILL_DIR"
 EVENTS_ENV = "YAO_TELEMETRY_EVENTS"
 MAX_MESSAGE_BYTES = 1024 * 1024
 
@@ -137,13 +136,9 @@ def run_stdio(skill_dir: Path, output_jsonl: Path, dry_run: bool) -> int:
         write_native_message(sys.stdout.buffer, response)
 
 
-def env_default(name: str, fallback: str) -> str:
-    return os.environ.get(name) or fallback
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run a metadata-only telemetry native messaging host.")
-    parser.add_argument("skill_dir", nargs="?", default=env_default(SKILL_DIR_ENV, "."))
+    parser.add_argument("skill_dir", help="Explicit Skill directory whose metadata-only events may be written")
     parser.add_argument("--output-jsonl", default=os.environ.get(EVENTS_ENV))
     parser.add_argument("--message-json", help="Emit one JSON object directly, useful for host smoke tests.")
     parser.add_argument("--stdio", action="store_true", help="Use Chrome/Browser Native Messaging length-prefixed stdio.")

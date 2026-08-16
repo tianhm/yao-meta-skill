@@ -276,7 +276,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Create proposal-only adaptation plans from summarized user signal patterns.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--patterns-json", default="reports/user_patterns.json")
     parser.add_argument("--output-json", default="reports/adaptation_proposals.json")
     parser.add_argument("--output-md", default="reports/adaptation_proposals.md")

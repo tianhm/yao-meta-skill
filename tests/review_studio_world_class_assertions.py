@@ -145,9 +145,9 @@ def assert_world_class_action(full_payload: dict) -> None:
         assert provider_checklist["submission_status"] in {"missing", "not-found", "not-submitted"}, provider_checklist
     assert provider_checklist["source_accepted"] is False, provider_checklist
     assert provider_checklist["submission_path"] == "evidence/world_class/submissions/provider-holdout.json", provider_checklist
-    assert provider_checklist["commands"]["validate_intake"] == "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions", provider_checklist
-    assert provider_checklist["commands"]["submission_review"] == "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions", provider_checklist
-    assert provider_checklist["commands"]["refresh_ledger"] == "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions", provider_checklist
+    assert provider_checklist["commands"]["validate_intake"] == "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self", provider_checklist
+    assert provider_checklist["commands"]["submission_review"] == "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self", provider_checklist
+    assert provider_checklist["commands"]["refresh_ledger"] == "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self", provider_checklist
     assert "provider-backed model run" in provider_checklist["must_collect"]["provenance_requirements"], provider_checklist
     assert any(
         "evidence-build . --run-id <PROVIDER_RUN_ID>" in step

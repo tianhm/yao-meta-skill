@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "item_count": 15,
@@ -201,7 +201,7 @@
       "key": "trust-security",
       "label": "Trust Security",
       "status": "pass",
-      "current": "secrets 0; scripts 165; help failures 0",
+      "current": "secrets 0; scripts 169; help failures 0",
       "target": "Secrets, scripts, dependencies, permissions, and package hash are reviewable",
       "evidence": [
         {
@@ -263,7 +263,7 @@
       "key": "skill-atlas",
       "label": "Skill Atlas",
       "status": "pass",
-      "current": "11 skills; actionable collisions 0",
+      "current": "12 skills; actionable collisions 0",
       "target": "Workspace catalog, route overlap, stale/owner gaps, drift, and no-route opportunities",
       "evidence": [
         {
@@ -289,7 +289,7 @@
       "key": "registry-distribution",
       "label": "Registry Distribution",
       "status": "pass",
-      "current": "zip entries 633; install failures 0; permission failures 0",
+      "current": "zip entries 639; install failures 0; permission failures 0",
       "target": "Package metadata, archive checksum, package verification, and install simulation pass",
       "evidence": [
         {
@@ -311,7 +311,7 @@
       "key": "review-studio",
       "label": "Review Studio",
       "status": "pass",
-      "current": "decision review; warnings 5; score 86",
+      "current": "decision review; warnings 3; score 91",
       "target": "One page shows gates, evidence paths, blockers, warnings, actions, waivers, and annotations",
       "evidence": [
         {
@@ -333,7 +333,7 @@
       "key": "telemetry-drift",
       "label": "Telemetry Drift",
       "status": "pass",
-      "current": "events 0; risk no-data; recipes 5",
+      "current": "events 1; risk low; recipes 5",
       "target": "Local-first metadata-only event contract, aggregate drift report, hook recipes, and import path",
       "evidence": [
         {

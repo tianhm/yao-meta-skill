@@ -1,7 +1,7 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16T04:31:45Z",
   "skill_dir": ".",
   "privacy_contract": {
     "storage": "local-first",
@@ -24,7 +24,7 @@
     ]
   },
   "summary": {
-    "event_count": 0,
+    "event_count": 1,
     "adoption_sample_count": 0,
     "activation_count": 0,
     "accepted_count": 0,
@@ -39,20 +39,42 @@
     "script_error_count": 0,
     "missing_resource_count": 0,
     "review_overdue_count": 0,
-    "risk_band": "no-data",
-    "event_types": {},
+    "risk_band": "low",
+    "event_types": {
+      "review_event": 1
+    },
     "failure_types": {},
-    "source_types": {},
+    "source_types": {
+      "manual": 1
+    },
     "command_counts": {}
   },
-  "adoption_by_skill": [],
-  "next_iteration_candidates": [
+  "adoption_by_skill": [
     {
-      "signal": "no telemetry",
-      "recommendation": "Start with a small metadata-only sample before using telemetry for release decisions."
+      "skill": "yao-meta-skill",
+      "events": 1,
+      "adoption_events": 0,
+      "accepted": 0,
+      "edited": 0,
+      "rejected": 0,
+      "missed": 0,
+      "adoption_rate": 0
     }
   ],
-  "recent_events": [],
+  "next_iteration_candidates": [],
+  "recent_events": [
+    {
+      "command": "unknown",
+      "event": "review_event",
+      "skill": "yao-meta-skill",
+      "source": "manual",
+      "version": "1.1.0",
+      "activation_type": "manual",
+      "outcome": "reviewed",
+      "failure_type": "none",
+      "timestamp": "2026-06-13T12:00:00Z"
+    }
+  ],
   "failures": [],
   "artifacts": {
     "events_jsonl": "reports/telemetry_events.jsonl",

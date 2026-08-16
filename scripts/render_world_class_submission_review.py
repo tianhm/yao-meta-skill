@@ -276,7 +276,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a read-only review queue for world-class evidence submissions.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--submissions-dir")
     parser.add_argument("--output-json", default="reports/world_class_submission_review.json")
     parser.add_argument("--output-md", default="reports/world_class_submission_review.md")

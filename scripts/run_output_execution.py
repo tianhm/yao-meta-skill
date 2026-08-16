@@ -299,7 +299,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
             [
                 "No model-executed runs are recorded yet.",
                 "",
-                "Use `python3 scripts/yao.py output-exec --provider-runner openai` or `--runner-command` with a reviewed provider-backed runner to replace recorded fixtures with real model output evidence.",
+                "Use `python3 scripts/yao.py output-exec --provider-runner openai --self` or `--runner-command` with a reviewed provider-backed runner to replace recorded fixtures with real model output evidence.",
                 "",
             ]
         )

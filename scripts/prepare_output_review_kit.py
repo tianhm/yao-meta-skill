@@ -146,8 +146,8 @@ def build_contract(blind_pack_md: Path, decisions_path: Path) -> dict[str, Any]:
             f"Record choices in {display_path(decisions_path)} without opening the answer key.",
             "Use winner_variant A or B, confidence from 0 to 1, and a short reason for every case.",
             "Set reviewer_attestation truthfully after choices are recorded and before adjudication.",
-            "Run python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication after choices are recorded.",
-            "Refresh python3 scripts/yao.py review-studio . before asking for release approval.",
+            "Run python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self after choices are recorded.",
+            "Refresh python3 scripts/yao.py review-studio . --self before asking for release approval.",
         ],
         "required_fields": {
             "reviewer": "Human reviewer name or review group.",

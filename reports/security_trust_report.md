@@ -1,22 +1,22 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `265`
-- Scripts: `165`
-- Internal script modules: `74`
+- Scanned files: `270`
+- Scripts: `169`
+- Internal script modules: `78`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
 - Network policy missing scripts: `0`
-- File-write scripts: `79`
+- File-write scripts: `80`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
 - CLI help smoke checked: `91`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `265`
-- Package SHA256: `c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878`
+- Package hash files: `270`
+- Package SHA256: `fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d`
 
 ## Failures
 
@@ -81,6 +81,8 @@
 | scripts/create_iteration_snapshot.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/cross_packager.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/cross_packager_contracts.py | internal-module | True | False | False | False | False | False | False | Imported by cross_packager.py to keep platform contract data separate from packaging flow. |
+| scripts/cross_packager_output.py | internal-module | True | False | False | False | False | True | False | Imported by cross_packager.py to validate generated output ownership before recursive replacement. |
+| scripts/cross_packager_sources.py | internal-module | True | False | False | False | False | False | True | Imported by cross_packager.py to keep Git source selection and archive-noise policy separate from package assembly. |
 | scripts/description_optimizer_reporting.py | internal-module | True | False | False | False | False | False | False | Imported by optimize_description.py to render description optimization reports. |
 | scripts/diff_eval.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/emit_telemetry_event.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
@@ -188,7 +190,7 @@
 | scripts/skill_report_metrics.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to calculate overview report metrics. |
 | scripts/skill_report_model.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to build the v2 report data model. |
 | scripts/skill_report_sections.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to assemble overview report quality, risk, and asset sections. |
-| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to load source files and scan overview package assets. |
+| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | True | Imported by skill_report_model.py to load source files and scan overview package assets. |
 | scripts/skill_report_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to summarize world-class evidence readiness and roadmap actions. |
 | scripts/skillops_opportunity.py | internal-module | True | False | False | False | False | False | False | Imported by render_daily_skillops_report.py to score SkillOps opportunities without writing files. |
 | scripts/summarize_user_signals.py | cli | True | True | True | False | False | True | False | Scans an explicit local source file and summarizes redacted repeated user preference signals. |
@@ -226,4 +228,6 @@
 | scripts/yao_cli_parser_operator.py | internal-module | True | True | False | False | False | False | False | Imported by yao_cli_parser.py to keep operator UX command declarations out of the main parser module. |
 | scripts/yao_cli_report_commands.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to keep report and evidence command handlers out of the CLI orchestrator. |
 | scripts/yao_cli_runtime.py | internal-module | True | False | False | False | False | False | True | Imported by yao.py and command modules for shared subprocess execution and JSON payload parsing. |
+| scripts/yao_cli_target_policy.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to bind every CLI command to an explicit target before execution. |
 | scripts/yao_cli_telemetry.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to record opt-in metadata-only CLI run telemetry. |
+| scripts/yao_runtime_paths.py | internal-module | True | False | False | False | False | False | False | Imported by update and telemetry helpers to keep runtime state outside skill source and install directories. |

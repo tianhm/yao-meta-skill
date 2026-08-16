@@ -77,6 +77,8 @@ def run_direct(*extra: str) -> dict:
 
 
 def run_cli(*extra: str) -> dict:
+    if str(ROOT) in extra and "--self" not in extra:
+        extra = (*extra, "--self")
     env = dict(os.environ)
     env["YAO_CLI_TELEMETRY"] = "0"
     env.pop("YAO_CLI_TELEMETRY_EVENTS", None)

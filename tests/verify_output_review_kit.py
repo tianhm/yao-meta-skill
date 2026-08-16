@@ -138,6 +138,7 @@ def main() -> None:
             str(tmp_root / "cli_output_review_kit.md"),
             "--output-html",
             str(tmp_root / "cli_output_review_kit.html"),
+            "--self",
         ]
     )
     cli_payload = json.loads(cli_proc.stdout)

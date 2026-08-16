@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
-    "python_file_count": 247,
-    "script_file_count": 165,
-    "test_file_count": 82,
-    "internal_module_count": 76,
-    "cli_script_count": 92,
+    "python_file_count": 252,
+    "script_file_count": 169,
+    "test_file_count": 83,
+    "internal_module_count": 80,
+    "cli_script_count": 93,
     "command_handler_count": 73,
     "entrypoint_command_handler_count": 18,
     "command_module_count": 7,
@@ -18,7 +18,7 @@
     "block_line_threshold": 1500,
     "largest_file_lines": 719,
     "watchlist_count": 0,
-    "early_watchlist_count": 6,
+    "early_watchlist_count": 7,
     "hotspot_count": 0,
     "blocker_count": 0,
     "decision": "pass"
@@ -74,24 +74,32 @@
     },
     {
       "path": "tests/verify_output_review_adjudication.py",
-      "lines": 599,
+      "lines": 600,
       "kind": "test",
       "severity": "pass",
-      "early_watch": false,
+      "early_watch": true,
       "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
     },
     {
-      "path": "scripts/world_class_evidence_contract.py",
-      "lines": 592,
-      "kind": "internal-module",
+      "path": "scripts/build_skill_atlas.py",
+      "lines": 597,
+      "kind": "cli-script",
       "severity": "pass",
       "early_watch": false,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
     },
     {
-      "path": "scripts/build_skill_atlas.py",
-      "lines": 591,
+      "path": "scripts/yao.py",
+      "lines": 593,
       "kind": "cli-script",
+      "severity": "pass",
+      "early_watch": false,
+      "recommendation": "Split command handlers by domain while keeping scripts/yao.py as the thin CLI orchestrator."
+    },
+    {
+      "path": "scripts/world_class_evidence_contract.py",
+      "lines": 592,
+      "kind": "internal-module",
       "severity": "pass",
       "early_watch": false,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
@@ -111,14 +119,6 @@
       "severity": "pass",
       "early_watch": false,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
-    },
-    {
-      "path": "tests/verify_world_class_evidence_ledger.py",
-      "lines": 584,
-      "kind": "test",
-      "severity": "pass",
-      "early_watch": false,
-      "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
     }
   ],
   "watchlist": [],
@@ -170,6 +170,14 @@
       "severity": "pass",
       "early_watch": true,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
+    },
+    {
+      "path": "tests/verify_output_review_adjudication.py",
+      "lines": 600,
+      "kind": "test",
+      "severity": "pass",
+      "early_watch": true,
+      "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
     }
   ],
   "hotspots": [],

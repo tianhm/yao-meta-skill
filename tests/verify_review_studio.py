@@ -245,7 +245,7 @@ def main() -> None:
     output_review_checklist = full_payload["data"]["output_review_adjudication"]["reviewer_checklist"]
     assert len(output_review_checklist) == 5, output_review_checklist
     assert all(not item["answer_key_visible"] for item in output_review_checklist), output_review_checklist
-    assert output_review_checklist[0]["commands"]["adjudicate"] == "python3 scripts/yao.py output-review", output_review_checklist[0]
+    assert output_review_checklist[0]["commands"]["adjudicate"] == "python3 scripts/yao.py output-review --self", output_review_checklist[0]
     assert full_payload["data"]["review_annotations"]["summary"]["annotation_count"] == 0, full_payload["data"]["review_annotations"]
     daily_skillops_summary = full_payload["data"]["daily_skillops"]["summary"]
     assert daily_skillops_summary["writes_source_files"] is False, daily_skillops_summary

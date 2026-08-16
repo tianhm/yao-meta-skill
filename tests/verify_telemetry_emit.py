@@ -13,6 +13,8 @@ YAO = ROOT / "scripts" / "yao.py"
 
 
 def run(cmd: list[str]) -> dict:
+    if len(cmd) > 1 and cmd[1] == str(YAO) and "--self" not in cmd:
+        cmd = [*cmd, "--self"]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     payload = json.loads(proc.stdout) if proc.stdout.strip() else {}
     return {

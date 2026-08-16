@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "evidence_item_count": 4,
@@ -26,14 +26,14 @@
     "next_repair_action_id": "human-adjudication-precheck-human-reviewer",
     "next_repair_phase": "unblock-access",
     "next_repair_owner": "human reviewer",
-    "next_repair_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+    "next_repair_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
     "repair_counts_as_completion": false,
     "phase_queue_count": 2,
     "phase_queue_blocked_count": 2,
     "phase_queue_row_count": 12,
     "phase_queue_next_phase": "unblock-access",
     "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
-    "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+    "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
     "phase_queue_counts_as_completion": false,
     "pending_count": 4,
     "ready_to_claim_world_class": false,
@@ -59,8 +59,8 @@
       "owner": "operator with provider credentials",
       "status": "blocked",
       "ledger_status": "pending",
-      "intake_readiness": "awaiting-submission",
-      "review_state": "awaiting-submission",
+      "intake_readiness": "fix-submission",
+      "review_state": "fix-submission",
       "source_accepted": false,
       "prechecks": [
         {
@@ -147,16 +147,16 @@
       "submission_path": "evidence/world_class/submissions/provider-holdout.json",
       "template_path": "evidence/world_class/templates/provider-holdout.intake.json",
       "commands": {
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard ."
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self"
       },
       "submission_kit": {
-        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions",
-        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts",
+        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --self",
+        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts --self",
         "output_dir": "evidence/world_class/submissions",
         "draft_path": "evidence/world_class/submissions/provider-holdout.json",
         "template_path": "evidence/world_class/templates/provider-holdout.intake.json",
@@ -189,11 +189,11 @@
       },
       "runbook": [
         "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-        "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+        "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
         "Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.",
-        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         "Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.",
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
       ],
       "repair_checklist": [
         {
@@ -207,7 +207,7 @@
           "status": "blocked",
           "blocking_reason": "Required env precheck is missing.",
           "next_action": "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -222,7 +222,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==40'.",
           "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -237,7 +237,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==40'.",
           "next_action": "Require model identity on all 40 calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
@@ -258,7 +258,7 @@
           ],
           "next_action_id": "provider-holdout-precheck-provider-api-key",
           "next_action": "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -272,7 +272,7 @@
               "status": "blocked",
               "blocking_reason": "Required env precheck is missing.",
               "next_action": "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "prechecks",
               "counts_as_completion": false
             }
@@ -293,7 +293,7 @@
           ],
           "next_action_id": "provider-holdout-source-check-call_count",
           "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -307,7 +307,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '==40'.",
               "next_action": "Complete all 40 fixed DeepSeek calls.",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             },
@@ -322,7 +322,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '==40'.",
               "next_action": "Require model identity on all 40 calls.",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             }
@@ -435,16 +435,16 @@
       "submission_path": "evidence/world_class/submissions/human-adjudication.json",
       "template_path": "evidence/world_class/templates/human-adjudication.intake.json",
       "commands": {
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard ."
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self"
       },
       "submission_kit": {
-        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions",
-        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts",
+        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --self",
+        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts --self",
         "output_dir": "evidence/world_class/submissions",
         "draft_path": "evidence/world_class/submissions/human-adjudication.json",
         "template_path": "evidence/world_class/templates/human-adjudication.intake.json",
@@ -479,10 +479,10 @@
         "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
         "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
         "Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.",
-        "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>",
-        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+        "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self",
+        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         "Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.",
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
       ],
       "repair_checklist": [
         {
@@ -496,7 +496,7 @@
           "status": "blocked",
           "blocking_reason": "Required human precheck is human-required.",
           "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -511,7 +511,7 @@
           "status": "blocked",
           "blocking_reason": "Current value False does not satisfy 'true'.",
           "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -526,7 +526,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==20'.",
           "next_action": "Complete all 20 blind pairs.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -541,7 +541,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==3'.",
           "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
@@ -562,7 +562,7 @@
           ],
           "next_action_id": "human-adjudication-precheck-human-reviewer",
           "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -576,7 +576,7 @@
               "status": "blocked",
               "blocking_reason": "Required human precheck is human-required.",
               "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "prechecks",
               "counts_as_completion": false
             }
@@ -597,7 +597,7 @@
           ],
           "next_action_id": "human-adjudication-source-check-blind_pack_bound",
           "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -611,7 +611,7 @@
               "status": "blocked",
               "blocking_reason": "Current value False does not satisfy 'true'.",
               "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             },
@@ -626,7 +626,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '==20'.",
               "next_action": "Complete all 20 blind pairs.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             },
@@ -641,7 +641,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '==3'.",
               "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             }
@@ -732,16 +732,16 @@
       "submission_path": "evidence/world_class/submissions/native-permission-enforcement.json",
       "template_path": "evidence/world_class/templates/native-permission-enforcement.intake.json",
       "commands": {
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard ."
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self"
       },
       "submission_kit": {
-        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions",
-        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --prefill-artifacts",
+        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --self",
+        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --prefill-artifacts --self",
         "output_dir": "evidence/world_class/submissions",
         "draft_path": "evidence/world_class/submissions/native-permission-enforcement.json",
         "template_path": "evidence/world_class/templates/native-permission-enforcement.intake.json",
@@ -775,12 +775,12 @@
       "runbook": [
         "Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.",
         "Update the generated target adapter only when the guard is actually enforced by that target.",
-        "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip",
-        "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation",
-        "python3 scripts/yao.py runtime-permissions . --package-dir dist",
-        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+        "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self",
+        "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self",
+        "python3 scripts/yao.py runtime-permissions . --package-dir dist --self",
+        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         "Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.",
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
       ],
       "repair_checklist": [
         {
@@ -794,7 +794,7 @@
           "status": "blocked",
           "blocking_reason": "Required external precheck is external-required.",
           "next_action": "Attach a real target-client or external installer runtime guard; metadata fallback is not enough.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -809,7 +809,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Collect real target-client or external runtime guard proof.",
-          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
@@ -830,7 +830,7 @@
           ],
           "next_action_id": "native-permission-enforcement-precheck-native-guard",
           "next_action": "Attach a real target-client or external installer runtime guard; metadata fallback is not enough.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -844,7 +844,7 @@
               "status": "blocked",
               "blocking_reason": "Required external precheck is external-required.",
               "next_action": "Attach a real target-client or external installer runtime guard; metadata fallback is not enough.",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "prechecks",
               "counts_as_completion": false
             }
@@ -865,7 +865,7 @@
           ],
           "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
           "next_action": "Collect real target-client or external runtime guard proof.",
-          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -879,7 +879,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '>0'.",
               "next_action": "Collect real target-client or external runtime guard proof.",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             }
@@ -970,16 +970,16 @@
       "submission_path": "evidence/world_class/submissions/native-client-telemetry.json",
       "template_path": "evidence/world_class/templates/native-client-telemetry.intake.json",
       "commands": {
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard ."
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self"
       },
       "submission_kit": {
-        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions",
-        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --prefill-artifacts",
+        "prepare_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --self",
+        "prefill_command": "python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --prefill-artifacts --self",
         "output_dir": "evidence/world_class/submissions",
         "draft_path": "evidence/world_class/submissions/native-client-telemetry.json",
         "template_path": "evidence/world_class/templates/native-client-telemetry.intake.json",
@@ -1013,11 +1013,11 @@
       "runbook": [
         "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
         "Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.",
-        "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl",
-        "python3 scripts/yao.py skill-atlas --workspace-root .",
-        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+        "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self",
+        "python3 scripts/yao.py skill-atlas --workspace-root . --self",
+        "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         "Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.",
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
       ],
       "repair_checklist": [
         {
@@ -1031,7 +1031,7 @@
           "status": "blocked",
           "blocking_reason": "Required external precheck is external-required.",
           "next_action": "Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -1046,7 +1046,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Telemetry must include adoption outcome evidence.",
-          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1061,7 +1061,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Import at least one metadata-only event from a real client.",
-          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
@@ -1082,7 +1082,7 @@
           ],
           "next_action_id": "native-client-telemetry-precheck-external-client",
           "next_action": "Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -1096,7 +1096,7 @@
               "status": "blocked",
               "blocking_reason": "Required external precheck is external-required.",
               "next_action": "Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "prechecks",
               "counts_as_completion": false
             }
@@ -1117,7 +1117,7 @@
           ],
           "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
           "next_action": "Telemetry must include adoption outcome evidence.",
-          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "counts_as_completion": false,
           "rows": [
             {
@@ -1131,7 +1131,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '>0'.",
               "next_action": "Telemetry must include adoption outcome evidence.",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             },
@@ -1146,7 +1146,7 @@
               "status": "blocked",
               "blocking_reason": "Current value 0 does not satisfy '>0'.",
               "next_action": "Import at least one metadata-only event from a real client.",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "source": "source_checklist",
               "counts_as_completion": false
             }
@@ -1465,7 +1465,7 @@
       "status": "blocked",
       "blocking_reason": "Required human precheck is human-required.",
       "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "prechecks",
       "counts_as_completion": false
     },
@@ -1480,7 +1480,7 @@
       "status": "blocked",
       "blocking_reason": "Required external precheck is external-required.",
       "next_action": "Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.",
-      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "prechecks",
       "counts_as_completion": false
     },
@@ -1495,7 +1495,7 @@
       "status": "blocked",
       "blocking_reason": "Required external precheck is external-required.",
       "next_action": "Attach a real target-client or external installer runtime guard; metadata fallback is not enough.",
-      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "prechecks",
       "counts_as_completion": false
     },
@@ -1510,7 +1510,7 @@
       "status": "blocked",
       "blocking_reason": "Required env precheck is missing.",
       "next_action": "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "prechecks",
       "counts_as_completion": false
     },
@@ -1525,7 +1525,7 @@
       "status": "blocked",
       "blocking_reason": "Current value False does not satisfy 'true'.",
       "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1540,7 +1540,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '==20'.",
       "next_action": "Complete all 20 blind pairs.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1555,7 +1555,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '==3'.",
       "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1570,7 +1570,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '>0'.",
       "next_action": "Telemetry must include adoption outcome evidence.",
-      "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1585,7 +1585,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '>0'.",
       "next_action": "Import at least one metadata-only event from a real client.",
-      "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1600,7 +1600,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '>0'.",
       "next_action": "Collect real target-client or external runtime guard proof.",
-      "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1615,7 +1615,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '==40'.",
       "next_action": "Complete all 40 fixed DeepSeek calls.",
-      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     },
@@ -1630,7 +1630,7 @@
       "status": "blocked",
       "blocking_reason": "Current value 0 does not satisfy '==40'.",
       "next_action": "Require model identity on all 40 calls.",
-      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     }
@@ -1657,7 +1657,7 @@
       ],
       "next_action_id": "human-adjudication-precheck-human-reviewer",
       "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "counts_as_completion": false,
       "rows": [
         {
@@ -1671,7 +1671,7 @@
           "status": "blocked",
           "blocking_reason": "Required human precheck is human-required.",
           "next_action": "Assign three independent controlled reviewer identities before claiming human adjudication.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -1686,7 +1686,7 @@
           "status": "blocked",
           "blocking_reason": "Required external precheck is external-required.",
           "next_action": "Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -1701,7 +1701,7 @@
           "status": "blocked",
           "blocking_reason": "Required external precheck is external-required.",
           "next_action": "Attach a real target-client or external installer runtime guard; metadata fallback is not enough.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         },
@@ -1716,7 +1716,7 @@
           "status": "blocked",
           "blocking_reason": "Required env precheck is missing.",
           "next_action": "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
         }
@@ -1743,7 +1743,7 @@
       ],
       "next_action_id": "human-adjudication-source-check-blind_pack_bound",
       "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "counts_as_completion": false,
       "rows": [
         {
@@ -1757,7 +1757,7 @@
           "status": "blocked",
           "blocking_reason": "Current value False does not satisfy 'true'.",
           "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1772,7 +1772,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==20'.",
           "next_action": "Complete all 20 blind pairs.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1787,7 +1787,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==3'.",
           "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1802,7 +1802,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Telemetry must include adoption outcome evidence.",
-          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1817,7 +1817,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Import at least one metadata-only event from a real client.",
-          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1832,7 +1832,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Collect real target-client or external runtime guard proof.",
-          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1847,7 +1847,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==40'.",
           "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         },
@@ -1862,7 +1862,7 @@
           "status": "blocked",
           "blocking_reason": "Current value 0 does not satisfy '==40'.",
           "next_action": "Require model identity on all 40 calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
@@ -1872,15 +1872,15 @@
   "submissions": {
     "directory": "evidence/world_class/submissions",
     "commands": {
-      "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions",
-      "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts",
-      "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-      "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-      "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-      "guard_claim": "python3 scripts/yao.py world-class-claim-guard ."
+      "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --self",
+      "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+      "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+      "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+      "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+      "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self"
     },
-    "submission_kit_command": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions",
-    "submission_kit_prefill_command": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts",
+    "submission_kit_command": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --self",
+    "submission_kit_prefill_command": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts --self",
     "preflight_counts_submission_as_completion": false,
     "drafts_count_as_evidence": false,
     "artifact_prefill_counts_as_evidence": false,

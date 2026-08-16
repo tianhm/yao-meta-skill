@@ -263,7 +263,7 @@ def render_intent_dialogue(skill_dir: Path, output_md: Path | None = None, outpu
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render an intent dialogue guide for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

@@ -16,7 +16,6 @@ from evidence_resolver import resolve_report_path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_REGISTRY_DIR = ROOT / "registry"
 REQUIRED_PACKAGE_FIELDS = [
     "name",
     "version",
@@ -350,18 +349,24 @@ def run_registry_audit(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build and audit Skill OS registry package metadata.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
-    parser.add_argument("--registry-dir", default=str(DEFAULT_REGISTRY_DIR))
+    parser.add_argument("skill_dir")
+    parser.add_argument("--registry-dir", default="registry")
     parser.add_argument("--output-json", default="reports/registry_audit.json")
     parser.add_argument("--output-md", default="reports/registry_audit.md")
     parser.add_argument("--generated-at", default=str(date.today()))
     args = parser.parse_args()
 
+    skill_dir = Path(args.skill_dir).resolve()
+
+    def target_path(raw_path: str) -> Path:
+        path = Path(raw_path).expanduser()
+        return path.resolve() if path.is_absolute() else (skill_dir / path).resolve()
+
     payload = run_registry_audit(
-        Path(args.skill_dir),
-        Path(args.registry_dir),
-        Path(args.output_json),
-        Path(args.output_md),
+        skill_dir,
+        target_path(args.registry_dir),
+        target_path(args.output_json),
+        target_path(args.output_md),
         args.generated_at,
     )
     print(json.dumps(payload, ensure_ascii=False, indent=2))

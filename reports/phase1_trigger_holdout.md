@@ -5,7 +5,7 @@
 - frozen recall: `0.917`
 - hard-negative false positives: `0`
 - existing suite: `66` cases, `0` FP, `0` FN
-- context: SKILL `764` tokens; initial `947` tokens
+- context: SKILL `758` tokens; initial `936` tokens
 - holdout SHA-256: `b146ce62cea6a9d7b246207e737668e109d048509b678e93e242e0013036f760`
 
 Embedding and cross-encoder challengers remain scheduled for Phase 2.

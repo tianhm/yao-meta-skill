@@ -501,7 +501,7 @@ def render_review_viewer(skill_dir: Path, output_html: Path | None = None, outpu
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a compact HTML review viewer for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-html")
     parser.add_argument("--output-json")
     args = parser.parse_args()

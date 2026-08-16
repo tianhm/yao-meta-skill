@@ -465,7 +465,7 @@ def render_system_model(skill_dir: Path, output_md: Path | None = None, output_j
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a systems-thinking model for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

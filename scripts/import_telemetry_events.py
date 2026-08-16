@@ -108,7 +108,7 @@ def import_events(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Import external metadata-only telemetry into a local skill event stream.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--input-jsonl", required=True)
     parser.add_argument("--events-jsonl")
     parser.add_argument("--output-json")

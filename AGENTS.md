@@ -103,6 +103,8 @@ Clean test-only scratch directories after verification with `find tests -maxdept
 
 ## Boundaries
 
+- Agent-facing authoring must use `scripts/yao.py` with an explicit target path. Resolve the canonical target before writing, require `--self` for Yao Meta Skill source or identity, and keep runtime cache/telemetry outside source and installed Skill directories. Standalone writer scripts must require an explicit `skill_dir`.
+- Packaging may recursively replace only a recognized generated output directory. Refuse non-empty unmanaged destinations, and preserve Git-governed source selection for Skills located at repository roots or nested inside larger repositories.
 - Do not expand root `SKILL.md` with long method text. Add durable guidance to `references/` or executable behavior to `scripts/`.
 - Do not commit private customer work, one-off business skills, or local research reports unless the user explicitly promotes them into examples, fixtures, or public evidence.
 - Treat untracked files outside `tests/tmp_*` as user work. Do not delete, move, or overwrite them without explicit approval.

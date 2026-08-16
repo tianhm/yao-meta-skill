@@ -429,7 +429,7 @@ def probe_runtime_permissions(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Probe generated target adapters for runtime permission enforcement metadata.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--package-dir", default="dist")
     parser.add_argument("--target", action="append", choices=DEFAULT_TARGETS)
     parser.add_argument("--output-json")

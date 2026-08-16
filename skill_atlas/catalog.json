@@ -1,6 +1,6 @@
 {
   "workspace_root": ".",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skills": [
     {
       "name": "yao-meta-skill",
@@ -39,6 +39,8 @@
         "scripts/create_iteration_snapshot.py",
         "scripts/cross_packager.py",
         "scripts/cross_packager_contracts.py",
+        "scripts/cross_packager_output.py",
+        "scripts/cross_packager_sources.py",
         "scripts/description_optimizer_reporting.py",
         "scripts/diff_eval.py",
         "scripts/emit_telemetry_event.py",
@@ -184,7 +186,9 @@
         "scripts/yao_cli_parser_operator.py",
         "scripts/yao_cli_report_commands.py",
         "scripts/yao_cli_runtime.py",
+        "scripts/yao_cli_target_policy.py",
         "scripts/yao_cli_telemetry.py",
+        "scripts/yao_runtime_paths.py",
         "references/artifact-design-doctrine.md",
         "references/authoring-discipline.md",
         "references/autonomous-adaptation.md",
@@ -219,6 +223,7 @@
         "references/skill-ir-method.md",
         "references/skillops-decision-policy.md",
         "references/systems-thinking-doctrine.md",
+        "references/target-safety.md",
         "references/telemetry-drift-method.md",
         "references/trust-security-method.md",
         "references/user-memory-policy.md",
@@ -267,11 +272,11 @@
       "telemetry": {
         "report_present": true,
         "report": "reports/adoption_drift_report.json",
-        "risk_band": "no-data",
-        "event_count": 0,
+        "risk_band": "low",
+        "event_count": 1,
         "adoption_sample_count": 0,
         "adoption_rate": 0,
-        "candidate_count": 1
+        "candidate_count": 0
       }
     },
     {
@@ -614,6 +619,75 @@
       }
     },
     {
+      "name": "geo-ranking-article-generator",
+      "path": "geo-ranking-article-generator",
+      "description": "Create GEO ranking-article packs from brand briefs. Use when asked to research a brand, find GEO or 生成式引擎优化 keywords and five competitors, generate timely titles, write five ~2000-character articles, and save them to a fixed knowledge-base folder with an HTML index. Do not use for generic SEO advice, one-off copy, or writing without competitor research.",
+      "owner": "",
+      "version": "",
+      "status": "",
+      "maturity": "",
+      "updated_at": "",
+      "review_cadence": "",
+      "targets": [],
+      "resources": [
+        "scripts/build_html_index.py",
+        "references/article-blueprint.md",
+        "references/feishu-benchmark-patterns.md",
+        "references/geo-research-playbook.md",
+        "templates/brand-brief-template.md"
+      ],
+      "token_set": [
+        "2000-character",
+        "advice",
+        "articles",
+        "asked",
+        "brand",
+        "briefs",
+        "competitor",
+        "competitors",
+        "copy",
+        "do",
+        "find",
+        "five",
+        "fixed",
+        "folder",
+        "generate",
+        "generic",
+        "geo",
+        "html",
+        "index",
+        "keywords",
+        "knowledge-base",
+        "not",
+        "one-off",
+        "or",
+        "packs",
+        "ranking-article",
+        "research",
+        "save",
+        "seo",
+        "them",
+        "timely",
+        "titles",
+        "without",
+        "write",
+        "writing",
+        "生成式引擎优化"
+      ],
+      "atlas_scope": "embedded-generated-skill",
+      "actionable": false,
+      "scope_reason": "This nested generated skill is retained as local evidence and should not gate the root Meta Skill release.",
+      "telemetry": {
+        "report_present": false,
+        "report": "geo-ranking-article-generator/reports/adoption_drift_report.json",
+        "risk_band": "missing",
+        "event_count": 0,
+        "adoption_sample_count": 0,
+        "adoption_rate": 0,
+        "candidate_count": 0
+      }
+    },
+    {
       "name": "invalid-governance-skill",
       "path": "tests/fixtures/governance_invalid_manifest",
       "description": "Test fixture for governance validation.",
@@ -711,19 +785,19 @@
     }
   ],
   "summary": {
-    "skill_count": 11,
+    "skill_count": 12,
     "actionable_skill_count": 1,
     "route_collision_count": 5,
     "actionable_route_collision_count": 0,
-    "owner_gap_count": 8,
+    "owner_gap_count": 9,
     "actionable_owner_gap_count": 0,
-    "stale_count": 10,
+    "stale_count": 11,
     "actionable_stale_count": 0,
     "shared_resource_count": 0,
     "no_route_opportunity_count": 0,
     "telemetry_report_count": 1,
-    "drift_signal_count": 1,
-    "actionable_drift_signal_count": 1,
-    "non_actionable_issue_count": 23
+    "drift_signal_count": 0,
+    "actionable_drift_signal_count": 0,
+    "non_actionable_issue_count": 25
   }
 }

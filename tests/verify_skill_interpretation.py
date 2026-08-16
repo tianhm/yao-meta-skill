@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -12,6 +13,8 @@ TMP = ROOT / "tests" / "tmp_skill_interpretation"
 
 
 def run(*args: str) -> dict:
+    if "--self" not in args and any(value.startswith(f"{ROOT}{os.sep}") for value in args):
+        args = (*args, "--self")
     proc = subprocess.run(
         [sys.executable, str(CLI), *args],
         cwd=ROOT,

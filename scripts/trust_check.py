@@ -554,7 +554,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run Skill OS trust and security checks.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")
     parser.add_argument("--skip-help-smoke", action="store_true")

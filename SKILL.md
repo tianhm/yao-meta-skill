@@ -14,22 +14,23 @@ metadata:
 
 ## Modes
 
-- `Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.
+- `Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.
 - Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).
 
 ## Compact Workflow
 
-1. One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.
-2. Capture job, output, exclusions, constraints, standards, lightest fit.
-3. Scan `3-5` external/user/local references when useful.
-4. Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.
-5. Add deeper profiles and iteration directions only when earned.
+1. Skip one-offs; require `repeated use` + `reusable output contract`.
+2. Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.
+3. Capture job, output, exclusions, constraints, standards, mode.
+4. Scan `3-5` external/user/local references when useful.
+5. Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.
+6. Add deeper profiles only when earned.
 
-Playbooks: [Method](references/skill-engineering-method.md), [Intent](references/intent-dialogue.md), [Skill IR](references/skill-ir-method.md), [Output Eval](references/output-eval-method.md), [Review Studio](references/review-studio-method.md).
+Playbooks: [Target Safety](references/target-safety.md), [Method](references/skill-engineering-method.md), [Intent](references/intent-dialogue.md), [Skill IR](references/skill-ir-method.md), [Output Eval](references/output-eval-method.md), [Review Studio](references/review-studio-method.md).
 
 ## Skill OS 2.0 Gates
 
-For production/library/governed releases, run Skill IR, compiler, trigger/output eval, Skill Atlas, conformance, trust, registry/package/install, upgrade, drift, waiver, Review Studio.
+For production/library/governed releases, run Skill IR, compiler, trigger/output eval, Atlas, conformance, trust, package/install, upgrade, drift, waiver, Review Studio.
 
 ## Governed Package Boundary
 
@@ -39,13 +40,13 @@ Preserve labels literally when they apply: `file-backed fixture`, `input_files`,
 
 ## First-Turn Style
 
-- Start from the user's work and outcome.
-- Ask only `2-3` key questions unless enough detail exists.
+- Start from user work/outcome.
+- Ask `2-3` key questions when needed.
 - In Chinese, sound soft and companion-like; use [Intent Dialogue](references/intent-dialogue.md).
 
 ## Output Contract
 
-Create/refactor/package: produce `SKILL.md`, aligned `agents/interface.yaml`, justified assets, and boundary/gate summary. Audit/evaluate-only: findings + proposed fixes; edit only when asked. No-skill: no files.
+Create/refactor/package: produce `SKILL.md`, aligned interface, justified assets, and boundary/gate summary. Audit-only: findings + fixes; edit only when asked. No-skill: no files.
 
 ## Reference Map
 

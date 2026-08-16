@@ -320,6 +320,7 @@ def main() -> None:
             str(tmp_root / "cli_imported_adjudication.json"),
             "--adjudication-md",
             str(tmp_root / "cli_imported_adjudication.md"),
+            "--self",
         ]
     )
     cli_import_payload = json.loads(cli_import_proc.stdout)

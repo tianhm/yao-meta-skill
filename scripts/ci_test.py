@@ -33,6 +33,7 @@ DEFAULT_TARGETS = [
     "promotion-check",
     "python-compat-check",
     "architecture-maintainability-check",
+    "target-safety-check",
     "yao-cli-check",
     "yao-cli-world-class-check",
     "operator-ux-check",

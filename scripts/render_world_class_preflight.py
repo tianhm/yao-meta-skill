@@ -151,14 +151,14 @@ def build_submission_commands(skill_dir: Path, submissions_dir: Path, evidence_k
     prepare = f"python3 scripts/yao.py world-class-submission-kit . --output-dir {output_dir}"
     if evidence_key:
         prepare = f"python3 scripts/yao.py world-class-submission-kit . --evidence-key {evidence_key} --output-dir {output_dir}"
-    prefilled_prepare = f"{prepare} --prefill-artifacts"
+    prefilled_prepare = f"{prepare} --prefill-artifacts --self"
     return {
-        "prepare_submission": prepare,
+        "prepare_submission": f"{prepare} --self",
         "prepare_prefilled_submission": prefilled_prepare,
-        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {output_dir}",
-        "submission_review": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {output_dir}",
-        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {output_dir}",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {output_dir} --self",
+        "submission_review": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {output_dir} --self",
+        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {output_dir} --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
     }
 
 
@@ -429,7 +429,7 @@ def build_preflight(skill_dir: Path, generated_at: str, submissions_dir: Path | 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render collection preflight checks for pending world-class evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--submissions-dir")
     parser.add_argument("--output-json", default="reports/world_class_evidence_preflight.json")
     parser.add_argument("--output-md", default="reports/world_class_evidence_preflight.md")

@@ -64,102 +64,102 @@ REPRODUCTION_COMMANDS = [
     },
     {
         "label": "output eval",
-        "command": "python3 scripts/yao.py output-eval",
+        "command": "python3 scripts/yao.py output-eval --self",
         "evidence": "reports/output_quality_scorecard.json",
     },
     {
         "label": "output execution",
-        "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]'",
+        "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]' --self",
         "evidence": "reports/output_execution_runs.json",
     },
     {
         "label": "blind review adjudication",
-        "command": "python3 scripts/yao.py output-review",
+        "command": "python3 scripts/yao.py output-review --self",
         "evidence": "reports/output_review_adjudication.json",
     },
     {
         "label": "skill ir",
-        "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json",
+        "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self",
         "evidence": "skill-ir/examples/yao-meta-skill.json",
     },
     {
         "label": "runtime conformance",
-        "command": "python3 scripts/yao.py conformance .",
+        "command": "python3 scripts/yao.py conformance . --self",
         "evidence": "reports/conformance_matrix.json",
     },
     {
         "label": "trust report",
-        "command": "python3 scripts/yao.py trust .",
+        "command": "python3 scripts/yao.py trust . --self",
         "evidence": "reports/security_trust_report.json",
     },
     {
         "label": "python compatibility",
-        "command": "python3 scripts/yao.py python-compat .",
+        "command": "python3 scripts/yao.py python-compat . --self",
         "evidence": "reports/python_compatibility.json",
     },
     {
         "label": "package",
-        "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip",
+        "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip --self",
         "evidence": "dist/yao-meta-skill.zip",
     },
     {
         "label": "package verify",
-        "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip",
+        "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self",
         "evidence": "reports/package_verification.json",
     },
     {
         "label": "install simulate",
-        "command": "python3 scripts/yao.py install-simulate . --package-dir dist",
+        "command": "python3 scripts/yao.py install-simulate . --package-dir dist --self",
         "evidence": "reports/install_simulation.json",
     },
     {
         "label": "registry audit",
-        "command": "python3 scripts/yao.py registry-audit .",
+        "command": "python3 scripts/yao.py registry-audit . --self",
         "evidence": "reports/registry_audit.json",
     },
     {
         "label": "skill os audit",
-        "command": "python3 scripts/yao.py skill-os2-audit .",
+        "command": "python3 scripts/yao.py skill-os2-audit . --self",
         "evidence": "reports/skill_os2_audit.json",
     },
     {
         "label": "world-class evidence plan",
-        "command": "python3 scripts/yao.py world-class-evidence .",
+        "command": "python3 scripts/yao.py world-class-evidence . --self",
         "evidence": "reports/world_class_evidence_plan.json",
     },
     {
         "label": "world-class evidence ledger",
-        "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
+        "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
         "evidence": "reports/world_class_evidence_ledger.json",
     },
     {
         "label": "world-class evidence intake",
-        "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
+        "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
         "evidence": "reports/world_class_evidence_intake.json",
     },
     {
         "label": "world-class evidence preflight",
-        "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+        "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
         "evidence": "reports/world_class_evidence_preflight.json",
     },
     {
         "label": "world-class submission review",
-        "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
+        "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
         "evidence": "reports/world_class_submission_review.json",
     },
     {
         "label": "world-class operator runbook",
-        "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions",
+        "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self",
         "evidence": "reports/world_class_operator_runbook.json",
     },
     {
         "label": "world-class claim guard",
-        "command": "python3 scripts/yao.py world-class-claim-guard .",
+        "command": "python3 scripts/yao.py world-class-claim-guard . --self",
         "evidence": "reports/world_class_claim_guard.json",
     },
     {
         "label": "evidence consistency",
-        "command": "python3 scripts/yao.py evidence-consistency .",
+        "command": "python3 scripts/yao.py evidence-consistency . --self",
         "evidence": "reports/evidence_consistency.json",
     },
     {
@@ -694,7 +694,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render benchmark reproducibility evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/benchmark_reproducibility.json")
     parser.add_argument("--output-md", default="reports/benchmark_reproducibility.md")
     parser.add_argument("--generated-at", default=date.today().isoformat())

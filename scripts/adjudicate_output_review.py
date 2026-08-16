@@ -329,11 +329,11 @@ def build_reviewer_checklist(
                 "blind_pack_path": display_path(blind_pack_path),
                 "decisions_path": display_path(decisions_path),
                 "commands": {
-                    "prepare_review_kit": "python3 scripts/yao.py output-review-kit",
+                    "prepare_review_kit": "python3 scripts/yao.py output-review-kit --self",
                     "write_template": "python3 scripts/adjudicate_output_review.py --write-template",
-                    "import_decisions": "python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication",
-                    "adjudicate": "python3 scripts/yao.py output-review",
-                    "refresh_review_studio": "python3 scripts/yao.py review-studio .",
+                    "import_decisions": "python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self",
+                    "adjudicate": "python3 scripts/yao.py output-review --self",
+                    "refresh_review_studio": "python3 scripts/yao.py review-studio . --self",
                 },
                 "required_fields": {
                     "winner_variant": "A or B after reading only the blind review pack.",

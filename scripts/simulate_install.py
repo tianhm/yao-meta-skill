@@ -361,7 +361,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Simulate installing a generated skill package into a temporary local skill root.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--package-dir", default="dist")
     parser.add_argument("--install-root")
     parser.add_argument("--output-json", default="reports/install_simulation.json")
@@ -369,14 +369,18 @@ def main() -> None:
     parser.add_argument("--generated-at", default=str(date.today()))
     args = parser.parse_args()
 
-    package_dir = Path(args.package_dir)
-    if not package_dir.is_absolute():
-        package_dir = Path.cwd() / package_dir
-    install_root = Path(args.install_root) if args.install_root else None
-    report = simulate_install(Path(args.skill_dir), package_dir, install_root, args.generated_at)
+    skill_dir = Path(args.skill_dir).resolve()
 
-    output_json = Path(args.output_json)
-    output_md = Path(args.output_md)
+    def target_path(raw_path: str) -> Path:
+        path = Path(raw_path).expanduser()
+        return path.resolve() if path.is_absolute() else (skill_dir / path).resolve()
+
+    package_dir = target_path(args.package_dir)
+    install_root = target_path(args.install_root) if args.install_root else None
+    report = simulate_install(skill_dir, package_dir, install_root, args.generated_at)
+
+    output_json = target_path(args.output_json)
+    output_md = target_path(args.output_md)
     output_json.parent.mkdir(parents=True, exist_ok=True)
     output_md.parent.mkdir(parents=True, exist_ok=True)
     output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

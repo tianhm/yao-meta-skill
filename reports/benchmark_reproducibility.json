@@ -1,33 +1,58 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
-  "commit": "dc836e3d6800fa31ad382478396945a0a8a0ba53",
+  "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 6,
+    "changed_file_count": 200,
     "generated_dirty": true,
-    "generated_changed_file_count": 6,
-    "source_dirty": false,
-    "source_changed_file_count": 0,
+    "generated_changed_file_count": 83,
+    "source_dirty": true,
+    "source_changed_file_count": 117,
     "sample": [
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/install_simulation.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md",
-      " M reports/registry_audit.json",
-      " M reports/registry_audit.md"
+      " M AGENTS.md",
+      " M Makefile",
+      " M README.md",
+      " M SKILL.md",
+      " M agents/interface.yaml",
+      " M evidence/world_class/templates/provider-holdout.intake.json",
+      " M references/distribution-registry-method.md",
+      " M references/output-eval-method.md",
+      " M references/provider-output-evaluation.md",
+      " M references/review-waiver-method.md",
+      " M references/telemetry-drift-method.md",
+      " M registry/index.json"
     ],
-    "source_sample": [],
+    "source_sample": [
+      " M AGENTS.md",
+      " M Makefile",
+      " M README.md",
+      " M SKILL.md",
+      " M agents/interface.yaml",
+      " M evidence/world_class/templates/provider-holdout.intake.json",
+      " M references/distribution-registry-method.md",
+      " M references/output-eval-method.md",
+      " M references/provider-output-evaluation.md",
+      " M references/review-waiver-method.md",
+      " M references/telemetry-drift-method.md",
+      " M scripts/adjudicate_output_review.py"
+    ],
     "generated_sample": [
+      " M registry/index.json",
       " M registry/packages/yao-meta-skill.json",
-      " M reports/install_simulation.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md",
-      " M reports/registry_audit.json",
-      " M reports/registry_audit.md"
+      " M reports/adaptation_proposals.json",
+      " M reports/adaptation_proposals.md",
+      " M reports/adoption_drift_report.json",
+      " M reports/adoption_drift_report.md",
+      " M reports/architecture_maintainability.json",
+      " M reports/architecture_maintainability.md",
+      " M reports/artifact-design-profile.json",
+      " M reports/artifact-design-profile.md",
+      " M reports/benchmark_reproducibility.json",
+      " M reports/benchmark_reproducibility.md"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -41,13 +66,13 @@
   },
   "summary": {
     "reproducibility_ready": true,
-    "release_lock_ready": true,
+    "release_lock_ready": false,
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a",
-    "source_contract_sha256": "c4fab8a26c25d4faf9a1e91aef9f854fdfe06bc6e08dce47b8fbdc7b6884c878",
-    "archive_sha256": "90b938bd45c906abfad33ee221abf114d9ef481455290866e6d2b18081fc7247",
+    "evidence_bundle_sha256": "6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab",
+    "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
+    "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -68,22 +93,24 @@
     "world_class_source_check_count": 14,
     "world_class_source_pass_count": 6,
     "world_class_source_blocked_count": 8,
-    "beta_test_ready": true,
-    "beta_test_blocker_count": 0,
+    "beta_test_ready": false,
+    "beta_test_blocker_count": 1,
     "beta_test_deferred_evidence_count": 4,
     "public_claim_ready": false,
-    "public_claim_blocker_count": 5,
+    "public_claim_blocker_count": 6,
     "working_tree_dirty": true,
-    "changed_file_count": 6,
-    "source_tree_dirty": false,
-    "source_changed_file_count": 0,
+    "changed_file_count": 200,
+    "source_tree_dirty": true,
+    "source_changed_file_count": 117,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 6
+    "generated_changed_file_count": 83
   },
   "beta_test_release": {
-    "ready": true,
+    "ready": false,
     "scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
-    "blockers": [],
+    "blockers": [
+      "release lock is not clean or commit is unavailable"
+    ],
     "allowed_deferred_evidence": [
       {
         "key": "provider-holdout",
@@ -113,6 +140,7 @@
     "ready": false,
     "scope": "public benchmark or world-class readiness claim",
     "blockers": [
+      "release lock is not clean or commit is unavailable",
       "human blind-review adjudication is incomplete",
       "phase-one provider matrix is incomplete",
       "phase-one three-reviewer adjudication is incomplete",
@@ -122,12 +150,12 @@
     "policy": "Local reproducibility can pass before public claims; public claims require provider evidence, human adjudication, clean release lock, accepted world-class evidence, and complete source checks."
   },
   "release_lock": {
-    "ready": true,
-    "commit": "dc836e3d6800fa31ad382478396945a0a8a0ba53",
+    "ready": false,
+    "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
     "status_scope": "generation-time status before this report is written",
-    "source_changed_file_count": 0,
-    "generated_changed_file_count": 6,
-    "reason": "only generated evidence artifacts were dirty at generation time"
+    "source_changed_file_count": 117,
+    "generated_changed_file_count": 83,
+    "reason": "source files were dirty at generation time"
   },
   "evidence_bundle": {
     "algorithm": "sha256(path,label,exists,artifact_sha256)",
@@ -135,7 +163,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "38ab90e85fb3596cbfa5dbcdabef433095a44763e2de1c8b88a58afe6988540a"
+    "sha256": "6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -222,8 +250,8 @@
       "label": "review_adjudication",
       "path": "reports/output_review_adjudication.json",
       "exists": true,
-      "bytes": 14084,
-      "sha256": "91fd88dd9b0f8876f68027a87893d1852dac59772613345bbbfabba658c9227e"
+      "bytes": 14224,
+      "sha256": "510fc207bf208595e2ad64ee92d10c1a27e7669cb172d92a7afb82ff6e4f1562"
     },
     {
       "label": "trigger_scorecard",
@@ -243,106 +271,106 @@
       "label": "trust_report",
       "path": "reports/security_trust_report.json",
       "exists": true,
-      "bytes": 147560,
-      "sha256": "c2812733d9c4743f9b25f62f79afeed0737c8e99ce0005f229f579023af2aeb5"
+      "bytes": 150099,
+      "sha256": "ddab0390d91d58d93702d5757f209565154ff06845235224569d018c6ab23ed9"
     },
     {
       "label": "python_compatibility",
       "path": "reports/python_compatibility.json",
       "exists": true,
-      "bytes": 32418,
-      "sha256": "ff1d6146fe3b7c4174b8d93f714cc54ffd4758040f94148319df6ab01b63d2a4"
+      "bytes": 33181,
+      "sha256": "900f83cd84d329acf8e675a00a610d8c91db7179f867c38265ca8bd8ab5cfee0"
     },
     {
       "label": "registry_audit",
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "82ec0c41ee27395cda78ce556ec624ef10684642c005a7cf436e0c79535065d4"
+      "sha256": "64cef54f60f84773a33be71375d3a7db41e2cce98d451c25881ef3cc275fcfcb"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
-      "bytes": 19653,
-      "sha256": "d75148fdb66324fa046f878902f4f80ccc3a23ec20d3dba63fb0ea1abf4b9dca"
+      "bytes": 19705,
+      "sha256": "54681e0207e0202f86a13d875be8cd553e36fcb22c51a2aa17ca0f09bfdd7a11"
     },
     {
       "label": "install_simulation",
       "path": "reports/install_simulation.json",
       "exists": true,
-      "bytes": 8746,
-      "sha256": "704ca2f1acfa796bec9a296822c0521cd439176fa0c68e702f058439bd1ea76f"
+      "bytes": 8793,
+      "sha256": "702b1daf443b04f489a219c10247cd457b723e79710851b26f5ab14d0f2ae786"
     },
     {
       "label": "skill_os2_audit",
       "path": "reports/skill_os2_audit.json",
       "exists": true,
-      "bytes": 14790,
-      "sha256": "9b58e79293352e5445017d233ffa001a70ac9a4e879bc1798daaf8b0cef50ae8"
+      "bytes": 14786,
+      "sha256": "21e4ead21a8a211fff5c007b6ec6413274cccb5bed9d9ca1f4ee5ec6cf7287a3"
     },
     {
       "label": "world_class_evidence_plan",
       "path": "reports/world_class_evidence_plan.json",
       "exists": true,
-      "bytes": 21956,
-      "sha256": "5d516612400e0dcc70ed63bb04573389dbe85ed68ca1baed38f1fda61038dc22"
+      "bytes": 22166,
+      "sha256": "a71bed1b859223ac95d67fc17e6ddb132c2a2036f57e5e27b8e59803f46a860b"
     },
     {
       "label": "world_class_evidence_ledger",
       "path": "reports/world_class_evidence_ledger.json",
       "exists": true,
-      "bytes": 23172,
-      "sha256": "32da564d4cf1ecfecd4ad05b8623e4eef4898bec73ab419ecf3ac782a66c993d"
+      "bytes": 23936,
+      "sha256": "6cf7b7d2577bd40f18f43f381931bbbb6f851f808f0d5d480c93e8543eaadb88"
     },
     {
       "label": "world_class_evidence_intake",
       "path": "reports/world_class_evidence_intake.json",
       "exists": true,
-      "bytes": 19881,
-      "sha256": "6cba7c48d2609644adaf3bb5089343c542084583e9eb5f276c7609f9711bd5a8"
+      "bytes": 20920,
+      "sha256": "82f45e98d600c5b51798f08338d05f473cee6aa6c7b189d2c916ba5e86bc9579"
     },
     {
       "label": "world_class_evidence_preflight",
       "path": "reports/world_class_evidence_preflight.json",
       "exists": true,
-      "bytes": 90459,
-      "sha256": "c69945916f74c89217a71943c76c694767995c0ab7b143db4407c4b56f0fb2ca"
+      "bytes": 91513,
+      "sha256": "5938af7f2cba5d81470a7ad7028b959472226b82986c5bee84f7e47ba005496e"
     },
     {
       "label": "world_class_submission_review",
       "path": "reports/world_class_submission_review.json",
       "exists": true,
-      "bytes": 14277,
-      "sha256": "d1d4a1ae42190ccaa9167de2fbcd50b903dbf1eacbe9a96aaf94d9d22e234996"
+      "bytes": 14703,
+      "sha256": "4dee01a6d64779a2a553f629317290de3cfe6cfc55e6d3e3a00f32234691d2b9"
     },
     {
       "label": "world_class_operator_runbook",
       "path": "reports/world_class_operator_runbook.json",
       "exists": true,
-      "bytes": 86156,
-      "sha256": "cf1e84a2fab4de83ecee3e6d122ba58d5b8627ce34d909a6570be73bdda10b64"
+      "bytes": 87802,
+      "sha256": "43b70c62688825eb20bf4e9173c3615e27ec50d9b50d62d5548f11dd68a469dd"
     },
     {
       "label": "world_class_operator_runbook_markdown",
       "path": "reports/world_class_operator_runbook.md",
       "exists": true,
-      "bytes": 24065,
-      "sha256": "c9e28c355e4ab6db1ac1102f7af59d25ad02a480a38aedab48c4b432b94862a3"
+      "bytes": 24401,
+      "sha256": "6cfacee37936220006244bbc7be89c280a3b1be00fe6a647a39484943d59fa90"
     },
     {
       "label": "world_class_operator_runbook_html",
       "path": "reports/world_class_operator_runbook.html",
       "exists": true,
-      "bytes": 32532,
-      "sha256": "77cf5642332d92ebde934038a4a78110d4d2a37d5d4bd80093bcf49ff65cb7c1"
+      "bytes": 32847,
+      "sha256": "03f5ea67786c82c686674f0e3f6e030e449b740d84ebec7fbaf25ae4b9faf80a"
     },
     {
       "label": "world_class_claim_guard",
       "path": "reports/world_class_claim_guard.json",
       "exists": true,
-      "bytes": 22727,
-      "sha256": "8911569b75e02a06d6163475bef34141a76c240373a973edf0fa976aab03a9a2"
+      "bytes": 23134,
+      "sha256": "0a618dcf9b7e8fb519c6ce1eb4264aa3dc8a535899925d281c23861c6163f391"
     }
   ],
   "missing_artifacts": [],
@@ -359,102 +387,102 @@
     },
     {
       "label": "output eval",
-      "command": "python3 scripts/yao.py output-eval",
+      "command": "python3 scripts/yao.py output-eval --self",
       "evidence": "reports/output_quality_scorecard.json"
     },
     {
       "label": "output execution",
-      "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]'",
+      "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]' --self",
       "evidence": "reports/output_execution_runs.json"
     },
     {
       "label": "blind review adjudication",
-      "command": "python3 scripts/yao.py output-review",
+      "command": "python3 scripts/yao.py output-review --self",
       "evidence": "reports/output_review_adjudication.json"
     },
     {
       "label": "skill ir",
-      "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json",
+      "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self",
       "evidence": "skill-ir/examples/yao-meta-skill.json"
     },
     {
       "label": "runtime conformance",
-      "command": "python3 scripts/yao.py conformance .",
+      "command": "python3 scripts/yao.py conformance . --self",
       "evidence": "reports/conformance_matrix.json"
     },
     {
       "label": "trust report",
-      "command": "python3 scripts/yao.py trust .",
+      "command": "python3 scripts/yao.py trust . --self",
       "evidence": "reports/security_trust_report.json"
     },
     {
       "label": "python compatibility",
-      "command": "python3 scripts/yao.py python-compat .",
+      "command": "python3 scripts/yao.py python-compat . --self",
       "evidence": "reports/python_compatibility.json"
     },
     {
       "label": "package",
-      "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip",
+      "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip --self",
       "evidence": "dist/yao-meta-skill.zip"
     },
     {
       "label": "package verify",
-      "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip",
+      "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self",
       "evidence": "reports/package_verification.json"
     },
     {
       "label": "install simulate",
-      "command": "python3 scripts/yao.py install-simulate . --package-dir dist",
+      "command": "python3 scripts/yao.py install-simulate . --package-dir dist --self",
       "evidence": "reports/install_simulation.json"
     },
     {
       "label": "registry audit",
-      "command": "python3 scripts/yao.py registry-audit .",
+      "command": "python3 scripts/yao.py registry-audit . --self",
       "evidence": "reports/registry_audit.json"
     },
     {
       "label": "skill os audit",
-      "command": "python3 scripts/yao.py skill-os2-audit .",
+      "command": "python3 scripts/yao.py skill-os2-audit . --self",
       "evidence": "reports/skill_os2_audit.json"
     },
     {
       "label": "world-class evidence plan",
-      "command": "python3 scripts/yao.py world-class-evidence .",
+      "command": "python3 scripts/yao.py world-class-evidence . --self",
       "evidence": "reports/world_class_evidence_plan.json"
     },
     {
       "label": "world-class evidence ledger",
-      "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_ledger.json"
     },
     {
       "label": "world-class evidence intake",
-      "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_intake.json"
     },
     {
       "label": "world-class evidence preflight",
-      "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_preflight.json"
     },
     {
       "label": "world-class submission review",
-      "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_submission_review.json"
     },
     {
       "label": "world-class operator runbook",
-      "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_operator_runbook.json"
     },
     {
       "label": "world-class claim guard",
-      "command": "python3 scripts/yao.py world-class-claim-guard .",
+      "command": "python3 scripts/yao.py world-class-claim-guard . --self",
       "evidence": "reports/world_class_claim_guard.json"
     },
     {
       "label": "evidence consistency",
-      "command": "python3 scripts/yao.py evidence-consistency .",
+      "command": "python3 scripts/yao.py evidence-consistency . --self",
       "evidence": "reports/evidence_consistency.json"
     },
     {

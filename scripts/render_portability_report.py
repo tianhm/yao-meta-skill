@@ -132,7 +132,7 @@ def render_markdown(report: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a portability score from neutral metadata, contracts, and snapshots.")
-    parser.add_argument("skill_dir", nargs="?", default=str(ROOT), help="Skill directory to inspect. Defaults to this repo root.")
+    parser.add_argument("skill_dir", help="Explicit Skill directory to inspect")
     parser.add_argument("--output-json", default="reports/portability_score.json")
     parser.add_argument("--output-md", default="reports/portability_score.md")
     args = parser.parse_args()

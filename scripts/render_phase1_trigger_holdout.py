@@ -124,7 +124,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render the frozen phase-one trigger and context gate.")
-    parser.add_argument("skill_dir", nargs="?", default=str(ROOT))
+    parser.add_argument("skill_dir", help="Explicit Skill directory to evaluate")
     parser.add_argument("--output-json", default="reports/phase1_trigger_holdout.json")
     parser.add_argument("--output-md", default="reports/phase1_trigger_holdout.md")
     parser.add_argument("--generated-at", default="2026-08-12")

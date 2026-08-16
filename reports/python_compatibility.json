@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 250,
+    "file_count": 256,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -30,6 +30,12 @@
     },
     {
       "path": "examples/governed-incident-command/generated-skill/scripts/build_incident_packet.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "geo-ranking-article-generator/scripts/build_html_index.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -150,6 +156,18 @@
     },
     {
       "path": "scripts/cross_packager_contracts.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/cross_packager_output.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/cross_packager_sources.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1025,7 +1043,19 @@
       "issues": []
     },
     {
+      "path": "scripts/yao_cli_target_policy.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/yao_cli_telemetry.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/yao_runtime_paths.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1392,6 +1422,12 @@
     },
     {
       "path": "tests/verify_system_model.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_target_safety.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

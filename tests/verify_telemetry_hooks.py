@@ -129,6 +129,56 @@ def main() -> None:
     assert imported["payload"]["adoption_drift"]["summary"]["source_types"]["external"] == 1, imported
     assert imported["payload"]["adoption_drift"]["summary"]["command_counts"]["browser-extension"] == 1, imported
 
+    root_rendered = run(
+        [
+            sys.executable,
+            str(HOOKS),
+            str(ROOT),
+            "--output-json",
+            str(TMP / "root_telemetry_hook_recipes.json"),
+            "--output-md",
+            str(TMP / "root_telemetry_hook_recipes.md"),
+            "--output-jsonl",
+            str(TMP / "root-client-spool.jsonl"),
+        ]
+    )
+    assert root_rendered["ok"], root_rendered
+    assert all("--self" in recipe["emit_argv"] for recipe in root_rendered["payload"]["recipes"]), root_rendered
+    assert "--self" in root_rendered["payload"]["artifacts"]["import_argv"], root_rendered
+
+    cloned_self = TMP / "yao-meta-skill"
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "init_skill.py"),
+            "yao-meta-skill",
+            "--description",
+            "Separate Yao identity fixture for generated command authorization.",
+            "--output-dir",
+            str(TMP),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    clone_rendered = run(
+        [
+            sys.executable,
+            str(HOOKS),
+            str(cloned_self),
+            "--output-json",
+            str(TMP / "clone_telemetry_hook_recipes.json"),
+            "--output-md",
+            str(TMP / "clone_telemetry_hook_recipes.md"),
+            "--output-jsonl",
+            str(TMP / "clone-client-spool.jsonl"),
+        ]
+    )
+    assert clone_rendered["ok"], clone_rendered
+    assert all("--self" in recipe["emit_argv"] for recipe in clone_rendered["payload"]["recipes"]), clone_rendered
+    assert "--self" in clone_rendered["payload"]["artifacts"]["import_argv"], clone_rendered
+
     cli_output_json = TMP / "cli_telemetry_hook_recipes.json"
     cli = run(
         [
@@ -140,6 +190,7 @@ def main() -> None:
             str(cli_output_json),
             "--output-jsonl",
             str(spool),
+            "--self",
         ]
     )
     assert cli["ok"], cli

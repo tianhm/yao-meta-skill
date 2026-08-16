@@ -356,7 +356,7 @@ def render_intent_confidence(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render an intent confidence report for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--context-json")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")

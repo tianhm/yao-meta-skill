@@ -439,12 +439,13 @@ def build_submission_kit(
         prepare_command = f"{prepare_command} {requested_key_args}"
     if prefill_artifacts:
         prepare_command = f"{prepare_command} --prefill-artifacts"
+    prepare_command = f"{prepare_command} --self"
     commands = {
         "prepare_submission": prepare_command,
-        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {output_dir_arg}",
-        "review_submission": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {output_dir_arg}",
-        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {output_dir_arg}",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {output_dir_arg} --self",
+        "review_submission": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {output_dir_arg} --self",
+        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {output_dir_arg} --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
     }
     handoff_steps = build_handoff_steps(
         commands,
@@ -525,7 +526,7 @@ def build_submission_kit(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Prepare editable world-class evidence submission drafts.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-dir", default="evidence/world_class/submission-kit")
     parser.add_argument("--evidence-key", action="append", default=[])
     parser.add_argument("--overwrite", action="store_true")

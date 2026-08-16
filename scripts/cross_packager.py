@@ -2,13 +2,14 @@
 import argparse
 import hashlib
 import json
-import shutil
 import zipfile
 from pathlib import Path, PurePosixPath
 import yaml
 
 from compile_skill import compile_target_contract
 from cross_packager_contracts import PLATFORM_CONTRACTS
+from cross_packager_output import reset_managed_output_dir, safe_output_dir
+from cross_packager_sources import archive_source_paths, should_skip_archive_path
 from skill_ir_paths import find_skill_ir as find_skill_ir_document
 
 
@@ -252,36 +253,12 @@ def build_manifest(skill_dir: Path, platform: str) -> dict:
     }
 
 
-EXCLUDED_ARCHIVE_PARTS = {".git", ".previews", ".yao", "__pycache__", ".venv", "venv", "node_modules", "dist"}
-EXCLUDED_LOCAL_EVIDENCE_PATHS = {
-    ("reports", ".current-run.json"),
-    ("reports", "artifact-index.json"),
-}
 ARCHIVE_ATTESTATION_MARKERS = (
     b'"archive_sha256"',
     b"Archive SHA256",
     "归档哈希".encode("utf-8"),
     b"yao-meta-skill.zip",
 )
-
-
-def should_skip_archive_path(rel_path: Path) -> bool:
-    parts = rel_path.parts
-    if any(part in EXCLUDED_ARCHIVE_PARTS for part in parts):
-        return True
-    if parts in EXCLUDED_LOCAL_EVIDENCE_PATHS:
-        return True
-    if rel_path.name == "SKILL.md" and parts != ("SKILL.md",):
-        return True
-    if parts == ("reports", "telemetry_events.jsonl"):
-        return True
-    if len(parts) >= 2 and parts[:2] == ("reports", "release_snapshots"):
-        return True
-    if parts and parts[0] == "tests" and any(part.startswith("tmp") for part in parts[1:]):
-        return True
-    return False
-
-
 def is_archive_attestation_consumer(rel_path: Path, path: Path) -> bool:
     if rel_path == Path("registry/index.json") or rel_path.parts[:2] == ("registry", "packages"):
         return True
@@ -322,32 +299,11 @@ def write_yaml_file(path: Path, payload: dict) -> None:
     )
 
 
-def safe_output_dir(skill_dir: Path, requested_output_dir: Path, cwd: Path) -> Path:
-    skill_dir = skill_dir.resolve()
-    cwd = cwd.resolve()
-    requested_output_dir = requested_output_dir.expanduser()
-    candidate = requested_output_dir if requested_output_dir.is_absolute() else cwd / requested_output_dir
-    if candidate.is_symlink():
-        raise ValueError(f"Refusing symlink output directory: {candidate}")
-    out_dir = candidate.resolve()
-    home = Path.home().resolve()
-    filesystem_root = Path(out_dir.anchor).resolve()
-
-    dangerous_exact = {filesystem_root, home, cwd, skill_dir, skill_dir.parent.resolve()}
-    if out_dir in dangerous_exact or out_dir in skill_dir.parents:
-        raise ValueError(f"Refusing dangerous output directory: {out_dir}")
-    if out_dir.exists() and not out_dir.is_dir():
-        raise ValueError(f"Output path exists but is not a directory: {out_dir}")
-    if not (is_relative_to(out_dir, cwd) or is_relative_to(out_dir, skill_dir)):
-        raise ValueError(f"Output directory must stay under the current workspace or skill directory: {out_dir}")
-    return out_dir
-
-
 def write_adapter(skill_dir: Path, out_dir: Path, platform: str) -> Path:
-    target_dir = out_dir / "targets" / platform
-    target_dir.mkdir(parents=True, exist_ok=True)
     if platform not in PLATFORM_CONTRACTS:
         raise ValueError(f"Unsupported platform: {platform}")
+    target_dir = out_dir / "targets" / platform
+    target_dir.mkdir(parents=True, exist_ok=True)
     payload = build_manifest(skill_dir, platform)
     if platform == "openai":
         meta_dir = target_dir / "agents"
@@ -428,14 +384,21 @@ def make_zip(skill_dir: Path, out_dir: Path, package_name: str) -> Path:
     zip_path = out_dir / f"{package_name}.zip"
     skill_root = skill_dir.resolve()
     out_root = out_dir.resolve()
+    nested_skill_roots = {
+        path.parent.relative_to(skill_dir)
+        for path in skill_dir.rglob("SKILL.md")
+        if path.resolve() != (skill_dir / "SKILL.md").resolve()
+    }
     payload_files: list[tuple[Path, Path]] = []
-    for path in sorted(skill_dir.rglob("*")):
+    for path in archive_source_paths(skill_dir):
         if path.is_symlink() or not path.is_file():
             continue
         resolved = path.resolve()
         if not is_relative_to(resolved, skill_root) or is_relative_to(resolved, out_root):
             continue
         rel_path = path.relative_to(skill_dir)
+        if any(rel_path == nested_root or nested_root in rel_path.parents for nested_root in nested_skill_roots):
+            continue
         if should_skip_archive_path(rel_path) or is_archive_attestation_consumer(rel_path, path):
             continue
         payload_files.append((path, rel_path))
@@ -528,12 +491,14 @@ def main() -> None:
     try:
         skill_dir = Path(args.skill_dir).resolve()
         out_dir = safe_output_dir(skill_dir, Path(args.output_dir), Path.cwd())
-        if out_dir.exists():
-            shutil.rmtree(out_dir)
-        out_dir.mkdir(parents=True)
+        requested_platforms = args.platform or ["generic"]
+        unsupported_platforms = [platform for platform in requested_platforms if platform not in PLATFORM_CONTRACTS]
+        if unsupported_platforms:
+            raise ValueError(f"Unsupported platform: {unsupported_platforms[0]}")
+        reset_managed_output_dir(out_dir, set(PLATFORM_CONTRACTS))
         manifest, package_name = copy_manifest(skill_dir, out_dir)
         generated.append(str(manifest))
-        for platform in (args.platform or ["generic"]):
+        for platform in requested_platforms:
             generated.append(str(write_adapter(skill_dir, out_dir, platform)))
         if args.zip:
             generated.append(str(make_zip(skill_dir, out_dir, package_name)))

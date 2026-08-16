@@ -330,7 +330,7 @@ def render_artifact_design_profile(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render artifact design direction and visual quality gates for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

@@ -40,16 +40,17 @@
   },
   "workflow": {
     "steps": [
-      "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
-      "Capture job, output, exclusions, constraints, standards, lightest fit.",
+      "Skip one-offs; require `repeated use` + `reusable output contract`.",
+      "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+      "Capture job, output, exclusions, constraints, standards, mode.",
       "Scan `3-5` external/user/local references when useful.",
       "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
-      "Add deeper profiles and iteration directions only when earned."
+      "Add deeper profiles only when earned."
     ],
     "decision_points": [
       "Route by frontmatter `description`; use the lightest reliable process.",
       "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-      "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+      "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
       "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
       "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
       "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -104,6 +105,7 @@
       "references/skill-ir-method.md",
       "references/skillops-decision-policy.md",
       "references/systems-thinking-doctrine.md",
+      "references/target-safety.md",
       "references/telemetry-drift-method.md",
       "references/trust-security-method.md",
       "references/user-memory-policy.md"
@@ -128,6 +130,8 @@
       "scripts/create_iteration_snapshot.py",
       "scripts/cross_packager.py",
       "scripts/cross_packager_contracts.py",
+      "scripts/cross_packager_output.py",
+      "scripts/cross_packager_sources.py",
       "scripts/description_optimizer_reporting.py",
       "scripts/diff_eval.py",
       "scripts/emit_telemetry_event.py",
@@ -273,7 +277,9 @@
       "scripts/yao_cli_parser_operator.py",
       "scripts/yao_cli_report_commands.py",
       "scripts/yao_cli_runtime.py",
-      "scripts/yao_cli_telemetry.py"
+      "scripts/yao_cli_target_policy.py",
+      "scripts/yao_cli_telemetry.py",
+      "scripts/yao_runtime_paths.py"
     ],
     "assets": [
       "assets/review-studio.css",

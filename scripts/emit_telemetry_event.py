@@ -91,7 +91,7 @@ def emit_event(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Emit one metadata-only telemetry event for later import.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-jsonl")
     parser.add_argument("--event", choices=sorted(ALLOWED_EVENTS), default="script_run")
     parser.add_argument("--activation-type", choices=sorted(ALLOWED_ACTIVATION_TYPES), default="manual")

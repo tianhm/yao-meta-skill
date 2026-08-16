@@ -12,6 +12,8 @@ TMP = ROOT / "tests" / "tmp_yao_cli_world_class"
 
 
 def run(*args: str) -> dict:
+    if str(ROOT) in args and "--self" not in args:
+        args = (*args, "--self")
     env = dict(os.environ)
     env["YAO_CLI_TELEMETRY"] = "0"
     env.pop("YAO_CLI_TELEMETRY_EVENTS", None)
@@ -97,7 +99,7 @@ def main() -> None:
     empty_submissions_arg = str(empty_submissions.relative_to(ROOT))
     assert provider_checklist["commands"]["prepare_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        f"--evidence-key provider-holdout --output-dir {empty_submissions_arg}"
+        f"--evidence-key provider-holdout --output-dir {empty_submissions_arg} --self"
     ), provider_checklist
     assert world_class_ledger_result["payload"]["summary"]["ready_to_claim_world_class"] is False, world_class_ledger_result
 

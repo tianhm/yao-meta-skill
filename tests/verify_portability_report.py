@@ -27,26 +27,24 @@ def main() -> None:
         assert ir_payload["schema_version"] == "2.0.0", ir_payload
         assert ir_source == "skill-ir/examples/yao-meta-skill.json", ir_source
 
-    payload = None
-    for args in ([], [str(ROOT)]):
-        proc = subprocess.run(
-            [sys.executable, str(SCRIPT), *args],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-        )
-        if proc.returncode != 0:
-            print(proc.stdout)
-            print(proc.stderr)
-            raise SystemExit(proc.returncode)
-        current_payload = json.loads(proc.stdout)
-        if payload is None:
-            payload = current_payload
-        elif current_payload != payload:
-            print(json.dumps({"default": payload, "explicit": current_payload}, ensure_ascii=False, indent=2))
-            raise SystemExit(2)
-
-    assert payload is not None
+    missing_target = subprocess.run(
+        [sys.executable, str(SCRIPT)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert missing_target.returncode == 2, missing_target
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT), str(ROOT)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        print(proc.stdout)
+        print(proc.stderr)
+        raise SystemExit(proc.returncode)
+    payload = json.loads(proc.stdout)
     failures = []
     if payload.get("score", 0) < 95:
         failures.append(f"portability score too low: {payload.get('score')}")

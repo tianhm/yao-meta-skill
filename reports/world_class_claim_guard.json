@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 222,
-    "json_claim_surface_count": 108,
-    "metadata_claim_surface_count": 109,
+    "claim_surface_count": 226,
+    "json_claim_surface_count": 109,
+    "metadata_claim_surface_count": 110,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -352,6 +352,10 @@
     },
     {
       "path": "reports/family_summary.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/feishu-ranking-pattern-analysis-2026-04-01.md",
       "violation_count": 0
     },
     {
@@ -767,6 +771,14 @@
       "violation_count": 0
     },
     {
+      "path": "reports/skillops/daily/2026-08-16.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-16.md",
+      "violation_count": 0
+    },
+    {
       "path": "reports/skillops/weekly/2026-W25.json",
       "violation_count": 0
     },
@@ -888,6 +900,10 @@
     },
     {
       "path": "reports/world_class_submission_review.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/yao-deploy-bridge-skill-research-plan.md",
       "violation_count": 0
     },
     {

@@ -33,6 +33,10 @@
       "path": "examples/team-frontend-review/generated-skill"
     },
     {
+      "name": "geo-ranking-article-generator",
+      "path": "geo-ranking-article-generator"
+    },
+    {
       "name": "invalid-governance-skill",
       "path": "tests/fixtures/governance_invalid_manifest"
     },

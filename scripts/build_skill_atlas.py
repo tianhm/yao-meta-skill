@@ -569,18 +569,24 @@ def build_atlas(workspace_root: Path, output_dir: Path, report_html: Path, repor
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build a Skill Atlas for a workspace of agent skills.")
     parser.add_argument("--workspace-root", default=".")
-    parser.add_argument("--output-dir", default=str(ROOT / "skill_atlas"))
-    parser.add_argument("--report-html", default=str(ROOT / "reports" / "skill_atlas.html"))
-    parser.add_argument("--report-json", default=str(ROOT / "reports" / "skill_atlas.json"))
+    parser.add_argument("--output-dir", default="skill_atlas")
+    parser.add_argument("--report-html", default="reports/skill_atlas.html")
+    parser.add_argument("--report-json", default="reports/skill_atlas.json")
     parser.add_argument("--overlap-threshold", type=float, default=0.42)
     parser.add_argument("--today", default=date.today().isoformat())
     args = parser.parse_args()
     today = datetime.strptime(args.today, "%Y-%m-%d").date()
+    workspace_root = Path(args.workspace_root).resolve()
+
+    def workspace_path(raw_path: str) -> Path:
+        path = Path(raw_path).expanduser()
+        return path.resolve() if path.is_absolute() else (workspace_root / path).resolve()
+
     payload = build_atlas(
-        Path(args.workspace_root).resolve(),
-        Path(args.output_dir).resolve(),
-        Path(args.report_html).resolve(),
-        Path(args.report_json).resolve(),
+        workspace_root,
+        workspace_path(args.output_dir),
+        workspace_path(args.report_html),
+        workspace_path(args.report_json),
         args.overlap_threshold,
         today,
     )

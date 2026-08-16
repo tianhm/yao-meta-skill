@@ -15,7 +15,7 @@ SCRIPT_INTERFACE_REASON = "Renders credential-safe DeepSeek provider-matrix read
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render DeepSeek provider-matrix readiness without calling the provider.")
-    parser.add_argument("skill_dir", nargs="?", default=str(ROOT))
+    parser.add_argument("skill_dir", help="Explicit Skill directory to inspect")
     parser.add_argument("--output-json", default="reports/provider_output_evaluation.json")
     args = parser.parse_args()
     skill_dir = Path(args.skill_dir).resolve()

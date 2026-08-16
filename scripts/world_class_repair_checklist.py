@@ -41,29 +41,29 @@ def _slug(value: str) -> str:
 
 
 def repair_verification_command(evidence_key: str, repair_type: str) -> str:
-    preflight = "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions"
+    preflight = "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self"
     if repair_type == "draft":
         return (
             "python3 scripts/yao.py world-class-submission-kit . "
-            f"--evidence-key {evidence_key} --output-dir evidence/world_class/submissions"
+            f"--evidence-key {evidence_key} --output-dir evidence/world_class/submissions --self"
         )
     if repair_type == "artifact":
         return (
             "python3 scripts/yao.py world-class-submission-kit . "
-            f"--evidence-key {evidence_key} --output-dir evidence/world_class/submissions --prefill-artifacts"
+            f"--evidence-key {evidence_key} --output-dir evidence/world_class/submissions --prefill-artifacts --self"
         )
     if repair_type == "unknown-key":
-        return "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        return "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
     if evidence_key == "provider-holdout" and repair_type == "source-check":
-        return "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && " + preflight
+        return "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && " + preflight
     if evidence_key == "human-adjudication" and repair_type == "source-check":
-        return "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && " + preflight
+        return "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && " + preflight
     if evidence_key == "native-permission-enforcement" and repair_type == "source-check":
-        return "python3 scripts/yao.py runtime-permissions . --package-dir dist && " + preflight
+        return "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && " + preflight
     if evidence_key == "native-client-telemetry" and repair_type == "source-check":
         return (
             "python3 scripts/yao.py telemetry-import . "
-            "--input-jsonl .yao/telemetry_spool/external_events.jsonl && "
+            "--input-jsonl .yao/telemetry_spool/external_events.jsonl --self && "
             + preflight
         )
     return preflight

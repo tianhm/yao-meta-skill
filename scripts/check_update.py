@@ -10,11 +10,13 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
+from yao_runtime_paths import default_cache_dir
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_VERSION_URL = "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/VERSION"
 DEFAULT_MANIFEST_URL = "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json"
-CACHE_DIR = ROOT / ".yao"
+CACHE_DIR = default_cache_dir()
 CACHE_PATH = CACHE_DIR / "update-check.json"
 ALLOWED_UPDATE_HOST = "raw.githubusercontent.com"
 ALLOWED_UPDATE_PATH_PREFIX = "/yaojingang/yao-meta-skill/"

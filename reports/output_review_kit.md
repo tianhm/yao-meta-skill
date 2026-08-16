@@ -18,8 +18,8 @@ This reviewer-facing packet contains the blind A/B cases, decision fields, and c
 2. Record choices in reports/output_review_decisions.json without opening the answer key.
 3. Use winner_variant A or B, confidence from 0 to 1, and a short reason for every case.
 4. Set reviewer_attestation truthfully after choices are recorded and before adjudication.
-5. Run python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication after choices are recorded.
-6. Refresh python3 scripts/yao.py review-studio . before asking for release approval.
+5. Run python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self after choices are recorded.
+6. Refresh python3 scripts/yao.py review-studio . --self before asking for release approval.
 
 ## Required Fields
 

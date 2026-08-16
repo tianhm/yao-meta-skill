@@ -1,17 +1,17 @@
 # World-Class Evidence Intake
 
-Generated at: `2026-08-14`
+Generated at: `2026-08-16`
 
 ## Summary
 
-- decision: `awaiting-submissions`
+- decision: `fix-intake`
 - schema present: `true`
 - templates: `4` / `4`
-- submissions: `0` valid / `0` total
-- invalid submissions: `0`
+- submissions: `0` valid / `1` total
+- invalid submissions: `1`
 - valid packet but source incomplete: `0`
 - operator checklist: `0` ready / `4` total
-- ready for external collection: `true`
+- ready for external collection: `false`
 - ready for ledger review: `false`
 - ready to claim world-class: `false`
 - overclaim guard active: `true`
@@ -31,32 +31,32 @@ This report validates the intake contract for human and external evidence. A val
 
 | Evidence | Status | Path | Artifacts | Errors |
 | --- | --- | --- | --- | --- |
-| `none` | `n/a` | none | none | none |
+| `provider-holdout` | `fail` | `evidence/world_class/submissions/provider-holdout.json` | 1 existing / 1 sha256 verified / 1 required verified / 1 refs | attestation.ledger_reviewer_approved must be true for a real submission; attestation.ledger_reviewer is required; attestation.ledger_reviewed_at must use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ; attestation.ledger_reviewer must be different from submitted_by; attestation.ledger_reviewed_at must be at or after submitted_at |
 
 ## Operator Checklist
 
 | Evidence | Readiness | Submission | Next action |
 | --- | --- | --- | --- |
-| `provider-holdout` | `awaiting-submission` | `missing` | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| `provider-holdout` | `fix-submission` | `fail` | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
 | `human-adjudication` | `awaiting-submission` | `missing` | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | `native-permission-enforcement` | `awaiting-submission` | `missing` | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
 | `native-client-telemetry` | `awaiting-submission` | `missing` | Install a real client against the native host and import production metadata-only events. |
 
 ### Provider Holdout
 
-- readiness: `awaiting-submission`
-- blocking reason: No real evidence submission has been provided yet.
+- readiness: `fix-submission`
+- blocking reason: Submission exists but failed intake validation.
 - owner: operator with provider credentials
 - template: `evidence/world_class/templates/provider-holdout.intake.json`
 - submission: `evidence/world_class/submissions/provider-holdout.json`
 
 #### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 #### Must Collect
 
@@ -87,11 +87,11 @@ This report validates the intake contract for human and external evidence. A val
 #### Source Runbook
 
 - Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.
-- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>`
+- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self`
 - Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Human Adjudication
 
@@ -103,11 +103,11 @@ This report validates the intake contract for human and external evidence. A val
 
 #### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 #### Must Collect
 
@@ -142,10 +142,10 @@ This report validates the intake contract for human and external evidence. A val
 - Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.
 - Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.
 - Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.
-- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Native Permission Enforcement
 
@@ -157,11 +157,11 @@ This report validates the intake contract for human and external evidence. A val
 
 #### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 #### Must Collect
 
@@ -193,12 +193,12 @@ This report validates the intake contract for human and external evidence. A val
 
 - Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.
 - Update the generated target adapter only when the guard is actually enforced by that target.
-- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip`
-- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation`
-- `python3 scripts/yao.py runtime-permissions . --package-dir dist`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self`
+- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self`
+- `python3 scripts/yao.py runtime-permissions . --package-dir dist --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Native Client Telemetry
 
@@ -210,11 +210,11 @@ This report validates the intake contract for human and external evidence. A val
 
 #### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- submission_review: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 #### Must Collect
 
@@ -243,11 +243,11 @@ This report validates the intake contract for human and external evidence. A val
 
 - `python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/`
 - Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.
-- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl`
-- `python3 scripts/yao.py skill-atlas --workspace-root .`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self`
+- `python3 scripts/yao.py skill-atlas --workspace-root . --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ## Boundary
 

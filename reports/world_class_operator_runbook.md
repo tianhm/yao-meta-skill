@@ -1,6 +1,6 @@
 # World-Class Operator Runbook
 
-Generated at: `2026-08-14`
+Generated at: `2026-08-16`
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated at: `2026-08-14`
 - runbook counts as completion: `false`
 - evidence items: `4`
 - pending: `4`
-- awaiting submission: `4`
+- awaiting submission: `3`
 - ready for ledger review: `0`
 - phase queue: `2` blocked / `2` phases
 - phase queue rows: `12`
@@ -34,25 +34,25 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 | Step | Evidence | Owner | Needs user | User action | Assistant action | Command | Pass condition |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `prepare-evidence-session` | `all` | assistant + user | `true` | Confirm provider access, reviewer availability, target client path, and telemetry client path before collection starts. | Run preflight and prepare submission drafts without accepting them as evidence. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts` | Preflight lists the same pending evidence keys and no credential values are printed. |
-| `collect-provider-holdout` | `provider-holdout` | assistant + operator with provider credentials | `true` | Provide DEEPSEEK_API_KEY through the environment for the fixed Flash+Pro matrix. | Run evidence-build, verify 40 governed calls and the private blind-review material boundary, then prepare the evidence packet. | `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>` | reports/provider_output_evaluation.json records 40/40 model calls, zero failures, and total_tokens <= 250000. |
-| `collect-human-adjudication` | `human-adjudication` | human reviewer + assistant | `true` | Have reviewer-a, reviewer-b, and reviewer-c independently complete the same 20-pair role-neutral pack through controlled submissions. | Verify the three packet identities and commitments, then finalize the source provider run without rerunning the matrix. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json>` | reports/provider_output_adjudication.json has reviewer_count == 3, pair_count == 20, and failure_count == 0. |
-| `collect-native-permission-enforcement` | `native-permission-enforcement` | target client or installer integrator + assistant | `true` | Select a real target client or external installer guard that can enforce declared capabilities instead of metadata-only fallback. | Run runtime permission probes, package verification, install simulation, and prepare the native enforcement evidence packet. | `python3 scripts/yao.py runtime-permissions . --package-dir dist` | reports/runtime_permission_probes.json has native_enforcement_count > 0 and failure_count == 0. |
-| `collect-native-client-telemetry` | `native-client-telemetry` | real client integrator + assistant | `true` | Install the native host manifest in a real Browser, Chrome, IDE, or provider client and trigger a metadata-only event. | Generate native host assets, import the external event JSONL, refresh adoption drift, and prepare the telemetry evidence packet. | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --source external` | reports/adoption_drift_report.json has source_types.external > 0 and adoption_sample_count > 0. |
-| `review-and-release-gate` | `all` | assistant + ledger reviewer | `true` | Approve only validated evidence packets and confirm the release wording after the claim guard passes. | Run intake, submission review, ledger, claim guard, benchmark, evidence consistency, Review Studio, and CI before final publish. | `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions && python3 scripts/yao.py world-class-claim-guard . && make ci-test` | Ledger ready_to_claim_world_class, benchmark public_claim_ready, claim guard violation_count == 0, Review Studio has no blockers, and CI passes. |
+| `prepare-evidence-session` | `all` | assistant + user | `true` | Confirm provider access, reviewer availability, target client path, and telemetry client path before collection starts. | Run preflight and prepare submission drafts without accepting them as evidence. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts --self` | Preflight lists the same pending evidence keys and no credential values are printed. |
+| `collect-provider-holdout` | `provider-holdout` | assistant + operator with provider credentials | `true` | Provide DEEPSEEK_API_KEY through the environment for the fixed Flash+Pro matrix. | Run evidence-build, verify 40 governed calls and the private blind-review material boundary, then prepare the evidence packet. | `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self` | reports/provider_output_evaluation.json records 40/40 model calls, zero failures, and total_tokens <= 250000. |
+| `collect-human-adjudication` | `human-adjudication` | human reviewer + assistant | `true` | Have reviewer-a, reviewer-b, and reviewer-c independently complete the same 20-pair role-neutral pack through controlled submissions. | Verify the three packet identities and commitments, then finalize the source provider run without rerunning the matrix. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self` | reports/provider_output_adjudication.json has reviewer_count == 3, pair_count == 20, and failure_count == 0. |
+| `collect-native-permission-enforcement` | `native-permission-enforcement` | target client or installer integrator + assistant | `true` | Select a real target client or external installer guard that can enforce declared capabilities instead of metadata-only fallback. | Run runtime permission probes, package verification, install simulation, and prepare the native enforcement evidence packet. | `python3 scripts/yao.py runtime-permissions . --package-dir dist --self` | reports/runtime_permission_probes.json has native_enforcement_count > 0 and failure_count == 0. |
+| `collect-native-client-telemetry` | `native-client-telemetry` | real client integrator + assistant | `true` | Install the native host manifest in a real Browser, Chrome, IDE, or provider client and trigger a metadata-only event. | Generate native host assets, import the external event JSONL, refresh adoption drift, and prepare the telemetry evidence packet. | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --source external --self` | reports/adoption_drift_report.json has source_types.external > 0 and adoption_sample_count > 0. |
+| `review-and-release-gate` | `all` | assistant + ledger reviewer | `true` | Approve only validated evidence packets and confirm the release wording after the claim guard passes. | Run intake, submission review, ledger, claim guard, benchmark, evidence consistency, Review Studio, and CI before final publish. | `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self && python3 scripts/yao.py world-class-claim-guard . --self && make ci-test` | Ledger ready_to_claim_world_class, benchmark public_claim_ready, claim guard violation_count == 0, Review Studio has no blockers, and CI passes. |
 
 ## Phase Queue
 
 | Phase | Status | Rows | Blocked | Owners | Next action | Verify |
 | --- | --- | ---: | ---: | --- | --- | --- |
-| `unblock-access` | `blocked` | `4` | `4` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Assign three independent controlled reviewer identities before claiming human adjudication. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
-| `collect-source` | `blocked` | `8` | `8` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Bind adjudication to the reviewed blind pack SHA256. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions` |
+| `unblock-access` | `blocked` | `4` | `4` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Assign three independent controlled reviewer identities before claiming human adjudication. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` |
+| `collect-source` | `blocked` | `8` | `8` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Bind adjudication to the reviewed blind pack SHA256. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` |
 
 ## Evidence Items
 
 | Evidence | Ledger | Intake | Review | Blocked checks | Next source action | Owner |
 | --- | --- | --- | --- | ---: | --- | --- |
-| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `2` | Complete all 40 fixed DeepSeek calls. | operator with provider credentials |
+| `provider-holdout` | `pending` | `fix-submission` | `fix-submission` | `2` | Complete all 40 fixed DeepSeek calls. | operator with provider credentials |
 | `human-adjudication` | `pending` | `awaiting-submission` | `awaiting-submission` | `3` | Collect reviewer-a, reviewer-b, and reviewer-c. | human reviewer |
 | `native-permission-enforcement` | `pending` | `awaiting-submission` | `awaiting-submission` | `1` | Collect real target-client or external runtime guard proof. | target client or installer integrator |
 | `native-client-telemetry` | `pending` | `awaiting-submission` | `awaiting-submission` | `2` | Import at least one metadata-only event from a real client. | Browser/Chrome/IDE/provider client integrator |
@@ -60,7 +60,7 @@ This runbook coordinates evidence collection only. It does not accept submission
 ## Provider Holdout
 
 - objective: Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.
-- blocking reason: No evidence packet has been submitted for review.
+- blocking reason: Submission exists but fails the ledger submission contract.
 - blocked source checks: `2`
 - repair rows: `3` blocked
 - phase queue: `2` blocked phases
@@ -77,19 +77,19 @@ This runbook coordinates evidence collection only. It does not accept submission
 ### Source Runbook
 
 - Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.
-- python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>
+- python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self
 - Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.
-- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
+- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self
 - Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.
-- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
+- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self
 
 ### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 ### Must Collect
 
@@ -158,18 +158,18 @@ This runbook coordinates evidence collection only. It does not accept submission
 - Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.
 - Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.
 - Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.
-- python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>
-- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
+- python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self
+- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self
 - Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.
-- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
+- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self
 
 ### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 ### Must Collect
 
@@ -240,20 +240,20 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 - Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.
 - Update the generated target adapter only when the guard is actually enforced by that target.
-- python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip
-- python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation
-- python3 scripts/yao.py runtime-permissions . --package-dir dist
-- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
+- python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self
+- python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self
+- python3 scripts/yao.py runtime-permissions . --package-dir dist --self
+- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self
 - Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.
-- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
+- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self
 
 ### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-permission-enforcement --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 ### Must Collect
 
@@ -319,19 +319,19 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 - python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/
 - Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.
-- python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl
-- python3 scripts/yao.py skill-atlas --workspace-root .
-- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>
+- python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self
+- python3 scripts/yao.py skill-atlas --workspace-root . --self
+- python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self
 - Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.
-- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions
+- python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self
 
 ### Commands
 
-- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions`
-- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
-- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions`
-- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions`
-- guard_claim: `python3 scripts/yao.py world-class-claim-guard .`
+- prepare_submission: `python3 scripts/yao.py world-class-submission-kit . --evidence-key native-client-telemetry --output-dir evidence/world_class/submissions --self`
+- validate_intake: `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
+- review_queue: `python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self`
+- refresh_ledger: `python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self`
+- guard_claim: `python3 scripts/yao.py world-class-claim-guard . --self`
 
 ### Must Collect
 
@@ -387,7 +387,7 @@ This runbook coordinates evidence collection only. It does not accept submission
 | World-class ledger ready | `evidence-pending` | `ready_to_claim_world_class == true` | `blocked` | `reports/world_class_evidence_ledger.json` |
 | Claim guard clean | `violations 0; ledger ready False` | `violation_count == 0 and ledger_ready_to_claim_world_class == true` | `blocked` | `reports/world_class_claim_guard.json` |
 | Benchmark public claim ready | `public_claim_ready False` | `public_claim_ready == true` | `blocked` | `reports/benchmark_reproducibility.json` |
-| Review Studio clean | `blockers 0; warnings 5` | `blocker_count == 0 and warning_count == 0` | `blocked` | `reports/review-studio.json` |
+| Review Studio clean | `blockers 0; warnings 3` | `blocker_count == 0 and warning_count == 0` | `blocked` | `reports/review-studio.json` |
 | Evidence consistency clean | `consistent` | `decision == consistent and fail_count == 0` | `pass` | `reports/evidence_consistency.json` |
 
 ## Boundary

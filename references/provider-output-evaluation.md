@@ -5,7 +5,7 @@ The governed provider matrix lives at `evals/output/provider_matrix.json`. It fi
 Run the matrix through the trusted evidence entrypoint:
 
 ```bash
-python3 scripts/yao.py evidence-build . --run-id <run-id>
+python3 scripts/yao.py evidence-build . --run-id <run-id> --self
 ```
 
 When the credential is missing, the run records `external-required` and keeps quality promotion pending. When the credential is present, the run executes 10 frozen cases across two models and two variants. Raw outputs stay under `.yao/runs/<run-id>/raw-outputs`. Committed or published reports contain hashes, provider and model metadata, observed tokens, duration, response identifiers, and a redacted structural summary.
@@ -20,6 +20,7 @@ python3 scripts/yao.py evidence-finalize-review . \
   --decisions <reviewer-c.json> \
   --reviewer-registry <controlled-registry.json> \
   --run-id <final-run-id> \
+  --self \
   --publish
 ```
 

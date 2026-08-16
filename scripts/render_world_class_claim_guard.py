@@ -241,7 +241,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Guard public world-class completion claims against the evidence ledger.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--claim-surface", action="append", default=[])
     parser.add_argument("--output-json", default="reports/world_class_claim_guard.json")
     parser.add_argument("--output-md", default="reports/world_class_claim_guard.md")

@@ -349,7 +349,7 @@ def render_report(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render reviewer annotations for Review Studio gates and source paths.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--annotations-json")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")

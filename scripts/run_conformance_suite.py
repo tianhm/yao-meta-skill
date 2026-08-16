@@ -245,7 +245,7 @@ def run_conformance(skill_dir: Path, targets: list[str], output_json: Path, outp
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run runtime conformance checks for Skill OS 2.0 targets.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--target", action="append", choices=DEFAULT_TARGETS)
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")

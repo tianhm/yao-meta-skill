@@ -200,6 +200,19 @@ def resolve_skill_root(output_dir: str, name: str) -> Path:
     return root
 
 
+class TargetExistsError(ValueError):
+    """Raised when initialization would overwrite a non-empty target directory."""
+
+    def __init__(self, target: Path) -> None:
+        self.target = target
+        super().__init__(f"Target directory already exists and is not empty: {target}")
+
+
+def require_available_skill_root(root: Path) -> None:
+    if root.exists() and (not root.is_dir() or any(root.iterdir())):
+        raise TargetExistsError(root)
+
+
 def build_manifest(name: str, mode: str, archetype: str) -> dict:
     mode_payload = MODE_CONFIG.get(mode, MODE_CONFIG["scaffold"])
     return {
@@ -313,6 +326,7 @@ def initialize_skill(
 ) -> dict:
     title = title or name.replace("-", " ").title()
     root = resolve_skill_root(output_dir, name)
+    require_available_skill_root(root)
     (root / "agents").mkdir(parents=True, exist_ok=True)
     (root / "references").mkdir(exist_ok=True)
     (root / "scripts").mkdir(exist_ok=True)
@@ -477,6 +491,20 @@ def main() -> None:
                 "user_references": [parse_reference(item, "user")["name"] for item in args.user_reference],
             },
         )
+    except TargetExistsError as exc:
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "target-exists",
+                    "target": str(exc.target),
+                    "message": str(exc),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        raise SystemExit(2) from exc
     except ValueError as exc:
         print(json.dumps({"ok": False, "failures": [str(exc)]}, ensure_ascii=False, indent=2))
         raise SystemExit(2) from exc

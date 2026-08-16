@@ -1,21 +1,21 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "decision": "curator-review",
   "week_id": "2026-W33",
-  "daily_report_count": 8,
-  "opportunity_count": 40,
+  "daily_report_count": 9,
+  "opportunity_count": 45,
   "unique_opportunity_count": 5,
   "ready_for_approval_review_count": 1,
   "proposal_review_count": 4,
   "observe_more_evidence_count": 0,
   "report_only_count": 0,
   "top_score": 88,
-  "skill_count": 11,
-  "actionable_portfolio_issue_count": 1,
-  "release_lock_ready": true,
+  "skill_count": 12,
+  "actionable_portfolio_issue_count": 0,
+  "release_lock_ready": false,
   "evidence_consistency_ok": true,
   "public_world_class_ready": false,
   "world_class_pending_count": 4,
@@ -25,17 +25,17 @@
   "summary": {
     "decision": "curator-review",
     "week_id": "2026-W33",
-    "daily_report_count": 8,
-    "opportunity_count": 40,
+    "daily_report_count": 9,
+    "opportunity_count": 45,
     "unique_opportunity_count": 5,
     "ready_for_approval_review_count": 1,
     "proposal_review_count": 4,
     "observe_more_evidence_count": 0,
     "report_only_count": 0,
     "top_score": 88,
-    "skill_count": 11,
-    "actionable_portfolio_issue_count": 1,
-    "release_lock_ready": true,
+    "skill_count": 12,
+    "actionable_portfolio_issue_count": 0,
+    "release_lock_ready": false,
     "evidence_consistency_ok": true,
     "public_world_class_ready": false,
     "world_class_pending_count": 4,
@@ -96,7 +96,8 @@
     "reports/skillops/daily/2026-07-02.json",
     "reports/skillops/daily/2026-07-16.json",
     "reports/skillops/daily/2026-08-12.json",
-    "reports/skillops/daily/2026-08-14.json"
+    "reports/skillops/daily/2026-08-14.json",
+    "reports/skillops/daily/2026-08-16.json"
   ],
   "opportunity_summary": {
     "action_type_counts": {
@@ -281,20 +282,20 @@
     }
   ],
   "portfolio": {
-    "skill_count": 11,
-    "actionable_issue_count": 1,
+    "skill_count": 12,
+    "actionable_issue_count": 0,
     "route_collision_count": 5,
     "actionable_route_collision_count": 0,
-    "owner_gap_count": 8,
+    "owner_gap_count": 9,
     "actionable_owner_gap_count": 0,
-    "stale_count": 10,
+    "stale_count": 11,
     "actionable_stale_count": 0,
-    "drift_signal_count": 1,
-    "actionable_drift_signal_count": 1,
+    "drift_signal_count": 0,
+    "actionable_drift_signal_count": 0,
     "no_route_opportunity_count": 0
   },
   "release_state": {
-    "release_lock_ready": true,
+    "release_lock_ready": false,
     "evidence_consistency_ok": true,
     "public_world_class_ready": false,
     "world_class_pending_count": 4
@@ -304,11 +305,6 @@
       "key": "review-ready-opportunities",
       "priority": "high",
       "action": "Review the top ready-for-approval SkillOps opportunities before preparing any approval ledger entry."
-    },
-    {
-      "key": "triage-skill-library",
-      "priority": "high",
-      "action": "Triage actionable route collisions, owner gaps, stale skills, drift signals, or no-route opportunities from Skill Atlas."
     },
     {
       "key": "close-world-class-evidence",

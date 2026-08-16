@@ -50,11 +50,11 @@ Expected winners stay hidden until a valid reviewer decision is recorded.
 
 #### Commands
 
-- prepare_review_kit: `python3 scripts/yao.py output-review-kit`
+- prepare_review_kit: `python3 scripts/yao.py output-review-kit --self`
 - write_template: `python3 scripts/adjudicate_output_review.py --write-template`
-- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication`
-- adjudicate: `python3 scripts/yao.py output-review`
-- refresh_review_studio: `python3 scripts/yao.py review-studio .`
+- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self`
+- adjudicate: `python3 scripts/yao.py output-review --self`
+- refresh_review_studio: `python3 scripts/yao.py review-studio . --self`
 
 #### Required Fields
 
@@ -82,11 +82,11 @@ Expected winners stay hidden until a valid reviewer decision is recorded.
 
 #### Commands
 
-- prepare_review_kit: `python3 scripts/yao.py output-review-kit`
+- prepare_review_kit: `python3 scripts/yao.py output-review-kit --self`
 - write_template: `python3 scripts/adjudicate_output_review.py --write-template`
-- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication`
-- adjudicate: `python3 scripts/yao.py output-review`
-- refresh_review_studio: `python3 scripts/yao.py review-studio .`
+- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self`
+- adjudicate: `python3 scripts/yao.py output-review --self`
+- refresh_review_studio: `python3 scripts/yao.py review-studio . --self`
 
 #### Required Fields
 
@@ -114,11 +114,11 @@ Expected winners stay hidden until a valid reviewer decision is recorded.
 
 #### Commands
 
-- prepare_review_kit: `python3 scripts/yao.py output-review-kit`
+- prepare_review_kit: `python3 scripts/yao.py output-review-kit --self`
 - write_template: `python3 scripts/adjudicate_output_review.py --write-template`
-- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication`
-- adjudicate: `python3 scripts/yao.py output-review`
-- refresh_review_studio: `python3 scripts/yao.py review-studio .`
+- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self`
+- adjudicate: `python3 scripts/yao.py output-review --self`
+- refresh_review_studio: `python3 scripts/yao.py review-studio . --self`
 
 #### Required Fields
 
@@ -146,11 +146,11 @@ Expected winners stay hidden until a valid reviewer decision is recorded.
 
 #### Commands
 
-- prepare_review_kit: `python3 scripts/yao.py output-review-kit`
+- prepare_review_kit: `python3 scripts/yao.py output-review-kit --self`
 - write_template: `python3 scripts/adjudicate_output_review.py --write-template`
-- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication`
-- adjudicate: `python3 scripts/yao.py output-review`
-- refresh_review_studio: `python3 scripts/yao.py review-studio .`
+- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self`
+- adjudicate: `python3 scripts/yao.py output-review --self`
+- refresh_review_studio: `python3 scripts/yao.py review-studio . --self`
 
 #### Required Fields
 
@@ -178,11 +178,11 @@ Expected winners stay hidden until a valid reviewer decision is recorded.
 
 #### Commands
 
-- prepare_review_kit: `python3 scripts/yao.py output-review-kit`
+- prepare_review_kit: `python3 scripts/yao.py output-review-kit --self`
 - write_template: `python3 scripts/adjudicate_output_review.py --write-template`
-- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication`
-- adjudicate: `python3 scripts/yao.py output-review`
-- refresh_review_studio: `python3 scripts/yao.py review-studio .`
+- import_decisions: `python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication --self`
+- adjudicate: `python3 scripts/yao.py output-review --self`
+- refresh_review_studio: `python3 scripts/yao.py review-studio . --self`
 
 #### Required Fields
 

@@ -135,6 +135,126 @@ def test_output_dir_symlink_rejected() -> dict:
     return {"name": "output_dir_symlink_rejected", "passed": passed, **result}
 
 
+def test_nonempty_user_output_preserved() -> dict:
+    case_root = TMP / "nonempty-user-output"
+    skill = write_skill(case_root)
+    out_dir = case_root / "reports"
+    out_dir.mkdir()
+    sentinel = out_dir / "keep-me.txt"
+    original = b"user-owned report\n"
+    sentinel.write_bytes(original)
+    result = run(
+        [
+            sys.executable,
+            str(CROSS_PACKAGER),
+            str(skill),
+            "--platform",
+            "generic",
+            "--output-dir",
+            str(out_dir),
+        ]
+    )
+    sentinel_preserved = (
+        result["returncode"] == 2
+        and sentinel.is_file()
+        and sentinel.read_bytes() == original
+        and "Refusing unmanaged non-empty output directory" in result["stdout"]
+    )
+
+    manifest_only_dir = case_root / "manifest-only"
+    manifest_only_dir.mkdir()
+    user_manifest = b'{"name":"user-web-app"}\n'
+    (manifest_only_dir / "manifest.json").write_bytes(user_manifest)
+    manifest_result = run(
+        [
+            sys.executable,
+            str(CROSS_PACKAGER),
+            str(skill),
+            "--platform",
+            "generic",
+            "--output-dir",
+            str(manifest_only_dir),
+        ]
+    )
+    manifest_preserved = (
+        manifest_result["returncode"] == 2
+        and (manifest_only_dir / "manifest.json").read_bytes() == user_manifest
+        and "Refusing unmanaged non-empty output directory" in manifest_result["stdout"]
+    )
+    return {
+        "name": "nonempty_user_output_preserved",
+        "passed": sentinel_preserved and manifest_preserved,
+        "sentinel_preserved": sentinel_preserved,
+        "manifest_preserved": manifest_preserved,
+        **result,
+    }
+
+
+def test_generated_install_simulation_replaced_safely() -> dict:
+    case_root = TMP / "generated-install-simulation"
+    skill = write_skill(case_root)
+    out_dir = case_root / "dist"
+    build = run(
+        [
+            sys.executable,
+            str(CROSS_PACKAGER),
+            str(skill),
+            "--platform",
+            "generic",
+            "--output-dir",
+            str(out_dir),
+            "--zip",
+        ]
+    )
+    assert build["ok"], build
+    install_root = out_dir / "install-simulation" / "simulate-secure-demo"
+    with zipfile.ZipFile(out_dir / "secure-demo.zip") as archive:
+        archive.extractall(install_root)
+    rebuild = run(
+        [
+            sys.executable,
+            str(CROSS_PACKAGER),
+            str(skill),
+            "--platform",
+            "generic",
+            "--output-dir",
+            str(out_dir),
+            "--zip",
+        ]
+    )
+    exact_replaced = rebuild["ok"] and not (out_dir / "install-simulation").exists()
+
+    install_root.mkdir(parents=True)
+    with zipfile.ZipFile(out_dir / "secure-demo.zip") as archive:
+        archive.extractall(install_root)
+    sentinel = out_dir / "install-simulation" / "keep-me.txt"
+    sentinel.write_text("user-owned\n", encoding="utf-8")
+    tampered = run(
+        [
+            sys.executable,
+            str(CROSS_PACKAGER),
+            str(skill),
+            "--platform",
+            "generic",
+            "--output-dir",
+            str(out_dir),
+            "--zip",
+        ]
+    )
+    tampered_preserved = (
+        tampered["returncode"] == 2
+        and sentinel.read_text(encoding="utf-8") == "user-owned\n"
+        and "Refusing unmanaged non-empty output directory" in tampered["stdout"]
+    )
+    return {
+        "name": "generated_install_simulation_replaced_safely",
+        "passed": exact_replaced and tampered_preserved,
+        "exact_replaced": exact_replaced,
+        "tampered_preserved": tampered_preserved,
+        **rebuild,
+    }
+
+
 def test_init_rejects_path_traversal() -> dict:
     case_root = TMP / "init-traversal"
     output_dir = case_root / "container"
@@ -211,6 +331,8 @@ def main() -> None:
         test_dangerous_output_dir(),
         test_zip_skips_symlink(),
         test_output_dir_symlink_rejected(),
+        test_nonempty_user_output_preserved(),
+        test_generated_install_simulation_replaced_safely(),
         test_init_rejects_path_traversal(),
         test_update_rejects_file_url(),
         test_openai_yaml_uses_safe_dump(),

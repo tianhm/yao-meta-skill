@@ -100,14 +100,14 @@ def build_operator_checklist(
                 "commands": {
                     "prepare_submission": (
                         "python3 scripts/yao.py world-class-submission-kit . "
-                        f"--evidence-key {shlex.quote(key)} --output-dir {shell_path(submission_path.parent, skill_dir)}"
+                        f"--evidence-key {shlex.quote(key)} --output-dir {shell_path(submission_path.parent, skill_dir)} --self"
                     ),
-                    "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {submissions_dir_arg}",
+                    "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {submissions_dir_arg} --self",
                     "submission_review": (
-                        f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {submissions_dir_arg}"
+                        f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {submissions_dir_arg} --self"
                     ),
-                    "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {submissions_dir_arg}",
-                    "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+                    "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {submissions_dir_arg} --self",
+                    "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
                 },
                 "must_collect": {
                     "provenance_requirements": entry.get("provenance_requirements", []),
@@ -327,7 +327,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Validate world-class evidence intake packets.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--submissions-dir")
     parser.add_argument("--output-json", default="reports/world_class_evidence_intake.json")
     parser.add_argument("--output-md", default="reports/world_class_evidence_intake.md")
