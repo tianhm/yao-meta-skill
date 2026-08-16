@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
-    "python_file_count": 247,
-    "script_file_count": 165,
+    "python_file_count": 248,
+    "script_file_count": 166,
     "test_file_count": 82,
     "internal_module_count": 76,
-    "cli_script_count": 92,
+    "cli_script_count": 93,
     "command_handler_count": 73,
     "entrypoint_command_handler_count": 18,
     "command_module_count": 7,

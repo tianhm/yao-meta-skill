@@ -40,8 +40,8 @@ def main() -> None:
     assert payload["summary"]["world_class_ready"] is False, payload
     assert payload["summary"]["missing_count"] == 0, payload
     assert payload["summary"]["item_count"] >= 15, payload
-    assert payload["summary"]["pass_count"] >= 11, payload
-    assert payload["summary"]["human_required_count"] >= 1, payload
+    assert payload["summary"]["pass_count"] >= 13, payload
+    assert payload["summary"]["human_required_count"] == 0, payload
     assert payload["summary"]["external_required_count"] >= 2, payload
     assert payload["artifacts"]["world_class_evidence_plan"] == "reports/world_class_evidence_plan.md", payload
     items = {item["key"]: item for item in payload["items"]}
@@ -49,9 +49,12 @@ def main() -> None:
     assert items["target-compiler"]["status"] == "pass", items["target-compiler"]
     assert items["output-eval-lab"]["status"] == "pass", items["output-eval-lab"]
     assert items["benchmark-reproducibility"]["status"] == "pass", items["benchmark-reproducibility"]
-    assert items["provider-holdout"]["status"] == "external_required", items["provider-holdout"]
-    assert "model-executed 0/40" in items["provider-holdout"]["current"], items["provider-holdout"]
-    assert items["human-adjudication"]["status"] == "human_required", items["human-adjudication"]
+    assert items["provider-holdout"]["status"] == "pass", items["provider-holdout"]
+    assert "model-executed 40/40" in items["provider-holdout"]["current"], items["provider-holdout"]
+    assert "calls 40/40" in items["provider-holdout"]["current"], items["provider-holdout"]
+    assert items["human-adjudication"]["status"] == "pass", items["human-adjudication"]
+    assert "reviewers 3/3" in items["human-adjudication"]["current"], items["human-adjudication"]
+    assert "pairs 20/20" in items["human-adjudication"]["current"], items["human-adjudication"]
     assert items["native-permission-enforcement"]["status"] == "external_required", items["native-permission-enforcement"]
     assert "installer-enforced targets" in items["native-permission-enforcement"]["current"], items["native-permission-enforcement"]
     assert items["native-client-telemetry"]["status"] == "external_required", items["native-client-telemetry"]
@@ -63,7 +66,8 @@ def main() -> None:
     assert "reports/world_class_evidence_plan.md" in markdown, markdown
     assert "Provider Holdout" in markdown, markdown
     assert "Benchmark Reproducibility" in markdown, markdown
-    assert "`human-adjudication`" in markdown, markdown
+    assert "Human Adjudication" in markdown, markdown
+    assert "phase1 reviewers 3/3" in markdown, markdown
     assert "`native-client-telemetry`" in markdown, markdown
     print(json.dumps({"ok": True}, ensure_ascii=False, indent=2))
 

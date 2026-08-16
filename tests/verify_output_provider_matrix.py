@@ -23,6 +23,13 @@ from output_provider_matrix import (  # noqa: E402
     provider_status,
     resolve_provider_cases_path,
 )
+from publish_provider_evidence import (  # noqa: E402
+    assert_public_boundary,
+    sanitize_adjudication,
+    sanitize_commitment,
+    sanitize_lineage,
+    sanitize_provider_report,
+)
 
 
 def main() -> None:
@@ -174,6 +181,46 @@ def main() -> None:
     assert summary["fleiss_kappa"] == 1.0, adjudication
     assert adjudication["quality_promotion"]["eligible"] is True, adjudication
     assert adjudication["world_class_evidence"]["counts_as_completion"] is False, adjudication
+
+    public_commitment = {
+        "schema_version": "1.0",
+        "status": "private-answer-key-isolated",
+        "pair_count": 20,
+        "blind_pack_sha256": answer_key["blind_pack_sha256"],
+        "answer_key_sha256": canonical_sha256(answer_key),
+    }
+    public_report = sanitize_provider_report(
+        report,
+        adjudication,
+        generated_at="2026-08-16",
+        source_run_id="provider-source",
+        source_commit="a" * 40,
+        commitment=public_commitment,
+        export_commit="a" * 40,
+    )
+    public_adjudication = sanitize_adjudication(
+        adjudication,
+        generated_at="2026-08-16",
+        source_run_id="provider-source",
+    )
+    public_lineage = sanitize_lineage(
+        {
+            "source_run_id": "provider-source",
+            "source_artifact_index_sha256": "b" * 64,
+            "source_commit": "a" * 40,
+            "blind_pack_sha256": answer_key["blind_pack_sha256"],
+            "answer_key_sha256": canonical_sha256(answer_key),
+        }
+    )
+    for public_payload in (public_report, public_adjudication, sanitize_commitment(public_commitment), public_lineage):
+        assert_public_boundary(public_payload)
+        serialized_public = json.dumps(public_payload, ensure_ascii=False)
+        assert "raw_output_path" not in serialized_public, serialized_public
+        assert "controlled_submission_id" not in serialized_public, serialized_public
+        assert "registered_reviewer_identities" not in serialized_public, serialized_public
+    assert public_report["summary"]["model_breakdown"]["deepseek-v4-flash"]["call_count"] == 20, public_report
+    assert public_adjudication["summary"]["with_skill_vote_count"] == 60, public_adjudication
+    assert public_adjudication["summary"]["unanimous_with_skill_pair_count"] == 20, public_adjudication
 
     pending = adjudicate_reviews(answer_key, decisions[:2], registry)
     assert pending["quality_promotion"]["status"] == "pending", pending

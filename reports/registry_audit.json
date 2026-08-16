@@ -21,8 +21,8 @@
     "trust_level": "local",
     "license": "MIT",
     "checksums": {
-      "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
-      "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
+      "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
+      "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5"
     },
     "compatibility": {
       "openai": "pass",
@@ -53,16 +53,16 @@
     },
     "distribution": {
       "archive_verified": true,
-      "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
+      "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
       "package_verification": "reports/package_verification.json",
       "install_simulated": true,
       "install_simulation": "reports/install_simulation.json"
     },
-    "generated_at": "2026-08-14"
+    "generated_at": "2026-08-16"
   },
   "index": {
     "schema_version": "2.0",
-    "generated_at": "2026-08-14",
+    "generated_at": "2026-08-16",
     "package_count": 1,
     "packages": [
       {
@@ -78,7 +78,7 @@
           "vscode"
         ],
         "package_metadata": "registry/packages/yao-meta-skill.json",
-        "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
+        "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
       }
     ]
   },

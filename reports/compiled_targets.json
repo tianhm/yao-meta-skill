@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "target_count": 5,
@@ -566,7 +566,7 @@
             },
             "subprocess": {
               "required": true,
-              "script_count": 15,
+              "script_count": 16,
               "scripts": [
                 "scripts/apply_adaptation.py",
                 "scripts/benchmark_release_lock.py",
@@ -578,6 +578,7 @@
                 "scripts/render_evidence_consistency.py",
                 "scripts/run_eval_suite.py",
                 "scripts/run_output_execution.py",
+                "scripts/skill_report_sources.py",
                 "scripts/sync_local_install.py",
                 "scripts/trust_check.py",
                 "scripts/yao.py",
@@ -613,7 +614,7 @@
             "secret_findings": 0,
             "network_script_count": 3,
             "file_write_script_count": 79,
-            "subprocess_script_count": 15,
+            "subprocess_script_count": 16,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
           }
@@ -635,7 +636,7 @@
           "capability_counts": {
             "network": 3,
             "file_write": 79,
-            "subprocess": 15,
+            "subprocess": 16,
             "interactive": 0
           },
           "evidence": "reports/security_trust_report.json",
@@ -833,7 +834,7 @@
           },
           "subprocess": {
             "required": true,
-            "script_count": 15,
+            "script_count": 16,
             "scripts": [
               "scripts/apply_adaptation.py",
               "scripts/benchmark_release_lock.py",
@@ -845,6 +846,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -880,7 +882,7 @@
           "secret_findings": 0,
           "network_script_count": 3,
           "file_write_script_count": 79,
-          "subprocess_script_count": 15,
+          "subprocess_script_count": 16,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
         }
@@ -900,7 +902,7 @@
         "capability_counts": {
           "network": 3,
           "file_write": 79,
-          "subprocess": 15,
+          "subprocess": 16,
           "interactive": 0
         },
         "evidence": "reports/security_trust_report.json",
@@ -1554,7 +1556,7 @@
             },
             "subprocess": {
               "required": true,
-              "script_count": 15,
+              "script_count": 16,
               "scripts": [
                 "scripts/apply_adaptation.py",
                 "scripts/benchmark_release_lock.py",
@@ -1566,6 +1568,7 @@
                 "scripts/render_evidence_consistency.py",
                 "scripts/run_eval_suite.py",
                 "scripts/run_output_execution.py",
+                "scripts/skill_report_sources.py",
                 "scripts/sync_local_install.py",
                 "scripts/trust_check.py",
                 "scripts/yao.py",
@@ -1601,7 +1604,7 @@
             "secret_findings": 0,
             "network_script_count": 3,
             "file_write_script_count": 79,
-            "subprocess_script_count": 15,
+            "subprocess_script_count": 16,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
           }
@@ -1623,7 +1626,7 @@
           "capability_counts": {
             "network": 3,
             "file_write": 79,
-            "subprocess": 15,
+            "subprocess": 16,
             "interactive": 0
           },
           "evidence": "reports/security_trust_report.json",
@@ -1821,7 +1824,7 @@
           },
           "subprocess": {
             "required": true,
-            "script_count": 15,
+            "script_count": 16,
             "scripts": [
               "scripts/apply_adaptation.py",
               "scripts/benchmark_release_lock.py",
@@ -1833,6 +1836,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -1868,7 +1872,7 @@
           "secret_findings": 0,
           "network_script_count": 3,
           "file_write_script_count": 79,
-          "subprocess_script_count": 15,
+          "subprocess_script_count": 16,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
         }
@@ -1888,7 +1892,7 @@
         "capability_counts": {
           "network": 3,
           "file_write": 79,
-          "subprocess": 15,
+          "subprocess": 16,
           "interactive": 0
         },
         "evidence": "reports/security_trust_report.json",
@@ -2542,7 +2546,7 @@
             },
             "subprocess": {
               "required": true,
-              "script_count": 15,
+              "script_count": 16,
               "scripts": [
                 "scripts/apply_adaptation.py",
                 "scripts/benchmark_release_lock.py",
@@ -2554,6 +2558,7 @@
                 "scripts/render_evidence_consistency.py",
                 "scripts/run_eval_suite.py",
                 "scripts/run_output_execution.py",
+                "scripts/skill_report_sources.py",
                 "scripts/sync_local_install.py",
                 "scripts/trust_check.py",
                 "scripts/yao.py",
@@ -2589,7 +2594,7 @@
             "secret_findings": 0,
             "network_script_count": 3,
             "file_write_script_count": 79,
-            "subprocess_script_count": 15,
+            "subprocess_script_count": 16,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
           }
@@ -2611,7 +2616,7 @@
           "capability_counts": {
             "network": 3,
             "file_write": 79,
-            "subprocess": 15,
+            "subprocess": 16,
             "interactive": 0
           },
           "evidence": "reports/security_trust_report.json",
@@ -2802,7 +2807,7 @@
           },
           "subprocess": {
             "required": true,
-            "script_count": 15,
+            "script_count": 16,
             "scripts": [
               "scripts/apply_adaptation.py",
               "scripts/benchmark_release_lock.py",
@@ -2814,6 +2819,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -2849,7 +2855,7 @@
           "secret_findings": 0,
           "network_script_count": 3,
           "file_write_script_count": 79,
-          "subprocess_script_count": 15,
+          "subprocess_script_count": 16,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
         }
@@ -2869,7 +2875,7 @@
         "capability_counts": {
           "network": 3,
           "file_write": 79,
-          "subprocess": 15,
+          "subprocess": 16,
           "interactive": 0
         },
         "evidence": "reports/security_trust_report.json",
@@ -3514,7 +3520,7 @@
             },
             "subprocess": {
               "required": true,
-              "script_count": 15,
+              "script_count": 16,
               "scripts": [
                 "scripts/apply_adaptation.py",
                 "scripts/benchmark_release_lock.py",
@@ -3526,6 +3532,7 @@
                 "scripts/render_evidence_consistency.py",
                 "scripts/run_eval_suite.py",
                 "scripts/run_output_execution.py",
+                "scripts/skill_report_sources.py",
                 "scripts/sync_local_install.py",
                 "scripts/trust_check.py",
                 "scripts/yao.py",
@@ -3561,7 +3568,7 @@
             "secret_findings": 0,
             "network_script_count": 3,
             "file_write_script_count": 79,
-            "subprocess_script_count": 15,
+            "subprocess_script_count": 16,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
           }
@@ -3583,7 +3590,7 @@
           "capability_counts": {
             "network": 3,
             "file_write": 79,
-            "subprocess": 15,
+            "subprocess": 16,
             "interactive": 0
           },
           "evidence": "reports/security_trust_report.json",
@@ -3774,7 +3781,7 @@
           },
           "subprocess": {
             "required": true,
-            "script_count": 15,
+            "script_count": 16,
             "scripts": [
               "scripts/apply_adaptation.py",
               "scripts/benchmark_release_lock.py",
@@ -3786,6 +3793,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -3821,7 +3829,7 @@
           "secret_findings": 0,
           "network_script_count": 3,
           "file_write_script_count": 79,
-          "subprocess_script_count": 15,
+          "subprocess_script_count": 16,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
         }
@@ -3841,7 +3849,7 @@
         "capability_counts": {
           "network": 3,
           "file_write": 79,
-          "subprocess": 15,
+          "subprocess": 16,
           "interactive": 0
         },
         "evidence": "reports/security_trust_report.json",
@@ -4486,7 +4494,7 @@
             },
             "subprocess": {
               "required": true,
-              "script_count": 15,
+              "script_count": 16,
               "scripts": [
                 "scripts/apply_adaptation.py",
                 "scripts/benchmark_release_lock.py",
@@ -4498,6 +4506,7 @@
                 "scripts/render_evidence_consistency.py",
                 "scripts/run_eval_suite.py",
                 "scripts/run_output_execution.py",
+                "scripts/skill_report_sources.py",
                 "scripts/sync_local_install.py",
                 "scripts/trust_check.py",
                 "scripts/yao.py",
@@ -4533,7 +4542,7 @@
             "secret_findings": 0,
             "network_script_count": 3,
             "file_write_script_count": 79,
-            "subprocess_script_count": 15,
+            "subprocess_script_count": 16,
             "interactive_script_count": 0,
             "help_smoke_failed_count": 0
           }
@@ -4555,7 +4564,7 @@
           "capability_counts": {
             "network": 3,
             "file_write": 79,
-            "subprocess": 15,
+            "subprocess": 16,
             "interactive": 0
           },
           "evidence": "reports/security_trust_report.json",
@@ -4750,7 +4759,7 @@
           },
           "subprocess": {
             "required": true,
-            "script_count": 15,
+            "script_count": 16,
             "scripts": [
               "scripts/apply_adaptation.py",
               "scripts/benchmark_release_lock.py",
@@ -4762,6 +4771,7 @@
               "scripts/render_evidence_consistency.py",
               "scripts/run_eval_suite.py",
               "scripts/run_output_execution.py",
+              "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
               "scripts/yao.py",
@@ -4797,7 +4807,7 @@
           "secret_findings": 0,
           "network_script_count": 3,
           "file_write_script_count": 79,
-          "subprocess_script_count": 15,
+          "subprocess_script_count": 16,
           "interactive_script_count": 0,
           "help_smoke_failed_count": 0
         }
@@ -4817,7 +4827,7 @@
         "capability_counts": {
           "network": 3,
           "file_write": 79,
-          "subprocess": 15,
+          "subprocess": 16,
           "interactive": 0
         },
         "evidence": "reports/security_trust_report.json",

@@ -44,7 +44,7 @@
   },
   "catalog": {
     "workspace_root": ".",
-    "generated_at": "2026-08-14",
+    "generated_at": "2026-08-16",
     "skills": [
       {
         "name": "yao-meta-skill",
@@ -116,6 +116,7 @@
           "scripts/promotion_checker.py",
           "scripts/propose_adaptation.py",
           "scripts/provider_output_eval_runner.py",
+          "scripts/publish_provider_evidence.py",
           "scripts/python_compat_check.py",
           "scripts/reference_synthesis_markdown.py",
           "scripts/registry_audit.py",
@@ -883,7 +884,7 @@
       "name": "release-orchestrator",
       "path": "examples/complex-release-orchestrator/generated-skill",
       "reason": "review overdue by cadence quarterly",
-      "age_days": 136,
+      "age_days": 138,
       "allowed_days": 100,
       "actionable": false,
       "scope": "example"
@@ -913,7 +914,7 @@
       "name": "incident-command-governor",
       "path": "examples/governed-incident-command/generated-skill",
       "reason": "review overdue by cadence monthly",
-      "age_days": 136,
+      "age_days": 138,
       "allowed_days": 31,
       "actionable": false,
       "scope": "example"

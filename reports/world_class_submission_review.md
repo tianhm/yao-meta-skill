@@ -1,6 +1,6 @@
 # World-Class Submission Review
 
-Generated at: `2026-08-14`
+Generated at: `2026-08-16`
 
 ## Summary
 
@@ -21,8 +21,8 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 
 | Evidence | Review state | Intake | Source accepted | Submission | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `provider-holdout` | `awaiting-submission` | `missing` | `false` | `missing` | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
-| `human-adjudication` | `awaiting-submission` | `missing` | `false` | `missing` | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
+| `provider-holdout` | `awaiting-submission` | `missing` | `true` | `missing` | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| `human-adjudication` | `awaiting-submission` | `missing` | `true` | `missing` | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | `native-permission-enforcement` | `awaiting-submission` | `missing` | `false` | `missing` | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
 | `native-client-telemetry` | `awaiting-submission` | `missing` | `false` | `missing` | Install a real client against the native host and import production metadata-only events. |
 
@@ -35,15 +35,15 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 - ledger status: `pending`
 - submission status: `missing`
 - intake status: `missing`
-- source accepted: `false`
+- source accepted: `true`
 - submission path: `evidence/world_class/submissions/provider-holdout.json`
 
 #### Source Checks
 
-- Provider calls: 0 / ==40 => blocked
-- Provider model runs: 0 / ==40 => blocked
+- Provider calls: 40 / ==40 => pass
+- Provider model runs: 40 / ==40 => pass
 - Provider failures: 0 / ==0 => pass
-- Token budget: 0 / <=250000 => pass
+- Token budget: 40938 / <=250000 => pass
 
 #### Completion Assertions
 
@@ -69,15 +69,15 @@ This report is a read-only reviewer queue. It does not accept evidence or make w
 - ledger status: `pending`
 - submission status: `missing`
 - intake status: `missing`
-- source accepted: `false`
+- source accepted: `true`
 - submission path: `evidence/world_class/submissions/human-adjudication.json`
 
 #### Source Checks
 
-- Registered reviewers: 0 / ==3 => blocked
-- Blind pairs: 0 / ==20 => blocked
+- Registered reviewers: 3 / ==3 => pass
+- Blind pairs: 20 / ==20 => pass
 - Review failures: 0 / ==0 => pass
-- Blind pack binding: False / true => blocked
+- Blind pack binding: True / true => pass
 
 #### Completion Assertions
 
