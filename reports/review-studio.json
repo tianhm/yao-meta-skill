@@ -1975,10 +1975,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 189
+            "file_count": 191
           }
         ],
-        "file_count": 430,
+        "file_count": 432,
         "folder_count": 4,
         "distribution": [
           {
@@ -2011,7 +2011,7 @@
           },
           {
             "label": "reports",
-            "value": 189
+            "value": 191
           }
         ]
       },
@@ -2145,7 +2145,7 @@
           "path": "reports",
           "label": "Generated evidence and overview artifacts",
           "kind": "folder",
-          "file_count": 189
+          "file_count": 191
         }
       ],
       "strengths": [
@@ -2251,7 +2251,7 @@
         "source_path": "skill-ir/examples/yao-meta-skill.json",
         "target_count": 5,
         "trigger_samples": 8,
-        "output_eval_cases": 5
+        "output_eval_cases": 6
       },
       "compiled_targets": {
         "ok": true,
@@ -2469,9 +2469,9 @@
           "methodology_complete": true,
           "required_artifact_count": 25,
           "missing_artifact_count": 0,
-          "evidence_bundle_sha256": "8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b",
-          "source_contract_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
-          "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
+          "evidence_bundle_sha256": "12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1",
+          "source_contract_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94",
+          "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
           "output_case_count": 5,
           "failure_disclosure_count": 3,
           "command_count": 23,
@@ -2498,13 +2498,13 @@
           "public_claim_ready": false,
           "public_claim_blocker_count": 3,
           "working_tree_dirty": true,
-          "changed_file_count": 3,
+          "changed_file_count": 42,
           "source_tree_dirty": false,
           "source_changed_file_count": 0,
           "generated_tree_dirty": true,
-          "generated_changed_file_count": 3
+          "generated_changed_file_count": 42
         },
-        "commit": "05a7268cea0548af8d8be5591770d35d9fdf7c7d",
+        "commit": "9bea7ab0a17daf4785150066f94dbd9db5e5a53c",
         "missing_artifacts": [],
         "limitations": [
           "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -2610,7 +2610,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 267,
-        "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
+        "package_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
       },
       "skill_atlas": {
         "skill_count": 11,
@@ -2648,8 +2648,8 @@
           "trust_level": "local",
           "license": "MIT",
           "checksums": {
-            "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
-            "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5"
+            "package_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94",
+            "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
           },
           "compatibility": {
             "openai": "pass",
@@ -2680,7 +2680,7 @@
           },
           "distribution": {
             "archive_verified": true,
-            "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
+            "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
             "package_verification": "reports/package_verification.json",
             "install_simulated": true,
             "install_simulation": "reports/install_simulation.json"
@@ -2696,8 +2696,8 @@
           "target_count": 4,
           "adapter_count": 4,
           "archive_present": true,
-          "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
-          "archive_entry_count": 639,
+          "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
+          "archive_entry_count": 641,
           "nested_skill_entry_count": 0,
           "failure_count": 0,
           "warning_count": 0
@@ -2709,7 +2709,7 @@
         "ok": true,
         "summary": {
           "archive_present": true,
-          "archive_entry_count": 639,
+          "archive_entry_count": 641,
           "nested_skill_entry_count": 0,
           "archive_extracted": true,
           "entrypoint_loaded": true,
@@ -2777,12 +2777,12 @@
             {
               "field": "archive_sha256",
               "from": "",
-              "to": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5"
+              "to": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
             },
             {
               "field": "package_sha256",
               "from": "0000000000000000000000000000000000000000000000000000000000000000",
-              "to": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
+              "to": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
             }
           ]
         },
@@ -7675,25 +7675,43 @@
       "ok": true,
       "generated_at": "2026-08-16",
       "skill_dir": ".",
-      "commit": "05a7268cea0548af8d8be5591770d35d9fdf7c7d",
+      "commit": "9bea7ab0a17daf4785150066f94dbd9db5e5a53c",
       "git_status": {
         "available": true,
         "dirty": true,
-        "changed_file_count": 3,
+        "changed_file_count": 42,
         "generated_dirty": true,
-        "generated_changed_file_count": 3,
+        "generated_changed_file_count": 42,
         "source_dirty": false,
         "source_changed_file_count": 0,
         "sample": [
-          " M reports/context_budget.json",
-          " M reports/context_budget.md",
-          " M reports/context_budget_summary.json"
+          " M registry/index.json",
+          " M registry/packages/yao-meta-skill.json",
+          " M reports/adaptation_proposals.json",
+          " M reports/adaptation_proposals.md",
+          " M reports/architecture_maintainability.json",
+          " M reports/architecture_maintainability.md",
+          " M reports/artifact-design-profile.json",
+          " M reports/artifact-design-profile.md",
+          " M reports/benchmark_reproducibility.json",
+          " M reports/benchmark_reproducibility.md",
+          " M reports/compiled_targets.json",
+          " M reports/context_budget.json"
         ],
         "source_sample": [],
         "generated_sample": [
-          " M reports/context_budget.json",
-          " M reports/context_budget.md",
-          " M reports/context_budget_summary.json"
+          " M registry/index.json",
+          " M registry/packages/yao-meta-skill.json",
+          " M reports/adaptation_proposals.json",
+          " M reports/adaptation_proposals.md",
+          " M reports/architecture_maintainability.json",
+          " M reports/architecture_maintainability.md",
+          " M reports/artifact-design-profile.json",
+          " M reports/artifact-design-profile.md",
+          " M reports/benchmark_reproducibility.json",
+          " M reports/benchmark_reproducibility.md",
+          " M reports/compiled_targets.json",
+          " M reports/context_budget.json"
         ],
         "generated_dirty_prefixes": [
           "dist/",
@@ -7711,9 +7729,9 @@
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b",
-        "source_contract_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
-        "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
+        "evidence_bundle_sha256": "12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1",
+        "source_contract_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94",
+        "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
         "command_count": 23,
@@ -7740,11 +7758,11 @@
         "public_claim_ready": false,
         "public_claim_blocker_count": 3,
         "working_tree_dirty": true,
-        "changed_file_count": 3,
+        "changed_file_count": 42,
         "source_tree_dirty": false,
         "source_changed_file_count": 0,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 3
+        "generated_changed_file_count": 42
       },
       "beta_test_release": {
         "ready": true,
@@ -7787,10 +7805,10 @@
       },
       "release_lock": {
         "ready": true,
-        "commit": "05a7268cea0548af8d8be5591770d35d9fdf7c7d",
+        "commit": "9bea7ab0a17daf4785150066f94dbd9db5e5a53c",
         "status_scope": "generation-time status before this report is written",
         "source_changed_file_count": 0,
-        "generated_changed_file_count": 3,
+        "generated_changed_file_count": 42,
         "reason": "only generated evidence artifacts were dirty at generation time"
       },
       "evidence_bundle": {
@@ -7799,7 +7817,7 @@
         "existing_count": 25,
         "missing_count": 0,
         "missing_paths": [],
-        "sha256": "8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b"
+        "sha256": "12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1"
       },
       "methodology": {
         "path": "reports/benchmark_methodology.md",
@@ -7908,42 +7926,42 @@
           "path": "reports/security_trust_report.json",
           "exists": true,
           "bytes": 148780,
-          "sha256": "8943192812eb7f3506b48ccf437b5df0ec39e122a8f8f1797af15f6c72409af8"
+          "sha256": "c6c854efa9c1bb8931d2167f1cb98c5ffef6cd7450dbcc491530ab9d519a8ca3"
         },
         {
           "label": "python_compatibility",
           "path": "reports/python_compatibility.json",
           "exists": true,
           "bytes": 33554,
-          "sha256": "1f53851c1b3a21831761bdbc552bc7165d623506543a1a60f0ab95321fcf2e39"
+          "sha256": "ff05bd9d8e69d328c54b5dcfcdf3493cd8bc42020736a0ea8a4de68f22e69f75"
         },
         {
           "label": "registry_audit",
           "path": "reports/registry_audit.json",
           "exists": true,
           "bytes": 3234,
-          "sha256": "ae940b7f2267da637abbef10646bdd41679788bd6334c31210da28d339defce3"
+          "sha256": "a6ba6cb9db772895d3ee25130b6a72c12ded13636a79bebd0349e88b3aaa2574"
         },
         {
           "label": "package_verification",
           "path": "reports/package_verification.json",
           "exists": true,
           "bytes": 19653,
-          "sha256": "945fd76521a116d364ebfc0ef12d2ca02521d5b31ca9dafdc053e5fc9c530584"
+          "sha256": "1ea9591c84a6a165f7d3f5f70c6bc049d2746da133328ae45acb8948a0384bea"
         },
         {
           "label": "install_simulation",
           "path": "reports/install_simulation.json",
           "exists": true,
           "bytes": 8793,
-          "sha256": "702b1daf443b04f489a219c10247cd457b723e79710851b26f5ab14d0f2ae786"
+          "sha256": "ae02ecccdfcb4e6ef530ae43cab06230b626a3529c840e3458362f99ba93ad51"
         },
         {
           "label": "skill_os2_audit",
           "path": "reports/skill_os2_audit.json",
           "exists": true,
           "bytes": 13191,
-          "sha256": "f3d37b0b7cfc84e2e3160bd5185e79488dfa60b6dfaef10b39ec6c50b0537a07"
+          "sha256": "c95befc8b245f252e234d738f5804157753b8b04138d9b0b3b58d4c870e30c14"
         },
         {
           "label": "world_class_evidence_plan",
@@ -7970,8 +7988,8 @@
           "label": "world_class_evidence_preflight",
           "path": "reports/world_class_evidence_preflight.json",
           "exists": true,
-          "bytes": 90459,
-          "sha256": "c69945916f74c89217a71943c76c694767995c0ab7b143db4407c4b56f0fb2ca"
+          "bytes": 71463,
+          "sha256": "23771a4cca77a93e1a35cc6abfabff48e4cae06f7d2c2da7cef79585d5591820"
         },
         {
           "label": "world_class_submission_review",
@@ -8350,7 +8368,7 @@
           "label": "Registry Distribution",
           "status": "pass",
           "objective": "Skill packages are installable, versioned, checksumed, and upgrade-reviewable.",
-          "current": "archive entries 639; install failures 0",
+          "current": "archive entries 641; install failures 0",
           "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip && python3 scripts/yao.py registry-audit .",
           "test": "python3 tests/verify_registry_audit.py",
           "evidence": [
@@ -9155,6 +9173,7 @@
                 "scripts/promotion_checker.py",
                 "scripts/propose_adaptation.py",
                 "scripts/provider_output_eval_runner.py",
+                "scripts/publish_provider_evidence.py",
                 "scripts/python_compat_check.py",
                 "scripts/reference_synthesis_markdown.py",
                 "scripts/registry_audit.py",
@@ -9324,7 +9343,7 @@
               ],
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               }
@@ -9355,6 +9374,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json",
                 "evals/packaging_expectations.json",
@@ -9367,6 +9387,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json"
               ],
@@ -9375,8 +9396,8 @@
               ],
               "baseline": "without_skill",
               "counts": {
-                "trigger": 31,
-                "output": 5,
+                "trigger": 32,
+                "output": 6,
                 "adversarial": 1,
                 "baseline": 1
               }
@@ -9437,7 +9458,7 @@
                 },
                 "file_write": {
                   "required": true,
-                  "script_count": 79,
+                  "script_count": 80,
                   "scripts": [
                     "scripts/adjudicate_multi_reviewer.py",
                     "scripts/adjudicate_output_review.py",
@@ -9463,6 +9484,7 @@
                     "scripts/probe_runtime_permissions.py",
                     "scripts/promotion_checker.py",
                     "scripts/propose_adaptation.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/python_compat_check.py",
                     "scripts/registry_audit.py",
                     "scripts/render_adoption_drift_report.py",
@@ -9523,13 +9545,14 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 16,
+                  "script_count": 17,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
                     "scripts/ci_test.py",
                     "scripts/evidence_resolver.py",
                     "scripts/evidence_store.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/render_benchmark_reproducibility.py",
                     "scripts/render_eval_dashboard.py",
                     "scripts/render_evidence_consistency.py",
@@ -9563,15 +9586,15 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
               "trust_summary": {
                 "secret_findings": 0,
                 "network_script_count": 3,
-                "file_write_script_count": 79,
-                "subprocess_script_count": 16,
+                "file_write_script_count": 80,
+                "subprocess_script_count": 17,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -9592,8 +9615,8 @@
               ],
               "capability_counts": {
                 "network": 3,
-                "file_write": 79,
-                "subprocess": 16,
+                "file_write": 80,
+                "subprocess": 17,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -9613,7 +9636,7 @@
                 "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
                 "counts": {
                   "references": 37,
-                  "scripts": 165,
+                  "scripts": 166,
                   "assets": 6,
                   "reports": 43
                 },
@@ -9624,7 +9647,7 @@
               },
               "scripts": {
                 "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-                "script_count": 165,
+                "script_count": 166,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -9705,7 +9728,7 @@
               },
               "file_write": {
                 "required": true,
-                "script_count": 79,
+                "script_count": 80,
                 "scripts": [
                   "scripts/adjudicate_multi_reviewer.py",
                   "scripts/adjudicate_output_review.py",
@@ -9731,6 +9754,7 @@
                   "scripts/probe_runtime_permissions.py",
                   "scripts/promotion_checker.py",
                   "scripts/propose_adaptation.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/python_compat_check.py",
                   "scripts/registry_audit.py",
                   "scripts/render_adoption_drift_report.py",
@@ -9791,13 +9815,14 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 16,
+                "script_count": 17,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
                   "scripts/ci_test.py",
                   "scripts/evidence_resolver.py",
                   "scripts/evidence_store.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/render_benchmark_reproducibility.py",
                   "scripts/render_eval_dashboard.py",
                   "scripts/render_evidence_consistency.py",
@@ -9831,15 +9856,15 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
             "trust_summary": {
               "secret_findings": 0,
               "network_script_count": 3,
-              "file_write_script_count": 79,
-              "subprocess_script_count": 16,
+              "file_write_script_count": 80,
+              "subprocess_script_count": 17,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -9858,8 +9883,8 @@
             ],
             "capability_counts": {
               "network": 3,
-              "file_write": 79,
-              "subprocess": 16,
+              "file_write": 80,
+              "subprocess": 17,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -9879,7 +9904,7 @@
               "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               },
@@ -9890,7 +9915,7 @@
             },
             "scripts": {
               "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-              "script_count": 165,
+              "script_count": 166,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -10145,6 +10170,7 @@
                 "scripts/promotion_checker.py",
                 "scripts/propose_adaptation.py",
                 "scripts/provider_output_eval_runner.py",
+                "scripts/publish_provider_evidence.py",
                 "scripts/python_compat_check.py",
                 "scripts/reference_synthesis_markdown.py",
                 "scripts/registry_audit.py",
@@ -10314,7 +10340,7 @@
               ],
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               }
@@ -10345,6 +10371,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json",
                 "evals/packaging_expectations.json",
@@ -10357,6 +10384,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json"
               ],
@@ -10365,8 +10393,8 @@
               ],
               "baseline": "without_skill",
               "counts": {
-                "trigger": 31,
-                "output": 5,
+                "trigger": 32,
+                "output": 6,
                 "adversarial": 1,
                 "baseline": 1
               }
@@ -10427,7 +10455,7 @@
                 },
                 "file_write": {
                   "required": true,
-                  "script_count": 79,
+                  "script_count": 80,
                   "scripts": [
                     "scripts/adjudicate_multi_reviewer.py",
                     "scripts/adjudicate_output_review.py",
@@ -10453,6 +10481,7 @@
                     "scripts/probe_runtime_permissions.py",
                     "scripts/promotion_checker.py",
                     "scripts/propose_adaptation.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/python_compat_check.py",
                     "scripts/registry_audit.py",
                     "scripts/render_adoption_drift_report.py",
@@ -10513,13 +10542,14 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 16,
+                  "script_count": 17,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
                     "scripts/ci_test.py",
                     "scripts/evidence_resolver.py",
                     "scripts/evidence_store.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/render_benchmark_reproducibility.py",
                     "scripts/render_eval_dashboard.py",
                     "scripts/render_evidence_consistency.py",
@@ -10553,15 +10583,15 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
               "trust_summary": {
                 "secret_findings": 0,
                 "network_script_count": 3,
-                "file_write_script_count": 79,
-                "subprocess_script_count": 16,
+                "file_write_script_count": 80,
+                "subprocess_script_count": 17,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -10582,8 +10612,8 @@
               ],
               "capability_counts": {
                 "network": 3,
-                "file_write": 79,
-                "subprocess": 16,
+                "file_write": 80,
+                "subprocess": 17,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -10603,7 +10633,7 @@
                 "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
                 "counts": {
                   "references": 37,
-                  "scripts": 165,
+                  "scripts": 166,
                   "assets": 6,
                   "reports": 43
                 },
@@ -10614,7 +10644,7 @@
               },
               "scripts": {
                 "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-                "script_count": 165,
+                "script_count": 166,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -10695,7 +10725,7 @@
               },
               "file_write": {
                 "required": true,
-                "script_count": 79,
+                "script_count": 80,
                 "scripts": [
                   "scripts/adjudicate_multi_reviewer.py",
                   "scripts/adjudicate_output_review.py",
@@ -10721,6 +10751,7 @@
                   "scripts/probe_runtime_permissions.py",
                   "scripts/promotion_checker.py",
                   "scripts/propose_adaptation.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/python_compat_check.py",
                   "scripts/registry_audit.py",
                   "scripts/render_adoption_drift_report.py",
@@ -10781,13 +10812,14 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 16,
+                "script_count": 17,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
                   "scripts/ci_test.py",
                   "scripts/evidence_resolver.py",
                   "scripts/evidence_store.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/render_benchmark_reproducibility.py",
                   "scripts/render_eval_dashboard.py",
                   "scripts/render_evidence_consistency.py",
@@ -10821,15 +10853,15 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
             "trust_summary": {
               "secret_findings": 0,
               "network_script_count": 3,
-              "file_write_script_count": 79,
-              "subprocess_script_count": 16,
+              "file_write_script_count": 80,
+              "subprocess_script_count": 17,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -10848,8 +10880,8 @@
             ],
             "capability_counts": {
               "network": 3,
-              "file_write": 79,
-              "subprocess": 16,
+              "file_write": 80,
+              "subprocess": 17,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -10869,7 +10901,7 @@
               "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               },
@@ -10880,7 +10912,7 @@
             },
             "scripts": {
               "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-              "script_count": 165,
+              "script_count": 166,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -11135,6 +11167,7 @@
                 "scripts/promotion_checker.py",
                 "scripts/propose_adaptation.py",
                 "scripts/provider_output_eval_runner.py",
+                "scripts/publish_provider_evidence.py",
                 "scripts/python_compat_check.py",
                 "scripts/reference_synthesis_markdown.py",
                 "scripts/registry_audit.py",
@@ -11304,7 +11337,7 @@
               ],
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               }
@@ -11335,6 +11368,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json",
                 "evals/packaging_expectations.json",
@@ -11347,6 +11381,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json"
               ],
@@ -11355,8 +11390,8 @@
               ],
               "baseline": "without_skill",
               "counts": {
-                "trigger": 31,
-                "output": 5,
+                "trigger": 32,
+                "output": 6,
                 "adversarial": 1,
                 "baseline": 1
               }
@@ -11417,7 +11452,7 @@
                 },
                 "file_write": {
                   "required": true,
-                  "script_count": 79,
+                  "script_count": 80,
                   "scripts": [
                     "scripts/adjudicate_multi_reviewer.py",
                     "scripts/adjudicate_output_review.py",
@@ -11443,6 +11478,7 @@
                     "scripts/probe_runtime_permissions.py",
                     "scripts/promotion_checker.py",
                     "scripts/propose_adaptation.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/python_compat_check.py",
                     "scripts/registry_audit.py",
                     "scripts/render_adoption_drift_report.py",
@@ -11503,13 +11539,14 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 16,
+                  "script_count": 17,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
                     "scripts/ci_test.py",
                     "scripts/evidence_resolver.py",
                     "scripts/evidence_store.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/render_benchmark_reproducibility.py",
                     "scripts/render_eval_dashboard.py",
                     "scripts/render_evidence_consistency.py",
@@ -11543,15 +11580,15 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
               "trust_summary": {
                 "secret_findings": 0,
                 "network_script_count": 3,
-                "file_write_script_count": 79,
-                "subprocess_script_count": 16,
+                "file_write_script_count": 80,
+                "subprocess_script_count": 17,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -11572,8 +11609,8 @@
               ],
               "capability_counts": {
                 "network": 3,
-                "file_write": 79,
-                "subprocess": 16,
+                "file_write": 80,
+                "subprocess": 17,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -11593,7 +11630,7 @@
                 "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
                 "counts": {
                   "references": 37,
-                  "scripts": 165,
+                  "scripts": 166,
                   "assets": 6,
                   "reports": 43
                 },
@@ -11603,7 +11640,7 @@
               },
               "scripts": {
                 "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-                "script_count": 165,
+                "script_count": 166,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -11678,7 +11715,7 @@
               },
               "file_write": {
                 "required": true,
-                "script_count": 79,
+                "script_count": 80,
                 "scripts": [
                   "scripts/adjudicate_multi_reviewer.py",
                   "scripts/adjudicate_output_review.py",
@@ -11704,6 +11741,7 @@
                   "scripts/probe_runtime_permissions.py",
                   "scripts/promotion_checker.py",
                   "scripts/propose_adaptation.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/python_compat_check.py",
                   "scripts/registry_audit.py",
                   "scripts/render_adoption_drift_report.py",
@@ -11764,13 +11802,14 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 16,
+                "script_count": 17,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
                   "scripts/ci_test.py",
                   "scripts/evidence_resolver.py",
                   "scripts/evidence_store.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/render_benchmark_reproducibility.py",
                   "scripts/render_eval_dashboard.py",
                   "scripts/render_evidence_consistency.py",
@@ -11804,15 +11843,15 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
             "trust_summary": {
               "secret_findings": 0,
               "network_script_count": 3,
-              "file_write_script_count": 79,
-              "subprocess_script_count": 16,
+              "file_write_script_count": 80,
+              "subprocess_script_count": 17,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -11831,8 +11870,8 @@
             ],
             "capability_counts": {
               "network": 3,
-              "file_write": 79,
-              "subprocess": 16,
+              "file_write": 80,
+              "subprocess": 17,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -11852,7 +11891,7 @@
               "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               },
@@ -11862,7 +11901,7 @@
             },
             "scripts": {
               "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-              "script_count": 165,
+              "script_count": 166,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -12109,6 +12148,7 @@
                 "scripts/promotion_checker.py",
                 "scripts/propose_adaptation.py",
                 "scripts/provider_output_eval_runner.py",
+                "scripts/publish_provider_evidence.py",
                 "scripts/python_compat_check.py",
                 "scripts/reference_synthesis_markdown.py",
                 "scripts/registry_audit.py",
@@ -12278,7 +12318,7 @@
               ],
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               }
@@ -12309,6 +12349,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json",
                 "evals/packaging_expectations.json",
@@ -12321,6 +12362,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json"
               ],
@@ -12329,8 +12371,8 @@
               ],
               "baseline": "without_skill",
               "counts": {
-                "trigger": 31,
-                "output": 5,
+                "trigger": 32,
+                "output": 6,
                 "adversarial": 1,
                 "baseline": 1
               }
@@ -12391,7 +12433,7 @@
                 },
                 "file_write": {
                   "required": true,
-                  "script_count": 79,
+                  "script_count": 80,
                   "scripts": [
                     "scripts/adjudicate_multi_reviewer.py",
                     "scripts/adjudicate_output_review.py",
@@ -12417,6 +12459,7 @@
                     "scripts/probe_runtime_permissions.py",
                     "scripts/promotion_checker.py",
                     "scripts/propose_adaptation.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/python_compat_check.py",
                     "scripts/registry_audit.py",
                     "scripts/render_adoption_drift_report.py",
@@ -12477,13 +12520,14 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 16,
+                  "script_count": 17,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
                     "scripts/ci_test.py",
                     "scripts/evidence_resolver.py",
                     "scripts/evidence_store.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/render_benchmark_reproducibility.py",
                     "scripts/render_eval_dashboard.py",
                     "scripts/render_evidence_consistency.py",
@@ -12517,15 +12561,15 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
               "trust_summary": {
                 "secret_findings": 0,
                 "network_script_count": 3,
-                "file_write_script_count": 79,
-                "subprocess_script_count": 16,
+                "file_write_script_count": 80,
+                "subprocess_script_count": 17,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -12546,8 +12590,8 @@
               ],
               "capability_counts": {
                 "network": 3,
-                "file_write": 79,
-                "subprocess": 16,
+                "file_write": 80,
+                "subprocess": 17,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -12567,7 +12611,7 @@
                 "strategy": "Keep optional directories as relative resources next to SKILL.md.",
                 "counts": {
                   "references": 37,
-                  "scripts": 165,
+                  "scripts": 166,
                   "assets": 6,
                   "reports": 43
                 },
@@ -12578,7 +12622,7 @@
               },
               "scripts": {
                 "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-                "script_count": 165,
+                "script_count": 166,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -12652,7 +12696,7 @@
               },
               "file_write": {
                 "required": true,
-                "script_count": 79,
+                "script_count": 80,
                 "scripts": [
                   "scripts/adjudicate_multi_reviewer.py",
                   "scripts/adjudicate_output_review.py",
@@ -12678,6 +12722,7 @@
                   "scripts/probe_runtime_permissions.py",
                   "scripts/promotion_checker.py",
                   "scripts/propose_adaptation.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/python_compat_check.py",
                   "scripts/registry_audit.py",
                   "scripts/render_adoption_drift_report.py",
@@ -12738,13 +12783,14 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 16,
+                "script_count": 17,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
                   "scripts/ci_test.py",
                   "scripts/evidence_resolver.py",
                   "scripts/evidence_store.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/render_benchmark_reproducibility.py",
                   "scripts/render_eval_dashboard.py",
                   "scripts/render_evidence_consistency.py",
@@ -12778,15 +12824,15 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
             "trust_summary": {
               "secret_findings": 0,
               "network_script_count": 3,
-              "file_write_script_count": 79,
-              "subprocess_script_count": 16,
+              "file_write_script_count": 80,
+              "subprocess_script_count": 17,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -12805,8 +12851,8 @@
             ],
             "capability_counts": {
               "network": 3,
-              "file_write": 79,
-              "subprocess": 16,
+              "file_write": 80,
+              "subprocess": 17,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -12826,7 +12872,7 @@
               "strategy": "Keep optional directories as relative resources next to SKILL.md.",
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               },
@@ -12837,7 +12883,7 @@
             },
             "scripts": {
               "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-              "script_count": 165,
+              "script_count": 166,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -13083,6 +13129,7 @@
                 "scripts/promotion_checker.py",
                 "scripts/propose_adaptation.py",
                 "scripts/provider_output_eval_runner.py",
+                "scripts/publish_provider_evidence.py",
                 "scripts/python_compat_check.py",
                 "scripts/reference_synthesis_markdown.py",
                 "scripts/registry_audit.py",
@@ -13252,7 +13299,7 @@
               ],
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               }
@@ -13283,6 +13330,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json",
                 "evals/packaging_expectations.json",
@@ -13295,6 +13343,7 @@
                 "evals/output/cases.jsonl",
                 "evals/output/fixtures/release-brief-source.md",
                 "evals/output/holdout_cases.jsonl",
+                "evals/output/holdout_cases.zh-CN.jsonl",
                 "evals/output/provider_matrix.json",
                 "evals/output/schema.json"
               ],
@@ -13303,8 +13352,8 @@
               ],
               "baseline": "without_skill",
               "counts": {
-                "trigger": 31,
-                "output": 5,
+                "trigger": 32,
+                "output": 6,
                 "adversarial": 1,
                 "baseline": 1
               }
@@ -13365,7 +13414,7 @@
                 },
                 "file_write": {
                   "required": true,
-                  "script_count": 79,
+                  "script_count": 80,
                   "scripts": [
                     "scripts/adjudicate_multi_reviewer.py",
                     "scripts/adjudicate_output_review.py",
@@ -13391,6 +13440,7 @@
                     "scripts/probe_runtime_permissions.py",
                     "scripts/promotion_checker.py",
                     "scripts/propose_adaptation.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/python_compat_check.py",
                     "scripts/registry_audit.py",
                     "scripts/render_adoption_drift_report.py",
@@ -13451,13 +13501,14 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 16,
+                  "script_count": 17,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
                     "scripts/ci_test.py",
                     "scripts/evidence_resolver.py",
                     "scripts/evidence_store.py",
+                    "scripts/publish_provider_evidence.py",
                     "scripts/render_benchmark_reproducibility.py",
                     "scripts/render_eval_dashboard.py",
                     "scripts/render_evidence_consistency.py",
@@ -13491,15 +13542,15 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
               "trust_summary": {
                 "secret_findings": 0,
                 "network_script_count": 3,
-                "file_write_script_count": 79,
-                "subprocess_script_count": 16,
+                "file_write_script_count": 80,
+                "subprocess_script_count": 17,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -13520,8 +13571,8 @@
               ],
               "capability_counts": {
                 "network": 3,
-                "file_write": 79,
-                "subprocess": 16,
+                "file_write": 80,
+                "subprocess": 17,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -13541,7 +13592,7 @@
                 "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
                 "counts": {
                   "references": 37,
-                  "scripts": 165,
+                  "scripts": 166,
                   "assets": 6,
                   "reports": 43
                 },
@@ -13552,7 +13603,7 @@
               },
               "scripts": {
                 "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-                "script_count": 165,
+                "script_count": 166,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -13630,7 +13681,7 @@
               },
               "file_write": {
                 "required": true,
-                "script_count": 79,
+                "script_count": 80,
                 "scripts": [
                   "scripts/adjudicate_multi_reviewer.py",
                   "scripts/adjudicate_output_review.py",
@@ -13656,6 +13707,7 @@
                   "scripts/probe_runtime_permissions.py",
                   "scripts/promotion_checker.py",
                   "scripts/propose_adaptation.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/python_compat_check.py",
                   "scripts/registry_audit.py",
                   "scripts/render_adoption_drift_report.py",
@@ -13716,13 +13768,14 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 16,
+                "script_count": 17,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
                   "scripts/ci_test.py",
                   "scripts/evidence_resolver.py",
                   "scripts/evidence_store.py",
+                  "scripts/publish_provider_evidence.py",
                   "scripts/render_benchmark_reproducibility.py",
                   "scripts/render_eval_dashboard.py",
                   "scripts/render_evidence_consistency.py",
@@ -13756,15 +13809,15 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
             "trust_summary": {
               "secret_findings": 0,
               "network_script_count": 3,
-              "file_write_script_count": 79,
-              "subprocess_script_count": 16,
+              "file_write_script_count": 80,
+              "subprocess_script_count": 17,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -13783,8 +13836,8 @@
             ],
             "capability_counts": {
               "network": 3,
-              "file_write": 79,
-              "subprocess": 16,
+              "file_write": 80,
+              "subprocess": 17,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -13804,7 +13857,7 @@
               "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
               "counts": {
                 "references": 37,
-                "scripts": 165,
+                "scripts": 166,
                 "assets": 6,
                 "reports": 43
               },
@@ -13815,7 +13868,7 @@
             },
             "scripts": {
               "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-              "script_count": 165,
+              "script_count": 166,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -14546,7 +14599,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 267,
-        "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
+        "package_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
       },
       "failures": [],
       "warnings": [],
@@ -18356,7 +18409,7 @@
     "python_compatibility": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-06-13",
       "root": ".",
       "summary": {
         "target_python": "3.11",
@@ -20036,7 +20089,7 @@
         },
         {
           "path": "tests/verify_world_class_evidence_ledger.py",
-          "lines": 584,
+          "lines": 585,
           "kind": "test",
           "severity": "pass",
           "early_watch": false,
@@ -20109,9 +20162,9 @@
         "context_budget_tier": "production",
         "context_budget_limit": 1000,
         "skill_body_tokens": 764,
-        "other_text_tokens": 1299423,
+        "other_text_tokens": 1305248,
         "estimated_initial_load_tokens": 947,
-        "estimated_total_text_tokens": 1300187,
+        "estimated_total_text_tokens": 1306012,
         "deferred_resource_tokens": 569618,
         "deferred_resource_warn_threshold": 120000,
         "deferred_resource_dirs": [
@@ -20169,7 +20222,7 @@
           ],
           "summary": "Large deferred resources are indexed and backed by evidence."
         },
-        "relevant_file_count": 647,
+        "relevant_file_count": 649,
         "unused_resource_dirs": [],
         "quality_signal_points": 140,
         "quality_density": 147.8
@@ -22143,7 +22196,7 @@
     "daily_skillops": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-16T06:26:53Z",
       "skill_dir": ".",
       "decision": "proposal-review",
       "source_supplied": false,
@@ -22657,7 +22710,7 @@
     "weekly_curator": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-16T06:26:53Z",
       "skill_dir": ".",
       "decision": "curator-review",
       "week_id": "2026-W33",
@@ -23134,7 +23187,7 @@
     "adaptation_proposals": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-16T06:26:53Z",
       "skill_dir": ".",
       "source_patterns": "reports/user_patterns.json",
       "pattern_count": 5,
@@ -28766,8 +28819,8 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
-          "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5"
+          "package_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94",
+          "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
         },
         "compatibility": {
           "openai": "pass",
@@ -28798,7 +28851,7 @@
         },
         "distribution": {
           "archive_verified": true,
-          "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
+          "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
           "package_verification": "reports/package_verification.json",
           "install_simulated": true,
           "install_simulation": "reports/install_simulation.json"
@@ -28823,7 +28876,7 @@
               "vscode"
             ],
             "package_metadata": "registry/packages/yao-meta-skill.json",
-            "package_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
+            "package_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
           }
         ]
       },
@@ -28846,8 +28899,8 @@
         "target_count": 4,
         "adapter_count": 4,
         "archive_present": true,
-        "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
-        "archive_entry_count": 639,
+        "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
+        "archive_entry_count": 641,
         "nested_skill_entry_count": 0,
         "failure_count": 0,
         "warning_count": 0
@@ -29518,7 +29571,7 @@
       "installed_skill_dir": "dist/install-simulation/simulate-yao-meta-skill/yao-meta-skill",
       "summary": {
         "archive_present": true,
-        "archive_entry_count": 639,
+        "archive_entry_count": 641,
         "nested_skill_entry_count": 0,
         "archive_extracted": true,
         "entrypoint_loaded": true,
@@ -29866,12 +29919,12 @@
           {
             "field": "archive_sha256",
             "from": "",
-            "to": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5"
+            "to": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
           },
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90"
+            "to": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
           }
         ]
       },

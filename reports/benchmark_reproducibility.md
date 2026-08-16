@@ -1,11 +1,11 @@
 # Benchmark Reproducibility
 
 Generated at: `2026-08-16`
-Commit: `05a7268cea0548af8d8be5591770d35d9fdf7c7d`
+Commit: `9bea7ab0a17daf4785150066f94dbd9db5e5a53c`
 Working tree dirty at generation: `true`
 Source tree dirty at generation: `false`
 Generated evidence dirty at generation: `true`
-Evidence bundle SHA256: `8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b`
+Evidence bundle SHA256: `12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1`
 
 ## Summary
 
@@ -14,8 +14,8 @@ Evidence bundle SHA256: `8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb04
 - methodology complete: `true`
 - required artifacts: `25`
 - missing artifacts: `0`
-- source contract sha256: `49a18ed0f849`
-- archive sha256: `1cf385fb3895`
+- source contract sha256: `b8313b945901`
+- archive sha256: `81796e972ee2`
 - output cases: `5`
 - disclosed failure cases: `3`
 - reproduction commands: `23`
@@ -31,9 +31,9 @@ Evidence bundle SHA256: `8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb04
 - beta deferred evidence: `4`
 - public claim ready: `false`
 - public claim blockers: `3`
-- changed files at generation: `3`
+- changed files at generation: `42`
 - source changed files at generation: `0`
-- generated changed files at generation: `3`
+- generated changed files at generation: `42`
 
 This report proves local benchmark reproducibility only. It keeps external provider and human-review gaps visible instead of counting them as complete. The git commit and dirty samples are generation-time context; the evidence bundle SHA is the durable anchor for the artifacts listed below.
 
@@ -77,7 +77,7 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 - algorithm: `sha256(path,label,exists,artifact_sha256)`
 - artifacts: `25` / `25`
-- sha256: `8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b`
+- sha256: `12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1`
 
 ## Methodology Sections
 
@@ -104,16 +104,16 @@ This report proves local benchmark reproducibility only. It keeps external provi
 | review_adjudication | `reports/output_review_adjudication.json` | present | `91fd88dd9b0f` |
 | trigger_scorecard | `reports/route_scorecard.json` | present | `06d7ad6eb002` |
 | runtime_conformance | `reports/conformance_matrix.json` | present | `de8093861e68` |
-| trust_report | `reports/security_trust_report.json` | present | `8943192812eb` |
-| python_compatibility | `reports/python_compatibility.json` | present | `1f53851c1b3a` |
-| registry_audit | `reports/registry_audit.json` | present | `ae940b7f2267` |
-| package_verification | `reports/package_verification.json` | present | `945fd76521a1` |
-| install_simulation | `reports/install_simulation.json` | present | `702b1daf443b` |
-| skill_os2_audit | `reports/skill_os2_audit.json` | present | `f3d37b0b7cfc` |
+| trust_report | `reports/security_trust_report.json` | present | `c6c854efa9c1` |
+| python_compatibility | `reports/python_compatibility.json` | present | `ff05bd9d8e69` |
+| registry_audit | `reports/registry_audit.json` | present | `a6ba6cb9db77` |
+| package_verification | `reports/package_verification.json` | present | `1ea9591c84a6` |
+| install_simulation | `reports/install_simulation.json` | present | `ae02ecccdfcb` |
+| skill_os2_audit | `reports/skill_os2_audit.json` | present | `c95befc8b245` |
 | world_class_evidence_plan | `reports/world_class_evidence_plan.json` | present | `7cdf934dca88` |
 | world_class_evidence_ledger | `reports/world_class_evidence_ledger.json` | present | `dfb09bdcd377` |
 | world_class_evidence_intake | `reports/world_class_evidence_intake.json` | present | `1a89a348ab36` |
-| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `c69945916f74` |
+| world_class_evidence_preflight | `reports/world_class_evidence_preflight.json` | present | `23771a4cca77` |
 | world_class_submission_review | `reports/world_class_submission_review.json` | present | `afeddbe924a4` |
 | world_class_operator_runbook | `reports/world_class_operator_runbook.json` | present | `2b9033d84e2c` |
 | world_class_operator_runbook_markdown | `reports/world_class_operator_runbook.md` | present | `c9940a8b59a9` |

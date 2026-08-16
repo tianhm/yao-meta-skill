@@ -57,7 +57,7 @@ No near-threshold files found.
 | `scripts/build_skill_atlas.py` | `591` | `cli-script` | `pass` |
 | `scripts/render_skill_overview.py` | `588` | `cli-script` | `pass` |
 | `scripts/optimize_description.py` | `585` | `cli-script` | `pass` |
-| `tests/verify_world_class_evidence_ledger.py` | `584` | `test` | `pass` |
+| `tests/verify_world_class_evidence_ledger.py` | `585` | `test` | `pass` |
 
 ## Release Rule
 

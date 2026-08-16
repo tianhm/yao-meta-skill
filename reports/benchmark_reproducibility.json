@@ -3,25 +3,43 @@
   "ok": true,
   "generated_at": "2026-08-16",
   "skill_dir": ".",
-  "commit": "05a7268cea0548af8d8be5591770d35d9fdf7c7d",
+  "commit": "9bea7ab0a17daf4785150066f94dbd9db5e5a53c",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 3,
+    "changed_file_count": 42,
     "generated_dirty": true,
-    "generated_changed_file_count": 3,
+    "generated_changed_file_count": 42,
     "source_dirty": false,
     "source_changed_file_count": 0,
     "sample": [
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json"
+      " M registry/index.json",
+      " M registry/packages/yao-meta-skill.json",
+      " M reports/adaptation_proposals.json",
+      " M reports/adaptation_proposals.md",
+      " M reports/architecture_maintainability.json",
+      " M reports/architecture_maintainability.md",
+      " M reports/artifact-design-profile.json",
+      " M reports/artifact-design-profile.md",
+      " M reports/benchmark_reproducibility.json",
+      " M reports/benchmark_reproducibility.md",
+      " M reports/compiled_targets.json",
+      " M reports/context_budget.json"
     ],
     "source_sample": [],
     "generated_sample": [
-      " M reports/context_budget.json",
-      " M reports/context_budget.md",
-      " M reports/context_budget_summary.json"
+      " M registry/index.json",
+      " M registry/packages/yao-meta-skill.json",
+      " M reports/adaptation_proposals.json",
+      " M reports/adaptation_proposals.md",
+      " M reports/architecture_maintainability.json",
+      " M reports/architecture_maintainability.md",
+      " M reports/artifact-design-profile.json",
+      " M reports/artifact-design-profile.md",
+      " M reports/benchmark_reproducibility.json",
+      " M reports/benchmark_reproducibility.md",
+      " M reports/compiled_targets.json",
+      " M reports/context_budget.json"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -39,9 +57,9 @@
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b",
-    "source_contract_sha256": "49a18ed0f8498a2c3ad09422e49ff45fb36a1b0a0daa379124b5627914141f90",
-    "archive_sha256": "1cf385fb38950f66fc7c7365aa0292257b7ca9ffebde54476d0a3d40ba4a46c5",
+    "evidence_bundle_sha256": "12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1",
+    "source_contract_sha256": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94",
+    "archive_sha256": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -68,11 +86,11 @@
     "public_claim_ready": false,
     "public_claim_blocker_count": 3,
     "working_tree_dirty": true,
-    "changed_file_count": 3,
+    "changed_file_count": 42,
     "source_tree_dirty": false,
     "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 3
+    "generated_changed_file_count": 42
   },
   "beta_test_release": {
     "ready": true,
@@ -115,10 +133,10 @@
   },
   "release_lock": {
     "ready": true,
-    "commit": "05a7268cea0548af8d8be5591770d35d9fdf7c7d",
+    "commit": "9bea7ab0a17daf4785150066f94dbd9db5e5a53c",
     "status_scope": "generation-time status before this report is written",
     "source_changed_file_count": 0,
-    "generated_changed_file_count": 3,
+    "generated_changed_file_count": 42,
     "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
@@ -127,7 +145,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "8aafd2cae51c4e657d2c6ab7503330e153564b134c675c2b339cb0477ed0aa0b"
+    "sha256": "12ae7561abaeb8ea201ca3effac5812a952938ebabcf56674ac7db19e231f1a1"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -236,42 +254,42 @@
       "path": "reports/security_trust_report.json",
       "exists": true,
       "bytes": 148780,
-      "sha256": "8943192812eb7f3506b48ccf437b5df0ec39e122a8f8f1797af15f6c72409af8"
+      "sha256": "c6c854efa9c1bb8931d2167f1cb98c5ffef6cd7450dbcc491530ab9d519a8ca3"
     },
     {
       "label": "python_compatibility",
       "path": "reports/python_compatibility.json",
       "exists": true,
       "bytes": 33554,
-      "sha256": "1f53851c1b3a21831761bdbc552bc7165d623506543a1a60f0ab95321fcf2e39"
+      "sha256": "ff05bd9d8e69d328c54b5dcfcdf3493cd8bc42020736a0ea8a4de68f22e69f75"
     },
     {
       "label": "registry_audit",
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "ae940b7f2267da637abbef10646bdd41679788bd6334c31210da28d339defce3"
+      "sha256": "a6ba6cb9db772895d3ee25130b6a72c12ded13636a79bebd0349e88b3aaa2574"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
       "bytes": 19653,
-      "sha256": "945fd76521a116d364ebfc0ef12d2ca02521d5b31ca9dafdc053e5fc9c530584"
+      "sha256": "1ea9591c84a6a165f7d3f5f70c6bc049d2746da133328ae45acb8948a0384bea"
     },
     {
       "label": "install_simulation",
       "path": "reports/install_simulation.json",
       "exists": true,
       "bytes": 8793,
-      "sha256": "702b1daf443b04f489a219c10247cd457b723e79710851b26f5ab14d0f2ae786"
+      "sha256": "ae02ecccdfcb4e6ef530ae43cab06230b626a3529c840e3458362f99ba93ad51"
     },
     {
       "label": "skill_os2_audit",
       "path": "reports/skill_os2_audit.json",
       "exists": true,
       "bytes": 13191,
-      "sha256": "f3d37b0b7cfc84e2e3160bd5185e79488dfa60b6dfaef10b39ec6c50b0537a07"
+      "sha256": "c95befc8b245f252e234d738f5804157753b8b04138d9b0b3b58d4c870e30c14"
     },
     {
       "label": "world_class_evidence_plan",
@@ -298,8 +316,8 @@
       "label": "world_class_evidence_preflight",
       "path": "reports/world_class_evidence_preflight.json",
       "exists": true,
-      "bytes": 90459,
-      "sha256": "c69945916f74c89217a71943c76c694767995c0ab7b143db4407c4b56f0fb2ca"
+      "bytes": 71463,
+      "sha256": "23771a4cca77a93e1a35cc6abfabff48e4cae06f7d2c2da7cef79585d5591820"
     },
     {
       "label": "world_class_submission_review",

@@ -114,7 +114,7 @@
     },
     {
       "path": "tests/verify_world_class_evidence_ledger.py",
-      "lines": 584,
+      "lines": 585,
       "kind": "test",
       "severity": "pass",
       "early_watch": false,

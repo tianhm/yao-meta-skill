@@ -1,6 +1,6 @@
 # Artifact Design Profile
 
-Skill: `repo`
+Skill: `yao-meta-phase1-eval.vK7njW`
 Design system: `metric editorial`
 
 ## Primary Artifact Direction
