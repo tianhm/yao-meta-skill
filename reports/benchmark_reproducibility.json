@@ -3,56 +3,43 @@
   "ok": true,
   "generated_at": "2026-08-16",
   "skill_dir": ".",
-  "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
+  "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 200,
+    "changed_file_count": 18,
     "generated_dirty": true,
-    "generated_changed_file_count": 83,
-    "source_dirty": true,
-    "source_changed_file_count": 117,
+    "generated_changed_file_count": 18,
+    "source_dirty": false,
+    "source_changed_file_count": 0,
     "sample": [
-      " M AGENTS.md",
-      " M Makefile",
-      " M README.md",
-      " M SKILL.md",
-      " M agents/interface.yaml",
-      " M evidence/world_class/templates/provider-holdout.intake.json",
-      " M references/distribution-registry-method.md",
-      " M references/output-eval-method.md",
-      " M references/provider-output-evaluation.md",
-      " M references/review-waiver-method.md",
-      " M references/telemetry-drift-method.md",
-      " M registry/index.json"
-    ],
-    "source_sample": [
-      " M AGENTS.md",
-      " M Makefile",
-      " M README.md",
-      " M SKILL.md",
-      " M agents/interface.yaml",
-      " M evidence/world_class/templates/provider-holdout.intake.json",
-      " M references/distribution-registry-method.md",
-      " M references/output-eval-method.md",
-      " M references/provider-output-evaluation.md",
-      " M references/review-waiver-method.md",
-      " M references/telemetry-drift-method.md",
-      " M scripts/adjudicate_output_review.py"
-    ],
-    "generated_sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
-      " M reports/adoption_drift_report.json",
-      " M reports/adoption_drift_report.md",
-      " M reports/architecture_maintainability.json",
-      " M reports/architecture_maintainability.md",
-      " M reports/artifact-design-profile.json",
-      " M reports/artifact-design-profile.md",
       " M reports/benchmark_reproducibility.json",
-      " M reports/benchmark_reproducibility.md"
+      " M reports/benchmark_reproducibility.md",
+      " M reports/context_budget.json",
+      " M reports/context_budget_summary.json",
+      " M reports/evidence_consistency.json",
+      " M reports/python_compatibility.json",
+      " M reports/python_compatibility.md",
+      " M reports/review-studio.html",
+      " M reports/review-studio.json",
+      " M reports/review-viewer.json",
+      " M reports/skill-interpretation.html",
+      " M reports/skill-interpretation.json"
+    ],
+    "source_sample": [],
+    "generated_sample": [
+      " M reports/benchmark_reproducibility.json",
+      " M reports/benchmark_reproducibility.md",
+      " M reports/context_budget.json",
+      " M reports/context_budget_summary.json",
+      " M reports/evidence_consistency.json",
+      " M reports/python_compatibility.json",
+      " M reports/python_compatibility.md",
+      " M reports/review-studio.html",
+      " M reports/review-studio.json",
+      " M reports/review-viewer.json",
+      " M reports/skill-interpretation.html",
+      " M reports/skill-interpretation.json"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -66,11 +53,11 @@
   },
   "summary": {
     "reproducibility_ready": true,
-    "release_lock_ready": false,
+    "release_lock_ready": true,
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab",
+    "evidence_bundle_sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d",
     "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
     "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
     "output_case_count": 5,
@@ -93,24 +80,22 @@
     "world_class_source_check_count": 14,
     "world_class_source_pass_count": 6,
     "world_class_source_blocked_count": 8,
-    "beta_test_ready": false,
-    "beta_test_blocker_count": 1,
+    "beta_test_ready": true,
+    "beta_test_blocker_count": 0,
     "beta_test_deferred_evidence_count": 4,
     "public_claim_ready": false,
-    "public_claim_blocker_count": 6,
+    "public_claim_blocker_count": 5,
     "working_tree_dirty": true,
-    "changed_file_count": 200,
-    "source_tree_dirty": true,
-    "source_changed_file_count": 117,
+    "changed_file_count": 18,
+    "source_tree_dirty": false,
+    "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 83
+    "generated_changed_file_count": 18
   },
   "beta_test_release": {
-    "ready": false,
+    "ready": true,
     "scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
-    "blockers": [
-      "release lock is not clean or commit is unavailable"
-    ],
+    "blockers": [],
     "allowed_deferred_evidence": [
       {
         "key": "provider-holdout",
@@ -140,7 +125,6 @@
     "ready": false,
     "scope": "public benchmark or world-class readiness claim",
     "blockers": [
-      "release lock is not clean or commit is unavailable",
       "human blind-review adjudication is incomplete",
       "phase-one provider matrix is incomplete",
       "phase-one three-reviewer adjudication is incomplete",
@@ -150,12 +134,12 @@
     "policy": "Local reproducibility can pass before public claims; public claims require provider evidence, human adjudication, clean release lock, accepted world-class evidence, and complete source checks."
   },
   "release_lock": {
-    "ready": false,
-    "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
+    "ready": true,
+    "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
     "status_scope": "generation-time status before this report is written",
-    "source_changed_file_count": 117,
-    "generated_changed_file_count": 83,
-    "reason": "source files were dirty at generation time"
+    "source_changed_file_count": 0,
+    "generated_changed_file_count": 18,
+    "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
     "algorithm": "sha256(path,label,exists,artifact_sha256)",
@@ -163,7 +147,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab"
+    "sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -279,7 +263,7 @@
       "path": "reports/python_compatibility.json",
       "exists": true,
       "bytes": 33181,
-      "sha256": "900f83cd84d329acf8e675a00a610d8c91db7179f867c38265ca8bd8ab5cfee0"
+      "sha256": "630200b19cf813085f1c47efde44142cb2b9466f646cf5d8bbe4e6709076977f"
     },
     {
       "label": "registry_audit",

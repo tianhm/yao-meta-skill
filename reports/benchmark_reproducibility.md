@@ -1,16 +1,16 @@
 # Benchmark Reproducibility
 
 Generated at: `2026-08-16`
-Commit: `8644a0db94e74ec9113ef8d72cbea2a11fabde9c`
+Commit: `2a6993abd34ba58c0c86d6f4a909abe76791be76`
 Working tree dirty at generation: `true`
-Source tree dirty at generation: `true`
+Source tree dirty at generation: `false`
 Generated evidence dirty at generation: `true`
-Evidence bundle SHA256: `6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab`
+Evidence bundle SHA256: `1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d`
 
 ## Summary
 
 - reproducibility ready: `true`
-- release lock ready: `false`
+- release lock ready: `true`
 - methodology complete: `true`
 - required artifacts: `25`
 - missing artifacts: `0`
@@ -26,27 +26,27 @@ Evidence bundle SHA256: `6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830
 - human review complete: `false`
 - world-class ready: `false`
 - world-class source checks: `6` pass / `14` total; `8` blocked
-- beta test ready: `false`
-- beta test blockers: `1`
+- beta test ready: `true`
+- beta test blockers: `0`
 - beta deferred evidence: `4`
 - public claim ready: `false`
-- public claim blockers: `6`
-- changed files at generation: `200`
-- source changed files at generation: `117`
-- generated changed files at generation: `83`
+- public claim blockers: `5`
+- changed files at generation: `18`
+- source changed files at generation: `0`
+- generated changed files at generation: `18`
 
 This report proves local benchmark reproducibility only. It keeps external provider and human-review gaps visible instead of counting them as complete. The git commit and dirty samples are generation-time context; the evidence bundle SHA is the durable anchor for the artifacts listed below.
 
 ## Beta Test Boundary
 
-- ready: `false`
+- ready: `true`
 - scope: beta/public test release without superiority, fully-reviewed, or world-class claims
 - policy: Human blind-review, native permission enforcement, real client telemetry, and ledger acceptance may be deferred for beta/public testing, but public claims must remain blocked until those evidence entries are accepted.
 - required wording: Use beta, public test, or technical preview wording; do not claim world-class readiness, fully reviewed quality, or proven superiority over baseline.
 
 | Blocker |
 | --- |
-| release lock is not clean or commit is unavailable |
+| none |
 
 | Deferred evidence | Reason |
 | --- | --- |
@@ -63,7 +63,6 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 | Blocker |
 | --- |
-| release lock is not clean or commit is unavailable |
 | human blind-review adjudication is incomplete |
 | phase-one provider matrix is incomplete |
 | phase-one three-reviewer adjudication is incomplete |
@@ -72,15 +71,15 @@ This report proves local benchmark reproducibility only. It keeps external provi
 
 ## Release Lock
 
-- ready: `false`
-- reason: source files were dirty at generation time
+- ready: `true`
+- reason: only generated evidence artifacts were dirty at generation time
 - status scope: generation-time status before this report is written
 
 ## Evidence Bundle
 
 - algorithm: `sha256(path,label,exists,artifact_sha256)`
 - artifacts: `25` / `25`
-- sha256: `6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab`
+- sha256: `1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d`
 
 ## Methodology Sections
 
@@ -108,7 +107,7 @@ This report proves local benchmark reproducibility only. It keeps external provi
 | trigger_scorecard | `reports/route_scorecard.json` | present | `06d7ad6eb002` |
 | runtime_conformance | `reports/conformance_matrix.json` | present | `de8093861e68` |
 | trust_report | `reports/security_trust_report.json` | present | `ddab0390d91d` |
-| python_compatibility | `reports/python_compatibility.json` | present | `900f83cd84d3` |
+| python_compatibility | `reports/python_compatibility.json` | present | `630200b19cf8` |
 | registry_audit | `reports/registry_audit.json` | present | `64cef54f60f8` |
 | package_verification | `reports/package_verification.json` | present | `54681e0207e0` |
 | install_simulation | `reports/install_simulation.json` | present | `702b1daf443b` |

@@ -508,13 +508,13 @@
         "path": "references",
         "label": "Extended guidance and reusable notes",
         "kind": "folder",
-        "file_count": 37
+        "file_count": 38
       },
       {
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 165
+        "file_count": 169
       },
       {
         "path": "evals",
@@ -526,10 +526,10 @@
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 185
+        "file_count": 187
       }
     ],
-    "file_count": 424,
+    "file_count": 431,
     "folder_count": 4,
     "distribution": [
       {
@@ -550,11 +550,11 @@
       },
       {
         "label": "references",
-        "value": 37
+        "value": 38
       },
       {
         "label": "scripts",
-        "value": 165
+        "value": 169
       },
       {
         "label": "evals",
@@ -562,7 +562,7 @@
       },
       {
         "label": "reports",
-        "value": 185
+        "value": 187
       }
     ]
   },
@@ -682,13 +682,13 @@
       "path": "references",
       "label": "Extended guidance and reusable notes",
       "kind": "folder",
-      "file_count": 37
+      "file_count": 38
     },
     {
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 165
+      "file_count": 169
     },
     {
       "path": "evals",
@@ -700,7 +700,7 @@
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 185
+      "file_count": 187
     }
   ],
   "strengths": [
@@ -1020,11 +1020,11 @@
     "ok": true,
     "summary": {
       "reproducibility_ready": true,
-      "release_lock_ready": false,
+      "release_lock_ready": true,
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "6755a0d4d258fc990e470bf51988313f672f948d54f0c39960ad830b2d7f26ab",
+      "evidence_bundle_sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d",
       "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
       "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
       "output_case_count": 5,
@@ -1047,19 +1047,19 @@
       "world_class_source_check_count": 14,
       "world_class_source_pass_count": 6,
       "world_class_source_blocked_count": 8,
-      "beta_test_ready": false,
-      "beta_test_blocker_count": 1,
+      "beta_test_ready": true,
+      "beta_test_blocker_count": 0,
       "beta_test_deferred_evidence_count": 4,
       "public_claim_ready": false,
-      "public_claim_blocker_count": 6,
+      "public_claim_blocker_count": 5,
       "working_tree_dirty": true,
-      "changed_file_count": 200,
-      "source_tree_dirty": true,
-      "source_changed_file_count": 117,
+      "changed_file_count": 18,
+      "source_tree_dirty": false,
+      "source_changed_file_count": 0,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 83
+      "generated_changed_file_count": 18
     },
-    "commit": "8644a0db94e74ec9113ef8d72cbea2a11fabde9c",
+    "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
