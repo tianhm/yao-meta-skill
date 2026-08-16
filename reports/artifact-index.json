@@ -72,13 +72,13 @@
     },
     {
       "path": "reports/benchmark_reproducibility.json",
-      "sha256": "b4042df8dfdeecfd935a81a329401ef5931515d537cc0877f23925b7e98d08a9",
-      "size": 17498
+      "sha256": "de26bf5160e19360d5be1f7744925200e0159e479ccd19ef9193c2573770134c",
+      "size": 18003
     },
     {
       "path": "reports/benchmark_reproducibility.md",
-      "sha256": "2f8e757eb25ebbd31d5a75151b898bcd9ffe92365babb2c72382a38c3d18ae76",
-      "size": 9898
+      "sha256": "d32155b9f7dc7b1d082b025dbc3804e82c412952aaeeef4b9eabd55e8871f9cc",
+      "size": 9900
     },
     {
       "path": "reports/blind-human-review-2026-06-29/DO_NOT_OPEN_answer_key.html",
@@ -182,17 +182,17 @@
     },
     {
       "path": "reports/context_budget.json",
-      "sha256": "7cdb269f94251c15d9782ec9a4a4a37025069fafa30e5d789153172009e5d279",
+      "sha256": "31b7cc8be98dfc534d76d6159596a64649a9442d78bb9965329ad35aa241ffdf",
       "size": 2045
     },
     {
       "path": "reports/context_budget.md",
-      "sha256": "6de167f90959f87e29b5ae3ddfd3c2a72b14793eeeff27ef4ba5e8e1ee619813",
+      "sha256": "0df9ad017c0bb113cf53f2071d69b1684971639769529e3dbde67a90022d55bb",
       "size": 769
     },
     {
       "path": "reports/context_budget_summary.json",
-      "sha256": "9a34658a257612075874b5b0779016c3e0c4116a45c4c637b9277d58b77405f0",
+      "sha256": "9b297f46d2f71d763890e12a437570de4e24daef5e9dfcd6276137df083cdf43",
       "size": 2939
     },
     {
@@ -227,12 +227,12 @@
     },
     {
       "path": "reports/evidence_consistency.json",
-      "sha256": "f88b33e2df7bef7d89f3aab4a4211ef162f80814b862017f4abc4249d7ea7205",
+      "sha256": "4c0f69d80b50367d6f625e368053a94ed51c1536a4781b8222f840a8f1eabfe8",
       "size": 162356
     },
     {
       "path": "reports/evidence_consistency.md",
-      "sha256": "bf0eec1a6f3e217c5be7624828460ac41ff852e5cca54cfa32cbe9a3c8697f31",
+      "sha256": "0d9d6f43f484afa0ac3b9b0ce3bb0f7ae1704ddbfef4f7b9c807c0c5e2fee480",
       "size": 12886
     },
     {
@@ -257,8 +257,8 @@
     },
     {
       "path": "reports/install_simulation.json",
-      "sha256": "704ca2f1acfa796bec9a296822c0521cd439176fa0c68e702f058439bd1ea76f",
-      "size": 8746
+      "sha256": "6eb14cde63fe86aeebe3524b9591c20cd81515492e9e0d03761d28715715f880",
+      "size": 8793
     },
     {
       "path": "reports/install_simulation.md",
@@ -427,12 +427,12 @@
     },
     {
       "path": "reports/package_verification.json",
-      "sha256": "d75148fdb66324fa046f878902f4f80ccc3a23ec20d3dba63fb0ea1abf4b9dca",
+      "sha256": "fd593dae867ebcb53b868b9bd7ed28a5757e8feff7f24de059fc8c4701304929",
       "size": 19653
     },
     {
       "path": "reports/package_verification.md",
-      "sha256": "779d27adc756841aa575f7102ca4797cf90ac5615600cd794e96d1fca58bfaa5",
+      "sha256": "c42060554e0b8c1fec8806eade332aab66d30a552ee3a38a6f104eb87bef55d0",
       "size": 12517
     },
     {
@@ -532,12 +532,12 @@
     },
     {
       "path": "reports/registry_audit.json",
-      "sha256": "82ec0c41ee27395cda78ce556ec624ef10684642c005a7cf436e0c79535065d4",
+      "sha256": "55eaffc8e42c09defb5b34a8a7fab61cb72a24fd26016ab4f62153e3becaa5ca",
       "size": 3234
     },
     {
       "path": "reports/registry_audit.md",
-      "sha256": "0da26d0099272d89750591ac6d2f91bca4883be650717b8b2b054c58ba72c2e6",
+      "sha256": "07a7ec1a96f63e33a59e2a9c12608410585341ad94107e8541678dacfdb7a1cd",
       "size": 762
     },
     {
@@ -547,13 +547,13 @@
     },
     {
       "path": "reports/review-studio.html",
-      "sha256": "138dc8f356f6e075a4d2d279c0ffb040b938c26429ca16a18b32ad5407b96932",
+      "sha256": "a938f8b7a520f6173b7ade60836456d04a0dfb2c6fd2e5b765c2997820fdbd3c",
       "size": 134653
     },
     {
       "path": "reports/review-studio.json",
-      "sha256": "d32aff266aa9d08a7b72e9dcb8e34c8e8c12d726cc3873d569bf4d6e2bbe0094",
-      "size": 1263011
+      "sha256": "4c7596b4d8e0c980bfa1092294ba77467c2e666f761b4c502c127a91aed2f2df",
+      "size": 1263662
     },
     {
       "path": "reports/review-viewer.html",
@@ -562,8 +562,8 @@
     },
     {
       "path": "reports/review-viewer.json",
-      "sha256": "c0b0f3ad6422cdc920a5cf4891856394b5c7cf1bb844b3196fd99ce3dc5f1376",
-      "size": 538613
+      "sha256": "246941de21eef0f757e97940031fd0d14ff610906ec60c568ee9386ac4207d42",
+      "size": 538616
     },
     {
       "path": "reports/review_annotations.json",
@@ -607,13 +607,13 @@
     },
     {
       "path": "reports/security_trust_report.json",
-      "sha256": "c2812733d9c4743f9b25f62f79afeed0737c8e99ce0005f229f579023af2aeb5",
-      "size": 147560
+      "sha256": "79367e3a3a1b80a341b01c8c8fdd5f768f0f9abe12141c5eedcc761e98115417",
+      "size": 147604
     },
     {
       "path": "reports/security_trust_report.md",
-      "sha256": "570e9e570137df2f1adb1f9c6d6aeaa2b9115867c968e873598c45a42aeb31b1",
-      "size": 33246
+      "sha256": "ab8dff6438801f5c8630c776e2b4716108275b8f3e76a6580b0738795cc68a6b",
+      "size": 33245
     },
     {
       "path": "reports/skill-interpretation.html",
@@ -622,8 +622,8 @@
     },
     {
       "path": "reports/skill-interpretation.json",
-      "sha256": "0b816d3d95030b131b592b856ad413473eeb52e077c63afb4cdae2b0b2fff2d5",
-      "size": 90905
+      "sha256": "b57f0ec9376230d4071a273e646a8f67f953262229428343b8a19efe633560d5",
+      "size": 90908
     },
     {
       "path": "reports/skill-os-2-review.md",
@@ -642,8 +642,8 @@
     },
     {
       "path": "reports/skill-overview.json",
-      "sha256": "053281ca58aae199d7cab7a9e41b7021bb4c8b152500a1ab9731f77568d56577",
-      "size": 89849
+      "sha256": "956a1af15af9682ef1663a4b9004df53c1f709989d0356561c22a452e908cef7",
+      "size": 89852
     },
     {
       "path": "reports/skill_atlas.html",
@@ -817,7 +817,7 @@
     },
     {
       "path": "reports/upgrade_check.json",
-      "sha256": "f72ead39b75d364e6f4b158ac722922c1c4918f94e5eeb861412f9ef9552fb06",
+      "sha256": "993483f556fee303886592b4e7582c7b8a3b5574ffe5ee0da46611a73e33cbcb",
       "size": 2763
     },
     {
@@ -916,7 +916,7 @@
       "size": 6172
     }
   ],
-  "run_id": "phase1-rc-1.2.0-stable-20260814",
+  "run_id": "phase1-pr-canonical-ir-20260816",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
