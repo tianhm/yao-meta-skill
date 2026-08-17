@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 222,
-    "json_claim_surface_count": 108,
-    "metadata_claim_surface_count": 109,
+    "claim_surface_count": 228,
+    "json_claim_surface_count": 112,
+    "metadata_claim_surface_count": 113,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -559,7 +559,23 @@
       "violation_count": 0
     },
     {
+      "path": "reports/provider-output-evaluation-analysis.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_adjudication.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_answer_commitment.json",
+      "violation_count": 0
+    },
+    {
       "path": "reports/provider_output_evaluation.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_review_lineage.json",
       "violation_count": 0
     },
     {
@@ -764,6 +780,14 @@
     },
     {
       "path": "reports/skillops/daily/2026-08-14.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-16.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-16.md",
       "violation_count": 0
     },
     {

@@ -1,22 +1,22 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `265`
-- Scripts: `165`
+- Scanned files: `267`
+- Scripts: `166`
 - Internal script modules: `74`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
 - Network policy missing scripts: `0`
-- File-write scripts: `79`
+- File-write scripts: `80`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `91`
+- CLI help smoke checked: `92`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `265`
-- Package SHA256: `d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202`
+- Package hash files: `267`
+- Package SHA256: `6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `91`
-- Passed scripts: `91`
+- Checked scripts: `92`
+- Passed scripts: `92`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -114,6 +114,7 @@
 | scripts/promotion_checker.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/propose_adaptation.py | cli | True | True | True | False | False | True | False | Turns redacted repeated preference patterns into proposal-only adaptation plans. |
 | scripts/provider_output_eval_runner.py | cli | False | True | True | False | True | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/publish_provider_evidence.py | cli | True | True | True | False | False | True | True | Exports allowlisted provider and blind-review aggregates while keeping raw outputs, provider identifiers, and reviewer packets local. |
 | scripts/python_compat_check.py | cli | True | True | True | False | False | True | False | Checks repository Python source for syntax that can pass locally but fail on the supported CI interpreter. |
 | scripts/reference_synthesis_markdown.py | internal-module | True | False | False | False | False | False | False | Imported by render_reference_synthesis.py to keep reference synthesis modeling separate from Markdown rendering. |
 | scripts/registry_audit.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |

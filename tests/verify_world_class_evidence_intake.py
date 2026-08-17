@@ -593,10 +593,10 @@ def main() -> None:
     assert not any("--provider-runner" in step for step in checklist["provider-holdout"]["must_collect"]["runbook"]), checklist["provider-holdout"]
     assert "reports/provider_output_evaluation.json summary.model_executed_count == 40" in checklist["provider-holdout"]["must_collect"]["success_checks"], checklist["provider-holdout"]
     assert checklist["provider-holdout"]["anti_overclaim"]["local_command_runner_counts_as_provider_model"] is False, checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["source_accepted"] is False, checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["source_accepted"] is True, checklist["provider-holdout"]
     assert checklist["provider-holdout"]["observed_state"]["contract_version"] == "phase1", checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["observed_state"]["model_executed_count"] == 0, checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["observed_state"]["call_count"] == 0, checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["observed_state"]["model_executed_count"] == 40, checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["observed_state"]["call_count"] == 40, checklist["provider-holdout"]
     markdown = default_md.read_text(encoding="utf-8")
     assert "World-Class Evidence Intake" in markdown, markdown
     assert "ready to claim world-class: `false`" in markdown, markdown
@@ -633,19 +633,19 @@ def main() -> None:
     )
     valid_payload = run_intake("--submissions-dir", str(valid_dir))
     assert valid_payload["ok"] is True, valid_payload
-    assert valid_payload["summary"]["decision"] == "source-evidence-incomplete", valid_payload["summary"]
+    assert valid_payload["summary"]["decision"] == "intake-ready-for-ledger-review", valid_payload["summary"]
     assert valid_payload["summary"]["valid_submission_count"] == 1, valid_payload["summary"]
     assert valid_payload["summary"]["invalid_submission_count"] == 0, valid_payload["summary"]
-    assert valid_payload["summary"]["valid_packet_source_incomplete_count"] == 1, valid_payload["summary"]
-    assert valid_payload["summary"]["operator_checklist_ready_count"] == 0, valid_payload["summary"]
-    assert valid_payload["summary"]["ready_for_ledger_review"] is False, valid_payload["summary"]
+    assert valid_payload["summary"]["valid_packet_source_incomplete_count"] == 0, valid_payload["summary"]
+    assert valid_payload["summary"]["operator_checklist_ready_count"] == 1, valid_payload["summary"]
+    assert valid_payload["summary"]["ready_for_ledger_review"] is True, valid_payload["summary"]
     assert valid_payload["summary"]["ready_to_claim_world_class"] is False, valid_payload["summary"]
     assert valid_payload["submissions"][0]["status"] == "pass", valid_payload["submissions"]
     assert valid_payload["submissions"][0]["artifact_integrity"]["artifact_existing_count"] == 1, valid_payload["submissions"]
     assert valid_payload["submissions"][0]["artifact_integrity"]["artifact_sha256_verified_count"] == 1, valid_payload["submissions"]
     assert valid_payload["submissions"][0]["errors"] == [], valid_payload["submissions"]
     valid_checklist = {item["evidence_key"]: item for item in valid_payload["operator_checklist"]}
-    assert valid_checklist["provider-holdout"]["readiness"] == "source-evidence-incomplete", valid_checklist["provider-holdout"]
+    assert valid_checklist["provider-holdout"]["readiness"] == "ready-for-ledger-review", valid_checklist["provider-holdout"]
     assert "tests/tmp_world_class_evidence_intake/valid_submissions" in valid_checklist["provider-holdout"]["commands"]["validate_intake"], valid_checklist["provider-holdout"]
     assert "tests/tmp_world_class_evidence_intake/valid_submissions" in valid_checklist["provider-holdout"]["commands"]["submission_review"], valid_checklist["provider-holdout"]
     assert "tests/tmp_world_class_evidence_intake/valid_submissions" in valid_checklist["provider-holdout"]["commands"]["refresh_ledger"], valid_checklist["provider-holdout"]

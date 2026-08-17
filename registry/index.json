@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "package_count": 1,
   "packages": [
     {
@@ -16,7 +16,7 @@
         "vscode"
       ],
       "package_metadata": "registry/packages/yao-meta-skill.json",
-      "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
+      "package_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b"
     }
   ]
 }

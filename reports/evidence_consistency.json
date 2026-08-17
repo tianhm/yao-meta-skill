@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skill_dir": ".",
   "summary": {
     "check_count": 41,
@@ -396,13 +396,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
+        "all_equal_to_actual_archive": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88"
       },
       "actual": {
-        "actual_archive": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
-        "package_verification": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
-        "registry": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
-        "benchmark": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
+        "actual_archive": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "package_verification": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "registry": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "benchmark": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -417,12 +417,12 @@
       "label": "Phase-one provider status is consistent across evaluation, benchmark, and Skill OS audit",
       "status": "pass",
       "expected": {
-        "benchmark_complete": false,
-        "skill_os2_status": "external_required"
+        "benchmark_complete": true,
+        "skill_os2_status": "pass"
       },
       "actual": {
-        "benchmark_complete": false,
-        "skill_os2_status": "external_required"
+        "benchmark_complete": true,
+        "skill_os2_status": "pass"
       },
       "paths": [
         "reports/provider_output_evaluation.json",
@@ -437,12 +437,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 566208/120000; top deferred scripts 501110; resource governance governed; quality density 147.8",
+        "detail": "initial load 947/1000; deferred 570214/120000; top deferred scripts 505096; resource governance governed; quality density 147.8",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 566208/120000; top deferred scripts 501110; resource governance governed; quality density 147.8",
+        "detail": "initial load 947/1000; deferred 570214/120000; top deferred scripts 505096; resource governance governed; quality density 147.8",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -470,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 14
+        "changed_file_count": 27
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -511,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "254205623545c3f0f729ead7169f862b6b550c20",
-      "actual": "254205623545c3f0f729ead7169f862b6b550c20",
+      "expected": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+      "actual": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -527,33 +527,33 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
-        "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
+        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
+        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "beta_test_ready": true,
         "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 5
+        "public_claim_blocker_count": 3
       },
       "actual": {
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
-        "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
+        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
+        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "beta_test_ready": true,
         "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 5
+        "public_claim_blocker_count": 3
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -602,8 +602,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "decision": "evidence-pending"
       },
@@ -614,8 +614,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "decision": "evidence-pending"
       },
@@ -635,7 +635,7 @@
         "pending_count": 4,
         "accepted_count": 0,
         "source_check_count": 14,
-        "source_pass_count": 6
+        "source_pass_count": 11
       },
       "actual": {
         "ready": false,
@@ -643,7 +643,7 @@
         "pending_count": 4,
         "accepted_count": 0,
         "source_check_count": 14,
-        "source_pass_count": 6
+        "source_pass_count": 11
       },
       "paths": [
         "reports/world_class_evidence_ledger.json",
@@ -655,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "254205623545c3f0f729ead7169f862b6b550c20",
-      "actual": "254205623545c3f0f729ead7169f862b6b550c20",
+      "expected": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+      "actual": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -671,33 +671,33 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
-        "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
+        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
+        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "beta_test_ready": true,
         "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 5
+        "public_claim_blocker_count": 3
       },
       "actual": {
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
-        "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
+        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
+        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "beta_test_ready": true,
         "beta_test_blocker_count": 0,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 5
+        "public_claim_blocker_count": 3
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -746,8 +746,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "decision": "evidence-pending"
       },
@@ -758,8 +758,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "decision": "evidence-pending"
       },
@@ -779,7 +779,7 @@
         "pending_count": 4,
         "accepted_count": 0,
         "source_check_count": 14,
-        "source_pass_count": 6
+        "source_pass_count": 11
       },
       "actual": {
         "ready": false,
@@ -787,7 +787,7 @@
         "pending_count": 4,
         "accepted_count": 0,
         "source_check_count": 14,
-        "source_pass_count": 6
+        "source_pass_count": 11
       },
       "paths": [
         "reports/world_class_evidence_ledger.json",
@@ -1586,7 +1586,7 @@
         "external_pending_count": 3,
         "human_pending_count": 1,
         "source_check_count": 14,
-        "source_pass_count": 6,
+        "source_pass_count": 11,
         "conclusion_zh": "世界级证据尚未完成：4 项待补，0 项已接受。",
         "conclusion_en": "World-class evidence is not complete: 4 pending, 0 accepted.",
         "entries": [
@@ -1600,10 +1600,7 @@
             "status": "pending",
             "summary_zh": "缺少真实 provider 模型运行和 token metadata。",
             "summary_en": "Missing a real provider model run and token metadata.",
-            "blocked_checks": [
-              "Provider calls",
-              "Provider model runs"
-            ]
+            "blocked_checks": []
           },
           {
             "key": "human-adjudication",
@@ -1615,11 +1612,7 @@
             "status": "pending",
             "summary_zh": "盲评 pair 仍待真实 reviewer 决策。",
             "summary_en": "Blind-review pairs still need real reviewer decisions.",
-            "blocked_checks": [
-              "Registered reviewers",
-              "Blind pairs",
-              "Blind pack binding"
-            ]
+            "blocked_checks": []
           },
           {
             "key": "native-permission-enforcement",
@@ -1661,7 +1654,7 @@
         "external_pending_count": 3,
         "human_pending_count": 1,
         "source_check_count": 14,
-        "source_pass_count": 6,
+        "source_pass_count": 11,
         "conclusion_zh": "世界级证据尚未完成：4 项待补，0 项已接受。",
         "conclusion_en": "World-class evidence is not complete: 4 pending, 0 accepted.",
         "entries": [
@@ -1675,10 +1668,7 @@
             "status": "pending",
             "summary_zh": "缺少真实 provider 模型运行和 token metadata。",
             "summary_en": "Missing a real provider model run and token metadata.",
-            "blocked_checks": [
-              "Provider calls",
-              "Provider model runs"
-            ]
+            "blocked_checks": []
           },
           {
             "key": "human-adjudication",
@@ -1690,11 +1680,7 @@
             "status": "pending",
             "summary_zh": "盲评 pair 仍待真实 reviewer 决策。",
             "summary_en": "Blind-review pairs still need real reviewer decisions.",
-            "blocked_checks": [
-              "Registered reviewers",
-              "Blind pairs",
-              "Blind pack binding"
-            ]
+            "blocked_checks": []
           },
           {
             "key": "native-permission-enforcement",
@@ -1773,22 +1759,22 @@
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 165
+            "file_count": 166
           },
           {
             "path": "evals",
             "label": "Trigger and quality checks",
             "kind": "folder",
-            "file_count": 33
+            "file_count": 34
           },
           {
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 185
+            "file_count": 191
           }
         ],
-        "file_count": 424,
+        "file_count": 432,
         "folder_count": 4,
         "distribution": [
           {
@@ -1813,15 +1799,15 @@
           },
           {
             "label": "scripts",
-            "value": 165
+            "value": 166
           },
           {
             "label": "evals",
-            "value": 33
+            "value": 34
           },
           {
             "label": "reports",
-            "value": 185
+            "value": 191
           }
         ]
       },
@@ -1861,22 +1847,22 @@
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 165
+            "file_count": 166
           },
           {
             "path": "evals",
             "label": "Trigger and quality checks",
             "kind": "folder",
-            "file_count": 33
+            "file_count": 34
           },
           {
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 185
+            "file_count": 191
           }
         ],
-        "file_count": 424,
+        "file_count": 432,
         "folder_count": 4,
         "distribution": [
           {
@@ -1901,15 +1887,15 @@
           },
           {
             "label": "scripts",
-            "value": 165
+            "value": 166
           },
           {
             "label": "evals",
-            "value": 33
+            "value": 34
           },
           {
             "label": "reports",
-            "value": 185
+            "value": 191
           }
         ]
       },
@@ -2072,15 +2058,15 @@
       "expected": {
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "public_claim_ready": false
       },
       "actual": {
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
-        "world_class_source_pass_count": 6,
-        "world_class_source_blocked_count": 8,
+        "world_class_source_pass_count": 11,
+        "world_class_source_blocked_count": 3,
         "public_claim_ready": false
       },
       "paths": [
@@ -2134,8 +2120,8 @@
       "expected": {
         "pending_count": 4,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "preflight_counts_as_evidence": false,
         "credential_value_exposed": false
@@ -2143,8 +2129,8 @@
       "actual": {
         "pending_count": 4,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "ready_to_claim_world_class": false,
         "preflight_counts_as_evidence": false,
         "credential_value_exposed": false
@@ -2223,7 +2209,7 @@
           "submission_ref_total_count": 1,
           "submission_ref_ready_count": 1,
           "supporting_evidence_total_count": 8,
-          "supporting_evidence_ready_count": 6,
+          "supporting_evidence_ready_count": 7,
           "submission_ref_copy_to_artifact_refs": true,
           "supporting_evidence_copy_to_artifact_refs": false
         },
@@ -2232,9 +2218,9 @@
           "counts_as_evidence": false,
           "artifact_prefill_counts_as_evidence": false,
           "submission_ref_total_count": 2,
-          "submission_ref_ready_count": 0,
+          "submission_ref_ready_count": 1,
           "supporting_evidence_total_count": 8,
-          "supporting_evidence_ready_count": 6,
+          "supporting_evidence_ready_count": 7,
           "submission_ref_copy_to_artifact_refs": true,
           "supporting_evidence_copy_to_artifact_refs": false
         },
@@ -2269,7 +2255,7 @@
           "submission_ref_total_count": 1,
           "submission_ref_ready_count": 1,
           "supporting_evidence_total_count": 8,
-          "supporting_evidence_ready_count": 6,
+          "supporting_evidence_ready_count": 7,
           "submission_ref_copy_to_artifact_refs": true,
           "supporting_evidence_copy_to_artifact_refs": false
         },
@@ -2278,9 +2264,9 @@
           "counts_as_evidence": false,
           "artifact_prefill_counts_as_evidence": false,
           "submission_ref_total_count": 2,
-          "submission_ref_ready_count": 0,
+          "submission_ref_ready_count": 1,
           "supporting_evidence_total_count": 8,
-          "supporting_evidence_ready_count": 6,
+          "supporting_evidence_ready_count": 7,
           "submission_ref_copy_to_artifact_refs": true,
           "supporting_evidence_copy_to_artifact_refs": false
         },
@@ -2321,7 +2307,7 @@
         "summary": {
           "phase_queue_count": 2,
           "phase_queue_blocked_count": 2,
-          "phase_queue_row_count": 12,
+          "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
           "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
@@ -2354,22 +2340,18 @@
             "phase": "collect-source",
             "priority": 40,
             "status": "blocked",
-            "blocked_count": 8,
-            "row_count": 8,
+            "blocked_count": 3,
+            "row_count": 3,
             "owners": [
               "Browser/Chrome/IDE/provider client integrator",
-              "human reviewer",
-              "operator with provider credentials",
               "target client or installer integrator"
             ],
             "evidence_keys": [
-              "human-adjudication",
               "native-client-telemetry",
-              "native-permission-enforcement",
-              "provider-holdout"
+              "native-permission-enforcement"
             ],
-            "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-            "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
             "counts_as_completion": false
           }
         ],
@@ -2390,22 +2372,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -2423,22 +2389,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -2515,7 +2465,7 @@
         "operator_runbook_summary": {
           "phase_queue_count": 2,
           "phase_queue_blocked_count": 2,
-          "phase_queue_row_count": 12,
+          "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
           "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
@@ -2548,22 +2498,18 @@
             "phase": "collect-source",
             "priority": 40,
             "status": "blocked",
-            "blocked_count": 8,
-            "row_count": 8,
+            "blocked_count": 3,
+            "row_count": 3,
             "owners": [
               "Browser/Chrome/IDE/provider client integrator",
-              "human reviewer",
-              "operator with provider credentials",
               "target client or installer integrator"
             ],
             "evidence_keys": [
-              "human-adjudication",
               "native-client-telemetry",
-              "native-permission-enforcement",
-              "provider-holdout"
+              "native-permission-enforcement"
             ],
-            "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-            "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
             "counts_as_completion": false
           }
         ],
@@ -2584,22 +2530,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -2617,22 +2547,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -2722,22 +2636,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -2755,22 +2653,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -2848,7 +2730,7 @@
         "summary": {
           "phase_queue_count": 2,
           "phase_queue_blocked_count": 2,
-          "phase_queue_row_count": 12,
+          "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
           "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
@@ -2881,29 +2763,25 @@
             "phase": "collect-source",
             "priority": 40,
             "status": "blocked",
-            "blocked_count": 8,
-            "row_count": 8,
+            "blocked_count": 3,
+            "row_count": 3,
             "owners": [
               "Browser/Chrome/IDE/provider client integrator",
-              "human reviewer",
-              "operator with provider credentials",
               "target client or installer integrator"
             ],
             "evidence_keys": [
-              "human-adjudication",
               "native-client-telemetry",
-              "native-permission-enforcement",
-              "provider-holdout"
+              "native-permission-enforcement"
             ],
-            "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-            "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
             "counts_as_completion": false
           }
         ],
         "operator_runbook_summary": {
           "phase_queue_count": 2,
           "phase_queue_blocked_count": 2,
-          "phase_queue_row_count": 12,
+          "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
           "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
@@ -2936,22 +2814,18 @@
             "phase": "collect-source",
             "priority": 40,
             "status": "blocked",
-            "blocked_count": 8,
-            "row_count": 8,
+            "blocked_count": 3,
+            "row_count": 3,
             "owners": [
               "Browser/Chrome/IDE/provider client integrator",
-              "human reviewer",
-              "operator with provider credentials",
               "target client or installer integrator"
             ],
             "evidence_keys": [
-              "human-adjudication",
               "native-client-telemetry",
-              "native-permission-enforcement",
-              "provider-holdout"
+              "native-permission-enforcement"
             ],
-            "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-            "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
             "counts_as_completion": false
           }
         ],
@@ -2972,22 +2846,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -3005,22 +2863,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -3110,22 +2952,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -3143,22 +2969,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -3248,22 +3058,6 @@
               "next_action_id": "provider-holdout-precheck-provider-api-key",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 2,
-              "row_count": 2,
-              "owners": [
-                "operator with provider credentials"
-              ],
-              "evidence_keys": [
-                "provider-holdout"
-              ],
-              "next_action_id": "provider-holdout-source-check-call_count",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
             }
           ],
           "human-adjudication": [
@@ -3281,22 +3075,6 @@
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
               "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
-              "counts_as_completion": false
-            },
-            {
-              "phase": "collect-source",
-              "priority": 40,
-              "status": "blocked",
-              "blocked_count": 3,
-              "row_count": 3,
-              "owners": [
-                "human reviewer"
-              ],
-              "evidence_keys": [
-                "human-adjudication"
-              ],
-              "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
               "counts_as_completion": false
             }
           ],
@@ -3463,8 +3241,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "plan_keys": [
           "human-adjudication",
           "native-client-telemetry",
@@ -3621,8 +3399,8 @@
         "human_pending_count": 1,
         "external_pending_count": 3,
         "source_check_count": 14,
-        "source_pass_count": 6,
-        "source_blocked_count": 8,
+        "source_pass_count": 11,
+        "source_blocked_count": 3,
         "plan_keys": [
           "human-adjudication",
           "native-client-telemetry",
@@ -3787,9 +3565,9 @@
         "`16` gates",
         "`5` warnings",
         "`74` declared internal modules",
-        "`91 / 91` CLI help smoke checks passing across `165` scripts",
-        "`633` zip entries",
-        "archive with `633` entries",
+        "`92 / 92` CLI help smoke checks passing across `166` scripts",
+        "`641` zip entries",
+        "archive with `641` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",

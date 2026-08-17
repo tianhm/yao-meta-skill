@@ -59,7 +59,7 @@ def main() -> None:
         "native-permission-enforcement",
         "native-client-telemetry",
     }, requirements
-    assert requirements["provider-holdout"]["status"] == "external_required", requirements["provider-holdout"]
+    assert requirements["provider-holdout"]["status"] == "pass", requirements["provider-holdout"]
     provider_runbook = requirements["provider-holdout"]["runbook"]
     assert any("evidence-build . --run-id" in command for command in provider_runbook), requirements["provider-holdout"]
     assert not any("--provider-runner" in command for command in provider_runbook), requirements["provider-holdout"]
@@ -67,7 +67,8 @@ def main() -> None:
     assert not any("<redacted>" in command or "OPENAI_API_KEY=" in command for command in provider_runbook), requirements["provider-holdout"]
     assert any("world-class-intake . --submissions-dir evidence/world_class/submissions" in command for command in provider_runbook), requirements["provider-holdout"]
     assert any("evidence/world_class/templates/provider-holdout.intake.json" in command for command in provider_runbook), requirements["provider-holdout"]
-    assert tasks["provider-holdout"]["status"] == "external_required", tasks["provider-holdout"]
+    assert tasks["provider-holdout"]["status"] == "pass", tasks["provider-holdout"]
+    assert tasks["human-adjudication"]["status"] == "pass", tasks["human-adjudication"]
     assert any("evidence-build . --run-id" in command for command in tasks["provider-holdout"]["runbook"]), tasks["provider-holdout"]
     assert "reports/provider_output_adjudication.json" in tasks["human-adjudication"]["evidence_artifacts"], tasks["human-adjudication"]
     assert "reports/provider_reviewer_registry.json" in tasks["human-adjudication"]["evidence_artifacts"], tasks["human-adjudication"]

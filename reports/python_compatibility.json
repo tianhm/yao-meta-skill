@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-06-13",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 250,
+    "file_count": 260,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -22,6 +22,60 @@
     }
   ],
   "files": [
+    {
+      "path": ".yao/releases/phase1-zh-output-eval-20260816-v2/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/releases/phase1-zh-output-eval-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-guided-preflight-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-provider-guided-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-provider-guided-retry1-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-provider-zh-cn-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-provider-zh-cn-adjudicated-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-zh-output-eval-20260816-v2/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": ".yao/runs/phase1-zh-output-eval-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
     {
       "path": "examples/complex-release-orchestrator/generated-skill/scripts/build_release_packet.py",
       "ok": true,
@@ -348,6 +402,12 @@
     },
     {
       "path": "scripts/provider_output_eval_runner.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/publish_provider_evidence.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

@@ -1,7 +1,7 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "previous": {
     "name": "yao-meta-skill",
     "version": "1.0.0",
@@ -70,12 +70,12 @@
       {
         "field": "archive_sha256",
         "from": "",
-        "to": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
+        "to": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
       },
       {
         "field": "package_sha256",
         "from": "0000000000000000000000000000000000000000000000000000000000000000",
-        "to": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
+        "to": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
       }
     ]
   },

@@ -1,15 +1,15 @@
 # Architecture Maintainability
 
-Generated at: `2026-08-14`
+Generated at: `2026-08-16`
 
 ## Summary
 
 - decision: `pass`
-- python files: `247`
-- scripts: `165`
+- python files: `248`
+- scripts: `166`
 - tests: `82`
 - internal modules: `76`
-- CLI scripts: `92`
+- CLI scripts: `93`
 - Yao CLI command handlers: `73`
 - entrypoint command handlers: `18`
 - command modules: `7`
@@ -57,7 +57,7 @@ No near-threshold files found.
 | `scripts/build_skill_atlas.py` | `591` | `cli-script` | `pass` |
 | `scripts/render_skill_overview.py` | `588` | `cli-script` | `pass` |
 | `scripts/optimize_description.py` | `585` | `cli-script` | `pass` |
-| `tests/verify_world_class_evidence_ledger.py` | `584` | `test` | `pass` |
+| `tests/verify_world_class_evidence_ledger.py` | `585` | `test` | `pass` |
 
 ## Release Rule
 

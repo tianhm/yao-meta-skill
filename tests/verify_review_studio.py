@@ -75,9 +75,9 @@ def main() -> None:
     assert "model 10" in output_gate["detail"], output_gate
     assert "reviewed 0/5" in output_gate["detail"], output_gate
     assert "review pending 5" in output_gate["detail"], output_gate
-    assert "provider matrix external-required" in output_gate["detail"], output_gate
-    assert "phase1 review 0/3" in output_gate["detail"], output_gate
-    assert "promotion pending" in output_gate["detail"], output_gate
+    assert "provider matrix completed" in output_gate["detail"], output_gate
+    assert "phase1 review 3/3" in output_gate["detail"], output_gate
+    assert "promotion eligible" in output_gate["detail"], output_gate
     context_gate = next(item for item in payload["gates"] if item["key"] == "context-budget")
     assert context_gate["status"] == "pass", context_gate
     initial_load = re.search(r"initial load (\d+)/1000", context_gate["detail"])
@@ -239,8 +239,8 @@ def main() -> None:
     assert benchmark_summary["public_claim_blocker_count"] >= 3, benchmark_summary
     public_claim = full_payload["data"]["benchmark_reproducibility"]["public_claim"]
     assert public_claim["ready"] is False, public_claim
-    assert any("phase-one provider matrix is incomplete" in item for item in public_claim["blockers"]), public_claim
-    assert any("phase-one three-reviewer adjudication is incomplete" in item for item in public_claim["blockers"]), public_claim
+    assert not any("phase-one provider matrix is incomplete" in item for item in public_claim["blockers"]), public_claim
+    assert not any("phase-one three-reviewer adjudication is incomplete" in item for item in public_claim["blockers"]), public_claim
     assert any("human blind-review adjudication is incomplete" in item for item in public_claim["blockers"]), public_claim
     output_review_checklist = full_payload["data"]["output_review_adjudication"]["reviewer_checklist"]
     assert len(output_review_checklist) == 5, output_review_checklist
@@ -320,8 +320,9 @@ def main() -> None:
     assert "reports/provider_output_evaluation.json summary.model_executed_count == 40" in provider_entry["success_checks"], provider_entry
     assert any("evidence-build . --run-id <PROVIDER_RUN_ID>" in step for step in provider_entry["runbook"]), provider_entry
     assert provider_entry["observed_state"]["contract_version"] == "phase1", provider_entry
-    assert provider_entry["observed_state"]["model_executed_count"] == 0, provider_entry
-    assert provider_entry["observed_state"]["call_count"] == 0, provider_entry
+    assert provider_entry["observed_state"]["model_executed_count"] == 40, provider_entry
+    assert provider_entry["observed_state"]["call_count"] == 40, provider_entry
+    assert provider_entry["source_accepted"] is True, provider_entry
     provider_submission_status = provider_entry["submission_state"]["status"]
     assert provider_submission_status in {"invalid-contract", "missing"}, provider_entry
     if provider_submission_status == "invalid-contract":
@@ -455,7 +456,7 @@ def main() -> None:
     assert "源证据检查" in html, html
     assert "world-source-checks" in html, html
     assert "Provider calls" in html, html
-    assert "call_count: 0 / ==40" in html, html
+    assert "call_count: 40 / ==40" in html, html
     assert "Provider model runs" in html, html
     assert "蓝图覆盖" in html, html
     assert "Extension Track Count" in html, html
@@ -469,8 +470,8 @@ def main() -> None:
     assert "公开声明" in html, html
     assert "声明阻断" in html, html
     assert "可公开声明" in html, html
-    assert "phase-one provider matrix is incomplete" in html, html
-    assert "phase-one three-reviewer adjudication is incomplete" in html, html
+    assert "phase-one provider matrix is incomplete" not in html, html
+    assert "phase-one three-reviewer adjudication is incomplete" not in html, html
     assert "human blind-review adjudication is incomplete" in html, html
     assert "审查批注" in html, html[:9000]
     assert "当前没有 reviewer 批注" in html, html[:9000]

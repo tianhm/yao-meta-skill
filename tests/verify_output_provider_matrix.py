@@ -15,14 +15,40 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from adjudicate_multi_reviewer import adjudicate_reviews, canonical_sha256  # noqa: E402
 from evidence_store import EvidenceError, EvidenceStore  # noqa: E402
 from finalize_provider_review import finalize  # noqa: E402
-from output_provider_matrix import build_blind_materials, default_runner_for, execute_provider_matrix, load_provider_matrix, provider_status  # noqa: E402
+from output_provider_matrix import (  # noqa: E402
+    build_blind_materials,
+    default_runner_for,
+    execute_provider_matrix,
+    load_provider_matrix,
+    provider_status,
+    resolve_provider_cases_path,
+)
+from publish_provider_evidence import (  # noqa: E402
+    assert_public_boundary,
+    sanitize_adjudication,
+    sanitize_commitment,
+    sanitize_lineage,
+    sanitize_provider_report,
+)
 
 
 def main() -> None:
     tmp_root = ROOT / "tests" / "tmp_output_provider_matrix"
     shutil.rmtree(tmp_root, ignore_errors=True)
     run_dir = tmp_root / "run"
-    matrix = load_provider_matrix(ROOT / "evals" / "output" / "provider_matrix.json")
+    matrix_path = ROOT / "evals" / "output" / "provider_matrix.json"
+    matrix = load_provider_matrix(matrix_path)
+    cases_path = resolve_provider_cases_path(matrix_path, matrix)
+    assert matrix["evaluation_locale"] == "zh-CN", matrix
+    assert matrix["holdout_cases"] == "holdout_cases.zh-CN.jsonl", matrix
+    assert cases_path == ROOT / "evals" / "output" / "holdout_cases.zh-CN.jsonl", cases_path
+    chinese_cases = [json.loads(line) for line in cases_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert len(chinese_cases) == 10, chinese_cases
+    assert all("简体中文" in item["prompt"] for item in chinese_cases), chinese_cases
+    english_cases_path = ROOT / "evals" / "output" / "holdout_cases.jsonl"
+    english_cases = [json.loads(line) for line in english_cases_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert len(english_cases) == 10, english_cases
+    assert all("简体中文" not in item["prompt"] for item in english_cases), english_cases
     assert [item["model"] for item in matrix["models"]] == ["deepseek-v4-flash", "deepseek-v4-pro"], matrix
     assert all(item["thinking"] == "disabled" and item["temperature"] == 0 for item in matrix["models"]), matrix
     assert matrix["limits"] == {"max_calls": 40, "max_total_tokens": 250000, "timeout_seconds": 60}, matrix
@@ -54,7 +80,7 @@ def main() -> None:
         return [sys.executable, str(fake_runner), "--model", model["model"]]
 
     report = execute_provider_matrix(
-        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        cases_path,
         matrix,
         run_dir,
         runner_for=runner_for,
@@ -156,6 +182,46 @@ def main() -> None:
     assert adjudication["quality_promotion"]["eligible"] is True, adjudication
     assert adjudication["world_class_evidence"]["counts_as_completion"] is False, adjudication
 
+    public_commitment = {
+        "schema_version": "1.0",
+        "status": "private-answer-key-isolated",
+        "pair_count": 20,
+        "blind_pack_sha256": answer_key["blind_pack_sha256"],
+        "answer_key_sha256": canonical_sha256(answer_key),
+    }
+    public_report = sanitize_provider_report(
+        report,
+        adjudication,
+        generated_at="2026-08-16",
+        source_run_id="provider-source",
+        source_commit="a" * 40,
+        commitment=public_commitment,
+        export_commit="a" * 40,
+    )
+    public_adjudication = sanitize_adjudication(
+        adjudication,
+        generated_at="2026-08-16",
+        source_run_id="provider-source",
+    )
+    public_lineage = sanitize_lineage(
+        {
+            "source_run_id": "provider-source",
+            "source_artifact_index_sha256": "b" * 64,
+            "source_commit": "a" * 40,
+            "blind_pack_sha256": answer_key["blind_pack_sha256"],
+            "answer_key_sha256": canonical_sha256(answer_key),
+        }
+    )
+    for public_payload in (public_report, public_adjudication, sanitize_commitment(public_commitment), public_lineage):
+        assert_public_boundary(public_payload)
+        serialized_public = json.dumps(public_payload, ensure_ascii=False)
+        assert "raw_output_path" not in serialized_public, serialized_public
+        assert "controlled_submission_id" not in serialized_public, serialized_public
+        assert "registered_reviewer_identities" not in serialized_public, serialized_public
+    assert public_report["summary"]["model_breakdown"]["deepseek-v4-flash"]["call_count"] == 20, public_report
+    assert public_adjudication["summary"]["with_skill_vote_count"] == 60, public_adjudication
+    assert public_adjudication["summary"]["unanimous_with_skill_pair_count"] == 20, public_adjudication
+
     pending = adjudicate_reviews(answer_key, decisions[:2], registry)
     assert pending["quality_promotion"]["status"] == "pending", pending
     assert pending["quality_promotion"]["eligible"] is False, pending
@@ -175,7 +241,7 @@ def main() -> None:
     limited_matrix = copy.deepcopy(matrix)
     limited_matrix["limits"]["max_calls"] = 1
     limited = execute_provider_matrix(
-        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        cases_path,
         limited_matrix,
         tmp_root / "limited-run",
         runner_for=runner_for,
@@ -192,7 +258,7 @@ def main() -> None:
 
     untrusted_runner = ROOT / "tests" / "fixtures" / "fake_untrusted_output_runner.py"
     untrusted = execute_provider_matrix(
-        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        cases_path,
         matrix,
         tmp_root / "untrusted-run",
         runner_for=lambda _model: [sys.executable, str(untrusted_runner)],
@@ -206,7 +272,7 @@ def main() -> None:
         raise AssertionError("untrusted provider metadata produced blind materials")
 
     high_usage = execute_provider_matrix(
-        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        cases_path,
         matrix,
         tmp_root / "high-usage-run",
         runner_for=lambda model: [sys.executable, str(fake_runner), "--model", model["model"], "--total-tokens", "249000"],
@@ -234,7 +300,7 @@ def main() -> None:
     lifecycle_store = EvidenceStore(lifecycle_skill)
     source_run = lifecycle_store.build("provider-source")
     lifecycle_report = execute_provider_matrix(
-        ROOT / "evals" / "output" / "holdout_cases.jsonl",
+        cases_path,
         matrix,
         source_run.run_dir,
         runner_for=runner_for,

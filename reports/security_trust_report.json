@@ -2,8 +2,8 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 265,
-    "script_count": 165,
+    "scanned_files": 267,
+    "script_count": 166,
     "internal_module_count": 74,
     "secret_findings": 0,
     "dependency_files": [
@@ -12,18 +12,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 79,
+    "file_write_script_count": 80,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 91,
+    "help_smoke_checked_count": 92,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 265,
-    "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
+    "package_hash_file_count": 267,
+    "package_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b"
   },
   "failures": [],
   "warnings": [],
@@ -771,6 +771,20 @@
         "api.deepseek.com",
         "api.openai.com"
       ]
+    },
+    {
+      "path": "scripts/publish_provider_evidence.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Exports allowlisted provider and blind-review aggregates while keeping raw outputs, provider identifiers, and reviewer packets local.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": true,
+      "network_urls": [],
+      "network_hosts": []
     },
     {
       "path": "scripts/python_compat_check.py",
@@ -2389,9 +2403,9 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 91,
-    "checked_count": 91,
-    "passed_count": 91,
+    "candidate_count": 92,
+    "checked_count": 92,
+    "passed_count": 92,
     "failed_count": 0,
     "skipped_count": 74,
     "failed_scripts": [],
@@ -2704,6 +2718,16 @@
         "passed": true,
         "has_help_text": true,
         "stdout_excerpt": "usage: provider_output_eval_runner.py [-h] [--provider PROVIDER]\n                                      [--base-url BASE_URL]\n                                      [--api-format {responses,chat-completions}]\n                                 ",
+        "stderr_excerpt": ""
+      },
+      {
+        "path": "scripts/publish_provider_evidence.py",
+        "command": "python3 scripts/publish_provider_evidence.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: publish_provider_evidence.py [-h] --source-run SOURCE_RUN\n                                    --generated-at GENERATED_AT\n                                    skill_dir\n\nPublish allowlisted aggregate evidence from an adjudicated provi",
         "stderr_excerpt": ""
       },
       {
@@ -3682,6 +3706,7 @@
           "scripts/probe_runtime_permissions.py",
           "scripts/promotion_checker.py",
           "scripts/propose_adaptation.py",
+          "scripts/publish_provider_evidence.py",
           "scripts/python_compat_check.py",
           "scripts/registry_audit.py",
           "scripts/render_adoption_drift_report.py",
@@ -3764,6 +3789,7 @@
           "scripts/ci_test.py",
           "scripts/evidence_resolver.py",
           "scripts/evidence_store.py",
+          "scripts/publish_provider_evidence.py",
           "scripts/render_benchmark_reproducibility.py",
           "scripts/render_eval_dashboard.py",
           "scripts/render_evidence_consistency.py",

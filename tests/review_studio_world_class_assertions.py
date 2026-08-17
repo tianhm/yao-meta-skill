@@ -49,23 +49,20 @@ def assert_world_class_action(full_payload: dict) -> None:
     assert provider_readiness in {"fix-submission", "awaiting-submission"}, provider_action_step
     assert provider_action_step["submission_path"] == "evidence/world_class/submissions/provider-holdout.json", provider_action_step
     assert provider_action_step["template_path"] == "evidence/world_class/templates/provider-holdout.intake.json", provider_action_step
-    assert provider_action_step["source_pass_count"] == 2, provider_action_step
-    assert provider_action_step["source_blocked_count"] == 2, provider_action_step
-    assert provider_action_step["repair_blocked_count"] == 3, provider_action_step
+    assert provider_action_step["source_pass_count"] == 4, provider_action_step
+    assert provider_action_step["source_blocked_count"] == 0, provider_action_step
+    assert provider_action_step["repair_blocked_count"] == 1, provider_action_step
     assert provider_action_step["repair_counts_as_completion"] is False, provider_action_step
-    assert provider_action_step["phase_queue_blocked_count"] == 2, provider_action_step
+    assert provider_action_step["phase_queue_blocked_count"] == 1, provider_action_step
     assert provider_action_step["phase_queue_counts_as_completion"] is False, provider_action_step
     provider_phase_queue = {item["phase"]: item for item in provider_action_step["phase_queue"]}
-    assert set(provider_phase_queue) == {"unblock-access", "collect-source"}, provider_phase_queue
+    assert set(provider_phase_queue) == {"unblock-access"}, provider_phase_queue
     assert provider_phase_queue["unblock-access"]["next_action_id"] == "provider-holdout-precheck-provider-api-key", provider_phase_queue
     assert provider_phase_queue["unblock-access"]["row_count"] == 1, provider_phase_queue
     assert "operator with provider credentials" in provider_phase_queue["unblock-access"]["owners"], provider_phase_queue
-    assert {item["field"] for item in provider_action_step["blocked_checks"]} == {
-        "call_count",
-        "model_executed_count",
-    }, provider_action_step
+    assert provider_action_step["blocked_checks"] == [], provider_action_step
     provider_repair_rows = {item["target"]: item for item in provider_action_step["repair_rows"]}
-    assert set(provider_repair_rows) == {"provider-api-key", "call_count", "model_executed_count"}, provider_repair_rows
+    assert set(provider_repair_rows) == {"provider-api-key"}, provider_repair_rows
     assert provider_repair_rows["provider-api-key"]["action_id"] == "provider-holdout-precheck-provider-api-key", provider_repair_rows
     assert provider_repair_rows["provider-api-key"]["repair_type"] == "precheck", provider_repair_rows
     assert provider_repair_rows["provider-api-key"]["phase"] == "unblock-access", provider_repair_rows
@@ -93,16 +90,14 @@ def assert_world_class_action(full_payload: dict) -> None:
     human_action_step = next(
         item for item in world_class_action["evidence_steps"] if item["key"] == "human-adjudication"
     )
-    assert human_action_step["source_pass_count"] == 1, human_action_step
-    assert human_action_step["source_blocked_count"] == 3, human_action_step
-    assert human_action_step["repair_blocked_count"] == 4, human_action_step
-    assert human_action_step["phase_queue_blocked_count"] == 2, human_action_step
+    assert human_action_step["source_pass_count"] == 4, human_action_step
+    assert human_action_step["source_blocked_count"] == 0, human_action_step
+    assert human_action_step["repair_blocked_count"] == 1, human_action_step
+    assert human_action_step["phase_queue_blocked_count"] == 1, human_action_step
     human_repair_rows = {item["target"]: item for item in human_action_step["repair_rows"]}
     assert human_repair_rows["human-reviewer"]["repair_type"] == "precheck", human_repair_rows
     assert human_repair_rows["human-reviewer"]["owner"] == "human reviewer", human_repair_rows
-    assert {"reviewer_count", "pair_count", "blind_pack_bound"} <= set(human_repair_rows), human_repair_rows
-    assert human_repair_rows["reviewer_count"]["repair_type"] == "source-check", human_repair_rows
-    assert "evidence-finalize-review" in human_repair_rows["reviewer_count"]["verification_command"], human_repair_rows
+    assert set(human_repair_rows) == {"human-reviewer"}, human_repair_rows
     assert "blind_pack_sha256" in " ".join(human_action_step["success_checks"]), human_action_step
     assert "blind_pack_sha256" in " ".join(human_action_step["privacy_contract"]), human_action_step
 
@@ -118,14 +113,16 @@ def assert_world_class_action(full_payload: dict) -> None:
     assert submission_review["summary"]["awaiting_submission_count"] == expected_awaiting_count, submission_review
     assert submission_review["summary"]["invalid_submission_count"] == expected_invalid_count, submission_review
     assert submission_review["summary"]["source_check_count"] == 14, submission_review
-    assert submission_review["summary"]["source_blocked_count"] >= 7, submission_review
+    assert submission_review["summary"]["source_blocked_count"] == sum(
+        item["source_blocked_count"] for item in submission_review["items"]
+    ), submission_review
     human_review_item = next(item for item in submission_review["items"] if item["evidence_key"] == "human-adjudication")
     human_review_source = {item["field"]: item for item in human_review_item["source_checklist"]}
     assert human_review_item["observed_state"]["contract_version"] == "phase1", human_review_item
-    assert human_review_item["observed_state"]["reviewer_count"] == 0, human_review_item
-    assert human_review_item["observed_state"]["pair_count"] == 0, human_review_item
+    assert human_review_item["observed_state"]["reviewer_count"] == 3, human_review_item
+    assert human_review_item["observed_state"]["pair_count"] == 20, human_review_item
     assert human_review_source["failure_count"]["status"] == "pass", human_review_source
-    assert human_review_source["blind_pack_bound"]["status"] == "blocked", human_review_source
+    assert human_review_source["blind_pack_bound"]["status"] == "pass", human_review_source
 
     runbook = full_payload["data"]["world_class_operator_runbook"]
     assert runbook["summary"]["decision"] == "collect-evidence", runbook
@@ -143,7 +140,7 @@ def assert_world_class_action(full_payload: dict) -> None:
         assert provider_checklist["submission_status"] == "fail", provider_checklist
     else:
         assert provider_checklist["submission_status"] in {"missing", "not-found", "not-submitted"}, provider_checklist
-    assert provider_checklist["source_accepted"] is False, provider_checklist
+    assert provider_checklist["source_accepted"] is True, provider_checklist
     assert provider_checklist["submission_path"] == "evidence/world_class/submissions/provider-holdout.json", provider_checklist
     assert provider_checklist["commands"]["validate_intake"] == "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions", provider_checklist
     assert provider_checklist["commands"]["submission_review"] == "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions", provider_checklist

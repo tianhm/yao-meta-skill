@@ -1,6 +1,6 @@
 {
   "workspace_root": ".",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-16",
   "skills": [
     {
       "name": "yao-meta-skill",
@@ -72,6 +72,7 @@
         "scripts/promotion_checker.py",
         "scripts/propose_adaptation.py",
         "scripts/provider_output_eval_runner.py",
+        "scripts/publish_provider_evidence.py",
         "scripts/python_compat_check.py",
         "scripts/reference_synthesis_markdown.py",
         "scripts/registry_audit.py",
