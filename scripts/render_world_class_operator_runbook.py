@@ -80,8 +80,8 @@ def build_runbook_item(
             "prepare_submission": commands.get("prepare_submission", ""),
             "validate_intake": commands.get("validate_intake", ""),
             "review_queue": commands.get("submission_review", ""),
-            "refresh_ledger": commands.get("refresh_ledger", "python3 scripts/yao.py world-class-ledger ."),
-            "guard_claim": commands.get("guard_claim", "python3 scripts/yao.py world-class-claim-guard ."),
+            "refresh_ledger": commands.get("refresh_ledger", "python3 scripts/yao.py world-class-ledger . --self"),
+            "guard_claim": commands.get("guard_claim", "python3 scripts/yao.py world-class-claim-guard . --self"),
         },
         "must_collect": {
             "provenance_requirements": must_collect.get("provenance_requirements", entry.get("provenance_requirements", [])),
@@ -617,7 +617,7 @@ def render_html(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render an operator runbook for collecting pending world-class evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--submissions-dir")
     parser.add_argument("--output-json", default="reports/world_class_operator_runbook.json")
     parser.add_argument("--output-md", default="reports/world_class_operator_runbook.md")

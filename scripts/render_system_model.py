@@ -117,7 +117,7 @@ def build_boundary_map(description: str, context: dict, manifest: dict) -> dict:
         "constraints": constraints,
         "standards": standards,
         "human_judgment_boundary": [
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby.",
         ],
@@ -465,7 +465,7 @@ def render_system_model(skill_dir: Path, output_md: Path | None = None, output_j
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a systems-thinking model for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

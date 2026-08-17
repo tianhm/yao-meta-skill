@@ -273,7 +273,7 @@ def render_iteration_directions(skill_dir: Path, output_md: Path | None = None, 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render the top three next iteration directions for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

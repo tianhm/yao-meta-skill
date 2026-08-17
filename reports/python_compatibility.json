@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-06-13",
+  "generated_at": "2026-08-17",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 260,
+    "file_count": 262,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -22,60 +22,6 @@
     }
   ],
   "files": [
-    {
-      "path": ".yao/releases/phase1-zh-output-eval-20260816-v2/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/releases/phase1-zh-output-eval-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-guided-preflight-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-provider-guided-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-provider-guided-retry1-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-provider-zh-cn-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-provider-zh-cn-adjudicated-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-zh-output-eval-20260816-v2/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/phase1-zh-output-eval-20260816/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
     {
       "path": "examples/complex-release-orchestrator/generated-skill/scripts/build_release_packet.py",
       "ok": true,
@@ -209,6 +155,18 @@
       "issues": []
     },
     {
+      "path": "scripts/cross_packager_output.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/cross_packager_sources.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/description_optimizer_reporting.py",
       "ok": true,
       "issue_count": 0,
@@ -324,6 +282,12 @@
     },
     {
       "path": "scripts/init_skill.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/intent_clarification.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -803,6 +767,12 @@
       "issues": []
     },
     {
+      "path": "scripts/self_update.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/simulate_install.py",
       "ok": true,
       "issue_count": 0,
@@ -906,6 +876,12 @@
     },
     {
       "path": "scripts/trust_check_scripts.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/update_installation.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1085,7 +1061,25 @@
       "issues": []
     },
     {
+      "path": "scripts/yao_cli_target_policy.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/yao_cli_telemetry.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/yao_cli_update_commands.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/yao_runtime_paths.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1224,6 +1218,12 @@
     },
     {
       "path": "tests/verify_intent_confidence.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_intent_quickstart.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1457,6 +1457,12 @@
       "issues": []
     },
     {
+      "path": "tests/verify_target_safety.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "tests/verify_telemetry_emit.py",
       "ok": true,
       "issue_count": 0,
@@ -1482,6 +1488,12 @@
     },
     {
       "path": "tests/verify_trust_check.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_update_delivery.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

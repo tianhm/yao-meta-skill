@@ -18,7 +18,7 @@
   "provenance": {
     "provider": "DeepSeek",
     "model": "deepseek-v4-flash + deepseek-v4-pro",
-    "run_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+    "run_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
     "credential_env": "DEEPSEEK_API_KEY",
     "model_env": "evals/output/provider_matrix.json",
     "model_default": "fixed dual-model matrix",

@@ -5,7 +5,7 @@
     "display_name": "Yao Meta Skill",
     "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "maturity": "governed",
-    "updated_at": "2026-08-12",
+    "updated_at": "2026-08-17",
     "core_value": "把一次性经验沉淀为可复用、可评估、可迁移的 Skill 包体。",
     "audience": "Skill 作者、复用团队和后续 reviewer。",
     "deliverables": [
@@ -80,7 +80,7 @@
       "label": "可维护性",
       "score": 100,
       "reasons": [
-        "SKILL.md 约 309 个词/字。",
+        "SKILL.md 约 316 个词/字。",
         "入口文件保持克制，可维护性较好。",
         "references/ 已承载扩展指导。",
         "scripts/ 已承载确定性逻辑。",
@@ -101,7 +101,7 @@
       "label": "上下文成本",
       "score": 42,
       "reasons": [
-        "入口约 309 个词/字，references 约 17551 个词/字。",
+        "入口约 316 个词/字，references 约 18854 个词/字。",
         "分数越高代表上下文成本越低。",
         "上下文成本偏高，建议压缩入口或拆分 references。"
       ]
@@ -205,7 +205,7 @@
       "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
     ],
     "gaps": [
-      "上下文成本需要补强：入口约 309 个词/字，references 约 17551 个词/字。"
+      "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
     ],
     "recommendations": [
       "先改触发边界，再扩展工作流。",
@@ -270,7 +270,7 @@
         "name": "包体膨胀风险",
         "impact": 2,
         "probability": 1,
-        "signal": "SKILL.md 约 309 个词/字。",
+        "signal": "SKILL.md 约 316 个词/字。",
         "response": "先补证据和边界，再增加包体复杂度。"
       },
       {
@@ -287,10 +287,11 @@
         "label": "Markdown readability",
         "matched_keywords": [
           "md",
+          "table",
           "report",
           "doc"
         ],
-        "score": 3,
+        "score": 4,
         "risks": [
           "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
           "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -304,6 +305,30 @@
         "self_repair": [
           "Preview whether each table still reads well when columns are narrow.",
           "Convert any table with paragraph-length cells into bullets or cards."
+        ]
+      },
+      {
+        "key": "tone_and_specificity",
+        "label": "Tone and specificity",
+        "matched_keywords": [
+          "copy",
+          "content",
+          "summary"
+        ],
+        "score": 3,
+        "risks": [
+          "Headings and summaries can drift into generic, interchangeable language.",
+          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+          "Strong claims can appear without examples or constraints."
+        ],
+        "constraints": [
+          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+          "Preserve one distinctive phrase, constraint, or standard from the user's input."
+        ],
+        "self_repair": [
+          "Replace generic title candidates with scenario-specific alternatives.",
+          "Delete any polished sentence that could fit almost any project unchanged."
         ]
       },
       {
@@ -372,32 +397,10 @@
           "Scan each command for cwd, input, output, and side-effect assumptions.",
           "Remove speculative error handling that is not tied to a real failure mode."
         ]
-      },
-      {
-        "key": "tone_and_specificity",
-        "label": "Tone and specificity",
-        "matched_keywords": [
-          "summary"
-        ],
-        "score": 1,
-        "risks": [
-          "Headings and summaries can drift into generic, interchangeable language.",
-          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-          "Strong claims can appear without examples or constraints."
-        ],
-        "constraints": [
-          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-          "Preserve one distinctive phrase, constraint, or standard from the user's input."
-        ],
-        "self_repair": [
-          "Replace generic title candidates with scenario-specific alternatives.",
-          "Delete any polished sentence that could fit almost any project unchanged."
-        ]
       }
     ],
     "human_judgment_boundary": [
-      "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+      "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
       "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
       "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
     ]
@@ -500,13 +503,13 @@
         "path": "references",
         "label": "Extended guidance and reusable notes",
         "kind": "folder",
-        "file_count": 37
+        "file_count": 39
       },
       {
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 166
+        "file_count": 174
       },
       {
         "path": "evals",
@@ -518,10 +521,10 @@
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 191
+        "file_count": 195
       }
     ],
-    "file_count": 432,
+    "file_count": 446,
     "folder_count": 4,
     "distribution": [
       {
@@ -542,11 +545,11 @@
       },
       {
         "label": "references",
-        "value": 37
+        "value": 39
       },
       {
         "label": "scripts",
-        "value": 166
+        "value": 174
       },
       {
         "label": "evals",
@@ -554,7 +557,7 @@
       },
       {
         "label": "reports",
-        "value": 191
+        "value": 195
       }
     ]
   },
@@ -631,14 +634,14 @@
   "display_name": "Yao Meta Skill",
   "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
   "logic_steps": [
-    "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
-    "Capture job, output, exclusions, constraints, standards, lightest fit.",
-    "Scan `3-5` external/user/local references when useful.",
-    "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
-    "Add deeper profiles and iteration directions only when earned."
+    "Require `repeated use` + `reusable output contract`; skip one-offs.",
+    "Lock target path + identity before writes; self-edits require `--self`.",
+    "Capture job, output, exclusions, constraints, standards, mode.",
+    "Scan `3-5` useful external/user/local references.",
+    "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk."
   ],
   "usage_steps": [
-    "Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals.",
+    "Use $yao-meta-skill on an explicit target; use --self for Yao itself.",
     "Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests."
   ],
   "package_map": [
@@ -670,13 +673,13 @@
       "path": "references",
       "label": "Extended guidance and reusable notes",
       "kind": "folder",
-      "file_count": 37
+      "file_count": 39
     },
     {
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 166
+      "file_count": 174
     },
     {
       "path": "evals",
@@ -688,7 +691,7 @@
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 191
+      "file_count": 195
     }
   ],
   "strengths": [
@@ -703,7 +706,7 @@
     "把重复流程沉淀为可复用的 agent skill。",
     "把分散提示词、对话记录或操作规范整理为稳定能力。",
     "团队复用前，需要明确触发边界、质量证据和维护责任。",
-    "用户说出类似需求时：Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals."
+    "用户说出类似需求时：Use $yao-meta-skill on an explicit target; use --self for Yao itself."
   ],
   "trigger_contract": {
     "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
@@ -1012,9 +1015,9 @@
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "286f9c390aba7dcb25dc5c0962df6afa55ac3376d52a9e50bae4ae726e60fddc",
-      "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-      "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+      "evidence_bundle_sha256": "ec52890423f7cb86c63078e55f4df33df8728efe5f84807902ba8b178fa436dd",
+      "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+      "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
       "command_count": 23,
@@ -1041,13 +1044,13 @@
       "public_claim_ready": false,
       "public_claim_blocker_count": 3,
       "working_tree_dirty": true,
-      "changed_file_count": 27,
+      "changed_file_count": 24,
       "source_tree_dirty": false,
       "source_changed_file_count": 0,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 27
+      "generated_changed_file_count": 24
     },
-    "commit": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+    "commit": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1132,9 +1135,9 @@
     "failures": []
   },
   "trust_security": {
-    "scanned_files": 267,
-    "script_count": 166,
-    "internal_module_count": 74,
+    "scanned_files": 277,
+    "script_count": 174,
+    "internal_module_count": 81,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -1142,18 +1145,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 80,
+    "file_write_script_count": 81,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 92,
+    "help_smoke_checked_count": 93,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 267,
-    "package_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b"
+    "package_hash_file_count": 277,
+    "package_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8"
   },
   "skill_atlas": {
     "skill_count": 11,
@@ -1176,7 +1179,7 @@
     "package": {
       "schema_version": "2.0",
       "name": "yao-meta-skill",
-      "version": "1.2.0",
+      "version": "2.1.0",
       "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "targets": [
         "openai",
@@ -1191,8 +1194,8 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88"
+        "package_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
       },
       "compatibility": {
         "openai": "pass",
@@ -1223,12 +1226,12 @@
       },
       "distribution": {
         "archive_verified": true,
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "package_verification": "reports/package_verification.json",
         "install_simulated": true,
         "install_simulation": "reports/install_simulation.json"
       },
-      "generated_at": "2026-08-16"
+      "generated_at": "2026-08-17"
     },
     "failures": [],
     "warnings": []
@@ -1239,8 +1242,8 @@
       "target_count": 4,
       "adapter_count": 4,
       "archive_present": true,
-      "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
-      "archive_entry_count": 641,
+      "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
+      "archive_entry_count": 658,
       "nested_skill_entry_count": 0,
       "failure_count": 0,
       "warning_count": 0
@@ -1252,7 +1255,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 641,
+      "archive_entry_count": 658,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1273,7 +1276,7 @@
   "upgrade_check": {
     "ok": true,
     "summary": {
-      "declared_bump": "minor",
+      "declared_bump": "major",
       "recommended_bump": "minor",
       "breaking_change_count": 0,
       "added_target_count": 2,
@@ -1320,12 +1323,12 @@
         {
           "field": "archive_sha256",
           "from": "",
-          "to": "81796e972ee2dc3cd7e75d3a1d523b7fe55c55f13bdddbf06374f9d20c29a3f3"
+          "to": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
         },
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "b8313b945901fec0c4529654f085e18cc81ff4a624464e26ea1306ea874e0f94"
+          "to": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8"
         }
       ]
     },
@@ -1507,11 +1510,11 @@
         "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
         "runbook": [
           "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-          "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+          "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
           "Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "success_checks": [
           "reports/provider_output_evaluation.json summary.call_count == 40",
@@ -1549,10 +1552,10 @@
           "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
           "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
           "Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.",
-          "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "success_checks": [
           "reports/provider_output_adjudication.json summary.reviewer_count == 3",
@@ -1591,12 +1594,12 @@
         "runbook": [
           "Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.",
           "Update the generated target adapter only when the guard is actually enforced by that target.",
-          "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip",
-          "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation",
-          "python3 scripts/yao.py runtime-permissions . --package-dir dist",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self",
+          "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self",
+          "python3 scripts/yao.py runtime-permissions . --package-dir dist --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "success_checks": [
           "reports/runtime_permission_probes.json summary.native_enforcement_count > 0",
@@ -1633,11 +1636,11 @@
         "runbook": [
           "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
           "Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.",
-          "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl",
-          "python3 scripts/yao.py skill-atlas --workspace-root .",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self",
+          "python3 scripts/yao.py skill-atlas --workspace-root . --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "success_checks": [
           "reports/adoption_drift_report.json summary.source_types.external > 0",
@@ -1702,11 +1705,11 @@
         "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
         "runbook": [
           "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-          "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+          "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
           "Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "provenance_requirements": [
           "provider-backed model run",
@@ -1821,10 +1824,10 @@
           "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
           "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
           "Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.",
-          "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "provenance_requirements": [
           "real reviewer identity",
@@ -1940,12 +1943,12 @@
         "runbook": [
           "Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.",
           "Update the generated target adapter only when the guard is actually enforced by that target.",
-          "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip",
-          "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation",
-          "python3 scripts/yao.py runtime-permissions . --package-dir dist",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self",
+          "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self",
+          "python3 scripts/yao.py runtime-permissions . --package-dir dist --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "provenance_requirements": [
           "real target client or external installer runtime guard",
@@ -2051,11 +2054,11 @@
         "runbook": [
           "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
           "Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.",
-          "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl",
-          "python3 scripts/yao.py skill-atlas --workspace-root .",
-          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+          "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self",
+          "python3 scripts/yao.py skill-atlas --workspace-root . --self",
+          "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
           "Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.",
-          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+          "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
         ],
         "provenance_requirements": [
           "real external client source",
@@ -2195,6 +2198,6 @@
     ],
     "maturity_tier": "governed",
     "skill_archetype": "governed",
-    "updated_at": "2026-08-12"
+    "updated_at": "2026-08-17"
   }
 }

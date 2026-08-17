@@ -193,31 +193,31 @@ th {
         <span>maturity: governed</span>
         <span>archetype: governed</span>
         <span>format: agent-skills</span>
-        <span>updated: 2026-08-12</span>
+        <span>updated: 2026-08-17</span>
         <span>intent confidence: 100 / 100</span>
       </div>
     </section>
 
     <section>
       <h2>Architecture at a glance</h2>
-      <div class="arch-grid"><div class='arch-step'><div class='step-label'>Inputs</div><div class='step-detail'>workflow, prompt, transcript, docs, or notes</div></div><div class='arch-step'><div class='step-label'>Boundary</div><div class='step-detail'>Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Logic</div><div class='step-detail'>One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.; Capture job, output, exclusions, constraints, standards, lightest fit.; Scan `3-5` external/user/local references when useful.</div></div><div class='arch-step'><div class='step-label'>Usage</div><div class='step-detail'>Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals.; Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Next</div><div class='step-detail'>Review the top iteration directions before growing the package.</div></div></div>
+      <div class="arch-grid"><div class='arch-step'><div class='step-label'>Inputs</div><div class='step-detail'>workflow, prompt, transcript, docs, or notes</div></div><div class='arch-step'><div class='step-label'>Boundary</div><div class='step-detail'>Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Logic</div><div class='step-detail'>Require `repeated use` + `reusable output contract`; skip one-offs.; Lock target path + identity before writes; self-edits require `--self`.; Capture job, output, exclusions, constraints, standards, mode.</div></div><div class='arch-step'><div class='step-label'>Usage</div><div class='step-detail'>Use $yao-meta-skill on an explicit target; use --self for Yao itself.; Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Next</div><div class='step-detail'>Review the top iteration directions before growing the package.</div></div></div>
     </section>
 
     <section class="grid">
       <div class="panel">
         <h2>Core logic</h2>
-        <ul><li>One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.</li><li>Capture job, output, exclusions, constraints, standards, lightest fit.</li><li>Scan `3-5` external/user/local references when useful.</li><li>Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.</li><li>Add deeper profiles and iteration directions only when earned.</li></ul>
+        <ul><li>Require `repeated use` + `reusable output contract`; skip one-offs.</li><li>Lock target path + identity before writes; self-edits require `--self`.</li><li>Capture job, output, exclusions, constraints, standards, mode.</li><li>Scan `3-5` useful external/user/local references.</li><li>Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.</li></ul>
       </div>
       <div class="panel">
         <h2>How to use it</h2>
-        <ul><li>Use $yao-meta-skill to create or improve a reusable skill with clear triggers and evals.</li><li>Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</li></ul>
+        <ul><li>Use $yao-meta-skill on an explicit target; use --self for Yao itself.</li><li>Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</li></ul>
       </div>
     </section>
 
     <section class="grid">
       <div class="panel">
         <h2>Intent questions</h2>
-        <ul><li><strong>If this skill worked beautifully, what recurring job would it reliably handle for the user every time?</strong><br><span>This reveals the real job-to-be-done and gives the package a humane center instead of a guessed prompt shape.</span></li><li><strong>When someone reaches for this skill in the real world, what materials will they actually hand to it?</strong><br><span>Input shape decides whether references, scripts, or templates are needed.</span></li><li><strong>What finished output should it hand back so the user can immediately keep moving?</strong><br><span>Outputs should drive the package structure before extra guidance is added.</span></li><li><strong>Which nearby requests should this skill politely refuse so the boundary stays clean?</strong><br><span>The exclusion list is the fastest route to better trigger quality.</span></li><li><strong>What matters most here: speed, consistency, auditability, portability, governance, or tone/style fit?</strong><br><span>Constraints decide how much structure, packaging, and review the skill actually needs.</span></li></ul>
+        <ul><li><strong>Clarification decision</strong><br><span>Status: pass. Recommended next move: proceed. Intent is clear enough to package the first routeable version.</span></li><li><strong>If this skill worked beautifully, what recurring job would it reliably handle for the user every time?</strong><br><span>This reveals the real job-to-be-done and gives the package a humane center instead of a guessed prompt shape.</span></li><li><strong>When someone reaches for this skill in the real world, what materials will they actually hand to it?</strong><br><span>Input shape decides whether references, scripts, or templates are needed.</span></li><li><strong>What finished output should it hand back so the user can immediately keep moving?</strong><br><span>Outputs should drive the package structure before extra guidance is added.</span></li><li><strong>Which nearby requests should this skill politely refuse so the boundary stays clean?</strong><br><span>The exclusion list is the fastest route to better trigger quality.</span></li><li><strong>What matters most here: speed, consistency, auditability, portability, governance, or tone/style fit?</strong><br><span>Constraints decide how much structure, packaging, and review the skill actually needs.</span></li></ul>
       </div>
       <div class="panel">
         <h2>Why this package is strong</h2>
@@ -245,7 +245,7 @@ th {
       <div class="panel">
         <h2>Evidence readiness</h2>
         <p class="minor">Readiness score: 85/100</p>
-        <ul><li><strong>Intent clarity</strong> · ready<br><span>100/100 intent confidence.</span></li><li><strong>Benchmark coverage</strong> · ready<br><span>3 GitHub benchmark repositories attached.</span></li><li><strong>Pattern gate</strong> · ready<br><span>5 accepted, 1 deferred using threshold 4/4.</span></li><li><strong>Conflict handling</strong> · decision needed<br><span>The stated preference leans lightweight or speed-first, while the benchmark mix leans toward governance, review, or heavier evaluation structure.</span></li><li><strong>Output risk profile</strong> · ready<br><span>5 output risk families attached.</span></li><li><strong>Artifact design profile</strong> · ready<br><span>Metric-first dashboard with stable dimensions, short labels, visible deltas, and narrative callouts only where they change interpretation.</span></li><li><strong>Prompt quality profile</strong> · ready<br><span>89.0/100 prompt-facing quality score.</span></li></ul>
+        <ul><li><strong>Intent clarity</strong> · pass<br><span>100/100 intent confidence; clarification proceed; assumptions 0.</span></li><li><strong>Benchmark coverage</strong> · ready<br><span>3 GitHub benchmark repositories attached.</span></li><li><strong>Pattern gate</strong> · ready<br><span>5 accepted, 1 deferred using threshold 4/4.</span></li><li><strong>Conflict handling</strong> · decision needed<br><span>The stated preference leans lightweight or speed-first, while the benchmark mix leans toward governance, review, or heavier evaluation structure.</span></li><li><strong>Output risk profile</strong> · ready<br><span>5 output risk families attached.</span></li><li><strong>Artifact design profile</strong> · ready<br><span>Metric-first dashboard with stable dimensions, short labels, visible deltas, and narrative callouts only where they change interpretation.</span></li><li><strong>Prompt quality profile</strong> · ready<br><span>89.0/100 prompt-facing quality score.</span></li></ul>
       </div>
       <div class="panel">
         <h2>Honest boundary check</h2>
@@ -260,11 +260,11 @@ th {
     <section class="grid">
       <div class="panel">
         <h2>Output risk profile</h2>
-        <ul><li><strong>Markdown readability</strong><br><span>Tables can render as dense grids with weak hierarchy or poor mobile readability.; Long bullets can make the output look complete while hiding the actual decision logic.</span></li><li><strong>Citation and footnote clutter</strong><br><span>Footnote markers or dense citation notes can interrupt the reading flow.; Evidence can be over-attached to obvious statements and under-attached to risky claims.</span></li><li><strong>Screenshot and visual capture</strong><br><span>Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.; Missing screenshots can cause the skill to invent visual references instead of declaring the gap.</span></li></ul>
+        <ul><li><strong>Markdown readability</strong><br><span>Tables can render as dense grids with weak hierarchy or poor mobile readability.; Long bullets can make the output look complete while hiding the actual decision logic.</span></li><li><strong>Tone and specificity</strong><br><span>Headings and summaries can drift into generic, interchangeable language.; The output can sound polished but lose the user&#x27;s actual taste, audience, or scenario.</span></li><li><strong>Citation and footnote clutter</strong><br><span>Footnote markers or dense citation notes can interrupt the reading flow.; Evidence can be over-attached to obvious statements and under-attached to risky claims.</span></li></ul>
       </div>
       <div class="panel">
         <h2>Self-repair checks</h2>
-        <ul><li>Preview whether each table still reads well when columns are narrow.</li><li>Convert any table with paragraph-length cells into bullets or cards.</li><li>Remove decorative citations that do not support a material claim.</li><li>Move repeated source explanations into one compact source note.</li><li>Check that every screenshot reference points to a real provided or generated asset.</li></ul>
+        <ul><li>Preview whether each table still reads well when columns are narrow.</li><li>Convert any table with paragraph-length cells into bullets or cards.</li><li>Replace generic title candidates with scenario-specific alternatives.</li><li>Delete any polished sentence that could fit almost any project unchanged.</li><li>Remove decorative citations that do not support a material claim.</li></ul>
       </div>
     </section>
 
@@ -367,7 +367,7 @@ th {
           <li>Block speculative features that are not backed by real workflow variation.</li>
           <li>Move unverifiable ideas into next-step candidates instead of baseline structure.</li>
           <li>Reject decorative folders, reports, or governance that do not reduce risk.</li>
-          <li>Ask for one high-leverage clarification when job, output, or exclusion is still fuzzy.</li>
+          <li>Ask one contextual question only when the core job, primary output, or an explicit direction conflict remains unresolved.</li>
         </ul>
       </div>
     </section>

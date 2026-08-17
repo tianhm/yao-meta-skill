@@ -255,7 +255,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render architecture maintainability evidence for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")
     parser.add_argument("--warn-lines", type=int, default=900)

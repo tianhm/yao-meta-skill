@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 267,
-    "script_count": 166,
-    "internal_module_count": 74,
+    "scanned_files": 277,
+    "script_count": 174,
+    "internal_module_count": 81,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -12,18 +12,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 80,
+    "file_write_script_count": 81,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 92,
+    "help_smoke_checked_count": 93,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 267,
-    "package_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b"
+    "package_hash_file_count": 277,
+    "package_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8"
   },
   "failures": [],
   "warnings": [],
@@ -182,9 +182,11 @@
       "uses_subprocess": false,
       "network_urls": [
         "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/VERSION",
-        "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json"
+        "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json",
+        "https://github.com/yaojingang/yao-meta-skill/commits/main"
       ],
       "network_hosts": [
+        "github.com",
         "raw.githubusercontent.com"
       ]
     },
@@ -297,6 +299,34 @@
       "uses_network": false,
       "uses_file_write": false,
       "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/cross_packager_output.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by cross_packager.py to validate generated output ownership before recursive replacement.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/cross_packager_sources.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by cross_packager.py to keep Git source selection and archive-noise policy separate from package assembly.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": true,
       "network_urls": [],
       "network_hosts": []
     },
@@ -580,6 +610,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/intent_clarification.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by intent reports and Yao CLI creation flows to plan bounded, bilingual clarification.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -1701,6 +1745,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/self_update.py",
+      "interface": "cli",
+      "interface_declared": false,
+      "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/simulate_install.py",
       "interface": "cli",
       "interface_declared": false,
@@ -1951,6 +2009,24 @@
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
+    },
+    {
+      "path": "scripts/update_installation.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by update check and self-update entrypoints for safe installation discovery and command execution.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": true,
+      "network_urls": [
+        "https://github.com/yaojingang/yao-meta-skill"
+      ],
+      "network_hosts": [
+        "github.com"
+      ]
     },
     {
       "path": "scripts/upgrade_check.py",
@@ -2359,11 +2435,53 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/yao_cli_target_policy.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by yao.py to bind every CLI command to an explicit target before execution.",
+      "has_argparse": true,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/yao_cli_telemetry.py",
       "interface": "internal-module",
       "interface_declared": true,
       "interface_reason": "Imported by yao.py to record opt-in metadata-only CLI run telemetry.",
       "has_argparse": true,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/yao_cli_update_commands.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by yao.py to keep update checks and the mutating self-update surface outside the CLI orchestrator.",
+      "has_argparse": true,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/yao_runtime_paths.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by update and telemetry helpers to keep runtime state outside skill source and install directories.",
+      "has_argparse": false,
       "has_main_guard": false,
       "uses_input": false,
       "uses_network": false,
@@ -2403,11 +2521,11 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 92,
-    "checked_count": 92,
-    "passed_count": 92,
+    "candidate_count": 93,
+    "checked_count": 93,
+    "passed_count": 93,
     "failed_count": 0,
-    "skipped_count": 74,
+    "skipped_count": 81,
     "failed_scripts": [],
     "results": [
       {
@@ -2497,7 +2615,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: compile_skill.py [-h] [--target TARGET] [--output-json OUTPUT_JSON]\n                        [--output-md OUTPUT_MD] [--generated-at GENERATED_AT]\n                        [skill_dir]\n\nCompile Skill IR into target-specific semantic con",
+        "stdout_excerpt": "usage: compile_skill.py [-h] [--target TARGET] [--output-json OUTPUT_JSON]\n                        [--output-md OUTPUT_MD] [--generated-at GENERATED_AT]\n                        skill_dir\n\nCompile Skill IR into target-specific semantic contr",
         "stderr_excerpt": ""
       },
       {
@@ -2557,7 +2675,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: export_skill_ir.py [-h] [--output-json OUTPUT_JSON] [--validate-only]\n                          [skill_dir]\n\nExport a platform-neutral Skill IR document from a skill package.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help ",
+        "stdout_excerpt": "usage: export_skill_ir.py [-h] [--output-json OUTPUT_JSON] [--validate-only]\n                          skill_dir\n\nExport a platform-neutral Skill IR document from a skill package.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help   ",
         "stderr_excerpt": ""
       },
       {
@@ -2747,7 +2865,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: registry_audit.py [-h] [--registry-dir REGISTRY_DIR]\n                         [--output-json OUTPUT_JSON] [--output-md OUTPUT_MD]\n                         [--generated-at GENERATED_AT]\n                         [skill_dir]\n\nBuild and ",
+        "stdout_excerpt": "usage: registry_audit.py [-h] [--registry-dir REGISTRY_DIR]\n                         [--output-json OUTPUT_JSON] [--output-md OUTPUT_MD]\n                         [--generated-at GENERATED_AT]\n                         skill_dir\n\nBuild and au",
         "stderr_excerpt": ""
       },
       {
@@ -2777,7 +2895,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_artifact_design_profile.py [-h] [--output-md OUTPUT_MD]\n                                         [--output-json OUTPUT_JSON]\n                                         [skill_dir]\n\nRender artifact design direction and visual qua",
+        "stdout_excerpt": "usage: render_artifact_design_profile.py [-h] [--output-md OUTPUT_MD]\n                                         [--output-json OUTPUT_JSON]\n                                         skill_dir\n\nRender artifact design direction and visual quali",
         "stderr_excerpt": ""
       },
       {
@@ -2847,7 +2965,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_evidence_consistency.py [-h] [--output-json OUTPUT_JSON]\n                                      [--output-md OUTPUT_MD]\n                                      [--generated-at GENERATED_AT]\n                                      [",
+        "stdout_excerpt": "usage: render_evidence_consistency.py [-h] [--output-json OUTPUT_JSON]\n                                      [--output-md OUTPUT_MD]\n                                      [--generated-at GENERATED_AT]\n                                      s",
         "stderr_excerpt": ""
       },
       {
@@ -2857,7 +2975,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_intent_confidence.py [-h] [--context-json CONTEXT_JSON]\n                                   [--output-md OUTPUT_MD]\n                                   [--output-json OUTPUT_JSON]\n                                   [skill_dir]\n\n",
+        "stdout_excerpt": "usage: render_intent_confidence.py [-h] [--context-json CONTEXT_JSON]\n                                   [--output-md OUTPUT_MD]\n                                   [--output-json OUTPUT_JSON]\n                                   skill_dir\n\nRe",
         "stderr_excerpt": ""
       },
       {
@@ -2867,7 +2985,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_intent_dialogue.py [-h] [--output-md OUTPUT_MD]\n                                 [--output-json OUTPUT_JSON]\n                                 [skill_dir]\n\nRender an intent dialogue guide for a skill package.\n\npositional argume",
+        "stdout_excerpt": "usage: render_intent_dialogue.py [-h] [--output-md OUTPUT_MD]\n                                 [--output-json OUTPUT_JSON]\n                                 skill_dir\n\nRender an intent dialogue guide for a skill package.\n\npositional argument",
         "stderr_excerpt": ""
       },
       {
@@ -2877,7 +2995,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_iteration_directions.py [-h] [--output-md OUTPUT_MD]\n                                      [--output-json OUTPUT_JSON]\n                                      [skill_dir]\n\nRender the top three next iteration directions for a ski",
+        "stdout_excerpt": "usage: render_iteration_directions.py [-h] [--output-md OUTPUT_MD]\n                                      [--output-json OUTPUT_JSON]\n                                      skill_dir\n\nRender the top three next iteration directions for a skill",
         "stderr_excerpt": ""
       },
       {
@@ -2897,7 +3015,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_output_risk_profile.py [-h] [--output-md OUTPUT_MD]\n                                     [--output-json OUTPUT_JSON]\n                                     [skill_dir]\n\nRender predicted output failure modes and quality constrain",
+        "stdout_excerpt": "usage: render_output_risk_profile.py [-h] [--output-md OUTPUT_MD]\n                                     [--output-json OUTPUT_JSON]\n                                     skill_dir\n\nRender predicted output failure modes and quality constraints",
         "stderr_excerpt": ""
       },
       {
@@ -2917,7 +3035,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_portability_report.py [-h] [--output-json OUTPUT_JSON]\n                                    [--output-md OUTPUT_MD]\n                                    [skill_dir]\n\nRender a portability score from neutral metadata, contracts, a",
+        "stdout_excerpt": "usage: render_portability_report.py [-h] [--output-json OUTPUT_JSON]\n                                    [--output-md OUTPUT_MD]\n                                    skill_dir\n\nRender a portability score from neutral metadata, contracts, and",
         "stderr_excerpt": ""
       },
       {
@@ -2927,7 +3045,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_prompt_quality_profile.py [-h] [--output-md OUTPUT_MD]\n                                        [--output-json OUTPUT_JSON]\n                                        [skill_dir]\n\nRender prompt behavior quality, RTF mapping, and n",
+        "stdout_excerpt": "usage: render_prompt_quality_profile.py [-h] [--output-md OUTPUT_MD]\n                                        [--output-json OUTPUT_JSON]\n                                        skill_dir\n\nRender prompt behavior quality, RTF mapping, and nee",
         "stderr_excerpt": ""
       },
       {
@@ -2937,7 +3055,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_provider_output_status.py [-h] [--output-json OUTPUT_JSON]\n                                        [skill_dir]\n\nRender DeepSeek provider-matrix readiness without calling the provider.\n\npositional arguments:\n  skill_dir\n\noption",
+        "stdout_excerpt": "usage: render_provider_output_status.py [-h] [--output-json OUTPUT_JSON]\n                                        skill_dir\n\nRender DeepSeek provider-matrix readiness without calling the provider.\n\npositional arguments:\n  skill_dir          ",
         "stderr_excerpt": ""
       },
       {
@@ -2957,7 +3075,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_reference_synthesis.py [-h] [--output-md OUTPUT_MD]\n                                     [--output-json OUTPUT_JSON]\n                                     [skill_dir]\n\nRender a multi-source reference synthesis report for a skil",
+        "stdout_excerpt": "usage: render_reference_synthesis.py [-h] [--output-md OUTPUT_MD]\n                                     [--output-json OUTPUT_JSON]\n                                     skill_dir\n\nRender a multi-source reference synthesis report for a skill ",
         "stderr_excerpt": ""
       },
       {
@@ -2987,7 +3105,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_review_studio.py [-h] [--output-html OUTPUT_HTML]\n                               [--output-json OUTPUT_JSON]\n                               [skill_dir]\n\nRender Review Studio 2.0 for a skill package.\n\npositional arguments:\n  sk",
+        "stdout_excerpt": "usage: render_review_studio.py [-h] [--output-html OUTPUT_HTML]\n                               [--output-json OUTPUT_JSON]\n                               skill_dir\n\nRender Review Studio 2.0 for a skill package.\n\npositional arguments:\n  skil",
         "stderr_excerpt": ""
       },
       {
@@ -2997,7 +3115,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_review_viewer.py [-h] [--output-html OUTPUT_HTML]\n                               [--output-json OUTPUT_JSON]\n                               [skill_dir]\n\nRender a compact HTML review viewer for a skill package.\n\npositional argu",
+        "stdout_excerpt": "usage: render_review_viewer.py [-h] [--output-html OUTPUT_HTML]\n                               [--output-json OUTPUT_JSON]\n                               skill_dir\n\nRender a compact HTML review viewer for a skill package.\n\npositional argume",
         "stderr_excerpt": ""
       },
       {
@@ -3017,7 +3135,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_skill_interpretation.py [-h] [--output-html OUTPUT_HTML]\n                                      [--output-json OUTPUT_JSON]\n                                      [skill_dir]\n\nRender the first-class HTML skill interpretation rep",
+        "stdout_excerpt": "usage: render_skill_interpretation.py [-h] [--output-html OUTPUT_HTML]\n                                      [--output-json OUTPUT_JSON]\n                                      skill_dir\n\nRender the first-class HTML skill interpretation repor",
         "stderr_excerpt": ""
       },
       {
@@ -3027,7 +3145,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_skill_os2_audit.py [-h] [--output-json OUTPUT_JSON]\n                                 [--output-md OUTPUT_MD]\n                                 [--generated-at GENERATED_AT]\n                                 [skill_dir]\n\nRender a",
+        "stdout_excerpt": "usage: render_skill_os2_audit.py [-h] [--output-json OUTPUT_JSON]\n                                 [--output-md OUTPUT_MD]\n                                 [--generated-at GENERATED_AT]\n                                 skill_dir\n\nRender a r",
         "stderr_excerpt": ""
       },
       {
@@ -3037,7 +3155,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_skill_os2_coverage.py [-h] [--output-json OUTPUT_JSON]\n                                    [--output-md OUTPUT_MD]\n                                    [--generated-at GENERATED_AT]\n                                    [skill_di",
+        "stdout_excerpt": "usage: render_skill_os2_coverage.py [-h] [--output-json OUTPUT_JSON]\n                                    [--output-md OUTPUT_MD]\n                                    [--generated-at GENERATED_AT]\n                                    skill_dir",
         "stderr_excerpt": ""
       },
       {
@@ -3047,7 +3165,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_skill_overview.py [-h] [--output-html OUTPUT_HTML]\n                                [--output-json OUTPUT_JSON]\n                                [skill_dir]\n\nRender the HTML skill report for a skill package.\n\npositional argument",
+        "stdout_excerpt": "usage: render_skill_overview.py [-h] [--output-html OUTPUT_HTML]\n                                [--output-json OUTPUT_JSON]\n                                skill_dir\n\nRender the HTML skill report for a skill package.\n\npositional arguments:",
         "stderr_excerpt": ""
       },
       {
@@ -3067,7 +3185,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: render_system_model.py [-h] [--output-md OUTPUT_MD]\n                              [--output-json OUTPUT_JSON]\n                              [skill_dir]\n\nRender a systems-thinking model for a skill package.\n\npositional arguments:\n  sk",
+        "stdout_excerpt": "usage: render_system_model.py [-h] [--output-md OUTPUT_MD]\n                              [--output-json OUTPUT_JSON]\n                              skill_dir\n\nRender a systems-thinking model for a skill package.\n\npositional arguments:\n  skil",
         "stderr_excerpt": ""
       },
       {
@@ -3231,6 +3349,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/self_update.py",
+        "command": "python3 scripts/self_update.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: self_update.py [-h] [--yes] [--timeout TIMEOUT]\n\nUpdate a verified managed yao-meta-skill installation.\n\noptions:\n  -h, --help         show this help message and exit\n  --yes              Apply the verified update plan.\n  --timeout T",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/simulate_install.py",
         "command": "python3 scripts/simulate_install.py --help",
         "returncode": 0,
@@ -3287,7 +3415,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: trust_check.py [-h] [--output-json OUTPUT_JSON] [--output-md OUTPUT_MD]\n                      [--skip-help-smoke]\n                      [--help-smoke-timeout HELP_SMOKE_TIMEOUT]\n                      [skill_dir]\n\nRun Skill OS trust a",
+        "stdout_excerpt": "usage: trust_check.py [-h] [--output-json OUTPUT_JSON] [--output-md OUTPUT_MD]\n                      [--skip-help-smoke]\n                      [--help-smoke-timeout HELP_SMOKE_TIMEOUT]\n                      skill_dir\n\nRun Skill OS trust and",
         "stderr_excerpt": ""
       },
       {
@@ -3361,6 +3489,14 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/cross_packager_output.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/cross_packager_sources.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/description_optimizer_reporting.py",
         "reason": "internal module"
       },
@@ -3402,6 +3538,10 @@
       },
       {
         "path": "scripts/html_rendering.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/intent_clarification.py",
         "reason": "internal module"
       },
       {
@@ -3525,6 +3665,10 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/update_installation.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/world_class_evidence_contract.py",
         "reason": "internal module"
       },
@@ -3625,7 +3769,19 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/yao_cli_target_policy.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/yao_cli_telemetry.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/yao_cli_update_commands.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/yao_runtime_paths.py",
         "reason": "internal module"
       }
     ]
@@ -3693,6 +3849,7 @@
           "scripts/compile_skill.py",
           "scripts/create_iteration_snapshot.py",
           "scripts/cross_packager.py",
+          "scripts/cross_packager_output.py",
           "scripts/emit_telemetry_event.py",
           "scripts/evidence_store.py",
           "scripts/export_skill_ir.py",
@@ -3764,8 +3921,8 @@
           "scripts/yao_cli_operator_commands.py"
         ],
         "reviewer": "Yao Team",
-        "scope": "Local generated reports, registry metadata, temporary test outputs, and package artifacts under the skill workspace.",
-        "reason": "File writes are required to create auditable reports, compiled target contracts, package artifacts, and local test fixtures; package safety checks exclude generated temp outputs from archives.",
+        "scope": "Local generated reports, registry metadata, temporary test outputs, package artifacts, user-level update cache, and explicitly confirmed managed Skill installations.",
+        "reason": "File writes create auditable reports and package artifacts, persist metadata-only update state, and allow a verified installer to replace one managed Skill only after explicit confirmation.",
         "expires_at": "2026-09-30",
         "evidence": [
           "reports/package_verification.md",
@@ -3787,6 +3944,7 @@
           "scripts/apply_adaptation.py",
           "scripts/benchmark_release_lock.py",
           "scripts/ci_test.py",
+          "scripts/cross_packager_sources.py",
           "scripts/evidence_resolver.py",
           "scripts/evidence_store.py",
           "scripts/publish_provider_evidence.py",
@@ -3798,13 +3956,14 @@
           "scripts/skill_report_sources.py",
           "scripts/sync_local_install.py",
           "scripts/trust_check.py",
+          "scripts/update_installation.py",
           "scripts/yao.py",
           "scripts/yao_cli_operator_commands.py",
           "scripts/yao_cli_runtime.py"
         ],
         "reviewer": "Yao Team",
-        "scope": "Local deterministic validation, packaging, install simulation, and CI orchestration commands.",
-        "reason": "Subprocess use is limited to local verification and packaging flows that are surfaced through CLI help smoke tests and CI targets.",
+        "scope": "Local deterministic validation, packaging, install simulation, CI orchestration, read-only install discovery, and explicitly confirmed managed Skill updates.",
+        "reason": "Subprocess use covers reviewed local tooling plus allowlisted argument-array update commands for Agent Skills CLI or a verified Codex plugin marketplace; mutation requires --yes and post-update verification.",
         "expires_at": "2026-09-30",
         "evidence": [
           "reports/security_trust_report.md",

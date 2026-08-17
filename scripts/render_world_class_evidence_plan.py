@@ -19,9 +19,9 @@ TASK_TEMPLATES: dict[str, dict[str, Any]] = {
         "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
         "runbook": [
             "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
-            "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+            "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
             "Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.",
-            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         ],
         "success_checks": [
             "reports/provider_output_evaluation.json summary.call_count == 40",
@@ -50,8 +50,8 @@ TASK_TEMPLATES: dict[str, dict[str, Any]] = {
             "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
             "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
             "Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.",
-            "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>",
-            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+            "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self",
+            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         ],
         "success_checks": [
             "reports/provider_output_adjudication.json summary.reviewer_count == 3",
@@ -81,10 +81,10 @@ TASK_TEMPLATES: dict[str, dict[str, Any]] = {
         "runbook": [
             "Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.",
             "Update the generated target adapter only when the guard is actually enforced by that target.",
-            "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip",
-            "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation",
-            "python3 scripts/yao.py runtime-permissions . --package-dir dist",
-            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+            "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self",
+            "python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self",
+            "python3 scripts/yao.py runtime-permissions . --package-dir dist --self",
+            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         ],
         "success_checks": [
             "reports/runtime_permission_probes.json summary.native_enforcement_count > 0",
@@ -112,9 +112,9 @@ TASK_TEMPLATES: dict[str, dict[str, Any]] = {
         "runbook": [
             "python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/",
             "Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.",
-            "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl",
-            "python3 scripts/yao.py skill-atlas --workspace-root .",
-            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
+            "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self",
+            "python3 scripts/yao.py skill-atlas --workspace-root . --self",
+            "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self",
         ],
         "success_checks": [
             "reports/adoption_drift_report.json summary.source_types.external > 0",
@@ -157,7 +157,7 @@ def build_task(item: dict[str, Any]) -> dict[str, Any]:
     )
     intake_runbook = [
         f"Copy evidence/world_class/templates/{item['key']}.intake.json to evidence/world_class/submissions/{item['key']}.json and fill only real evidence fields.",
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
     ]
     intake_artifacts = [
         "evidence/world_class/intake.schema.json",
@@ -296,7 +296,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a world-class evidence collection plan.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/world_class_evidence_plan.json")
     parser.add_argument("--output-md", default="reports/world_class_evidence_plan.md")
     parser.add_argument("--generated-at", default=date.today().isoformat())

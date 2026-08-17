@@ -1,6 +1,6 @@
 # Skill OS 2.0 Blueprint Coverage
 
-Generated at: `2026-08-16`
+Generated at: `2026-08-17`
 
 ## Summary
 
@@ -23,14 +23,14 @@ This report maps the Skill OS 2.0 upgrade blueprint to concrete local artifacts,
 
 | Item | Status | Current | Command | Test |
 | --- | --- | --- | --- | --- |
-| Skill IR | `pass` | schema 2.0.0; targets 5 | `python3 scripts/yao.py skill-ir .` | `python3 tests/verify_skill_ir.py` |
-| Output Eval Lab | `pass` | 5 cases; delta 100.0; execution 10 | `python3 scripts/yao.py output-exec . && python3 scripts/yao.py output-review .` | `python3 tests/verify_output_eval_lab.py` |
-| Runtime Conformance | `pass` | 5/5 targets pass | `python3 scripts/yao.py conformance .` | `python3 tests/verify_conformance_suite.py` |
-| Trust Security | `pass` | 166 scripts; secrets 0; help failures 0 | `python3 scripts/yao.py trust .` | `python3 tests/verify_trust_check.py` |
-| Skill Atlas | `pass` | 11 scanned skills; actionable collisions 0 | `python3 scripts/yao.py skill-atlas --workspace-root .` | `python3 tests/verify_skill_atlas.py` |
-| Registry Distribution | `pass` | archive entries 641; install failures 0 | `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip && python3 scripts/yao.py registry-audit .` | `python3 tests/verify_registry_audit.py` |
-| Review Studio | `pass` | 16 gates; decision review; warnings 5 | `python3 scripts/yao.py review-studio .` | `python3 tests/verify_review_studio.py` |
-| Telemetry Drift | `pass` | events 0; recipes 5; risk no-data | `python3 scripts/yao.py telemetry-hooks . && python3 scripts/yao.py adoption-drift .` | `python3 tests/verify_telemetry_hooks.py` |
+| Skill IR | `pass` | schema 2.0.0; targets 5 | `python3 scripts/yao.py skill-ir . --self` | `python3 tests/verify_skill_ir.py` |
+| Output Eval Lab | `pass` | 5 cases; delta 100.0; execution 10 | `python3 scripts/yao.py output-exec --self && python3 scripts/yao.py output-review --self` | `python3 tests/verify_output_eval_lab.py` |
+| Runtime Conformance | `pass` | 5/5 targets pass | `python3 scripts/yao.py conformance . --self` | `python3 tests/verify_conformance_suite.py` |
+| Trust Security | `pass` | 174 scripts; secrets 0; help failures 0 | `python3 scripts/yao.py trust . --self` | `python3 tests/verify_trust_check.py` |
+| Skill Atlas | `pass` | 11 scanned skills; actionable collisions 0 | `python3 scripts/yao.py skill-atlas --workspace-root . --self` | `python3 tests/verify_skill_atlas.py` |
+| Registry Distribution | `pass` | archive entries 658; install failures 0 | `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self && python3 scripts/yao.py registry-audit . --self` | `python3 tests/verify_registry_audit.py` |
+| Review Studio | `pass` | 16 gates; decision review; warnings 5 | `python3 scripts/yao.py review-studio . --self` | `python3 tests/verify_review_studio.py` |
+| Telemetry Drift | `pass` | events 0; recipes 5; risk no-data | `python3 scripts/yao.py telemetry-hooks . --self && python3 scripts/yao.py adoption-drift . --self` | `python3 tests/verify_telemetry_hooks.py` |
 
 ## Recommended PR Coverage
 
@@ -235,12 +235,12 @@ These extension tracks come from the user-supplied 2.0 reference plan. They are 
 
 - objective: Daily operations layer summarizes explicit-source conversation patterns, proposal-only adaptation work, approval state, release locks, and world-class evidence gaps.
 - status: `covered`
-- existing evidence: `scripts/render_daily_skillops_report.py`, `tests/verify_daily_skillops.py`, `reports/skillops/daily/2026-08-16.json`, `reports/skillops/daily/2026-08-16.md`
+- existing evidence: `scripts/render_daily_skillops_report.py`, `tests/verify_daily_skillops.py`, `reports/skillops/daily/2026-08-17.json`, `reports/skillops/daily/2026-08-17.md`
 - next action: Keep Daily SkillOps report aligned with proposal, approval, coverage, and world-class ledger contracts as the operations layer evolves.
 
 ### Weekly Curator Report
 
 - objective: Weekly curator layer aggregates Daily SkillOps opportunities, Skill Atlas portfolio signals, release locks, and world-class evidence gaps into a maintenance queue.
 - status: `covered`
-- existing evidence: `scripts/render_weekly_curator_report.py`, `tests/verify_weekly_curator.py`, `reports/skillops/weekly/2026-W33.json`, `reports/skillops/weekly/2026-W33.md`
+- existing evidence: `scripts/render_weekly_curator_report.py`, `tests/verify_weekly_curator.py`, `reports/skillops/weekly/2026-W34.json`, `reports/skillops/weekly/2026-W34.md`
 - next action: Use weekly curator output as the Skill Librarian maintenance queue before approving any durable skill-library changes.

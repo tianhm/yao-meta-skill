@@ -443,7 +443,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a requirement-by-requirement Skill OS 2.0 audit.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/skill_os2_audit.json")
     parser.add_argument("--output-md", default="reports/skill_os2_audit.md")
     parser.add_argument("--generated-at", default=date.today().isoformat())

@@ -1,6 +1,6 @@
 # Prompt Quality Profile
 
-Skill: `yao-meta-phase1-eval.vK7njW`
+Skill: `yao-meta-skill`
 Relevance: `prompt-aware`
 Overall quality score: `89.0/100`
 

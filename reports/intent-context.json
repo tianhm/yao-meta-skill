@@ -33,5 +33,19 @@
     "Yao Meta Skill 2.0 upgrade plan",
     "Kami-style white report layout requirements for generated skill reports",
     "local Waza engineering habits for review, design, diagnosis, and implementation discipline"
-  ]
+  ],
+  "skill_name": "",
+  "assumptions": [],
+  "clarification_state": {
+    "decision": "proceed",
+    "rounds_used": 0,
+    "max_rounds": 2,
+    "asked_ambiguities": [],
+    "resolved_ambiguities": [],
+    "correction_pending": false,
+    "blocking_ambiguities": [],
+    "stop_reason": "clear",
+    "inference_quality": "high"
+  },
+  "language": "en"
 }

@@ -43,7 +43,7 @@ def run_cli(*extra: str) -> subprocess.CompletedProcess[str]:
     env.pop("OPENAI_API_KEY", None)
     env.pop("DEEPSEEK_API_KEY", None)
     return subprocess.run(
-        [sys.executable, str(CLI), "world-class-preflight", str(ROOT), *extra],
+        [sys.executable, str(CLI), "world-class-preflight", str(ROOT), *extra, "--self"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -97,25 +97,25 @@ def main() -> None:
     assert summary["phase_queue_next_phase"] == "unblock-access", summary
     assert summary["phase_queue_next_action_id"] == "human-adjudication-precheck-human-reviewer", summary
     assert summary["phase_queue_next_command"] == (
-        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self"
     ), summary
     assert summary["phase_queue_counts_as_completion"] is False, summary
     assert summary["next_repair_action_id"] == "human-adjudication-precheck-human-reviewer", summary
     assert summary["next_repair_phase"] == "unblock-access", summary
     assert summary["next_repair_owner"] == "human reviewer", summary
     assert summary["next_repair_command"] == (
-        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self"
     ), summary
     assert summary["repair_counts_as_completion"] is False, summary
     assert payload["submissions"]["preflight_counts_submission_as_completion"] is False, payload
     assert payload["submissions"]["drafts_count_as_evidence"] is False, payload
     assert payload["submissions"]["submission_kit_command"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--output-dir evidence/world_class/submissions"
+        "--output-dir evidence/world_class/submissions --self"
     ), payload["submissions"]
     assert payload["submissions"]["submission_kit_prefill_command"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--output-dir evidence/world_class/submissions --prefill-artifacts"
+        "--output-dir evidence/world_class/submissions --prefill-artifacts --self"
     ), payload["submissions"]
     assert payload["submissions"]["artifact_prefill_counts_as_evidence"] is False, payload
     phase_queue = payload["phase_queue"]
@@ -125,7 +125,7 @@ def main() -> None:
     assert phase_queue[0]["blocked_count"] >= 1, phase_queue
     assert phase_queue[0]["next_action_id"] == "human-adjudication-precheck-human-reviewer", phase_queue
     assert phase_queue[0]["verification_command"] == (
-        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self"
     ), phase_queue
     assert "human reviewer" in phase_queue[0]["owners"], phase_queue
     assert "human-adjudication" in phase_queue[0]["evidence_keys"], phase_queue
@@ -145,32 +145,32 @@ def main() -> None:
     submission_commands = payload["submissions"]["commands"]
     assert submission_commands["prepare_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--output-dir evidence/world_class/submissions"
+        "--output-dir evidence/world_class/submissions --self"
     ), submission_commands
     assert submission_commands["prepare_prefilled_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--output-dir evidence/world_class/submissions --prefill-artifacts"
+        "--output-dir evidence/world_class/submissions --prefill-artifacts --self"
     ), submission_commands
     assert submission_commands["validate_intake"] == (
-        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
     ), submission_commands
     assert submission_commands["submission_review"] == (
-        "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self"
     ), submission_commands
     assert submission_commands["refresh_ledger"] == (
-        "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions"
+        "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self"
     ), submission_commands
-    assert submission_commands["guard_claim"] == "python3 scripts/yao.py world-class-claim-guard .", submission_commands
+    assert submission_commands["guard_claim"] == "python3 scripts/yao.py world-class-claim-guard . --self", submission_commands
 
     provider = by_key(payload["items"], "provider-holdout")
     assert provider["status"] == "blocked", provider
     assert provider["commands"]["prepare_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--evidence-key provider-holdout --output-dir evidence/world_class/submissions"
+        "--evidence-key provider-holdout --output-dir evidence/world_class/submissions --self"
     ), provider
     assert provider["commands"]["prepare_prefilled_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        "--evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts"
+        "--evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts --self"
     ), provider
     assert provider["submission_kit"]["drafts_count_as_evidence"] is False, provider
     assert provider["submission_kit"]["artifact_prefill_counts_as_evidence"] is False, provider
@@ -199,7 +199,7 @@ def main() -> None:
     assert provider_repairs["provider-api-key"]["priority"] == 20, provider_repairs
     assert provider_repairs["provider-api-key"]["owner"] == "operator with provider credentials", provider_repairs
     assert provider_repairs["provider-api-key"]["verification_command"].endswith(
-        "world-class-preflight . --submissions-dir evidence/world_class/submissions"
+        "world-class-preflight . --submissions-dir evidence/world_class/submissions --self"
     ), provider_repairs
     assert provider_repairs["provider-api-key"]["counts_as_completion"] is False, provider_repairs
     provider_source = {item["field"]: item for item in provider["source_checklist"]}

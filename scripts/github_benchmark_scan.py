@@ -408,7 +408,7 @@ def run_github_benchmark_scan(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Search GitHub for top benchmark repositories and extract reusable patterns.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--query", required=True)
     parser.add_argument("--top-n", type=int, default=DEFAULT_TOP_N)
     parser.add_argument("--fixture-dir")

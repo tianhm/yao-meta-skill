@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -15,6 +16,8 @@ from skill_report_model import REPORT_NAV_V2, build_report_model
 
 
 def run(*args: str) -> dict:
+    if "--self" not in args and any(value.startswith(f"{ROOT}{os.sep}") for value in args):
+        args = (*args, "--self")
     proc = subprocess.run(
         [sys.executable, str(CLI), *args],
         cwd=ROOT,
@@ -150,6 +153,11 @@ def main() -> None:
     assert init_result["ok"], init_result
 
     created = tmp_root / "skill-overview-demo"
+    generated_skill_text = (created / "SKILL.md").read_text(encoding="utf-8")
+    assert "## Intent Clarification" in generated_skill_text, generated_skill_text
+    assert "one question per round" in generated_skill_text, generated_skill_text
+    assert "stop after two rounds" in generated_skill_text, generated_skill_text
+    assert "`preferred-inference`" in generated_skill_text, generated_skill_text
     assert (created / "README.md").exists(), created
     assert (created / "manifest.json").exists(), created
     assert (created / "reports" / "intent-dialogue.md").exists(), created
@@ -423,6 +431,11 @@ def main() -> None:
 
     intent_text = (created / "reports" / "intent-dialogue.md").read_text(encoding="utf-8")
     assert "Questions To Ask" in intent_text, intent_text[:400]
+    assert "Recommended Next Move" in intent_text, intent_text[:1200]
+    intent_dialogue_json = json.loads((created / "reports" / "intent-dialogue.json").read_text(encoding="utf-8"))
+    assert intent_dialogue_json["recommended_next_move"] == "ask", intent_dialogue_json
+    assert intent_dialogue_json["personalized_question"], intent_dialogue_json
+    assert intent_dialogue_json["stop_rule"]["max_rounds"] == 2, intent_dialogue_json
 
     directions_text = (created / "reports" / "iteration-directions.md").read_text(encoding="utf-8")
     assert "Top 3 Next Moves" in directions_text, directions_text[:400]

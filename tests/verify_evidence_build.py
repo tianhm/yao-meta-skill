@@ -34,12 +34,16 @@ def write_skill(root: Path, name: str, marker: str) -> None:
         encoding="utf-8",
     )
     (root / "reports" / "quality.json").write_text(json.dumps({"marker": marker}), encoding="utf-8")
+    (root / "reports" / "local-private.json").write_text(
+        json.dumps({"private": True}),
+        encoding="utf-8",
+    )
     (root / "reports" / "release_snapshots" / name).mkdir(parents=True)
     (root / "reports" / "release_snapshots" / name / "local.json").write_text(
         json.dumps({"local_only": True}),
         encoding="utf-8",
     )
-    (root / ".gitignore").write_text(".yao/\n", encoding="utf-8")
+    (root / ".gitignore").write_text(".yao/\nreports/local-private.json\n", encoding="utf-8")
     subprocess.run(["git", "init", "-q"], cwd=root, check=True)
     subprocess.run(["git", "config", "user.name", "Evidence Test"], cwd=root, check=True)
     subprocess.run(["git", "config", "user.email", "evidence@example.test"], cwd=root, check=True)
@@ -66,6 +70,9 @@ def main() -> None:
         assert alpha_run.manifest["skill_name"] == "alpha-skill", alpha_run.manifest
         assert beta_run.manifest["skill_name"] == "beta-skill", beta_run.manifest
         assert not any("release_snapshots" in item["path"] for item in alpha_run.artifact_index["artifacts"])
+        assert not any(
+            item["path"] == "reports/local-private.json" for item in alpha_run.artifact_index["artifacts"]
+        ), alpha_run.artifact_index
 
         for crash_point in ("after-artifact", "after-index"):
             before_manifest = json.loads((beta_run.run_dir / "run-manifest.json").read_text(encoding="utf-8"))

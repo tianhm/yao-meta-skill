@@ -34,7 +34,7 @@ Skill: `yao-meta-skill`
   - generated reports should be bilingual or reviewer-friendly when they are user-facing
   - each new asset must earn its place by reducing ambiguity, risk, or repeated work
 - Human judgment boundary:
-  - Ask one focused clarification when the real job, output, or exclusion boundary is unclear.
+  - Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.
   - Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.
   - Do not silently broaden the skill into adjacent jobs just because the examples are nearby.
 
@@ -65,10 +65,10 @@ Skill: `yao-meta-skill`
 - Evidence: reports/output-risk-profile.md
 - Current risk families:
   - Markdown readability
+  - Tone and specificity
   - Citation and footnote clutter
   - Screenshot and visual capture
   - Code and command safety
-  - Tone and specificity
 
 ### Reviewer feedback loop
 
@@ -97,10 +97,10 @@ Skill: `yao-meta-skill`
 - Cadence: after the first 3-5 real uses
 - Risk families:
   - Markdown readability
+  - Tone and specificity
   - Citation and footnote clutter
   - Screenshot and visual capture
   - Code and command safety
-  - Tone and specificity
 
 ### Reference drift
 
@@ -132,10 +132,10 @@ Skill: `yao-meta-skill`
 - Repair: Use output-risk families as pre-final checks.
 - Current Risk Families:
   - Markdown readability
+  - Tone and specificity
   - Citation and footnote clutter
   - Screenshot and visual capture
   - Code and command safety
-  - Tone and specificity
 
 ### Prompt-behavior mismatch
 
@@ -151,7 +151,7 @@ Skill: `yao-meta-skill`
 
 ### 3. Install output self-repair checks
 
-- Why: The likely failure families are: Markdown readability, Citation and footnote clutter, Screenshot and visual capture.
+- Why: The likely failure families are: Markdown readability, Tone and specificity, Citation and footnote clutter.
 - Move: Add only the checks that prevent recurring output mistakes.
 
 ### 4. Borrow one pattern, not a whole product

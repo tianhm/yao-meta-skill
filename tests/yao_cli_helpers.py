@@ -22,10 +22,45 @@ import yao_cli_parser_operations  # noqa: E402
 import yao_cli_operator_commands  # noqa: E402
 import yao_cli_report_commands  # noqa: E402
 import yao_cli_runtime  # noqa: E402
+import yao_cli_target_policy  # noqa: E402
+import yao_cli_update_commands  # noqa: E402
+import yao_runtime_paths  # noqa: E402
 from yao_cli_report_refresh import refresh_root_report_consistency_inputs  # noqa: E402
 
 
+SELF_COMMANDS = {
+    "baseline-compare",
+    "optimize-description",
+    "output-eval",
+    "output-exec",
+    "output-review",
+    "output-review-import",
+    "output-review-kit",
+    "promote-check",
+    "release-snapshot",
+    "report",
+    "review",
+    "test",
+    "self-update",
+    "workspace-flow",
+}
+
+
+def authorize_test_self_target(args: tuple[str, ...]) -> tuple[str, ...]:
+    if not args or "--self" in args:
+        return args
+    root_prefix = f"{ROOT}{os.sep}"
+    targets_root = (
+        args[0] in SELF_COMMANDS
+        or str(ROOT) in args
+        or "." in args
+        or any(value.startswith(root_prefix) for value in args)
+    )
+    return (*args, "--self") if targets_root else args
+
+
 def run(*args: str, input_text: str | None = None) -> dict:
+    args = authorize_test_self_target(args)
     env = dict(os.environ)
     env["YAO_CLI_TELEMETRY"] = "0"
     env.pop("YAO_CLI_TELEMETRY_EVENTS", None)
@@ -47,6 +82,7 @@ def run(*args: str, input_text: str | None = None) -> dict:
 
 
 def run_with_env(extra_env: dict[str, str], *args: str) -> dict:
+    args = authorize_test_self_target(args)
     env = dict(os.environ)
     env.update(extra_env)
     proc = subprocess.run(
@@ -94,6 +130,9 @@ def assert_cli_module_contracts() -> None:
         yao_cli_operator_commands,
         yao_cli_report_commands,
         yao_cli_parser_operator,
+        yao_cli_target_policy,
+        yao_cli_update_commands,
+        yao_runtime_paths,
     ):
         assert module.SCRIPT_INTERFACE == "internal-module"
     assert callable(yao_cli_module.command_review_studio)
@@ -103,7 +142,7 @@ def assert_help_surface() -> None:
     parser_help = yao_cli_module.build_parser().format_help()
     expected_help = (
         "quickstart skill-interpretation review-studio python-compat architecture-audit skill-os2-audit skill-os2-coverage "
-        "install-status localized-doc-sync-check pr-review-report "
+        "install-status localized-doc-sync-check pr-review-report check-update self-update "
         "world-class-evidence world-class-ledger world-class-intake world-class-preflight world-class-submission-kit world-class-submission-review world-class-runbook world-class-claim-guard "
         "benchmark-reproducibility evidence-consistency output-review-kit output-review-import adapt-scan adapt-propose adapt-apply telemetry-import telemetry-emit telemetry-hooks weekly-curator --record-cli-telemetry"
     ).split()

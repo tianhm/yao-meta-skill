@@ -22,8 +22,8 @@
     "file_write": {
       "decision": "approved",
       "reviewer": "Yao Team",
-      "scope": "Local generated reports, registry metadata, temporary test outputs, and package artifacts under the skill workspace.",
-      "reason": "File writes are required to create auditable reports, compiled target contracts, package artifacts, and local test fixtures; package safety checks exclude generated temp outputs from archives.",
+      "scope": "Local generated reports, registry metadata, temporary test outputs, package artifacts, user-level update cache, and explicitly confirmed managed Skill installations.",
+      "reason": "File writes create auditable reports and package artifacts, persist metadata-only update state, and allow a verified installer to replace one managed Skill only after explicit confirmation.",
       "expires_at": "2026-09-30",
       "evidence": [
         "reports/package_verification.md",
@@ -40,8 +40,8 @@
     "subprocess": {
       "decision": "approved",
       "reviewer": "Yao Team",
-      "scope": "Local deterministic validation, packaging, install simulation, and CI orchestration commands.",
-      "reason": "Subprocess use is limited to local verification and packaging flows that are surfaced through CLI help smoke tests and CI targets.",
+      "scope": "Local deterministic validation, packaging, install simulation, CI orchestration, read-only install discovery, and explicitly confirmed managed Skill updates.",
+      "reason": "Subprocess use covers reviewed local tooling plus allowlisted argument-array update commands for Agent Skills CLI or a verified Codex plugin marketplace; mutation requires --yes and post-update verification.",
       "expires_at": "2026-09-30",
       "evidence": [
         "reports/security_trust_report.md",

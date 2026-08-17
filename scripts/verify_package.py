@@ -54,7 +54,12 @@ def generated_zip_entries(names: list[str]) -> list[str]:
     generated = []
     for name in names:
         parts = PurePosixPath(name).parts
-        if ".previews" in parts or ".yao" in parts or "dist" in parts or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:])):
+        if (
+            any(part in {".DS_Store", ".mypy_cache", ".previews", ".pytest_cache", ".ruff_cache", ".yao", "__pycache__", "dist"} for part in parts)
+            or PurePosixPath(name).suffix in {".pyc", ".pyo"}
+            or (len(parts) > 3 and parts[1:4] == ("evidence", "world_class", "submissions"))
+            or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:]))
+        ):
             generated.append(name)
     return generated
 
@@ -155,7 +160,7 @@ def verify_package(
                 "Archive exposes only the root SKILL.md entrypoint",
             )
             generated_entries = generated_zip_entries(archive_entries)
-            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes local .yao state, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents")
+            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes local caches, platform noise, .yao state, external submission drafts, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents")
             with zipfile.ZipFile(archive_path) as archive:
                 pointer_name = f"{package_root}/reports/.current-run.json"
                 index_name = f"{package_root}/reports/artifact-index.json"
@@ -279,7 +284,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Verify generated skill package artifacts and archive integrity.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--package-dir", default="dist")
     parser.add_argument("--expectations", default="evals/packaging_expectations.json")
     parser.add_argument("--registry-json", default="reports/registry_audit.json")
@@ -289,16 +294,19 @@ def main() -> None:
     parser.add_argument("--generated-at", default=str(date.today()))
     args = parser.parse_args()
 
-    skill_dir = Path(args.skill_dir)
-    package_dir = Path(args.package_dir)
-    if not package_dir.is_absolute():
-        package_dir = Path.cwd() / package_dir
-    expectations = load_json(Path(args.expectations)) if args.expectations else {}
-    registry = load_json(Path(args.registry_json)) if args.registry_json else {}
+    skill_dir = Path(args.skill_dir).resolve()
+
+    def target_path(raw_path: str) -> Path:
+        path = Path(raw_path).expanduser()
+        return path.resolve() if path.is_absolute() else (skill_dir / path).resolve()
+
+    package_dir = target_path(args.package_dir)
+    expectations = load_json(target_path(args.expectations)) if args.expectations else {}
+    registry = load_json(target_path(args.registry_json)) if args.registry_json else {}
     report = verify_package(skill_dir, package_dir, expectations, registry, args.require_zip, args.generated_at)
 
-    output_json = Path(args.output_json)
-    output_md = Path(args.output_md)
+    output_json = target_path(args.output_json)
+    output_md = target_path(args.output_md)
     output_json.parent.mkdir(parents=True, exist_ok=True)
     output_md.parent.mkdir(parents=True, exist_ok=True)
     output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

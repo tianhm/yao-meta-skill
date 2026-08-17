@@ -79,6 +79,16 @@ def render_html(report: dict[str, Any]) -> str:
         f"开放 {annotation_summary.get('open_count', 0)}；"
         f"阻断 {annotation_summary.get('open_blocker_count', 0)}"
     )
+    intent_confidence = report["data"].get("intent_confidence", {})
+    intent_clarification = intent_confidence.get("clarification_plan", {})
+    intent_assumptions = intent_confidence.get("assumptions", []) or []
+    intent_assumptions_html = "".join(
+        (
+            f"<li><strong>{html.escape(str(item.get('slot', 'unknown')))}</strong>"
+            f"<span>{html.escape(str(item.get('value', '')))}</span></li>"
+        )
+        for item in intent_assumptions
+    ) or "<li><strong>none</strong><span>当前没有结构化假设。</span></li>"
     registry_package = report["data"]["registry"].get("package", {})
     package_summary = report["data"]["package_verification"].get("summary", {})
     install_summary = report["data"]["install_simulation"].get("summary", {})
@@ -361,7 +371,12 @@ def render_html(report: dict[str, Any]) -> str:
         <p>{html.escape(str(report['data']['intent_confidence'].get('anchor_sentence', description)))}</p>
       </div>
       <div class="panel">
-        <h2>证据路径</h2>
+        <h2>追问决策</h2>
+        <p>动作：{html.escape(str(intent_clarification.get('decision', 'legacy')))}；停止原因：{html.escape(str(intent_clarification.get('stop_reason', 'n/a')))}</p>
+        <p>{html.escape(str(intent_clarification.get('question') or intent_confidence.get('recommended_action', '')))}</p>
+        <h3>结构化假设</h3>
+        <ul class="evidence">{intent_assumptions_html}</ul>
+        <h3>证据路径</h3>
         <ul class="evidence">{evidence_html}</ul>
       </div>
     </section>
@@ -564,7 +579,7 @@ def render_review_studio(skill_dir: Path, output_html: Path | None = None, outpu
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render Review Studio 2.0 for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-html")
     parser.add_argument("--output-json")
     args = parser.parse_args()

@@ -425,7 +425,7 @@ def render_compile_report(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compile Skill IR into target-specific semantic contracts.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--target", action="append", default=[])
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")

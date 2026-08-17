@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "summary": {
     "check_count": 41,
@@ -396,13 +396,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88"
+        "all_equal_to_actual_archive": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
       },
       "actual": {
-        "actual_archive": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
-        "package_verification": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
-        "registry": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
-        "benchmark": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88"
+        "actual_archive": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
+        "package_verification": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
+        "registry": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
+        "benchmark": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -437,12 +437,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 570214/120000; top deferred scripts 505096; resource governance governed; quality density 147.8",
+        "detail": "initial load 945/1000; deferred 595301/120000; top deferred scripts 527937; resource governance governed; quality density 137.6",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 947/1000; deferred 570214/120000; top deferred scripts 505096; resource governance governed; quality density 147.8",
+        "detail": "initial load 945/1000; deferred 595301/120000; top deferred scripts 527937; resource governance governed; quality density 137.6",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -470,7 +470,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 27
+        "changed_file_count": 24
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -511,8 +511,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
-      "actual": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+      "expected": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
+      "actual": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -527,8 +527,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 11,
@@ -543,8 +543,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 11,
@@ -655,8 +655,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
-      "actual": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+      "expected": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
+      "actual": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -671,8 +671,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 11,
@@ -687,8 +687,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-        "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+        "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 11,
@@ -836,7 +836,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 309 个词/字。",
+            "SKILL.md 约 316 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -857,7 +857,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 309 个词/字，references 约 17551 个词/字。",
+            "入口约 316 个词/字，references 约 18854 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -900,7 +900,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 309 个词/字。",
+            "SKILL.md 约 316 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -921,7 +921,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 309 个词/字，references 约 17551 个词/字。",
+            "入口约 316 个词/字，references 约 18854 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1153,7 +1153,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 309 个词/字，references 约 17551 个词/字。"
+          "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1201,7 +1201,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 309 个词/字，references 约 17551 个词/字。"
+          "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1276,7 +1276,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 309 个词/字。",
+            "signal": "SKILL.md 约 316 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1293,10 +1293,11 @@
             "label": "Markdown readability",
             "matched_keywords": [
               "md",
+              "table",
               "report",
               "doc"
             ],
-            "score": 3,
+            "score": 4,
             "risks": [
               "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
               "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -1310,6 +1311,30 @@
             "self_repair": [
               "Preview whether each table still reads well when columns are narrow.",
               "Convert any table with paragraph-length cells into bullets or cards."
+            ]
+          },
+          {
+            "key": "tone_and_specificity",
+            "label": "Tone and specificity",
+            "matched_keywords": [
+              "copy",
+              "content",
+              "summary"
+            ],
+            "score": 3,
+            "risks": [
+              "Headings and summaries can drift into generic, interchangeable language.",
+              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+              "Strong claims can appear without examples or constraints."
+            ],
+            "constraints": [
+              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+              "Preserve one distinctive phrase, constraint, or standard from the user's input."
+            ],
+            "self_repair": [
+              "Replace generic title candidates with scenario-specific alternatives.",
+              "Delete any polished sentence that could fit almost any project unchanged."
             ]
           },
           {
@@ -1378,32 +1403,10 @@
               "Scan each command for cwd, input, output, and side-effect assumptions.",
               "Remove speculative error handling that is not tied to a real failure mode."
             ]
-          },
-          {
-            "key": "tone_and_specificity",
-            "label": "Tone and specificity",
-            "matched_keywords": [
-              "summary"
-            ],
-            "score": 1,
-            "risks": [
-              "Headings and summaries can drift into generic, interchangeable language.",
-              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-              "Strong claims can appear without examples or constraints."
-            ],
-            "constraints": [
-              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-              "Preserve one distinctive phrase, constraint, or standard from the user's input."
-            ],
-            "self_repair": [
-              "Replace generic title candidates with scenario-specific alternatives.",
-              "Delete any polished sentence that could fit almost any project unchanged."
-            ]
           }
         ],
         "human_judgment_boundary": [
-          "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+          "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
           "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
           "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
         ]
@@ -1435,7 +1438,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 309 个词/字。",
+            "signal": "SKILL.md 约 316 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1452,10 +1455,11 @@
             "label": "Markdown readability",
             "matched_keywords": [
               "md",
+              "table",
               "report",
               "doc"
             ],
-            "score": 3,
+            "score": 4,
             "risks": [
               "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
               "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -1469,6 +1473,30 @@
             "self_repair": [
               "Preview whether each table still reads well when columns are narrow.",
               "Convert any table with paragraph-length cells into bullets or cards."
+            ]
+          },
+          {
+            "key": "tone_and_specificity",
+            "label": "Tone and specificity",
+            "matched_keywords": [
+              "copy",
+              "content",
+              "summary"
+            ],
+            "score": 3,
+            "risks": [
+              "Headings and summaries can drift into generic, interchangeable language.",
+              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+              "Strong claims can appear without examples or constraints."
+            ],
+            "constraints": [
+              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+              "Preserve one distinctive phrase, constraint, or standard from the user's input."
+            ],
+            "self_repair": [
+              "Replace generic title candidates with scenario-specific alternatives.",
+              "Delete any polished sentence that could fit almost any project unchanged."
             ]
           },
           {
@@ -1537,32 +1565,10 @@
               "Scan each command for cwd, input, output, and side-effect assumptions.",
               "Remove speculative error handling that is not tied to a real failure mode."
             ]
-          },
-          {
-            "key": "tone_and_specificity",
-            "label": "Tone and specificity",
-            "matched_keywords": [
-              "summary"
-            ],
-            "score": 1,
-            "risks": [
-              "Headings and summaries can drift into generic, interchangeable language.",
-              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-              "Strong claims can appear without examples or constraints."
-            ],
-            "constraints": [
-              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-              "Preserve one distinctive phrase, constraint, or standard from the user's input."
-            ],
-            "self_repair": [
-              "Replace generic title candidates with scenario-specific alternatives.",
-              "Delete any polished sentence that could fit almost any project unchanged."
-            ]
           }
         ],
         "human_judgment_boundary": [
-          "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+          "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
           "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
           "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
         ]
@@ -1753,13 +1759,13 @@
             "path": "references",
             "label": "Extended guidance and reusable notes",
             "kind": "folder",
-            "file_count": 37
+            "file_count": 39
           },
           {
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 166
+            "file_count": 174
           },
           {
             "path": "evals",
@@ -1771,10 +1777,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 191
+            "file_count": 195
           }
         ],
-        "file_count": 432,
+        "file_count": 446,
         "folder_count": 4,
         "distribution": [
           {
@@ -1795,11 +1801,11 @@
           },
           {
             "label": "references",
-            "value": 37
+            "value": 39
           },
           {
             "label": "scripts",
-            "value": 166
+            "value": 174
           },
           {
             "label": "evals",
@@ -1807,7 +1813,7 @@
           },
           {
             "label": "reports",
-            "value": 191
+            "value": 195
           }
         ]
       },
@@ -1841,13 +1847,13 @@
             "path": "references",
             "label": "Extended guidance and reusable notes",
             "kind": "folder",
-            "file_count": 37
+            "file_count": 39
           },
           {
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 166
+            "file_count": 174
           },
           {
             "path": "evals",
@@ -1859,10 +1865,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 191
+            "file_count": 195
           }
         ],
-        "file_count": 432,
+        "file_count": 446,
         "folder_count": 4,
         "distribution": [
           {
@@ -1883,11 +1889,11 @@
           },
           {
             "label": "references",
-            "value": 37
+            "value": 39
           },
           {
             "label": "scripts",
-            "value": 166
+            "value": 174
           },
           {
             "label": "evals",
@@ -1895,7 +1901,7 @@
           },
           {
             "label": "reports",
-            "value": 191
+            "value": 195
           }
         ]
       },
@@ -2151,12 +2157,12 @@
         "preflight_counts_submission_as_completion": false,
         "html_report": "reports/world_class_evidence_preflight.html",
         "html_exists": true,
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
         "artifact_prefill_counts_as_evidence": false,
         "artifact_role_source": "world-class-submission-kit",
         "artifact_role_counts_as_evidence": false,
@@ -2174,12 +2180,12 @@
         "preflight_counts_submission_as_completion": false,
         "html_report": "reports/world_class_evidence_preflight.html",
         "html_exists": true,
-        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions",
-        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts",
-        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
-        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
-        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+        "prepare_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --self",
+        "prepare_prefilled_submission": "python3 scripts/yao.py world-class-submission-kit . --output-dir evidence/world_class/submissions --prefill-artifacts --self",
+        "validate_intake": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
+        "submission_review": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
+        "refresh_ledger": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
         "artifact_prefill_counts_as_evidence": false,
         "artifact_role_source": "world-class-submission-kit",
         "artifact_role_counts_as_evidence": false,
@@ -2310,7 +2316,7 @@
           "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
-          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "phase_queue_counts_as_completion": false
         },
         "top_level_phase_queue": [
@@ -2333,7 +2339,7 @@
               "provider-holdout"
             ],
             "next_action_id": "human-adjudication-precheck-human-reviewer",
-            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           },
           {
@@ -2351,7 +2357,7 @@
               "native-permission-enforcement"
             ],
             "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           }
         ],
@@ -2370,7 +2376,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2388,7 +2394,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2406,7 +2412,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2422,7 +2428,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2440,7 +2446,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2456,7 +2462,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -2468,7 +2474,7 @@
           "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
-          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "phase_queue_counts_as_completion": false
         },
         "operator_runbook_top_level_phase_queue": [
@@ -2491,7 +2497,7 @@
               "provider-holdout"
             ],
             "next_action_id": "human-adjudication-precheck-human-reviewer",
-            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           },
           {
@@ -2509,7 +2515,7 @@
               "native-permission-enforcement"
             ],
             "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           }
         ],
@@ -2528,7 +2534,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2546,7 +2552,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2564,7 +2570,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2580,7 +2586,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2598,7 +2604,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2614,7 +2620,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -2634,7 +2640,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2652,7 +2658,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2670,7 +2676,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2686,7 +2692,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2704,7 +2710,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2720,7 +2726,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -2733,7 +2739,7 @@
           "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
-          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "phase_queue_counts_as_completion": false
         },
         "top_level_phase_queue": [
@@ -2756,7 +2762,7 @@
               "provider-holdout"
             ],
             "next_action_id": "human-adjudication-precheck-human-reviewer",
-            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           },
           {
@@ -2774,7 +2780,7 @@
               "native-permission-enforcement"
             ],
             "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           }
         ],
@@ -2784,7 +2790,7 @@
           "phase_queue_row_count": 7,
           "phase_queue_next_phase": "unblock-access",
           "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
-          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+          "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "phase_queue_counts_as_completion": false
         },
         "operator_runbook_top_level_phase_queue": [
@@ -2807,7 +2813,7 @@
               "provider-holdout"
             ],
             "next_action_id": "human-adjudication-precheck-human-reviewer",
-            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           },
           {
@@ -2825,7 +2831,7 @@
               "native-permission-enforcement"
             ],
             "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+            "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
             "counts_as_completion": false
           }
         ],
@@ -2844,7 +2850,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2862,7 +2868,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2880,7 +2886,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2896,7 +2902,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2914,7 +2920,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -2930,7 +2936,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -2950,7 +2956,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2968,7 +2974,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -2986,7 +2992,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -3002,7 +3008,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -3020,7 +3026,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -3036,7 +3042,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -3056,7 +3062,7 @@
                 "provider-holdout"
               ],
               "next_action_id": "provider-holdout-precheck-provider-api-key",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -3074,7 +3080,7 @@
                 "human-adjudication"
               ],
               "next_action_id": "human-adjudication-precheck-human-reviewer",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -3092,7 +3098,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-precheck-native-guard",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -3108,7 +3114,7 @@
                 "native-permission-enforcement"
               ],
               "next_action_id": "native-permission-enforcement-source-check-native_enforcement_count",
-              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ],
@@ -3126,7 +3132,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-precheck-external-client",
-              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             },
             {
@@ -3142,7 +3148,7 @@
                 "native-client-telemetry"
               ],
               "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
-              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+              "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
               "counts_as_completion": false
             }
           ]
@@ -3564,16 +3570,16 @@
         "score `86`",
         "`16` gates",
         "`5` warnings",
-        "`74` declared internal modules",
-        "`92 / 92` CLI help smoke checks passing across `166` scripts",
-        "`641` zip entries",
-        "archive with `641` entries",
+        "`81` declared internal modules",
+        "`93 / 93` CLI help smoke checks passing across `174` scripts",
+        "`658` zip entries",
+        "archive with `658` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",
         "`23` reproduction commands",
-        "initial load `947/1000`",
-        "target count is `83`"
+        "initial load `945/1000`",
+        "target count is `87`"
       ],
       "actual": "all present",
       "paths": [

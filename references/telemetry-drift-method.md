@@ -41,22 +41,24 @@ Allowed failure types: `wrong_trigger`, `under_trigger`, `bad_output`, `missing_
 `scripts/yao.py` can record metadata-only `script_run` events automatically. It is opt-in to keep release evidence reproducible and avoid surprising local writes:
 
 ```bash
-YAO_CLI_TELEMETRY=1 python3 scripts/yao.py validate .
+YAO_CLI_TELEMETRY=1 python3 scripts/yao.py validate . --self
 ```
+
+The default event stream is stored under the platform user state directory. `XDG_STATE_HOME` takes precedence when set, and Skill source/install directories remain unchanged.
 
 Optional destination override:
 
 ```bash
 YAO_CLI_TELEMETRY=1 \
 YAO_CLI_TELEMETRY_EVENTS=/tmp/yao-telemetry.jsonl \
-python3 scripts/yao.py output-exec
+python3 scripts/yao.py output-exec --self
 ```
 
 Equivalent global flags are available before the subcommand:
 
 ```bash
-python3 scripts/yao.py --record-cli-telemetry validate .
-python3 scripts/yao.py --no-cli-telemetry validate .
+python3 scripts/yao.py --record-cli-telemetry validate . --self
+python3 scripts/yao.py --no-cli-telemetry validate . --self
 ```
 
 Successful CLI runs record `event=script_run`, `source=yao_cli`, `outcome=accepted`, and `failure_type=none`. Failed CLI runs record `outcome=failed` and `failure_type=script_error`. The command name is normalized to the subcommand only; command arguments are never recorded.
@@ -70,7 +72,8 @@ python3 scripts/yao.py telemetry-emit . \
   --event skill_activation \
   --activation-type explicit \
   --outcome accepted \
-  --command browser-extension
+  --command browser-extension \
+  --self
 ```
 
 By default this writes to `.yao/telemetry_spool/external_events.jsonl`. Use `--output-jsonl` when a client needs a different local handoff path:
@@ -81,7 +84,8 @@ python3 scripts/yao.py telemetry-emit . \
   --event skill_output \
   --activation-type manual \
   --outcome edited \
-  --command browser-plugin
+  --command browser-plugin \
+  --self
 ```
 
 Use `--dry-run` to validate a proposed event without writing to the spool. The emitter uses the same metadata-only contract as import: no prompt, input, output, transcript, message, note, raw text, arguments, or unknown fields are accepted.
@@ -89,7 +93,7 @@ Use `--dry-run` to validate a proposed event without writing to the spool. The e
 After a client finishes a batch, import the spool:
 
 ```bash
-python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl
+python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self
 ```
 
 ## Client Hook Recipes
@@ -97,7 +101,7 @@ python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/ext
 Use `telemetry-hooks` to generate auditable Browser, Chrome, VS Code, CLI wrapper, and provider-adapter hook recipes:
 
 ```bash
-python3 scripts/yao.py telemetry-hooks .
+python3 scripts/yao.py telemetry-hooks . --self
 ```
 
 The report is written to:
@@ -136,7 +140,8 @@ External clients, browser extensions, editor adapters, or wrapper scripts may ha
 ```bash
 python3 scripts/yao.py telemetry-import . \
   --input-jsonl /tmp/external-client-events.jsonl \
-  --command browser-extension
+  --command browser-extension \
+  --self
 ```
 
 The importer defaults missing `source` to `external` and missing `command` to `external-client`. It validates the entire JSONL file before writing anything. If any line includes a raw content field, unsupported source, unsupported outcome, unsupported failure type, unknown field, malformed JSON, or an unsafe command name, the whole import is rejected and the existing local event stream is left untouched.
@@ -144,7 +149,7 @@ The importer defaults missing `source` to `external` and missing `command` to `e
 Use `--dry-run` to validate an external batch without writing `reports/telemetry_events.jsonl` or refreshing aggregate reports:
 
 ```bash
-python3 scripts/yao.py telemetry-import . --input-jsonl /tmp/external-client-events.jsonl --dry-run
+python3 scripts/yao.py telemetry-import . --input-jsonl /tmp/external-client-events.jsonl --dry-run --self
 ```
 
 ## Privacy Rule

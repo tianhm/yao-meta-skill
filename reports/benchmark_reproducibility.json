@@ -1,45 +1,45 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
-  "commit": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+  "commit": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 27,
+    "changed_file_count": 24,
     "generated_dirty": true,
-    "generated_changed_file_count": 27,
+    "generated_changed_file_count": 24,
     "source_dirty": false,
     "source_changed_file_count": 0,
     "sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
       " M reports/benchmark_reproducibility.json",
       " M reports/benchmark_reproducibility.md",
       " M reports/context_budget.json",
       " M reports/context_budget.md",
       " M reports/context_budget_summary.json",
       " M reports/evidence_consistency.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md"
+      " M reports/review-studio.html",
+      " M reports/review-studio.json",
+      " M reports/review-viewer.json",
+      " M reports/skill-interpretation.html",
+      " M reports/skill-interpretation.json",
+      " M reports/skill-os-2-review.md"
     ],
     "source_sample": [],
     "generated_sample": [
-      " M registry/index.json",
-      " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
       " M reports/benchmark_reproducibility.json",
       " M reports/benchmark_reproducibility.md",
       " M reports/context_budget.json",
       " M reports/context_budget.md",
       " M reports/context_budget_summary.json",
       " M reports/evidence_consistency.json",
-      " M reports/package_verification.json",
-      " M reports/package_verification.md"
+      " M reports/review-studio.html",
+      " M reports/review-studio.json",
+      " M reports/review-viewer.json",
+      " M reports/skill-interpretation.html",
+      " M reports/skill-interpretation.json",
+      " M reports/skill-os-2-review.md"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -57,9 +57,9 @@
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "286f9c390aba7dcb25dc5c0962df6afa55ac3376d52a9e50bae4ae726e60fddc",
-    "source_contract_sha256": "6f189c6342389b904c6aa5108d4280714aa325ee4a5fb11a3aaaeb641931da4b",
-    "archive_sha256": "bca9c782afcd8832b339db6ce1d5769e10e2fdded35d79fd5564ff9530c32b88",
+    "evidence_bundle_sha256": "ec52890423f7cb86c63078e55f4df33df8728efe5f84807902ba8b178fa436dd",
+    "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+    "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -86,11 +86,11 @@
     "public_claim_ready": false,
     "public_claim_blocker_count": 3,
     "working_tree_dirty": true,
-    "changed_file_count": 27,
+    "changed_file_count": 24,
     "source_tree_dirty": false,
     "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 27
+    "generated_changed_file_count": 24
   },
   "beta_test_release": {
     "ready": true,
@@ -133,10 +133,10 @@
   },
   "release_lock": {
     "ready": true,
-    "commit": "494f5d14528aef2ea90e7cfdce99adc4a420905a",
+    "commit": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
     "status_scope": "generation-time status before this report is written",
     "source_changed_file_count": 0,
-    "generated_changed_file_count": 27,
+    "generated_changed_file_count": 24,
     "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
@@ -145,7 +145,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "286f9c390aba7dcb25dc5c0962df6afa55ac3376d52a9e50bae4ae726e60fddc"
+    "sha256": "ec52890423f7cb86c63078e55f4df33df8728efe5f84807902ba8b178fa436dd"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -232,8 +232,8 @@
       "label": "review_adjudication",
       "path": "reports/output_review_adjudication.json",
       "exists": true,
-      "bytes": 14084,
-      "sha256": "91fd88dd9b0f8876f68027a87893d1852dac59772613345bbbfabba658c9227e"
+      "bytes": 14224,
+      "sha256": "510fc207bf208595e2ad64ee92d10c1a27e7669cb172d92a7afb82ff6e4f1562"
     },
     {
       "label": "trigger_scorecard",
@@ -253,106 +253,106 @@
       "label": "trust_report",
       "path": "reports/security_trust_report.json",
       "exists": true,
-      "bytes": 148780,
-      "sha256": "c160c216054e573bb4bba2704c497f08921e6e77c74369b51cac56199124be66"
+      "bytes": 154475,
+      "sha256": "b5d459f5be1a38834ea09986559ef5aa3ef868e706ece8524064ced4d69c17e2"
     },
     {
       "label": "python_compatibility",
       "path": "reports/python_compatibility.json",
       "exists": true,
-      "bytes": 34356,
-      "sha256": "3195554102d7f4fe996d39109d0fbce00a4142a12b5bbf7d0b452e9867b6001f"
+      "bytes": 33893,
+      "sha256": "195e3f822f6f54ef6808bb3e6c61fec955d53705ab1014eba8bb7b5941443063"
     },
     {
       "label": "registry_audit",
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "86e56abe1ff099a49e4cc56b02154f99edb18da895b9d760a8d372769bfc8e5d"
+      "sha256": "adbd9e56a47a9c59096a3fd434dbbd3ee943de6c9f340979d64e9ba32e95c7f7"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
-      "bytes": 19653,
-      "sha256": "a5a5cbe6447b5abd7522b45ce219cabecfdcd8ef4fd9ebe01cbaede31e27e600"
+      "bytes": 19705,
+      "sha256": "15cd1826ede3c233c63f7a5bac5adcf4357fad9a13bab11b92e4a131fa972f0b"
     },
     {
       "label": "install_simulation",
       "path": "reports/install_simulation.json",
       "exists": true,
       "bytes": 8793,
-      "sha256": "ae02ecccdfcb4e6ef530ae43cab06230b626a3529c840e3458362f99ba93ad51"
+      "sha256": "8def0abf208a4eb55b5c78af9b1a233e6fabb4724a583de32141cf79afecf953"
     },
     {
       "label": "skill_os2_audit",
       "path": "reports/skill_os2_audit.json",
       "exists": true,
       "bytes": 13191,
-      "sha256": "c95befc8b245f252e234d738f5804157753b8b04138d9b0b3b58d4c870e30c14"
+      "sha256": "14a436c5b835b297f423e76709b75f79e20d4855689c4a90c6ec9f15e8f35004"
     },
     {
       "label": "world_class_evidence_plan",
       "path": "reports/world_class_evidence_plan.json",
       "exists": true,
-      "bytes": 21902,
-      "sha256": "7cdf934dca889f0d583269b1e6d9db5dcb258337f7ff4c2417cba2d64085c24e"
+      "bytes": 22112,
+      "sha256": "f283c5487869cbbf8c88361d57750abaad05950002aaea8b311b34d519ba9b9c"
     },
     {
       "label": "world_class_evidence_ledger",
       "path": "reports/world_class_evidence_ledger.json",
       "exists": true,
-      "bytes": 23132,
-      "sha256": "dfb09bdcd377f1c77964da8493d946cfe0537e61d6ae49a63b4fcbea6ea95223"
+      "bytes": 23237,
+      "sha256": "0a085d12960eb957bdbb3d1e6d9098f0acc85c22942eaccf15f889426d9560f4"
     },
     {
       "label": "world_class_evidence_intake",
       "path": "reports/world_class_evidence_intake.json",
       "exists": true,
-      "bytes": 19883,
-      "sha256": "1a89a348ab36fc0192dc74a9a0e3bc8018b58909a71fba6a0c3c46d1e90baef9"
+      "bytes": 20128,
+      "sha256": "fd6cce982d532288527c57208fd48ea8244e6d098e07e2d34a3bd1dad825b1f9"
     },
     {
       "label": "world_class_evidence_preflight",
       "path": "reports/world_class_evidence_preflight.json",
       "exists": true,
-      "bytes": 71463,
-      "sha256": "23771a4cca77a93e1a35cc6abfabff48e4cae06f7d2c2da7cef79585d5591820"
+      "bytes": 72219,
+      "sha256": "a82935a492183abe52865d9881b9292b22905167c0b149f1b5de8438e011af2d"
     },
     {
       "label": "world_class_submission_review",
       "path": "reports/world_class_submission_review.json",
       "exists": true,
       "bytes": 14264,
-      "sha256": "afeddbe924a4925bf3404d2508f59c9a3547f9e864ef279cc4855575e34ed334"
+      "sha256": "08c79e2645137861c56a5fe7faf091d9ea006a72225a8168d7c407cae6b6dce1"
     },
     {
       "label": "world_class_operator_runbook",
       "path": "reports/world_class_operator_runbook.json",
       "exists": true,
-      "bytes": 66890,
-      "sha256": "2b9033d84e2c08be386c1038a2f21c714da267e1aa4dbf7db300c7dae0188926"
+      "bytes": 67569,
+      "sha256": "3734f7f2dacb3cb91e32905a54f93bec7ae47eda6b605fcd9f1186f4150d5440"
     },
     {
       "label": "world_class_operator_runbook_markdown",
       "path": "reports/world_class_operator_runbook.md",
       "exists": true,
-      "bytes": 23496,
-      "sha256": "c9940a8b59a9b5680e6f67f46f5d3867ffb4c56268ae08fad3365a948fe570b8"
+      "bytes": 23832,
+      "sha256": "05620822172d8c67388a566a2e22258648dd95a17035aeaf2d0f0de5ae6003dd"
     },
     {
       "label": "world_class_operator_runbook_html",
       "path": "reports/world_class_operator_runbook.html",
       "exists": true,
-      "bytes": 32040,
-      "sha256": "6213e6075d5d2e8ee567cf7bb89878aafc4dbe15d7d8991f42aa0464bde3c233"
+      "bytes": 32355,
+      "sha256": "d74c2c7a918db504ec13c52afc31acbd528a21642d8f0e84b27cb05c97d320ba"
     },
     {
       "label": "world_class_claim_guard",
       "path": "reports/world_class_claim_guard.json",
       "exists": true,
-      "bytes": 23318,
-      "sha256": "86f2ecbe23389da217f1ed9ef7c053e4eb191ec6782dfdf705e39a25790ef7e6"
+      "bytes": 23696,
+      "sha256": "251d3d4873084d97f85afb34d25a81f5849b6d6856d3931f29aa24866355f824"
     }
   ],
   "missing_artifacts": [],
@@ -369,102 +369,102 @@
     },
     {
       "label": "output eval",
-      "command": "python3 scripts/yao.py output-eval",
+      "command": "python3 scripts/yao.py output-eval --self",
       "evidence": "reports/output_quality_scorecard.json"
     },
     {
       "label": "output execution",
-      "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]'",
+      "command": "python3 scripts/yao.py output-exec --runner-command '[\"python3\",\"scripts/local_output_eval_runner.py\"]' --self",
       "evidence": "reports/output_execution_runs.json"
     },
     {
       "label": "blind review adjudication",
-      "command": "python3 scripts/yao.py output-review",
+      "command": "python3 scripts/yao.py output-review --self",
       "evidence": "reports/output_review_adjudication.json"
     },
     {
       "label": "skill ir",
-      "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json",
+      "command": "python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self",
       "evidence": "skill-ir/examples/yao-meta-skill.json"
     },
     {
       "label": "runtime conformance",
-      "command": "python3 scripts/yao.py conformance .",
+      "command": "python3 scripts/yao.py conformance . --self",
       "evidence": "reports/conformance_matrix.json"
     },
     {
       "label": "trust report",
-      "command": "python3 scripts/yao.py trust .",
+      "command": "python3 scripts/yao.py trust . --self",
       "evidence": "reports/security_trust_report.json"
     },
     {
       "label": "python compatibility",
-      "command": "python3 scripts/yao.py python-compat .",
+      "command": "python3 scripts/yao.py python-compat . --self",
       "evidence": "reports/python_compatibility.json"
     },
     {
       "label": "package",
-      "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip",
+      "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip --self",
       "evidence": "dist/yao-meta-skill.zip"
     },
     {
       "label": "package verify",
-      "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip",
+      "command": "python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self",
       "evidence": "reports/package_verification.json"
     },
     {
       "label": "install simulate",
-      "command": "python3 scripts/yao.py install-simulate . --package-dir dist",
+      "command": "python3 scripts/yao.py install-simulate . --package-dir dist --self",
       "evidence": "reports/install_simulation.json"
     },
     {
       "label": "registry audit",
-      "command": "python3 scripts/yao.py registry-audit .",
+      "command": "python3 scripts/yao.py registry-audit . --self",
       "evidence": "reports/registry_audit.json"
     },
     {
       "label": "skill os audit",
-      "command": "python3 scripts/yao.py skill-os2-audit .",
+      "command": "python3 scripts/yao.py skill-os2-audit . --self",
       "evidence": "reports/skill_os2_audit.json"
     },
     {
       "label": "world-class evidence plan",
-      "command": "python3 scripts/yao.py world-class-evidence .",
+      "command": "python3 scripts/yao.py world-class-evidence . --self",
       "evidence": "reports/world_class_evidence_plan.json"
     },
     {
       "label": "world-class evidence ledger",
-      "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_ledger.json"
     },
     {
       "label": "world-class evidence intake",
-      "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_intake.json"
     },
     {
       "label": "world-class evidence preflight",
-      "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_evidence_preflight.json"
     },
     {
       "label": "world-class submission review",
-      "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_submission_review.json"
     },
     {
       "label": "world-class operator runbook",
-      "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions",
+      "command": "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self",
       "evidence": "reports/world_class_operator_runbook.json"
     },
     {
       "label": "world-class claim guard",
-      "command": "python3 scripts/yao.py world-class-claim-guard .",
+      "command": "python3 scripts/yao.py world-class-claim-guard . --self",
       "evidence": "reports/world_class_claim_guard.json"
     },
     {
       "label": "evidence consistency",
-      "command": "python3 scripts/yao.py evidence-consistency .",
+      "command": "python3 scripts/yao.py evidence-consistency . --self",
       "evidence": "reports/evidence_consistency.json"
     },
     {

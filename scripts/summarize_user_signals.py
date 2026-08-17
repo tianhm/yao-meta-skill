@@ -284,7 +284,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Summarize repeated user preference signals from one explicit local source file.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--source", required=True)
     parser.add_argument("--output-json", default="reports/user_patterns.json")
     parser.add_argument("--output-md", default="reports/user_patterns.md")

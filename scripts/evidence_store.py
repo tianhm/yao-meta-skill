@@ -149,6 +149,33 @@ class EvidenceStore:
         if state["dirty"]:
             raise EvidenceError("dirty-worktree", "publishing requires a clean Git worktree")
 
+    def _git_ignored_reports(self, paths: list[Path]) -> set[Path]:
+        if not paths:
+            return set()
+        repository = subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=self.skill_dir,
+            capture_output=True,
+            text=True,
+        )
+        if repository.returncode != 0:
+            return set()
+        relative_paths = [path.relative_to(self.skill_dir) for path in paths]
+        encoded = b"\0".join(os.fsencode(path.as_posix()) for path in relative_paths) + b"\0"
+        ignored = subprocess.run(
+            ["git", "check-ignore", "--stdin", "-z"],
+            cwd=self.skill_dir,
+            input=encoded,
+            capture_output=True,
+        )
+        if ignored.returncode not in {0, 1}:
+            raise EvidenceError("git-ignore-check-failed", "Cannot determine ignored evidence artifacts")
+        return {
+            self.skill_dir / Path(os.fsdecode(value))
+            for value in ignored.stdout.split(b"\0")
+            if value
+        }
+
     def _report_sources(self) -> list[Path]:
         reports_dir = self.skill_dir / "reports"
         if not reports_dir.is_dir():
@@ -167,6 +194,8 @@ class EvidenceStore:
             except ValueError as exc:
                 raise EvidenceError("unsafe-artifact", f"Evidence artifact escapes the skill root: {path}") from exc
             sources.append(path)
+        ignored = self._git_ignored_reports(sources)
+        sources = [path for path in sources if path not in ignored]
         if not sources:
             raise EvidenceError("missing-artifacts", "No report artifacts are available to publish")
         return sources

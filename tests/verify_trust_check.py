@@ -100,6 +100,8 @@ def main() -> None:
         "scripts/build_skill_atlas_opportunities.py",
         "scripts/compile_skill_targets.py",
         "scripts/cross_packager_contracts.py",
+        "scripts/cross_packager_output.py",
+        "scripts/cross_packager_sources.py",
         "scripts/description_optimizer_reporting.py",
         "scripts/reference_synthesis_markdown.py",
         "scripts/review_studio_formatting.py",
@@ -113,6 +115,7 @@ def main() -> None:
         "scripts/evidence_consistency_release.py",
         "scripts/evidence_consistency_skill_os2_review.py",
         "scripts/evidence_consistency_world_class.py",
+        "scripts/intent_clarification.py",
         "scripts/skill_ir_paths.py",
         "scripts/skill_report_charts.py",
         "scripts/skill_report_i18n.py",
@@ -137,6 +140,10 @@ def main() -> None:
         "scripts/yao_cli_parser_operations.py",
         "scripts/yao_cli_report_commands.py",
         "scripts/yao_cli_telemetry.py",
+        "scripts/yao_cli_target_policy.py",
+        "scripts/yao_cli_update_commands.py",
+        "scripts/yao_runtime_paths.py",
+        "scripts/update_installation.py",
     ]:
         assert script_map[internal_module]["interface"] == "internal-module", script_map[internal_module]
         assert script_map[internal_module]["interface_declared"], script_map[internal_module]
@@ -158,6 +165,7 @@ def main() -> None:
     assert "evidence_consistency_release.py" not in warning_text, payload["warnings"]
     assert "evidence_consistency_skill_os2_review.py" not in warning_text, payload["warnings"]
     assert "evidence_consistency_world_class.py" not in warning_text, payload["warnings"]
+    assert "intent_clarification.py" not in warning_text, payload["warnings"]
     assert "skill_ir_paths.py" not in warning_text, payload["warnings"]
     assert "skill_report_charts.py" not in warning_text, payload["warnings"]
     assert "skill_report_i18n.py" not in warning_text, payload["warnings"]
@@ -182,6 +190,10 @@ def main() -> None:
     assert "yao_cli_parser_operations.py" not in warning_text, payload["warnings"]
     assert "yao_cli_report_commands.py" not in warning_text, payload["warnings"]
     assert "yao_cli_telemetry.py" not in warning_text, payload["warnings"]
+    assert "yao_cli_target_policy.py" not in warning_text, payload["warnings"]
+    assert "yao_cli_update_commands.py" not in warning_text, payload["warnings"]
+    assert "yao_runtime_paths.py" not in warning_text, payload["warnings"]
+    assert "update_installation.py" not in warning_text, payload["warnings"]
     assert "render_context_reports.py" not in warning_text, payload["warnings"]
     assert "render_social_preview.py" not in warning_text, payload["warnings"]
     assert "Network-capable scripts require bounded host policy" not in warning_text, payload["warnings"]

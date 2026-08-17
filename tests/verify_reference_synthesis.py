@@ -33,6 +33,7 @@ def main() -> None:
             "release workflow evaluation portability",
             "--github-fixture-dir",
             str(BENCHMARK_FIXTURE_DIR),
+            "--self",
             "--user-reference",
             "Minimal vibe helper::taste::Keep the first pass fast, minimal, and lightweight.::Do not add review, governance, or approval steps.",
             "--intent-job",

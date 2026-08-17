@@ -306,7 +306,7 @@ def render_output_risk_profile(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render predicted output failure modes and quality constraints.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

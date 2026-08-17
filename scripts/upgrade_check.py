@@ -236,7 +236,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compare current and previous registry package metadata for upgrade readiness.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--previous-package-json", required=True)
     parser.add_argument("--current-package-json", default="reports/registry_audit.json")
     parser.add_argument("--output-json", default="reports/upgrade_check.json")
@@ -244,15 +244,23 @@ def main() -> None:
     parser.add_argument("--generated-at", default=str(date.today()))
     args = parser.parse_args()
 
-    previous = package_from_payload(load_json(Path(args.previous_package_json)))
-    current = package_from_payload(load_json(Path(args.current_package_json)))
+    skill_dir = Path(args.skill_dir).resolve()
+
+    def target_path(raw_path: str) -> Path:
+        path = Path(raw_path).expanduser()
+        return path.resolve() if path.is_absolute() else (skill_dir / path).resolve()
+
+    previous_path = target_path(args.previous_package_json)
+    current_path = target_path(args.current_package_json)
+    previous = package_from_payload(load_json(previous_path))
+    current = package_from_payload(load_json(current_path))
     report = run_upgrade_check(previous, current, args.generated_at)
     report["artifacts"] = {
-        "previous_package": display_path(Path(args.previous_package_json)),
-        "current_package": display_path(Path(args.current_package_json)),
+        "previous_package": display_path(previous_path),
+        "current_package": display_path(current_path),
     }
-    output_json = Path(args.output_json)
-    output_md = Path(args.output_md)
+    output_json = target_path(args.output_json)
+    output_md = target_path(args.output_md)
     output_json.parent.mkdir(parents=True, exist_ok=True)
     output_md.parent.mkdir(parents=True, exist_ok=True)
     output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

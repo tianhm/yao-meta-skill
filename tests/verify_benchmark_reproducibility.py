@@ -276,14 +276,14 @@ def main() -> None:
     assert artifacts["reports/world_class_claim_guard.json"]["exists"], artifacts
     assert artifacts["reports/python_compatibility.json"]["exists"], artifacts
     assert any(command["command"] == "make ci-test" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions" for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py world-class-claim-guard ." for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py python-compat ." for command in payload["reproduction_commands"]), payload
-    assert any(command["command"] == "python3 scripts/yao.py evidence-consistency ." for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-submission-review . --submissions-dir evidence/world_class/submissions --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py world-class-claim-guard . --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py python-compat . --self" for command in payload["reproduction_commands"]), payload
+    assert any(command["command"] == "python3 scripts/yao.py evidence-consistency . --self" for command in payload["reproduction_commands"]), payload
     assert any("Provider-backed model holdout source evidence is complete" in item for item in payload["limitations"]), payload["limitations"]
     markdown = output_md.read_text(encoding="utf-8")
     assert "Benchmark Reproducibility" in markdown, markdown
@@ -309,9 +309,9 @@ def main() -> None:
     assert "reports/benchmark_methodology.md" in markdown, markdown
     assert "reports/world_class_evidence_preflight.json" in markdown, markdown
     assert "reports/world_class_operator_runbook.html" in markdown, markdown
-    assert "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions" in markdown, markdown
-    assert "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions" in markdown, markdown
-    assert "python3 scripts/yao.py evidence-consistency ." in markdown, markdown
+    assert "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self" in markdown, markdown
+    assert "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self" in markdown, markdown
+    assert "python3 scripts/yao.py evidence-consistency . --self" in markdown, markdown
     assert "make ci-test" in markdown, markdown
     print(json.dumps({"ok": True}, ensure_ascii=False, indent=2))
 

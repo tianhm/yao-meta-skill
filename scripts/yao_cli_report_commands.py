@@ -93,7 +93,7 @@ def command_report(args: argparse.Namespace) -> int:
             run_script("render_architecture_maintainability.py", [str(ROOT)]),
             run_script("render_context_reports.py", []),
             run_script("render_phase1_trigger_holdout.py", [str(ROOT)]),
-            run_script("render_portability_report.py", []),
+            run_script("render_portability_report.py", [str(ROOT)]),
             run_script("render_reference_synthesis.py", [str(ROOT)]),
             run_script("render_artifact_design_profile.py", [str(ROOT)]),
             run_script("render_prompt_quality_profile.py", [str(ROOT)]),

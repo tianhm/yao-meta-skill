@@ -121,15 +121,15 @@ def build_preflight_artifact_role_handoff_checks(
         "preflight_counts_submission_as_completion": False,
         "html_report": "reports/world_class_evidence_preflight.html",
         "html_exists": True,
-        "prepare_submission": f"python3 scripts/yao.py world-class-submission-kit . --output-dir {default_submissions_dir}",
+        "prepare_submission": f"python3 scripts/yao.py world-class-submission-kit . --output-dir {default_submissions_dir} --self",
         "prepare_prefilled_submission": (
             f"python3 scripts/yao.py world-class-submission-kit . --output-dir {default_submissions_dir} "
-            "--prefill-artifacts"
+            "--prefill-artifacts --self"
         ),
-        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {default_submissions_dir}",
-        "submission_review": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {default_submissions_dir}",
-        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {default_submissions_dir}",
-        "guard_claim": "python3 scripts/yao.py world-class-claim-guard .",
+        "validate_intake": f"python3 scripts/yao.py world-class-intake . --submissions-dir {default_submissions_dir} --self",
+        "submission_review": f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {default_submissions_dir} --self",
+        "refresh_ledger": f"python3 scripts/yao.py world-class-ledger . --submissions-dir {default_submissions_dir} --self",
+        "guard_claim": "python3 scripts/yao.py world-class-claim-guard . --self",
         "artifact_prefill_counts_as_evidence": False,
         "artifact_role_source": "world-class-submission-kit",
         "artifact_role_counts_as_evidence": False,

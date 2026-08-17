@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from render_adoption_drift_report import append_event, normalize_event, skill_defaults, utc_now
+from yao_runtime_paths import default_state_dir
 
 
 SCRIPT_INTERFACE = "internal-module"
@@ -23,7 +24,7 @@ def add_telemetry_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--record-cli-telemetry",
         action="store_true",
-        help="Record metadata-only yao.py command telemetry to reports/telemetry_events.jsonl.",
+        help="Record metadata-only yao.py command telemetry in the user state directory.",
     )
     parser.add_argument(
         "--no-cli-telemetry",
@@ -37,7 +38,7 @@ def add_telemetry_args(parser: argparse.ArgumentParser) -> None:
 
 
 def telemetry_enabled(args: argparse.Namespace, environ: dict[str, str] | None = None) -> bool:
-    environ = environ or os.environ
+    environ = os.environ if environ is None else environ
     if getattr(args, "no_cli_telemetry", False):
         return False
     if getattr(args, "record_cli_telemetry", False):
@@ -51,11 +52,19 @@ def telemetry_enabled(args: argparse.Namespace, environ: dict[str, str] | None =
 
 
 def telemetry_path(root: Path, args: argparse.Namespace, environ: dict[str, str] | None = None) -> Path:
-    environ = environ or os.environ
+    environ = os.environ if environ is None else environ
     configured = getattr(args, "telemetry_events_jsonl", None) or environ.get(EVENTS_ENV)
     if configured:
         return Path(configured).expanduser().resolve()
-    return root / "reports" / "telemetry_events.jsonl"
+    return default_state_dir(environ) / "cli-telemetry-events.jsonl"
+
+
+def telemetry_skill_root(engine_root: Path, args: argparse.Namespace) -> Path:
+    context = getattr(args, "target_context", None)
+    target_root = getattr(context, "target_root", None)
+    if isinstance(target_root, Path) and (target_root / "SKILL.md").is_file():
+        return target_root
+    return engine_root
 
 
 def normalize_command_name(value: Any) -> str:
@@ -84,8 +93,9 @@ def cli_event(root: Path, args: argparse.Namespace, returncode: int) -> dict[str
 def maybe_record_cli_event(root: Path, args: argparse.Namespace, returncode: int) -> None:
     if not telemetry_enabled(args):
         return
+    event_root = telemetry_skill_root(root, args)
     path = telemetry_path(root, args)
-    event, failures = normalize_event(cli_event(root, args, returncode), skill_defaults(root), "yao-cli")
+    event, failures = normalize_event(cli_event(event_root, args, returncode), skill_defaults(event_root), "yao-cli")
     if failures or event is None:
         sys.stderr.write(f"Telemetry skipped: {'; '.join(failures)}\n")
         return

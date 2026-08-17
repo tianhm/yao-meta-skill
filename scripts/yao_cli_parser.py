@@ -522,10 +522,20 @@ def build_parser(command_handlers: dict[str, Callable[[argparse.Namespace], int]
     update_cmd = subparsers.add_parser("check-update", help="Check whether a newer yao-meta-skill version is available.")
     update_cmd.add_argument("--force", action="store_true")
     update_cmd.add_argument("--no-cache", action="store_true")
+    update_cmd.add_argument("--notice", action="store_true", help="Emit a once-per-version activation notice.")
     update_cmd.add_argument("--version-url")
     update_cmd.add_argument("--manifest-url")
     update_cmd.add_argument("--timeout", type=float, default=3.0)
+    update_cmd.add_argument("--max-age-days", type=int, default=1)
     update_cmd.add_argument("--allow-custom-update-url", action="store_true")
     update_cmd.set_defaults(func=_handler(command_handlers, "command_check_update"))
+
+    self_update_cmd = subparsers.add_parser(
+        "self-update",
+        help="Plan or apply an update to a verified managed yao-meta-skill installation.",
+    )
+    self_update_cmd.add_argument("--yes", action="store_true", help="Apply the verified update plan.")
+    self_update_cmd.add_argument("--timeout", type=float, default=3.0)
+    self_update_cmd.set_defaults(func=_handler(command_handlers, "command_self_update"))
 
     return parser

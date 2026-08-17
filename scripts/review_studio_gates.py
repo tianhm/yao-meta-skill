@@ -4,6 +4,7 @@
 from pathlib import Path
 from typing import Any
 
+from intent_clarification import clarification_review_status
 from review_studio_gate_contract import (
     GATE_WEIGHTS,
     REVIEW_STUDIO_GATE_KEYS,
@@ -36,13 +37,19 @@ def build_gates(skill_dir: Path, output_html: Path, data: dict[str, dict[str, An
 
     intent = data["intent_confidence"]
     intent_score = int(intent.get("score", 0) or 0)
-    intent_status = "pass" if intent.get("gate_passed") or intent_score >= 75 else "warn"
+    intent_status = clarification_review_status(intent)
+    clarification = intent.get("clarification_plan", {}) if isinstance(intent, dict) else {}
+    assumption_count = len(intent.get("assumptions", []) or [])
     gates.append(
         gate(
             "intent-canvas",
             "意图画布",
             intent_status,
-            f"intent confidence {intent_score}/100; {intent.get('recommended_action', 'review current intent frame')}",
+            (
+                f"intent confidence {intent_score}/100; clarification {clarification.get('decision', 'legacy')}; "
+                f"assumptions {assumption_count}; stop {clarification.get('stop_reason', 'n/a')}; "
+                f"{intent.get('recommended_action', 'review current intent frame')}"
+            ),
             "reports/intent-confidence.json",
             report_link(output_html, skill_dir, "reports/intent-confidence.md"),
         )

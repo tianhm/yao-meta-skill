@@ -644,7 +644,7 @@ def build_report(skill_dir: Path, generated_at: str) -> dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render cross-report evidence consistency checks.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/evidence_consistency.json")
     parser.add_argument("--output-md", default="reports/evidence_consistency.md")
     parser.add_argument("--generated-at", default=date.today().isoformat())

@@ -104,7 +104,7 @@ def collect_feedback(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Collect lightweight feedback for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--note")
     parser.add_argument("--rating", type=int, default=3)
     parser.add_argument("--category", default="general")

@@ -74,7 +74,7 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - a clear trigger surface
 - a lean `SKILL.md`
 - optional references, scripts, and evals
-- a front-loaded intent dialogue with an intent confidence gate, so the system keeps clarifying when the true job, outputs, exclusions, or standards are still fuzzy
+- an inference-first intent dialogue that asks one personalized question only for core task, output, or direction forks, stops after two rounds, and records structured assumptions without retaining a full transcript
 - a silent-by-default GitHub benchmark scan plus reference synthesis that studies top public repositories and world-class pattern tracks, then surfaces only real conflicts or uncertainty to the user
 - a generated visual HTML overview for each newly initialized skill
 - a Review Studio 2.0 HTML gate page that combines intent, trigger, output eval, context, runtime, trust, atlas, adoption drift, reviewer waivers, reviewer annotations, release evidence, and per-warning fix actions
@@ -194,11 +194,26 @@ npx -y skills add yaojingang/yao-meta-skill -a '*' -g -y
 
 After installation, restart the client. Then ask for tasks such as "create a skill from this workflow", "improve this existing skill", "evaluate this skill", or "add evals to this skill" to trigger `yao-meta-skill`.
 
+### Update notifications and one-confirmation update
+
+Each activation can run a cached update preflight. It checks the official GitHub `VERSION` at most once every 24 hours and shows each newer stable version once. Network failures leave the active Skill task unchanged.
+
+```bash
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py check-update --force --self
+python3 scripts/yao.py self-update --self
+python3 scripts/yao.py self-update --self --yes
+```
+
+`self-update` recognizes verified Agent Skills CLI and installed Codex plugin channels. The command displays its plan first and requires `--yes` before changing an installation. Development checkouts, unmanaged copies, non-official sources, and ambiguous multi-channel installs stay read-only. Restart Codex or the active AI client after a successful update. See [Update Delivery](references/update-delivery.md) for the channel and recovery contract.
+
 1. Describe the workflow, prompt set, or repeated task you want to turn into a skill.
 2. Start with a short, human intent dialogue so the real job, outputs, exclusions, constraints, and standards are explicit.
 3. Let `quickstart` clarify intent first, then run silent benchmark scan and reference synthesis; it only surfaces explicit questions when intent is still unclear or when there is a real design conflict.
 4. Use the archetype-aware `quickstart` or the full authoring flow to generate or improve the package in scaffold, production, library, or governed mode.
 5. Review the generated `reports/skill-interpretation.html` first for the bilingual interpretation report. It defaults to Simplified Chinese and provides an English switch in the top right. Then open `reports/skill-overview.html` for the audit scorecard and `reports/review-studio.html` to inspect release blockers, permission approvals, and evidence paths in one page before adding more structure.
+
+Target-specific CLI commands require an explicit Skill path. Commands that operate on Yao Meta Skill itself also require `--self`. Runtime update cache and opt-in CLI telemetry use user-level cache/state directories, so external Skill work leaves the Yao source and installed package unchanged.
 
 Or use the unified authoring CLI:
 
@@ -229,36 +244,37 @@ python3 scripts/yao.py telemetry-import my-skill --input-jsonl /tmp/external-cli
 python3 scripts/yao.py review-waivers my-skill --add-waiver --gate-key trust-report --reviewer "Yao Team" --reason "Known warning accepted for this release with bounded follow-up." --expires-at 2026-09-30
 python3 scripts/yao.py review-waivers my-skill --add-waiver --gate-key permission-gates --reviewer "Yao Team" --reason "Permission warning accepted only for this non-governed release window." --expires-at 2026-09-30
 python3 scripts/yao.py review-annotations my-skill --add-annotation --gate-key output-lab --target-path reports/output_quality_scorecard.md --line 1 --body "Clarify recorded fixture vs model-executed evidence before release."
-python3 scripts/yao.py baseline-compare
-python3 scripts/yao.py check-update
-python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json
-python3 scripts/yao.py compile-skill . --target openai --target claude --target generic --target vscode
-python3 scripts/yao.py package . --platform generic --output-dir dist
-python3 scripts/yao.py output-eval
-python3 scripts/yao.py output-exec
-python3 scripts/yao.py output-review
-python3 scripts/yao.py conformance .
-python3 scripts/yao.py trust .
-python3 scripts/yao.py python-compat .
-python3 scripts/yao.py runtime-permissions . --package-dir dist
-python3 scripts/yao.py skill-atlas --workspace-root .
-python3 scripts/yao.py registry-audit .
-python3 scripts/yao.py package-verify . --package-dir dist --require-zip
-python3 scripts/yao.py install-simulate . --package-dir dist
-python3 scripts/yao.py upgrade-check . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json
-python3 scripts/yao.py world-class-evidence .
+python3 scripts/yao.py baseline-compare --self
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py self-update --self
+python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self
+python3 scripts/yao.py compile-skill . --target openai --target claude --target generic --target vscode --self
+python3 scripts/yao.py package . --platform generic --output-dir dist --self
+python3 scripts/yao.py output-eval --self
+python3 scripts/yao.py output-exec --self
+python3 scripts/yao.py output-review --self
+python3 scripts/yao.py conformance . --self
+python3 scripts/yao.py trust . --self
+python3 scripts/yao.py python-compat . --self
+python3 scripts/yao.py runtime-permissions . --package-dir dist --self
+python3 scripts/yao.py skill-atlas --workspace-root . --self
+python3 scripts/yao.py registry-audit . --self
+python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self
+python3 scripts/yao.py install-simulate . --package-dir dist --self
+python3 scripts/yao.py upgrade-check . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json --self
+python3 scripts/yao.py world-class-evidence . --self
 SUBMISSIONS_DIR="${SUBMISSIONS_DIR:-evidence/world_class/submissions}"
-python3 scripts/yao.py world-class-preflight . --submissions-dir "$SUBMISSIONS_DIR"
-python3 scripts/yao.py world-class-submission-kit . --output-dir "$SUBMISSIONS_DIR"
+python3 scripts/yao.py world-class-preflight . --submissions-dir "$SUBMISSIONS_DIR" --self
+python3 scripts/yao.py world-class-submission-kit . --output-dir "$SUBMISSIONS_DIR" --self
 # Alternative: prefill artifact SHA-256 digests while keeping drafts template-only.
-python3 scripts/yao.py world-class-submission-kit . --output-dir "$SUBMISSIONS_DIR" --prefill-artifacts
-python3 scripts/yao.py world-class-intake . --submissions-dir "$SUBMISSIONS_DIR"
-python3 scripts/yao.py world-class-submission-review . --submissions-dir "$SUBMISSIONS_DIR"
-python3 scripts/yao.py world-class-ledger . --submissions-dir "$SUBMISSIONS_DIR"
-python3 scripts/yao.py world-class-runbook . --submissions-dir "$SUBMISSIONS_DIR"
-python3 scripts/yao.py world-class-claim-guard .
-python3 scripts/yao.py benchmark-reproducibility .
-python3 scripts/yao.py evidence-consistency .
+python3 scripts/yao.py world-class-submission-kit . --output-dir "$SUBMISSIONS_DIR" --prefill-artifacts --self
+python3 scripts/yao.py world-class-intake . --submissions-dir "$SUBMISSIONS_DIR" --self
+python3 scripts/yao.py world-class-submission-review . --submissions-dir "$SUBMISSIONS_DIR" --self
+python3 scripts/yao.py world-class-ledger . --submissions-dir "$SUBMISSIONS_DIR" --self
+python3 scripts/yao.py world-class-runbook . --submissions-dir "$SUBMISSIONS_DIR" --self
+python3 scripts/yao.py world-class-claim-guard . --self
+python3 scripts/yao.py benchmark-reproducibility . --self
+python3 scripts/yao.py evidence-consistency . --self
 ```
 
 ## Local Development Source
@@ -343,16 +359,16 @@ Unified authoring flow:
 ```bash
 python3 scripts/yao.py init my-skill --description "Describe what the skill does."
 python3 scripts/yao.py validate my-skill
-python3 scripts/yao.py workspace-flow --target root --label first-pass
+python3 scripts/yao.py workspace-flow --target root --label first-pass --self
 python3 scripts/yao.py review-viewer my-skill
-python3 scripts/yao.py review --target root
-python3 scripts/yao.py release-snapshot --target root --label release-candidate
-python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json
-python3 scripts/yao.py compile-skill .
-python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip
-python3 scripts/yao.py runtime-permissions . --package-dir dist
-python3 scripts/yao.py package-verify . --package-dir dist --require-zip
-python3 scripts/yao.py test
+python3 scripts/yao.py review --target root --self
+python3 scripts/yao.py release-snapshot --target root --label release-candidate --self
+python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self
+python3 scripts/yao.py compile-skill . --self
+python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self
+python3 scripts/yao.py runtime-permissions . --package-dir dist --self
+python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self
+python3 scripts/yao.py test --self
 ```
 
 ## Results
@@ -596,7 +612,7 @@ Utility scripts that make the meta-skill operational:
 - `yao_cli_telemetry.py`: opt-in metadata-only `yao.py` run capture for command name, source, outcome, and failure class without command arguments or raw content
 - `render_review_waivers.py`: validates human reviewer risk approvals with gate keys, reasons, expiry dates, and blocker-safe waiver policy
 - `init_skill.py`, `lint_skill.py`, `validate_skill.py`, `diff_eval.py`: minimal authoring toolchain
-- `check_update.py`: checks GitHub for a newer `VERSION` or remote manifest version and reports a reinstall hint without modifying local files
+- `check_update.py`: checks GitHub for a newer `VERSION` or remote manifest version, stores its cache in the user cache directory, and leaves Skill source/install directories unchanged
 - `render_output_risk_profile.py`: predicts output-specific failure modes such as generic headings, citation clutter, screenshot mistakes, weak Markdown tables, and missing execution assumptions
 
 ### `evals/`

@@ -274,7 +274,7 @@ def render_reference_scan(skill_dir: Path, references: list[dict], output_md: Pa
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a benchmark-oriented reference scan for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--external-reference", action="append", default=[], help="Format: name::category::borrow::avoid")
     parser.add_argument("--user-reference", action="append", default=[], help="Format: name::category::borrow::avoid")
     parser.add_argument("--local-constraint", action="append", default=[], help="Format: name::category::borrow::avoid")

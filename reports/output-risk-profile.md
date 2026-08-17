@@ -9,7 +9,11 @@ Generated skills often fail in small output details: generic headings, cluttered
 ## Matched Risk Families
 
 ### Markdown readability
-- Matched keywords: md, report, doc
+- Matched keywords: md, table, report, doc
+- Score: `4`
+
+### Tone and specificity
+- Matched keywords: copy, content, summary
 - Score: `3`
 
 ### Citation and footnote clutter
@@ -24,36 +28,32 @@ Generated skills often fail in small output details: generic headings, cluttered
 - Matched keywords: script
 - Score: `1`
 
-### Tone and specificity
-- Matched keywords: summary
-- Score: `1`
-
 ## Likely Output Mistakes
 
 - Tables can render as dense grids with weak hierarchy or poor mobile readability.
 - Long bullets can make the output look complete while hiding the actual decision logic.
+- Headings and summaries can drift into generic, interchangeable language.
+- The output can sound polished but lose the user's actual taste, audience, or scenario.
 - Footnote markers or dense citation notes can interrupt the reading flow.
 - Evidence can be over-attached to obvious statements and under-attached to risky claims.
-- Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.
-- Missing screenshots can cause the skill to invent visual references instead of declaring the gap.
 
 ## Output Constraints To Apply
 
 - Use tables only when comparison is the main job; otherwise prefer compact cards or grouped bullets.
 - Keep table cells short and move explanations below the table.
+- Anchor titles and summaries in the user's audience, object, and concrete outcome.
+- Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.
 - Attach citations only to claims that need evidence, not to every sentence.
 - Group source notes at the end of a section when inline markers would hurt readability.
-- Never invent a screenshot; state when visual evidence is missing.
-- Record the source, viewport, and crop intent for any screenshot-dependent output.
 
 ## Self-Repair Checks
 
 - Preview whether each table still reads well when columns are narrow.
 - Convert any table with paragraph-length cells into bullets or cards.
+- Replace generic title candidates with scenario-specific alternatives.
+- Delete any polished sentence that could fit almost any project unchanged.
 - Remove decorative citations that do not support a material claim.
 - Move repeated source explanations into one compact source note.
-- Check that every screenshot reference points to a real provided or generated asset.
-- Reword any visual instruction that depends on an unseen screen state.
 
 ## Reviewer Note
 

@@ -508,7 +508,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Apply an approved adaptation patch with review and regression evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--proposal-id")
     parser.add_argument("--patch-file")
     parser.add_argument("--proposals-json", default="reports/adaptation_proposals.json")

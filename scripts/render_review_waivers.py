@@ -163,7 +163,7 @@ def output_lab_candidate(skill_dir: Path, covered_gate_keys: set[str], today: da
             "--gate-key output-lab --reviewer \"<reviewer>\" "
             "--reason \"Output Lab has pending human/provider evidence; accepted only for this bounded review scope.\" "
             f"--expires-at {(today + timedelta(days=365)).isoformat()} "
-            "--evidence reports/output_review_adjudication.md"
+            "--evidence reports/output_review_adjudication.md --self"
         ),
         "world_class_boundary": "Does not count as provider, human, or public world-class completion evidence.",
     }
@@ -193,8 +193,8 @@ def world_class_boundary(skill_dir: Path) -> dict[str, Any] | None:
         ],
         "suggested_evidence": "reports/world_class_evidence_ledger.md",
         "suggested_command": (
-            "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions "
-            "&& python3 scripts/yao.py world-class-claim-guard ."
+            "python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self "
+            "&& python3 scripts/yao.py world-class-claim-guard . --self"
         ),
         "world_class_boundary": "Non-waivable completion boundary.",
     }
@@ -349,7 +349,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render or update Review Studio waiver evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--waivers-json")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")

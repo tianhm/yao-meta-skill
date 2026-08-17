@@ -54,7 +54,7 @@ python3 scripts/render_review_waivers.py .
 Add a bounded approval:
 
 ```bash
-python3 scripts/yao.py review-waivers . \
+python3 scripts/yao.py review-waivers . --self \
   --add-waiver \
   --gate-key trust-report \
   --reviewer "Yao Team" \

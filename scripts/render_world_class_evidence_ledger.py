@@ -400,7 +400,7 @@ def render_markdown(ledger: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a world-class evidence ledger.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/world_class_evidence_ledger.json")
     parser.add_argument("--output-md", default="reports/world_class_evidence_ledger.md")
     parser.add_argument("--submissions-dir")

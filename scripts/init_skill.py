@@ -39,6 +39,12 @@ description: {description}
 2. Execute the main task.
 3. Validate the result.
 
+## Intent Clarification
+
+- Infer non-core gaps visibly and continue.
+- For an unclear core job, output, or direction, ask one question per round in the user's Chinese or English; stop after two rounds.
+- Then use correction, confirmed job/output, description, or Skill name as `preferred-inference`, recording source and confidence.
+
 ## Output Quality Guardrails
 
 - Before final output, apply the likely failure modes in `reports/output-risk-profile.md` when that report is present.
@@ -53,7 +59,6 @@ description: {description}
 ## Honest Boundaries
 
 - Use this skill for the recurring job described in the trigger, not for one-off adjacent requests.
-- Treat missing inputs, unclear outputs, or conflicting constraints as reasons to ask one focused clarification.
 - Do not add new references, scripts, evals, or governance unless they improve reliability more than they add weight.
 """
 
@@ -92,7 +97,7 @@ README_TEMPLATE = """# {title}
 ## Honest Boundaries
 
 - This package starts from the current intent frame and should not pretend to cover unclear adjacent jobs.
-- The first version should ask for clarification when the real input, output, or exclusion boundary is still fuzzy.
+- The first version should use inference first, ask only for a core design fork, and stop after two clarification rounds.
 - New structure should be added only when it earns its keep through evidence, validation, or reviewer need.
 
 ## Package Map
@@ -100,8 +105,8 @@ README_TEMPLATE = """# {title}
 - `SKILL.md`: trigger and workflow entrypoint
 - `agents/interface.yaml`: portable interface metadata
 - `manifest.json`: lifecycle and packaging metadata
-- `reports/intent-dialogue.md`: front-loaded discovery questions for better boundary design and clearer human alignment
-- `reports/intent-confidence.md`: current clarity score, open gaps, and the next follow-up questions worth asking
+- `reports/intent-dialogue.md`: adaptive clarification decision, current understanding, assumptions, and compatibility questions
+- `reports/intent-confidence.md`: completeness score, authoring readiness, open gaps, and the current clarification plan
 - `reports/github-benchmark-scan.md`: top public benchmark repositories, extracted patterns, and borrow or avoid notes
 - `reports/reference-scan.md`: benchmark notes from public references, user references, and local constraints
 - `reports/reference-synthesis.md`: a combined view of GitHub benchmarks plus curated world-class pattern tracks
@@ -198,6 +203,19 @@ def resolve_skill_root(output_dir: str, name: str) -> Path:
     except ValueError as exc:
         raise ValueError(f"Skill root escapes output directory: {root}") from exc
     return root
+
+
+class TargetExistsError(ValueError):
+    """Raised when initialization would overwrite a non-empty target directory."""
+
+    def __init__(self, target: Path) -> None:
+        self.target = target
+        super().__init__(f"Target directory already exists and is not empty: {target}")
+
+
+def require_available_skill_root(root: Path) -> None:
+    if root.exists() and (not root.is_dir() or any(root.iterdir())):
+        raise TargetExistsError(root)
 
 
 def build_manifest(name: str, mode: str, archetype: str) -> dict:
@@ -313,6 +331,7 @@ def initialize_skill(
 ) -> dict:
     title = title or name.replace("-", " ").title()
     root = resolve_skill_root(output_dir, name)
+    require_available_skill_root(root)
     (root / "agents").mkdir(parents=True, exist_ok=True)
     (root / "references").mkdir(exist_ok=True)
     (root / "scripts").mkdir(exist_ok=True)
@@ -475,8 +494,28 @@ def main() -> None:
                 "standards": args.intent_standard,
                 "correction": args.intent_correction,
                 "user_references": [parse_reference(item, "user")["name"] for item in args.user_reference],
+                "clarification_state": {
+                    "rounds_used": 0,
+                    "max_rounds": 2,
+                    "asked_ambiguities": [],
+                    "correction_pending": bool(args.intent_correction),
+                },
             },
         )
+    except TargetExistsError as exc:
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "target-exists",
+                    "target": str(exc.target),
+                    "message": str(exc),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        raise SystemExit(2) from exc
     except ValueError as exc:
         print(json.dumps({"ok": False, "failures": [str(exc)]}, ensure_ascii=False, indent=2))
         raise SystemExit(2) from exc

@@ -74,6 +74,14 @@ def main() -> None:
     assert "Visual quality gates" in html_text, html_text[:2400]
     assert "Prompt quality profile" in html_text, html_text[:2600]
     assert "RTF to skill mapping" in html_text, html_text[:2800]
+    assert "Clarification decision" in html_text, html_text[:3200]
+    assert "Status: block" in html_text, html_text[:3200]
+    assert "Recommended next move: ask" in html_text, html_text[:3200]
+    viewer_report = json.loads(json_path.read_text(encoding="utf-8"))
+    intent_readiness = next(
+        item for item in viewer_report["evidence_readiness"]["checks"] if item["label"] == "Intent clarity"
+    )
+    assert intent_readiness["status"] == "block", intent_readiness
     assert "Reference coach" in html_text, html_text[:900]
     assert "Reference synthesis" in html_text, html_text[:1200]
     assert "Top three next moves" in html_text, html_text[:500]

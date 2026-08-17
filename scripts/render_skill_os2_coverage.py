@@ -210,7 +210,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Skill IR",
             objective="Platform-neutral capability contract exists before platform-specific packaging.",
             artifact_paths=["skill-ir/schema.json", "skill-ir/examples/yao-meta-skill.json", "scripts/export_skill_ir.py", "tests/verify_skill_ir.py"],
-            command="python3 scripts/yao.py skill-ir .",
+            command="python3 scripts/yao.py skill-ir . --self",
             test="python3 tests/verify_skill_ir.py",
             current=f"schema {skill_ir.get('schema_version', 'missing')}; targets {len(skill_ir.get('targets', []))}",
             condition=skill_ir.get("schema_version") == "2.0.0" and len(skill_ir.get("targets", [])) >= 5,
@@ -223,7 +223,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Output Eval Lab",
             objective="with-skill/baseline output quality is measured with assertions, execution evidence, and blind review packs.",
             artifact_paths=["evals/output/schema.json", "evals/output/cases.jsonl", "scripts/run_output_eval.py", "scripts/run_output_execution.py", "reports/output_quality_scorecard.json", "tests/verify_output_eval_lab.py"],
-            command="python3 scripts/yao.py output-exec . && python3 scripts/yao.py output-review .",
+            command="python3 scripts/yao.py output-exec --self && python3 scripts/yao.py output-review --self",
             test="python3 tests/verify_output_eval_lab.py",
             current=f"{output_case_count} cases; delta {output_delta}; execution {execution_count}",
             condition=output_case_count >= 5 and execution_count >= 10 and summary_value(output_quality, "gate_pass") is True,
@@ -236,7 +236,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Runtime Conformance",
             objective="Target packages can be consumed by OpenAI, Claude, Agent Skills, VS Code, and generic targets.",
             artifact_paths=["runtime/conformance/schema.json", "scripts/run_conformance_suite.py", "reports/conformance_matrix.json", "tests/verify_conformance_suite.py"],
-            command="python3 scripts/yao.py conformance .",
+            command="python3 scripts/yao.py conformance . --self",
             test="python3 tests/verify_conformance_suite.py",
             current=f"{conformance_pass}/{conformance_count} targets pass",
             condition=conformance_count >= 5 and conformance_pass == conformance_count and "agent-skills" in target_names(conformance),
@@ -249,7 +249,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Trust Security",
             objective="Scripts, dependencies, permissions, secrets, and package hash are reviewable for team distribution.",
             artifact_paths=["scripts/trust_check.py", "security/trust_policy.md", "security/script_policy.md", "security/permission_policy.json", "reports/security_trust_report.json", "tests/verify_trust_check.py"],
-            command="python3 scripts/yao.py trust .",
+            command="python3 scripts/yao.py trust . --self",
             test="python3 tests/verify_trust_check.py",
             current=f"{script_count} scripts; secrets {summary_value(trust, 'secret_findings', 'n/a')}; help failures {summary_value(trust, 'help_smoke_failed_count', 'n/a')}",
             condition=trust.get("ok") is True and summary_value(trust, "secret_findings", 1) == 0 and summary_value(trust, "help_smoke_failed_count", 1) == 0,
@@ -262,7 +262,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Skill Atlas",
             objective="Team skill portfolio reveals route collisions, stale ownership, dependency graph, and no-route opportunities.",
             artifact_paths=["scripts/build_skill_atlas.py", "skill_atlas/catalog.json", "skill_atlas/route_overlap_matrix.csv", "skill_atlas/dependency_graph.json", "reports/skill_atlas.json", "tests/verify_skill_atlas.py"],
-            command="python3 scripts/yao.py skill-atlas --workspace-root .",
+            command="python3 scripts/yao.py skill-atlas --workspace-root . --self",
             test="python3 tests/verify_skill_atlas.py",
             current=f"{atlas_skill_count} scanned skills; actionable collisions {summary_value(atlas, 'actionable_route_collision_count')}",
             condition=atlas_skill_count >= 1 and summary_value(atlas, "actionable_route_collision_count", 1) == 0,
@@ -275,7 +275,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Registry Distribution",
             objective="Skill packages are installable, versioned, checksumed, and upgrade-reviewable.",
             artifact_paths=["registry/index.schema.json", "registry/package.schema.json", "registry/packages/yao-meta-skill.json", "scripts/registry_audit.py", "reports/package_verification.json", "reports/install_simulation.json", "tests/verify_registry_audit.py"],
-            command="python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip && python3 scripts/yao.py registry-audit .",
+            command="python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self && python3 scripts/yao.py registry-audit . --self",
             test="python3 tests/verify_registry_audit.py",
             current=f"archive entries {package_entries}; install failures {install_failures}",
             condition=registry.get("ok") is True and package_verification.get("ok") is True and install.get("ok") is True and package_entries > 0 and install_failures == 0,
@@ -288,7 +288,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Review Studio",
             objective="One HTML page supports first-pass production review across trigger, output, runtime, trust, release, and evidence actions.",
             artifact_paths=["scripts/render_review_studio.py", "reports/review-studio.html", "reports/review-studio.json", "tests/verify_review_studio.py"],
-            command="python3 scripts/yao.py review-studio .",
+            command="python3 scripts/yao.py review-studio . --self",
             test="python3 tests/verify_review_studio.py",
             current=f"{studio_gates} gates; decision {summary_value(review_studio, 'decision', 'missing')}; warnings {summary_value(review_studio, 'warning_count')}",
             condition=review_studio.get("ok") is True and studio_gates >= 14 and summary_value(review_studio, "blocker_count", 1) == 0,
@@ -301,7 +301,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
             label="Telemetry Drift",
             objective="Real usage feedback is captured as metadata-only local-first drift signals.",
             artifact_paths=["scripts/emit_telemetry_event.py", "scripts/import_telemetry_events.py", "scripts/telemetry_native_host.py", "reports/adoption_drift_report.json", "reports/telemetry_hook_recipes.json", "tests/verify_telemetry_hooks.py"],
-            command="python3 scripts/yao.py telemetry-hooks . && python3 scripts/yao.py adoption-drift .",
+            command="python3 scripts/yao.py telemetry-hooks . --self && python3 scripts/yao.py adoption-drift . --self",
             test="python3 tests/verify_telemetry_hooks.py",
             current=f"events {summary_value(adoption, 'event_count')}; recipes {telemetry_recipe_count}; risk {summary_value(adoption, 'risk_band', 'missing')}",
             condition=adoption.get("ok") is True and adoption.get("privacy_contract", {}).get("raw_content_allowed") is False and telemetry_recipe_count >= 5,
@@ -530,7 +530,7 @@ def build_coverage(skill_dir: Path, generated_at: str) -> dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render Skill OS 2.0 blueprint coverage evidence.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json", default="reports/skill_os2_coverage.json")
     parser.add_argument("--output-md", default="reports/skill_os2_coverage.md")
     parser.add_argument("--generated-at", default=date.today().isoformat())

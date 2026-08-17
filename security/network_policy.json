@@ -9,13 +9,15 @@
     "scripts/check_update.py": {
       "purpose": "Check the public yao-meta-skill GitHub source for a newer VERSION or manifest version.",
       "allowed_hosts": [
-        "raw.githubusercontent.com"
+        "raw.githubusercontent.com",
+        "github.com"
       ],
       "allowed_path_prefixes": [
-        "/yaojingang/yao-meta-skill/"
+        "/yaojingang/yao-meta-skill/",
+        "/yaojingang/yao-meta-skill/commits/main"
       ],
       "requires_https": true,
-      "custom_url_policy": "explicit-opt-in-only via --allow-custom-update-url or YAO_ALLOW_CUSTOM_UPDATE_URL=1",
+      "custom_url_policy": "explicit-opt-in-only via --allow-custom-update-url or YAO_ALLOW_CUSTOM_UPDATE_URL=1; github.com is surfaced as a details link and is not fetched by the checker",
       "timeout_seconds": 3,
       "auth": "none"
     },

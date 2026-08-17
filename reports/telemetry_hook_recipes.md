@@ -14,18 +14,18 @@ They are client hook recipes, not proof that a host client is already natively i
 
 | Client | Command | Event | Outcome | Dry run |
 | --- | --- | --- | --- | --- |
-| Browser extension | `browser-extension` | `skill_activation` | `accepted` | `python3 scripts/yao.py telemetry-emit . --output-jsonl .yao/telemetry_spool/external_events.jsonl --event skill_activation --activation-type explicit --outcome accepted --failure-type none --command browser-extension --dry-run` |
-| Chrome extension | `chrome-extension` | `skill_output` | `edited` | `python3 scripts/yao.py telemetry-emit . --output-jsonl .yao/telemetry_spool/external_events.jsonl --event skill_output --activation-type manual --outcome edited --failure-type none --command chrome-extension --dry-run` |
-| VS Code extension | `vscode-extension` | `skill_activation` | `accepted` | `python3 scripts/yao.py telemetry-emit . --output-jsonl .yao/telemetry_spool/external_events.jsonl --event skill_activation --activation-type implicit --outcome accepted --failure-type none --command vscode-extension --dry-run` |
-| CLI wrapper | `cli-wrapper` | `script_run` | `unknown` | `python3 scripts/yao.py telemetry-emit . --output-jsonl .yao/telemetry_spool/external_events.jsonl --event script_run --activation-type manual --outcome unknown --failure-type none --command cli-wrapper --dry-run` |
-| Provider adapter | `provider-adapter` | `skill_output` | `accepted` | `python3 scripts/yao.py telemetry-emit . --output-jsonl .yao/telemetry_spool/external_events.jsonl --event skill_output --activation-type manual --outcome accepted --failure-type none --command provider-adapter --dry-run` |
+| Browser extension | `browser-extension` | `skill_activation` | `accepted` | `python3 scripts/yao.py telemetry-emit '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --output-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --event skill_activation --activation-type explicit --outcome accepted --failure-type none --command browser-extension --self --dry-run` |
+| Chrome extension | `chrome-extension` | `skill_output` | `edited` | `python3 scripts/yao.py telemetry-emit '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --output-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --event skill_output --activation-type manual --outcome edited --failure-type none --command chrome-extension --self --dry-run` |
+| VS Code extension | `vscode-extension` | `skill_activation` | `accepted` | `python3 scripts/yao.py telemetry-emit '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --output-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --event skill_activation --activation-type implicit --outcome accepted --failure-type none --command vscode-extension --self --dry-run` |
+| CLI wrapper | `cli-wrapper` | `script_run` | `unknown` | `python3 scripts/yao.py telemetry-emit '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --output-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --event script_run --activation-type manual --outcome unknown --failure-type none --command cli-wrapper --self --dry-run` |
+| Provider adapter | `provider-adapter` | `skill_output` | `accepted` | `python3 scripts/yao.py telemetry-emit '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --output-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --event skill_output --activation-type manual --outcome accepted --failure-type none --command provider-adapter --self --dry-run` |
 
 ## Import
 
 After a client finishes a batch, import the local spool:
 
 ```bash
-python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl
+python3 scripts/yao.py telemetry-import '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill' --input-jsonl '/Users/laoyao/AI Coding/03-Development/Skills/yao-meta-skill/.yao/telemetry_spool/external_events.jsonl' --self
 ```
 
 ## Privacy Contract

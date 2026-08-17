@@ -5,6 +5,7 @@ import json
 import re
 from pathlib import Path
 
+from intent_clarification import clarification_review_status
 from render_intent_confidence import render_intent_confidence
 from render_intent_dialogue import render_intent_dialogue
 from render_iteration_directions import render_iteration_directions
@@ -271,11 +272,16 @@ def evidence_readiness(report: dict) -> dict:
     pattern_gate = synthesis.get("pattern_gate", {}) if isinstance(synthesis, dict) else {}
     accepted_patterns = pattern_gate.get("accepted", []) if isinstance(pattern_gate, dict) else []
     conflicts = synthesis.get("conflicts", []) if isinstance(synthesis, dict) else []
+    intent_status = clarification_review_status(intent_confidence)
     checks = [
         {
             "label": "Intent clarity",
-            "status": "ready" if intent_confidence.get("gate_passed") else "needs review",
-            "detail": f"{intent_confidence.get('score', 0)}/100 intent confidence.",
+            "status": intent_status,
+            "detail": (
+                f"{intent_confidence.get('score', 0)}/100 intent confidence; "
+                f"clarification {intent_confidence.get('clarification_plan', {}).get('decision', 'legacy')}; "
+                f"assumptions {len(intent_confidence.get('assumptions', []) or [])}."
+            ),
         },
         {
             "label": "Benchmark coverage",
@@ -308,7 +314,7 @@ def evidence_readiness(report: dict) -> dict:
             "detail": f"{prompt_quality.get('overall_quality_score', 0)}/100 prompt-facing quality score.",
         },
     ]
-    ready_count = sum(1 for item in checks if item["status"] == "ready")
+    ready_count = sum(1 for item in checks if item["status"] in {"ready", "pass"})
     return {
         "score": int(ready_count / len(checks) * 100),
         "checks": checks,

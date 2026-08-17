@@ -66,7 +66,7 @@ python3 scripts/yao.py pr-review-report 4 --repo yaojingang/yao-meta-skill
 - 清晰的触发面
 - 精简的 `SKILL.md`
 - 可选的 references、scripts 和 evals
-- 深度起草前先做一轮更有人味的意图对话，并通过 intent confidence gate 判断理解是否足够清楚；如果不够清楚，会继续补 1 到 2 个高杠杆问题
+- 深度起草前先做推断优先的意图对话；只有核心任务、主要交付物或方向冲突会改变包体设计时，才逐轮提出一个结合用户原话的个性化问题，最多两轮，并用结构化假设留痕
 - 深度起草前会静默执行 GitHub benchmark scan 和 reference synthesis，优先学习高质量公开项目与世界级模式；只有遇到真实冲突或不确定性时才显式抬给用户
 - 会主动询问用户是否有希望借鉴的参考对象，只学习其中的模式抽象、结构和标准，不复制原文或私密内容
 - 新建 skill 时自动生成一份默认中文、可切换英文的 HTML 可视化说明报告
@@ -173,6 +173,19 @@ npx -y skills add yaojingang/yao-meta-skill -a '*' -g -y
 ```
 
 安装完成后重启客户端，再用“创建 skill”“改进已有 skill”“评估 skill”“给 skill 增加 eval”这类任务触发 `yao-meta-skill`。
+
+### 更新提示与一次确认升级
+
+Skill 激活时可以执行缓存式更新预检。它每 24 小时最多检查一次官方 GitHub `VERSION`，每个更高稳定版本只提示一次；网络失败不会影响当前任务。
+
+```bash
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py check-update --force --self
+python3 scripts/yao.py self-update --self
+python3 scripts/yao.py self-update --self --yes
+```
+
+`self-update` 会识别受验证的 Agent Skills CLI 和 Codex 插件安装渠道。命令默认只展示更新计划，带 `--yes` 才修改安装目录。开发仓库、无记录复制目录、非官方来源和多渠道歧义状态保持只读。更新成功后需要重启 Codex 或当前 AI 客户端。完整渠道与失败恢复约定见 [Update Delivery](../references/update-delivery.md)。
 
 1. 先描述你想沉淀成 skill 的 workflow、prompt 集合或重复任务。
 2. 先做一轮简短但更有人味的意图对话，把真实任务、输出物、边界、约束和你在意的质量标准说清楚。

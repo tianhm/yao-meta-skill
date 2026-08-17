@@ -11,6 +11,17 @@ SCRIPT_INTERFACE_REASON = "Imported by yao.py and command modules for shared sub
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "scripts"
+_SCRIPT_EXECUTION_CWD = ROOT
+
+
+def set_script_execution_cwd(path: Path) -> None:
+    """Bind child processes to the target selected by the CLI policy."""
+
+    global _SCRIPT_EXECUTION_CWD
+    resolved = path.expanduser().resolve()
+    if not resolved.is_dir():
+        raise ValueError(f"Script execution directory does not exist: {resolved}")
+    _SCRIPT_EXECUTION_CWD = resolved
 
 
 def script_path(name: str) -> str:
@@ -30,7 +41,7 @@ def load_json_maybe(text: str) -> dict | None:
 def run_script(name: str, args: list[str], cwd: Path | None = None) -> dict:
     proc = subprocess.run(
         [sys.executable, script_path(name), *args],
-        cwd=cwd or ROOT,
+        cwd=cwd or _SCRIPT_EXECUTION_CWD,
         capture_output=True,
         text=True,
     )

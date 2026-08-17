@@ -383,7 +383,7 @@ def detect_conflicts(
 
 def build_visibility(intent_payload: dict[str, Any], conflicts: list[dict[str, Any]]) -> dict[str, Any]:
     reasons = []
-    if not intent_payload.get("gate_passed", False):
+    if not intent_payload.get("authoring_ready", intent_payload.get("gate_passed", False)):
         reasons.append("intent_uncertain")
     if conflicts:
         reasons.append("design_conflict")
@@ -412,7 +412,7 @@ def build_recommendation(
     primary_avoid = avoid_now[0] if avoid_now else "Do not add weight that the first pass does not yet need."
     if conflicts:
         why = f"There is a real design conflict to resolve: {conflicts[0]['summary']}"
-    elif intent_payload.get("gate_passed", False):
+    elif intent_payload.get("authoring_ready", intent_payload.get("gate_passed", False)):
         why = "Intent is clear enough, so the system should make the first pattern call quietly."
     else:
         why = "Intent still has gaps, so the system should surface the recommendation and ask for correction before deepening the package."
@@ -478,6 +478,7 @@ def build_summary(skill_dir: Path) -> dict[str, Any]:
             "score": intent_payload.get("score", 0),
             "band": intent_payload.get("band", "low"),
             "gate_passed": intent_payload.get("gate_passed", False),
+            "authoring_ready": intent_payload.get("authoring_ready", intent_payload.get("gate_passed", False)),
         },
         "github_benchmarks": [
             {
@@ -535,7 +536,7 @@ def render_reference_synthesis(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render a multi-source reference synthesis report for a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-md")
     parser.add_argument("--output-json")
     args = parser.parse_args()

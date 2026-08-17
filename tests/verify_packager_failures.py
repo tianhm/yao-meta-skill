@@ -44,7 +44,28 @@ def run_case(name: str, cmd: list[str], expected_substring: str) -> dict:
 
 
 def main() -> None:
+    if TMP.exists():
+        shutil.rmtree(TMP)
     TMP.mkdir(parents=True, exist_ok=True)
+    unsupported_output = TMP / "unsupported_platform"
+    unsupported_case = run_case(
+        "unsupported_platform",
+        [
+            sys.executable,
+            str(SCRIPT),
+            str(ROOT),
+            "--platform",
+            "bad_target",
+            "--expectations",
+            str(EXPECTATIONS),
+            "--output-dir",
+            str(unsupported_output),
+        ],
+        "Unsupported platform",
+    )
+    no_partial_output = not unsupported_output.exists()
+    unsupported_case["no_partial_output"] = no_partial_output
+    unsupported_case["passed"] = unsupported_case["passed"] and no_partial_output
     cases = [
         run_case(
             "missing_interface_field",
@@ -76,21 +97,7 @@ def main() -> None:
             ],
             "while scanning a quoted scalar",
         ),
-        run_case(
-            "unsupported_platform",
-            [
-                sys.executable,
-                str(SCRIPT),
-                str(ROOT),
-                "--platform",
-                "bad_target",
-                "--expectations",
-                str(EXPECTATIONS),
-                "--output-dir",
-                str(TMP / "unsupported_platform"),
-            ],
-            "Unsupported platform",
-        ),
+        unsupported_case,
     ]
     report = {"ok": all(case["passed"] for case in cases), "cases": cases}
     print(json.dumps(report, ensure_ascii=False, indent=2))

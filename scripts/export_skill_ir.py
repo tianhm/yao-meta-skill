@@ -326,7 +326,7 @@ def default_output_path(skill_dir: Path, payload: dict[str, Any]) -> Path:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export a platform-neutral Skill IR document from a skill package.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json")
     parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args()

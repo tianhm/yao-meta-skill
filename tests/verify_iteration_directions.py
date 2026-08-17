@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -10,6 +11,8 @@ CLI = ROOT / "scripts" / "yao.py"
 
 
 def run(*args: str) -> dict:
+    if "--self" not in args and any(value.startswith(f"{ROOT}{os.sep}") for value in args):
+        args = (*args, "--self")
     proc = subprocess.run(
         [sys.executable, str(CLI), *args],
         cwd=ROOT,

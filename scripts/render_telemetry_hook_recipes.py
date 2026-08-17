@@ -6,9 +6,11 @@ from pathlib import Path
 from typing import Any
 
 from render_adoption_drift_report import SENSITIVE_FIELDS, display_path
+from yao_cli_target_policy import is_self_skill
 
 
 SCHEMA_VERSION = "1.0"
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_RECIPES = [
     {
         "id": "browser-extension",
@@ -91,9 +93,9 @@ def emit_argv(skill_dir: Path, output_jsonl: Path, recipe: dict[str, Any], dry_r
         "python3",
         "scripts/yao.py",
         "telemetry-emit",
-        display_path(skill_dir),
+        str(skill_dir.resolve()),
         "--output-jsonl",
-        display_path(output_jsonl),
+        str(output_jsonl.resolve()),
         "--event",
         recipe["event"],
         "--activation-type",
@@ -105,20 +107,25 @@ def emit_argv(skill_dir: Path, output_jsonl: Path, recipe: dict[str, Any], dry_r
         "--command",
         recipe["command"],
     ]
+    if is_self_skill(skill_dir, ROOT):
+        argv.append("--self")
     if dry_run:
         argv.append("--dry-run")
     return argv
 
 
 def import_argv(skill_dir: Path, output_jsonl: Path) -> list[str]:
-    return [
+    argv = [
         "python3",
         "scripts/yao.py",
         "telemetry-import",
-        display_path(skill_dir),
+        str(skill_dir.resolve()),
         "--input-jsonl",
-        display_path(output_jsonl),
+        str(output_jsonl.resolve()),
     ]
+    if is_self_skill(skill_dir, ROOT):
+        argv.append("--self")
+    return argv
 
 
 def build_recipe(skill_dir: Path, output_jsonl: Path, recipe: dict[str, Any]) -> dict[str, Any]:
@@ -240,7 +247,7 @@ def render_recipes(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render metadata-only telemetry client hook recipes.")
-    parser.add_argument("skill_dir", nargs="?", default=".")
+    parser.add_argument("skill_dir")
     parser.add_argument("--output-json")
     parser.add_argument("--output-md")
     parser.add_argument("--output-jsonl")

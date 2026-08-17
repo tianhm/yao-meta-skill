@@ -13,6 +13,8 @@ TMP = ROOT / "tests" / "tmp_daily_skillops"
 
 
 def run_command(*args: str) -> subprocess.CompletedProcess[str]:
+    if args and args[0] == str(CLI) and "--self" not in args:
+        args = (*args, "--self")
     return subprocess.run(
         [sys.executable, *args],
         cwd=ROOT,

@@ -25,11 +25,11 @@ Do not publish a team package when registry audit reports missing version, hash,
 For an installable archive, first build the distribution and run package verification:
 
 ```bash
-python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip
-python3 scripts/yao.py package-verify . --package-dir dist --require-zip
-python3 scripts/yao.py install-simulate . --package-dir dist
-python3 scripts/yao.py registry-audit .
-python3 scripts/yao.py upgrade-check . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json
+python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self
+python3 scripts/yao.py package-verify . --package-dir dist --require-zip --self
+python3 scripts/yao.py install-simulate . --package-dir dist --self
+python3 scripts/yao.py registry-audit . --self
+python3 scripts/yao.py upgrade-check . --previous-package-json registry/examples/yao-meta-skill-1.0.0.json --self
 ```
 
 Do not claim archive readiness when package verification reports unsafe zip paths, missing target adapters, missing package manifest, registry metadata mismatch, or unreadable archive contents.

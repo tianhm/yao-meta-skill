@@ -1,6 +1,6 @@
 # World-Class Evidence Plan
 
-Generated at: `2026-08-16`
+Generated at: `2026-08-17`
 
 ## Summary
 
@@ -32,11 +32,11 @@ This report is an execution plan for the remaining world-class evidence gaps. It
 ### Runbook
 
 - Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.
-- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>`
+- `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self`
 - Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Success Checks
 
@@ -73,10 +73,10 @@ This report is an execution plan for the remaining world-class evidence gaps. It
 - Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.
 - Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.
 - Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.
-- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID> --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Success Checks
 
@@ -114,12 +114,12 @@ This report is an execution plan for the remaining world-class evidence gaps. It
 
 - Implement or connect a real target client or external installer runtime guard that blocks undeclared network, file_write, or subprocess capabilities.
 - Update the generated target adapter only when the guard is actually enforced by that target.
-- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip`
-- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation`
-- `python3 scripts/yao.py runtime-permissions . --package-dir dist`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self`
+- `python3 scripts/yao.py install-simulate . --package-dir dist --install-root dist/install-simulation --self`
+- `python3 scripts/yao.py runtime-permissions . --package-dir dist --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-permission-enforcement.intake.json to evidence/world_class/submissions/native-permission-enforcement.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Success Checks
 
@@ -155,11 +155,11 @@ This report is an execution plan for the remaining world-class evidence gaps. It
 
 - `python3 scripts/telemetry_native_host.py . --write-launcher /tmp/yao-telemetry-host.sh --write-manifest /tmp/yao-telemetry-host.json --allowed-origin chrome-extension://<extension-id>/`
 - Install the generated native messaging manifest for the real client and send at least one accepted skill_activation or skill_output event.
-- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl`
-- `python3 scripts/yao.py skill-atlas --workspace-root .`
-- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>`
+- `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self`
+- `python3 scripts/yao.py skill-atlas --workspace-root . --self`
+- `python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD> --self`
 - Copy evidence/world_class/templates/native-client-telemetry.intake.json to evidence/world_class/submissions/native-client-telemetry.json and fill only real evidence fields.
-- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions`
+- `python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self`
 
 ### Success Checks
 

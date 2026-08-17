@@ -84,7 +84,7 @@ ACTION_GUIDANCE: dict[str, dict[str, Any]] = {
             {"path": "reports/intent-dialogue.md", "label": "intent dialogue", "kind": "report", "patterns": ["# Intent"]},
             {"path": "reports/intent-confidence.md", "label": "intent confidence", "kind": "report", "patterns": ["# Intent"]},
         ],
-        "verification": "python3 scripts/yao.py intent-confidence .",
+        "verification": "python3 scripts/yao.py intent-confidence . --self",
     },
     "trigger-lab": {
         "summary": "修正 route scorecard 中的误触发、漏触发或 ambiguous case。",
@@ -109,7 +109,7 @@ ACTION_GUIDANCE: dict[str, dict[str, Any]] = {
             {"path": "reports/output_review_kit.html", "label": "reviewer cockpit", "kind": "report", "patterns": ["Output Review Kit", "Variant A"]},
             {"path": "reports/output_review_adjudication.md", "label": "review adjudication", "kind": "report", "patterns": ["# Output Review"]},
         ],
-        "verification": "python3 scripts/adjudicate_output_review.py --write-template && python3 scripts/yao.py output-review",
+        "verification": "python3 scripts/adjudicate_output_review.py --write-template && python3 scripts/yao.py output-review --self",
     },
     "context-budget": {
         "summary": "压缩或拆分高成本 deferred resources，保留最小可路由上下文。",
@@ -153,7 +153,7 @@ ACTION_GUIDANCE: dict[str, dict[str, Any]] = {
             {"path": "scripts/python_compat_check.py", "label": "compatibility checker", "kind": "source", "patterns": ["SCRIPT_INTERFACE"]},
             {"path": ".github/workflows/test.yml", "label": "CI test workflow", "kind": "ci", "patterns": ["python"]},
         ],
-        "verification": "python3 scripts/yao.py python-compat .",
+        "verification": "python3 scripts/yao.py python-compat . --self",
     },
     "architecture-maintainability": {
         "summary": "处理大文件和 CLI command surface 的维护性热点，优先拆分稳定职责边界。",
@@ -166,7 +166,7 @@ ACTION_GUIDANCE: dict[str, dict[str, Any]] = {
             {"path": "scripts/review_studio_actions.py", "label": "Review Studio actions", "kind": "source", "patterns": ["ACTION_GUIDANCE"]},
             {"path": "scripts/render_review_viewer.py", "label": "review viewer renderer", "kind": "source", "patterns": ["def "]},
         ],
-        "verification": "python3 scripts/yao.py architecture-audit .",
+        "verification": "python3 scripts/yao.py architecture-audit . --self",
     },
     "permission-gates": {
         "summary": "补齐高权限能力的 reviewer、scope、reason、expires_at 和目标端 enforcement 说明。",
@@ -244,9 +244,9 @@ ACTION_GUIDANCE: dict[str, dict[str, Any]] = {
             {"path": "reports/adoption_drift_report.md", "label": "adoption drift", "kind": "report", "patterns": ["# Adoption"]},
         ],
         "verification": (
-            "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions "
-            "&& python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions "
-            "&& python3 scripts/yao.py review-studio ."
+            "python3 scripts/yao.py world-class-runbook . --submissions-dir evidence/world_class/submissions --self "
+            "&& python3 scripts/yao.py world-class-ledger . --submissions-dir evidence/world_class/submissions --self "
+            "&& python3 scripts/yao.py review-studio . --self"
         ),
     },
     "registry-audit": {

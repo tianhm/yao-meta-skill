@@ -583,11 +583,11 @@ def main() -> None:
     assert checklist["provider-holdout"]["submission_path"] == f"{empty_submissions_rel}/provider-holdout.json", checklist["provider-holdout"]
     assert checklist["provider-holdout"]["commands"]["prepare_submission"] == (
         "python3 scripts/yao.py world-class-submission-kit . "
-        f"--evidence-key provider-holdout --output-dir {empty_submissions_rel}"
+        f"--evidence-key provider-holdout --output-dir {empty_submissions_rel} --self"
     ), checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["commands"]["validate_intake"] == f"python3 scripts/yao.py world-class-intake . --submissions-dir {empty_submissions_rel}", checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["commands"]["submission_review"] == f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {empty_submissions_rel}", checklist["provider-holdout"]
-    assert checklist["provider-holdout"]["commands"]["refresh_ledger"] == f"python3 scripts/yao.py world-class-ledger . --submissions-dir {empty_submissions_rel}", checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["commands"]["validate_intake"] == f"python3 scripts/yao.py world-class-intake . --submissions-dir {empty_submissions_rel} --self", checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["commands"]["submission_review"] == f"python3 scripts/yao.py world-class-submission-review . --submissions-dir {empty_submissions_rel} --self", checklist["provider-holdout"]
+    assert checklist["provider-holdout"]["commands"]["refresh_ledger"] == f"python3 scripts/yao.py world-class-ledger . --submissions-dir {empty_submissions_rel} --self", checklist["provider-holdout"]
     assert "provider-backed model run" in checklist["provider-holdout"]["must_collect"]["provenance_requirements"], checklist["provider-holdout"]
     assert any("evidence-build . --run-id" in step for step in checklist["provider-holdout"]["must_collect"]["runbook"]), checklist["provider-holdout"]
     assert not any("--provider-runner" in step for step in checklist["provider-holdout"]["must_collect"]["runbook"]), checklist["provider-holdout"]
@@ -605,9 +605,9 @@ def main() -> None:
     assert "operator checklist: `0` ready / `4` total" in markdown, markdown
     assert "0 existing / 0 sha256 verified / 0 required verified / 1 refs" in markdown, markdown
     assert f"`{empty_submissions_rel}/provider-holdout.json`" in markdown, markdown
-    assert f"`python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir {empty_submissions_rel}`" in markdown, markdown
-    assert f"`python3 scripts/yao.py world-class-submission-review . --submissions-dir {empty_submissions_rel}`" in markdown, markdown
-    assert f"`python3 scripts/yao.py world-class-ledger . --submissions-dir {empty_submissions_rel}`" in markdown, markdown
+    assert f"`python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir {empty_submissions_rel} --self`" in markdown, markdown
+    assert f"`python3 scripts/yao.py world-class-submission-review . --submissions-dir {empty_submissions_rel} --self`" in markdown, markdown
+    assert f"`python3 scripts/yao.py world-class-ledger . --submissions-dir {empty_submissions_rel} --self`" in markdown, markdown
     assert "Source Runbook" in markdown, markdown
     assert "evidence-build . --run-id" in markdown, markdown
     assert "--provider-runner" not in markdown, markdown

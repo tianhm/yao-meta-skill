@@ -177,7 +177,7 @@ def main() -> None:
     expected_non_pass = {"output-lab", "review-waivers", "world-class-evidence"}
     expected_non_pass.update(["operations-loop"] if not json.loads((ROOT / "reports" / "adoption_drift_report.json").read_text(encoding="utf-8"))["summary"].get("event_count") else [])
     atlas_summary = json.loads((ROOT / "reports" / "skill_atlas.json").read_text(encoding="utf-8"))["summary"]
-    expected_non_pass.update(["skill-atlas"] if any(int(value or 0) for key, value in atlas_summary.items() if key.startswith("actionable_")) else [])
+    expected_non_pass.update(["skill-atlas"] if any(int(atlas_summary.get(key, 0) or 0) for key in {"actionable_route_collision_count", "actionable_owner_gap_count", "actionable_stale_count", "actionable_drift_signal_count"}) else [])
     assert gate_action_mirror["non_pass_gate_keys"] == sorted(expected_non_pass), gate_action_mirror
     assert gate_action_mirror["action_gate_keys"] == gate_action_mirror["non_pass_gate_keys"], gate_action_mirror
     assert gate_action_mirror["pass_gate_action_ids_empty"] is True, gate_action_mirror

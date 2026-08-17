@@ -40,28 +40,29 @@
   },
   "workflow": {
     "steps": [
-      "One-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
-      "Capture job, output, exclusions, constraints, standards, lightest fit.",
-      "Scan `3-5` external/user/local references when useful.",
-      "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
-      "Add deeper profiles and iteration directions only when earned."
+      "Require `repeated use` + `reusable output contract`; skip one-offs.",
+      "Lock target path + identity before writes; self-edits require `--self`.",
+      "Capture job, output, exclusions, constraints, standards, mode.",
+      "Scan `3-5` useful external/user/local references.",
+      "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
+      "Add deeper profiles only when earned."
     ],
     "decision_points": [
-      "Route by frontmatter `description`; use the lightest reliable process.",
-      "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-      "`Scaffold`: exploratory. `Production`: team reuse. `Library`: shared infra. `Governed`: release-critical.",
+      "Route by frontmatter `description` using the lightest mode.",
+      "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+      "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
       "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-      "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+      "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
       "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
       "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
     ],
     "failure_modes": [
       "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
       "Long bullets can make the output look complete while hiding the actual decision logic.",
+      "Headings and summaries can drift into generic, interchangeable language.",
+      "The output can sound polished but lose the user's actual taste, audience, or scenario.",
       "Footnote markers or dense citation notes can interrupt the reading flow.",
       "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-      "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-      "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
       "Users start invoking the skill for adjacent one-off or explanation-only requests.",
       "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
       "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -104,8 +105,10 @@
       "references/skill-ir-method.md",
       "references/skillops-decision-policy.md",
       "references/systems-thinking-doctrine.md",
+      "references/target-safety.md",
       "references/telemetry-drift-method.md",
       "references/trust-security-method.md",
+      "references/update-delivery.md",
       "references/user-memory-policy.md"
     ],
     "scripts": [
@@ -128,6 +131,8 @@
       "scripts/create_iteration_snapshot.py",
       "scripts/cross_packager.py",
       "scripts/cross_packager_contracts.py",
+      "scripts/cross_packager_output.py",
+      "scripts/cross_packager_sources.py",
       "scripts/description_optimizer_reporting.py",
       "scripts/diff_eval.py",
       "scripts/emit_telemetry_event.py",
@@ -148,6 +153,7 @@
       "scripts/import_output_review_decisions.py",
       "scripts/import_telemetry_events.py",
       "scripts/init_skill.py",
+      "scripts/intent_clarification.py",
       "scripts/json_schema_validation.py",
       "scripts/judge_blind_eval.py",
       "scripts/lint_skill.py",
@@ -227,6 +233,7 @@
       "scripts/run_evidence_build.py",
       "scripts/run_output_eval.py",
       "scripts/run_output_execution.py",
+      "scripts/self_update.py",
       "scripts/simulate_install.py",
       "scripts/skill_ir_paths.py",
       "scripts/skill_os2_coverage_markdown.py",
@@ -245,6 +252,7 @@
       "scripts/trigger_eval.py",
       "scripts/trust_check.py",
       "scripts/trust_check_scripts.py",
+      "scripts/update_installation.py",
       "scripts/upgrade_check.py",
       "scripts/validate_skill.py",
       "scripts/verify_package.py",
@@ -274,7 +282,10 @@
       "scripts/yao_cli_parser_operator.py",
       "scripts/yao_cli_report_commands.py",
       "scripts/yao_cli_runtime.py",
-      "scripts/yao_cli_telemetry.py"
+      "scripts/yao_cli_target_policy.py",
+      "scripts/yao_cli_telemetry.py",
+      "scripts/yao_cli_update_commands.py",
+      "scripts/yao_runtime_paths.py"
     ],
     "assets": [
       "assets/review-studio.css",
@@ -387,7 +398,7 @@
     "owner": "Yao Team",
     "maturity": "governed",
     "review_cadence": "quarterly",
-    "review_due": "2026-11-10"
+    "review_due": "2026-11-15"
   },
   "targets": [
     "openai",
