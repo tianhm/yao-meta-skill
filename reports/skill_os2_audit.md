@@ -5,9 +5,9 @@ Generated at: `2026-08-17`
 ## Summary
 
 - decision: `continue-iteration`
-- pass: `11` / `15`
-- human required: `1`
-- external required: `3`
+- pass: `13` / `15`
+- human required: `0`
+- external required: `2`
 - missing: `0`
 - world-class ready: `false`
 - evidence plan: `reports/world_class_evidence_plan.md`
@@ -19,23 +19,21 @@ Generated at: `2026-08-17`
 | Skill IR | pass | schema 2.0.0; targets 5 | 2.0 schema, root export, and target-neutral contract evidence | Keep IR as the source before target packaging. |
 | Target Compiler | pass | 5/5 targets pass | OpenAI, Claude, generic, Agent Skills compatible, and VS Code contracts generated from IR | Deepen target-native transforms when provider clients expose stronger runtime APIs. |
 | Output Eval Lab | pass | 5 cases; delta 100.0; exec 10; blind 5 | with-skill/baseline, assertions, execution evidence, blind A/B, failure taxonomy | Add more real-file and adversarial holdout cases as usage grows. |
-| Provider Holdout | external-required | phase1 model-executed 0/40; calls 0/40; status external-required | The fixed DeepSeek Flash+Pro matrix completes 40 real calls within the governed token and timeout budgets | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
-| Human Adjudication | human-required | phase1 reviewers 0/3; pairs 0/20; promotion pending | Three controlled, independent blind reviews are bound to the same 20-pair pack before quality promotion | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
+| Provider Holdout | pass | phase1 model-executed 40/40; calls 40/40; status completed | The fixed DeepSeek Flash+Pro matrix completes 40 real calls within the governed token and timeout budgets | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| Human Adjudication | pass | phase1 reviewers 3/3; pairs 20/20; promotion eligible | Three controlled, independent blind reviews are bound to the same 20-pair pack before quality promotion | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | Benchmark Reproducibility | pass | artifacts 25; missing 0; failures 3 | Public methodology, reproducible commands, required artifacts, and failure disclosure are machine-checkable | Keep the manifest current with every benchmark, package, and release evidence change. |
 | Runtime Conformance | pass | 5/5 targets pass | Target package structure, metadata, relative paths, and degradation notes pass | Keep target conformance fixtures updated as platform contracts change. |
-| Trust Security | pass | secrets 0; scripts 173; help failures 0 | Secrets, scripts, dependencies, permissions, and package hash are reviewable | Keep high-permission approvals scoped, expiring, and target-mapped. |
+| Trust Security | pass | secrets 0; scripts 174; help failures 0 | Secrets, scripts, dependencies, permissions, and package hash are reviewable | Keep high-permission approvals scoped, expiring, and target-mapped. |
 | Permission Metadata | pass | 4/4 target probes pass; metadata fallback 4; installer enforcement 4 | Packaged adapters expose explicit permission metadata, residual risks, and installer enforcement evidence when available | Preserve residual-risk notes until real native enforcement exists. |
 | Native Permission Enforcement | external-required | native-enforced targets 0; installer-enforced targets 4 | At least one target/client enforces approved permissions at runtime | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
-| Skill Atlas | pass | 12 skills; actionable collisions 0 | Workspace catalog, route overlap, stale/owner gaps, drift, and no-route opportunities | Feed real drift data into Atlas once client telemetry is installed. |
-| Registry Distribution | pass | zip entries 652; install failures 0; permission failures 0 | Package metadata, archive checksum, package verification, and install simulation pass | Regenerate registry after package verification so checksums stay aligned. |
+| Skill Atlas | pass | 11 skills; actionable collisions 0 | Workspace catalog, route overlap, stale/owner gaps, drift, and no-route opportunities | Feed real drift data into Atlas once client telemetry is installed. |
+| Registry Distribution | pass | zip entries 658; install failures 0; permission failures 0 | Package metadata, archive checksum, package verification, and install simulation pass | Regenerate registry after package verification so checksums stay aligned. |
 | Review Studio | pass | decision review; warnings 3; score 91 | One page shows gates, evidence paths, blockers, warnings, actions, waivers, and annotations | Resolve human/external warning gates before claiming full release readiness. |
-| Telemetry Drift | pass | events 1; risk low; recipes 5 | Local-first metadata-only event contract, aggregate drift report, hook recipes, and import path | Keep raw JSONL out of distributed packages and use aggregate reports for Atlas. |
+| Telemetry Drift | pass | events 0; risk no-data; recipes 5 | Local-first metadata-only event contract, aggregate drift report, hook recipes, and import path | Keep raw JSONL out of distributed packages and use aggregate reports for Atlas. |
 | Native Client Telemetry | external-required | external source events 0; adoption samples 0 | A real Browser/Chrome/provider client sends production metadata events | Install a real client against the native host and import production metadata-only events. |
 
 ## Open Highest-Leverage Gaps
 
-- `provider-holdout` (external-required): Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory.
-- `human-adjudication` (human-required): Collect three controlled reviewer packets and adjudicate them against the private run answer key.
 - `native-permission-enforcement` (external-required): Integrate a real target-client or external installer runtime guard before claiming native permission enforcement.
 - `native-client-telemetry` (external-required): Install a real client against the native host and import production metadata-only events.
 
@@ -59,8 +57,8 @@ Generated at: `2026-08-17`
 
 ### Human Adjudication
 
-- existing evidence: `scripts/adjudicate_multi_reviewer.py`
-- missing evidence: `reports/provider_output_blind_pack.json`, `reports/provider_output_adjudication.json`
+- existing evidence: `reports/provider_output_adjudication.json`, `scripts/adjudicate_multi_reviewer.py`
+- missing evidence: `reports/provider_output_blind_pack.json`
 
 ### Benchmark Reproducibility
 

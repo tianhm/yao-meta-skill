@@ -20,10 +20,10 @@
     {
       "key": "provider-holdout",
       "label": "Provider Holdout",
-      "status": "external_required",
+      "status": "pass",
       "category": "external",
       "owner": "operator with provider credentials",
-      "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+      "current": "phase1 model-executed 40/40; calls 40/40; status completed",
       "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
       "runbook": [
         "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
@@ -60,10 +60,10 @@
     {
       "key": "human-adjudication",
       "label": "Human Adjudication",
-      "status": "human_required",
+      "status": "pass",
       "category": "human",
       "owner": "human reviewer",
-      "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+      "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
       "objective": "Collect three controlled, independent reviews of the same 20-pair provider blind pack.",
       "runbook": [
         "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
@@ -185,10 +185,10 @@
     {
       "key": "provider-holdout",
       "label": "Provider Holdout",
-      "status": "external_required",
+      "status": "pass",
       "category": "external",
       "owner": "operator with provider credentials",
-      "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+      "current": "phase1 model-executed 40/40; calls 40/40; status completed",
       "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
       "runbook": [
         "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
@@ -225,10 +225,10 @@
     {
       "key": "human-adjudication",
       "label": "Human Adjudication",
-      "status": "human_required",
+      "status": "pass",
       "category": "human",
       "owner": "human reviewer",
-      "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+      "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
       "objective": "Collect three controlled, independent reviews of the same 20-pair provider blind pack.",
       "runbook": [
         "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
@@ -349,7 +349,7 @@
   "source_audit": {
     "json": "reports/skill_os2_audit.json",
     "markdown": "reports/skill_os2_audit.md",
-    "open_gap_count": 4
+    "open_gap_count": 2
   },
   "artifacts": {
     "json": "reports/world_class_evidence_plan.json",

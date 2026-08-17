@@ -5,21 +5,21 @@
   "skill_dir": ".",
   "summary": {
     "item_count": 15,
-    "pass_count": 11,
+    "pass_count": 13,
     "warn_count": 0,
-    "human_required_count": 1,
-    "external_required_count": 3,
+    "human_required_count": 0,
+    "external_required_count": 2,
     "missing_count": 0,
-    "open_gap_count": 4,
+    "open_gap_count": 2,
     "local_foundation_ready": true,
     "world_class_ready": false,
     "decision": "continue-iteration"
   },
   "status_counts": {
-    "pass": 11,
+    "pass": 13,
     "warn": 0,
-    "human_required": 1,
-    "external_required": 3,
+    "human_required": 0,
+    "external_required": 2,
     "missing": 0
   },
   "items": [
@@ -104,8 +104,8 @@
     {
       "key": "provider-holdout",
       "label": "Provider Holdout",
-      "status": "external_required",
-      "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+      "status": "pass",
+      "current": "phase1 model-executed 40/40; calls 40/40; status completed",
       "target": "The fixed DeepSeek Flash+Pro matrix completes 40 real calls within the governed token and timeout budgets",
       "evidence": [
         {
@@ -126,8 +126,8 @@
     {
       "key": "human-adjudication",
       "label": "Human Adjudication",
-      "status": "human_required",
-      "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+      "status": "pass",
+      "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
       "target": "Three controlled, independent blind reviews are bound to the same 20-pair pack before quality promotion",
       "evidence": [
         {
@@ -136,7 +136,7 @@
         },
         {
           "path": "reports/provider_output_adjudication.json",
-          "exists": false
+          "exists": true
         },
         {
           "path": "scripts/adjudicate_multi_reviewer.py",
@@ -201,7 +201,7 @@
       "key": "trust-security",
       "label": "Trust Security",
       "status": "pass",
-      "current": "secrets 0; scripts 173; help failures 0",
+      "current": "secrets 0; scripts 174; help failures 0",
       "target": "Secrets, scripts, dependencies, permissions, and package hash are reviewable",
       "evidence": [
         {
@@ -263,7 +263,7 @@
       "key": "skill-atlas",
       "label": "Skill Atlas",
       "status": "pass",
-      "current": "12 skills; actionable collisions 0",
+      "current": "11 skills; actionable collisions 0",
       "target": "Workspace catalog, route overlap, stale/owner gaps, drift, and no-route opportunities",
       "evidence": [
         {
@@ -289,7 +289,7 @@
       "key": "registry-distribution",
       "label": "Registry Distribution",
       "status": "pass",
-      "current": "zip entries 652; install failures 0; permission failures 0",
+      "current": "zip entries 658; install failures 0; permission failures 0",
       "target": "Package metadata, archive checksum, package verification, and install simulation pass",
       "evidence": [
         {
@@ -333,7 +333,7 @@
       "key": "telemetry-drift",
       "label": "Telemetry Drift",
       "status": "pass",
-      "current": "events 1; risk low; recipes 5",
+      "current": "events 0; risk no-data; recipes 5",
       "target": "Local-first metadata-only event contract, aggregate drift report, hook recipes, and import path",
       "evidence": [
         {
@@ -371,50 +371,6 @@
     }
   ],
   "next_highest_leverage": [
-    {
-      "key": "provider-holdout",
-      "label": "Provider Holdout",
-      "status": "external_required",
-      "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
-      "target": "The fixed DeepSeek Flash+Pro matrix completes 40 real calls within the governed token and timeout budgets",
-      "evidence": [
-        {
-          "path": "evals/output/provider_matrix.json",
-          "exists": true
-        },
-        {
-          "path": "scripts/provider_output_eval_runner.py",
-          "exists": true
-        },
-        {
-          "path": "reports/provider_output_evaluation.json",
-          "exists": true
-        }
-      ],
-      "next_action": "Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory."
-    },
-    {
-      "key": "human-adjudication",
-      "label": "Human Adjudication",
-      "status": "human_required",
-      "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
-      "target": "Three controlled, independent blind reviews are bound to the same 20-pair pack before quality promotion",
-      "evidence": [
-        {
-          "path": "reports/provider_output_blind_pack.json",
-          "exists": false
-        },
-        {
-          "path": "reports/provider_output_adjudication.json",
-          "exists": false
-        },
-        {
-          "path": "scripts/adjudicate_multi_reviewer.py",
-          "exists": true
-        }
-      ],
-      "next_action": "Collect three controlled reviewer packets and adjudicate them against the private run answer key."
-    },
     {
       "key": "native-permission-enforcement",
       "label": "Native Permission Enforcement",

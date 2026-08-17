@@ -19,8 +19,8 @@ This report is an execution plan for the remaining world-class evidence gaps. It
 
 | Task | Status | Category | Owner | Current |
 | --- | --- | --- | --- | --- |
-| `provider-holdout` | `external_required` | `external` | operator with provider credentials | phase1 model-executed 0/40; calls 0/40; status external-required |
-| `human-adjudication` | `human_required` | `human` | human reviewer | phase1 reviewers 0/3; pairs 0/20; promotion pending |
+| `provider-holdout` | `pass` | `external` | operator with provider credentials | phase1 model-executed 40/40; calls 40/40; status completed |
+| `human-adjudication` | `pass` | `human` | human reviewer | phase1 reviewers 3/3; pairs 20/20; promotion eligible |
 | `native-permission-enforcement` | `external_required` | `external` | target client or installer integrator | native-enforced targets 0; installer-enforced targets 4 |
 | `native-client-telemetry` | `external_required` | `external` | Browser/Chrome/IDE/provider client integrator | external source events 0; adoption samples 0 |
 

@@ -6,9 +6,9 @@
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 230,
-    "json_claim_surface_count": 111,
-    "metadata_claim_surface_count": 112,
+    "claim_surface_count": 232,
+    "json_claim_surface_count": 114,
+    "metadata_claim_surface_count": 115,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -355,10 +355,6 @@
       "violation_count": 0
     },
     {
-      "path": "reports/feishu-ranking-pattern-analysis-2026-04-01.md",
-      "violation_count": 0
-    },
-    {
       "path": "reports/github-benchmark-scan.json",
       "violation_count": 0
     },
@@ -563,7 +559,23 @@
       "violation_count": 0
     },
     {
+      "path": "reports/provider-output-evaluation-analysis.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_adjudication.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_answer_commitment.json",
+      "violation_count": 0
+    },
+    {
       "path": "reports/provider_output_evaluation.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_review_lineage.json",
       "violation_count": 0
     },
     {
@@ -916,10 +928,6 @@
     },
     {
       "path": "reports/world_class_submission_review.md",
-      "violation_count": 0
-    },
-    {
-      "path": "reports/yao-deploy-bridge-skill-research-plan.md",
       "violation_count": 0
     },
     {

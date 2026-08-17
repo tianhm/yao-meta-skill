@@ -7,9 +7,9 @@ Generated at: `2026-08-17`
 - decision: `evidence-pending`
 - ready to claim world-class: `false`
 - entries: `4`
-- source accepted: `0`
-- source checks: `6` pass / `14` total
-- source blocked: `8`
+- source accepted: `2`
+- source checks: `11` pass / `14` total
+- source blocked: `3`
 - accepted: `0`
 - pending: `4`
 - human pending: `1`
@@ -17,8 +17,8 @@ Generated at: `2026-08-17`
 - submitted entries: `0`
 - reviewer approved submissions: `0`
 - submitted but pending: `0`
-- source accepted without valid submission: `0`
-- invalid submissions: `1`
+- source accepted without valid submission: `2`
+- invalid submissions: `0`
 - overclaim guard active: `true`
 
 This ledger records the current evidence state. It requires both passing source evidence and a validated intake submission with artifact SHA-256 checks before accepting an item. It does not treat planned work, metadata fallback, pending review, or local command-runner output as world-class completion evidence.
@@ -27,18 +27,18 @@ This ledger records the current evidence state. It requires both passing source 
 
 | Evidence | Status | Submission | Category | Current | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `provider-holdout` | `pending` | `invalid-contract` | `external` | phase1 model-executed 0/40; calls 0/40; status external-required | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
-| `human-adjudication` | `pending` | `missing` | `human` | phase1 reviewers 0/3; pairs 0/20; promotion pending | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
+| `provider-holdout` | `pending` | `missing` | `external` | phase1 model-executed 40/40; calls 40/40; status completed | Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory. |
+| `human-adjudication` | `pending` | `missing` | `human` | phase1 reviewers 3/3; pairs 20/20; promotion eligible | Collect three controlled reviewer packets and adjudicate them against the private run answer key. |
 | `native-permission-enforcement` | `pending` | `missing` | `external` | native-enforced targets 0; installer-enforced targets 4 | Integrate a real target-client or external installer runtime guard before claiming native permission enforcement. |
 | `native-client-telemetry` | `pending` | `missing` | `external` | external source events 0; adoption samples 0 | Install a real client against the native host and import production metadata-only events. |
 
 ## Provider Holdout
 
 - objective: Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.
-- source status: `external_required`
-- observed state: `{"contract_version": "phase1", "call_count": 0, "model_executed_count": 0, "failure_count": 0, "total_tokens": 0, "accepted": false}`
-- source checks: `2` pass / `4` total
-- submission state: `{"status": "invalid-contract", "path": "evidence/world_class/submissions/provider-holdout.json", "submitted_by": "Codex operator using DeepSeek official API", "submitted_at": "2026-06-17", "artifact_ref_count": 1, "artifact_existing_count": 1, "artifact_sha256_verified_count": 1, "attested_real_evidence": true, "reviewer_or_operator_identity_present": true, "privacy_contract_satisfied": true, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "errors": ["attestation.ledger_reviewer_approved must be true for a real submission", "attestation.ledger_reviewer is required", "attestation.ledger_reviewed_at must use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ", "attestation.ledger_reviewer must be different from submitted_by", "attestation.ledger_reviewed_at must be at or after submitted_at"], "ledger_counts_as_completion": false}`
+- source status: `pass`
+- observed state: `{"contract_version": "phase1", "call_count": 40, "model_executed_count": 40, "failure_count": 0, "total_tokens": 40938, "accepted": true}`
+- source checks: `4` pass / `4` total
+- submission state: `{"status": "missing", "path": "evidence/world_class/submissions/provider-holdout.json", "artifact_ref_count": 0, "attested_real_evidence": false, "privacy_contract_satisfied": false, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "ledger_counts_as_completion": false}`
 
 ### Provenance Requirements
 
@@ -59,10 +59,10 @@ This ledger records the current evidence state. It requires both passing source 
 
 | Check | Current | Expected | Status |
 | --- | --- | --- | --- |
-| Provider calls | `0` | `==40` | `blocked` |
-| Provider model runs | `0` | `==40` | `blocked` |
+| Provider calls | `40` | `==40` | `pass` |
+| Provider model runs | `40` | `==40` | `pass` |
 | Provider failures | `0` | `==0` | `pass` |
-| Token budget | `0` | `<=250000` | `pass` |
+| Token budget | `40938` | `<=250000` | `pass` |
 
 ### Completion Assertions
 
@@ -80,9 +80,9 @@ This ledger records the current evidence state. It requires both passing source 
 ## Human Adjudication
 
 - objective: Collect three controlled, independent reviews of the same 20-pair provider blind pack.
-- source status: `human_required`
-- observed state: `{"contract_version": "phase1", "reviewer_count": 0, "pair_count": 0, "failure_count": 0, "blind_pack_bound": false, "accepted": false}`
-- source checks: `1` pass / `4` total
+- source status: `pass`
+- observed state: `{"contract_version": "phase1", "reviewer_count": 3, "pair_count": 20, "failure_count": 0, "blind_pack_bound": true, "accepted": true}`
+- source checks: `4` pass / `4` total
 - submission state: `{"status": "missing", "path": "evidence/world_class/submissions/human-adjudication.json", "artifact_ref_count": 0, "attested_real_evidence": false, "privacy_contract_satisfied": false, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "ledger_counts_as_completion": false}`
 
 ### Provenance Requirements
@@ -105,10 +105,10 @@ This ledger records the current evidence state. It requires both passing source 
 
 | Check | Current | Expected | Status |
 | --- | --- | --- | --- |
-| Registered reviewers | `0` | `==3` | `blocked` |
-| Blind pairs | `0` | `==20` | `blocked` |
+| Registered reviewers | `3` | `==3` | `pass` |
+| Blind pairs | `20` | `==20` | `pass` |
 | Review failures | `0` | `==0` | `pass` |
-| Blind pack binding | `False` | `true` | `blocked` |
+| Blind pack binding | `True` | `true` | `pass` |
 
 ### Completion Assertions
 
@@ -173,7 +173,7 @@ This ledger records the current evidence state. It requires both passing source 
 
 - objective: Import production metadata-only events from a real external client into the local drift loop.
 - source status: `external_required`
-- observed state: `{"external_source_events": 0, "adoption_sample_count": 0, "raw_content_allowed": false, "risk_band": "low", "accepted": false}`
+- observed state: `{"external_source_events": 0, "adoption_sample_count": 0, "raw_content_allowed": false, "risk_band": "no-data", "accepted": false}`
 - source checks: `1` pass / `3` total
 - submission state: `{"status": "missing", "path": "evidence/world_class/submissions/native-client-telemetry.json", "artifact_ref_count": 0, "attested_real_evidence": false, "privacy_contract_satisfied": false, "ledger_reviewer_approved": false, "ledger_reviewer": "", "ledger_reviewed_at": "", "ledger_counts_as_completion": false}`
 

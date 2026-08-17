@@ -9,10 +9,10 @@ Generated at: `2026-08-17`
 - runbook counts as completion: `false`
 - evidence items: `4`
 - pending: `4`
-- awaiting submission: `3`
+- awaiting submission: `4`
 - ready for ledger review: `0`
 - phase queue: `2` blocked / `2` phases
-- phase queue rows: `12`
+- phase queue rows: `7`
 - phase queue counts as completion: `false`
 - coordination steps: `6` user-required / `6` total
 - coordination pending keys: `human-adjudication, native-client-telemetry, native-permission-enforcement, provider-holdout`
@@ -46,24 +46,24 @@ This runbook coordinates evidence collection only. It does not accept submission
 | Phase | Status | Rows | Blocked | Owners | Next action | Verify |
 | --- | --- | ---: | ---: | --- | --- | --- |
 | `unblock-access` | `blocked` | `4` | `4` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Assign three independent controlled reviewer identities before claiming human adjudication. | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` |
-| `collect-source` | `blocked` | `8` | `8` | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | Bind adjudication to the reviewed blind pack SHA256. | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` |
+| `collect-source` | `blocked` | `3` | `3` | Browser/Chrome/IDE/provider client integrator, target client or installer integrator | Telemetry must include adoption outcome evidence. | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` |
 
 ## Evidence Items
 
 | Evidence | Ledger | Intake | Review | Blocked checks | Next source action | Owner |
 | --- | --- | --- | --- | ---: | --- | --- |
-| `provider-holdout` | `pending` | `fix-submission` | `fix-submission` | `2` | Complete all 40 fixed DeepSeek calls. | operator with provider credentials |
-| `human-adjudication` | `pending` | `awaiting-submission` | `awaiting-submission` | `3` | Collect reviewer-a, reviewer-b, and reviewer-c. | human reviewer |
+| `provider-holdout` | `pending` | `awaiting-submission` | `awaiting-submission` | `0` | none | operator with provider credentials |
+| `human-adjudication` | `pending` | `awaiting-submission` | `awaiting-submission` | `0` | none | human reviewer |
 | `native-permission-enforcement` | `pending` | `awaiting-submission` | `awaiting-submission` | `1` | Collect real target-client or external runtime guard proof. | target client or installer integrator |
 | `native-client-telemetry` | `pending` | `awaiting-submission` | `awaiting-submission` | `2` | Import at least one metadata-only event from a real client. | Browser/Chrome/IDE/provider client integrator |
 
 ## Provider Holdout
 
 - objective: Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.
-- blocking reason: Submission exists but fails the ledger submission contract.
-- blocked source checks: `2`
-- repair rows: `3` blocked
-- phase queue: `2` blocked phases
+- blocking reason: No evidence packet has been submitted for review.
+- blocked source checks: `0`
+- repair rows: `1` blocked
+- phase queue: `1` blocked phases
 - submission: `evidence/world_class/submissions/provider-holdout.json`
 - template: `evidence/world_class/templates/provider-holdout.intake.json`
 
@@ -72,7 +72,6 @@ This runbook coordinates evidence collection only. It does not accept submission
 | Phase | Status | Rows | Blocked | Next action |
 | --- | --- | ---: | ---: | --- |
 | `unblock-access` | `blocked` | `1` | `1` | Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value. |
-| `collect-source` | `blocked` | `2` | `2` | Complete all 40 fixed DeepSeek calls. |
 
 ### Source Runbook
 
@@ -124,25 +123,24 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Next Source Actions
 
-- Complete all 40 fixed DeepSeek calls.
-- Require model identity on all 40 calls.
+- No blocked source checks.
 
 ### Source Evidence Snapshot
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Provider calls | `0` | `==40` | `blocked` | Complete all 40 fixed DeepSeek calls. |
-| Provider model runs | `0` | `==40` | `blocked` | Require model identity on all 40 calls. |
+| Provider calls | `40` | `==40` | `pass` | Complete all 40 fixed DeepSeek calls. |
+| Provider model runs | `40` | `==40` | `pass` | Require model identity on all 40 calls. |
 | Provider failures | `0` | `==0` | `pass` | Resolve every fixed-matrix failure. |
-| Token budget | `0` | `<=250000` | `pass` | Keep the matrix within the 250000-token ceiling. |
+| Token budget | `40938` | `<=250000` | `pass` | Keep the matrix within the 250000-token ceiling. |
 
 ## Human Adjudication
 
 - objective: Collect three controlled, independent reviews of the same 20-pair provider blind pack.
 - blocking reason: No evidence packet has been submitted for review.
-- blocked source checks: `3`
-- repair rows: `4` blocked
-- phase queue: `2` blocked phases
+- blocked source checks: `0`
+- repair rows: `1` blocked
+- phase queue: `1` blocked phases
 - submission: `evidence/world_class/submissions/human-adjudication.json`
 - template: `evidence/world_class/templates/human-adjudication.intake.json`
 
@@ -151,7 +149,6 @@ This runbook coordinates evidence collection only. It does not accept submission
 | Phase | Status | Rows | Blocked | Next action |
 | --- | --- | ---: | ---: | --- |
 | `unblock-access` | `blocked` | `1` | `1` | Assign three independent controlled reviewer identities before claiming human adjudication. |
-| `collect-source` | `blocked` | `3` | `3` | Bind adjudication to the reviewed blind pack SHA256. |
 
 ### Source Runbook
 
@@ -206,18 +203,16 @@ This runbook coordinates evidence collection only. It does not accept submission
 
 ### Next Source Actions
 
-- Collect reviewer-a, reviewer-b, and reviewer-c.
-- Complete all 20 blind pairs.
-- Bind adjudication to the reviewed blind pack SHA256.
+- No blocked source checks.
 
 ### Source Evidence Snapshot
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Registered reviewers | `0` | `==3` | `blocked` | Collect reviewer-a, reviewer-b, and reviewer-c. |
-| Blind pairs | `0` | `==20` | `blocked` | Complete all 20 blind pairs. |
+| Registered reviewers | `3` | `==3` | `pass` | Collect reviewer-a, reviewer-b, and reviewer-c. |
+| Blind pairs | `20` | `==20` | `pass` | Complete all 20 blind pairs. |
 | Review failures | `0` | `==0` | `pass` | Resolve packet, identity, or adjudication failures. |
-| Blind pack binding | `False` | `true` | `blocked` | Bind adjudication to the reviewed blind pack SHA256. |
+| Blind pack binding | `True` | `true` | `pass` | Bind adjudication to the reviewed blind pack SHA256. |
 
 ## Native Permission Enforcement
 

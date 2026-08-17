@@ -5,7 +5,7 @@
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 264,
+    "file_count": 262,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -23,18 +23,6 @@
   ],
   "files": [
     {
-      "path": ".yao/releases/yao-meta-skill-2.1.0-20260817.1/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": ".yao/runs/yao-meta-skill-2.1.0-20260817.1/artifacts/reports/blind-human-review-2026-06-29/generate_pack.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
       "path": "examples/complex-release-orchestrator/generated-skill/scripts/build_release_packet.py",
       "ok": true,
       "issue_count": 0,
@@ -42,12 +30,6 @@
     },
     {
       "path": "examples/governed-incident-command/generated-skill/scripts/build_incident_packet.py",
-      "ok": true,
-      "issue_count": 0,
-      "issues": []
-    },
-    {
-      "path": "geo-ranking-article-generator/scripts/build_html_index.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -384,6 +366,12 @@
     },
     {
       "path": "scripts/provider_output_eval_runner.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/publish_provider_evidence.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

@@ -7,18 +7,18 @@
     "evidence_item_count": 4,
     "pending_count": 4,
     "accepted_count": 0,
-    "awaiting_submission_count": 3,
+    "awaiting_submission_count": 4,
     "ready_for_ledger_review_count": 0,
     "valid_packet_source_incomplete_count": 0,
-    "invalid_submission_count": 1,
+    "invalid_submission_count": 0,
     "source_check_count": 14,
-    "source_pass_count": 6,
-    "source_blocked_count": 8,
-    "repair_checklist_count": 12,
-    "repair_blocked_count": 12,
+    "source_pass_count": 11,
+    "source_blocked_count": 3,
+    "repair_checklist_count": 7,
+    "repair_blocked_count": 7,
     "phase_queue_count": 2,
     "phase_queue_blocked_count": 2,
-    "phase_queue_row_count": 12,
+    "phase_queue_row_count": 7,
     "phase_queue_next_phase": "unblock-access",
     "phase_queue_next_action_id": "human-adjudication-precheck-human-reviewer",
     "phase_queue_next_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
@@ -51,11 +51,11 @@
       "category": "external",
       "owner": "operator with provider credentials",
       "ledger_status": "pending",
-      "intake_readiness": "fix-submission",
-      "review_state": "fix-submission",
-      "source_accepted": false,
+      "intake_readiness": "awaiting-submission",
+      "review_state": "awaiting-submission",
+      "source_accepted": true,
       "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
-      "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+      "current": "phase1 model-executed 40/40; calls 40/40; status completed",
       "execution_runbook": [
         "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
         "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self",
@@ -64,7 +64,7 @@
         "Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.",
         "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions --self"
       ],
-      "blocking_reason": "Submission exists but fails the ledger submission contract.",
+      "blocking_reason": "No evidence packet has been submitted for review.",
       "submission_path": "evidence/world_class/submissions/provider-holdout.json",
       "template_path": "evidence/world_class/templates/provider-holdout.intake.json",
       "commands": {
@@ -105,11 +105,11 @@
       ],
       "observed_state": {
         "contract_version": "phase1",
-        "call_count": 0,
-        "model_executed_count": 0,
+        "call_count": 40,
+        "model_executed_count": 40,
         "failure_count": 0,
-        "total_tokens": 0,
-        "accepted": false
+        "total_tokens": 40938,
+        "accepted": true
       },
       "source_checklist": [
         {
@@ -117,9 +117,9 @@
           "label": "Provider calls",
           "field": "call_count",
           "expected": "==40",
-          "actual": 0,
-          "status": "blocked",
-          "source_accepted": false,
+          "actual": 40,
+          "status": "pass",
+          "source_accepted": true,
           "next_action": "Complete all 40 fixed DeepSeek calls."
         },
         {
@@ -127,9 +127,9 @@
           "label": "Provider model runs",
           "field": "model_executed_count",
           "expected": "==40",
-          "actual": 0,
-          "status": "blocked",
-          "source_accepted": false,
+          "actual": 40,
+          "status": "pass",
+          "source_accepted": true,
           "next_action": "Require model identity on all 40 calls."
         },
         {
@@ -139,7 +139,7 @@
           "expected": "==0",
           "actual": 0,
           "status": "pass",
-          "source_accepted": false,
+          "source_accepted": true,
           "next_action": "Resolve every fixed-matrix failure."
         },
         {
@@ -147,17 +147,14 @@
           "label": "Token budget",
           "field": "total_tokens",
           "expected": "<=250000",
-          "actual": 0,
+          "actual": 40938,
           "status": "pass",
-          "source_accepted": false,
+          "source_accepted": true,
           "next_action": "Keep the matrix within the 250000-token ceiling."
         }
       ],
-      "blocked_source_check_count": 2,
-      "next_source_actions": [
-        "Complete all 40 fixed DeepSeek calls.",
-        "Require model identity on all 40 calls."
-      ],
+      "blocked_source_check_count": 0,
+      "next_source_actions": [],
       "repair_checklist": [
         {
           "action_id": "provider-holdout-precheck-provider-api-key",
@@ -173,39 +170,9 @@
           "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
-        },
-        {
-          "action_id": "provider-holdout-source-check-call_count",
-          "evidence_key": "provider-holdout",
-          "repair_type": "source-check",
-          "target": "call_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "operator with provider credentials",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==40'.",
-          "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "provider-holdout-source-check-model_executed_count",
-          "evidence_key": "provider-holdout",
-          "repair_type": "source-check",
-          "target": "model_executed_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "operator with provider credentials",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==40'.",
-          "next_action": "Require model identity on all 40 calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
         }
       ],
-      "repair_blocked_count": 3,
+      "repair_blocked_count": 1,
       "repair_counts_as_completion": false,
       "phase_queue": [
         {
@@ -242,81 +209,19 @@
               "counts_as_completion": false
             }
           ]
-        },
-        {
-          "phase": "collect-source",
-          "label": "Collect source",
-          "priority": 40,
-          "status": "blocked",
-          "blocked_count": 2,
-          "row_count": 2,
-          "owners": [
-            "operator with provider credentials"
-          ],
-          "evidence_keys": [
-            "provider-holdout"
-          ],
-          "next_action_id": "provider-holdout-source-check-call_count",
-          "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "counts_as_completion": false,
-          "rows": [
-            {
-              "action_id": "provider-holdout-source-check-call_count",
-              "evidence_key": "provider-holdout",
-              "repair_type": "source-check",
-              "target": "call_count",
-              "phase": "collect-source",
-              "priority": 40,
-              "owner": "operator with provider credentials",
-              "status": "blocked",
-              "blocking_reason": "Current value 0 does not satisfy '==40'.",
-              "next_action": "Complete all 40 fixed DeepSeek calls.",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-              "source": "source_checklist",
-              "counts_as_completion": false
-            },
-            {
-              "action_id": "provider-holdout-source-check-model_executed_count",
-              "evidence_key": "provider-holdout",
-              "repair_type": "source-check",
-              "target": "model_executed_count",
-              "phase": "collect-source",
-              "priority": 40,
-              "owner": "operator with provider credentials",
-              "status": "blocked",
-              "blocking_reason": "Current value 0 does not satisfy '==40'.",
-              "next_action": "Require model identity on all 40 calls.",
-              "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-              "source": "source_checklist",
-              "counts_as_completion": false
-            }
-          ]
         }
       ],
-      "phase_queue_blocked_count": 2,
+      "phase_queue_blocked_count": 1,
       "phase_queue_counts_as_completion": false,
       "submission_state": {
-        "status": "invalid-contract",
+        "status": "missing",
         "path": "evidence/world_class/submissions/provider-holdout.json",
-        "submitted_by": "Codex operator using DeepSeek official API",
-        "submitted_at": "2026-06-17",
-        "artifact_ref_count": 1,
-        "artifact_existing_count": 1,
-        "artifact_sha256_verified_count": 1,
-        "attested_real_evidence": true,
-        "reviewer_or_operator_identity_present": true,
-        "privacy_contract_satisfied": true,
+        "artifact_ref_count": 0,
+        "attested_real_evidence": false,
+        "privacy_contract_satisfied": false,
         "ledger_reviewer_approved": false,
         "ledger_reviewer": "",
         "ledger_reviewed_at": "",
-        "errors": [
-          "attestation.ledger_reviewer_approved must be true for a real submission",
-          "attestation.ledger_reviewer is required",
-          "attestation.ledger_reviewed_at must use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ",
-          "attestation.ledger_reviewer must be different from submitted_by",
-          "attestation.ledger_reviewed_at must be at or after submitted_at"
-        ],
         "ledger_counts_as_completion": false
       },
       "anti_overclaim": {
@@ -334,9 +239,9 @@
       "ledger_status": "pending",
       "intake_readiness": "awaiting-submission",
       "review_state": "awaiting-submission",
-      "source_accepted": false,
+      "source_accepted": true,
       "objective": "Collect three controlled, independent reviews of the same 20-pair provider blind pack.",
-      "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+      "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
       "execution_runbook": [
         "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
         "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
@@ -389,11 +294,11 @@
       ],
       "observed_state": {
         "contract_version": "phase1",
-        "reviewer_count": 0,
-        "pair_count": 0,
+        "reviewer_count": 3,
+        "pair_count": 20,
         "failure_count": 0,
-        "blind_pack_bound": false,
-        "accepted": false
+        "blind_pack_bound": true,
+        "accepted": true
       },
       "source_checklist": [
         {
@@ -401,9 +306,9 @@
           "label": "Registered reviewers",
           "field": "reviewer_count",
           "expected": "==3",
-          "actual": 0,
-          "status": "blocked",
-          "source_accepted": false,
+          "actual": 3,
+          "status": "pass",
+          "source_accepted": true,
           "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c."
         },
         {
@@ -411,9 +316,9 @@
           "label": "Blind pairs",
           "field": "pair_count",
           "expected": "==20",
-          "actual": 0,
-          "status": "blocked",
-          "source_accepted": false,
+          "actual": 20,
+          "status": "pass",
+          "source_accepted": true,
           "next_action": "Complete all 20 blind pairs."
         },
         {
@@ -423,7 +328,7 @@
           "expected": "==0",
           "actual": 0,
           "status": "pass",
-          "source_accepted": false,
+          "source_accepted": true,
           "next_action": "Resolve packet, identity, or adjudication failures."
         },
         {
@@ -431,18 +336,14 @@
           "label": "Blind pack binding",
           "field": "blind_pack_bound",
           "expected": "true",
-          "actual": false,
-          "status": "blocked",
-          "source_accepted": false,
+          "actual": true,
+          "status": "pass",
+          "source_accepted": true,
           "next_action": "Bind adjudication to the reviewed blind pack SHA256."
         }
       ],
-      "blocked_source_check_count": 3,
-      "next_source_actions": [
-        "Collect reviewer-a, reviewer-b, and reviewer-c.",
-        "Complete all 20 blind pairs.",
-        "Bind adjudication to the reviewed blind pack SHA256."
-      ],
+      "blocked_source_check_count": 0,
+      "next_source_actions": [],
       "repair_checklist": [
         {
           "action_id": "human-adjudication-precheck-human-reviewer",
@@ -458,54 +359,9 @@
           "verification_command": "python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "prechecks",
           "counts_as_completion": false
-        },
-        {
-          "action_id": "human-adjudication-source-check-blind_pack_bound",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "blind_pack_bound",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value False does not satisfy 'true'.",
-          "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "human-adjudication-source-check-pair_count",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "pair_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==20'.",
-          "next_action": "Complete all 20 blind pairs.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "human-adjudication-source-check-reviewer_count",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "reviewer_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==3'.",
-          "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
         }
       ],
-      "repair_blocked_count": 4,
+      "repair_blocked_count": 1,
       "repair_counts_as_completion": false,
       "phase_queue": [
         {
@@ -542,74 +398,9 @@
               "counts_as_completion": false
             }
           ]
-        },
-        {
-          "phase": "collect-source",
-          "label": "Collect source",
-          "priority": 40,
-          "status": "blocked",
-          "blocked_count": 3,
-          "row_count": 3,
-          "owners": [
-            "human reviewer"
-          ],
-          "evidence_keys": [
-            "human-adjudication"
-          ],
-          "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-          "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "counts_as_completion": false,
-          "rows": [
-            {
-              "action_id": "human-adjudication-source-check-blind_pack_bound",
-              "evidence_key": "human-adjudication",
-              "repair_type": "source-check",
-              "target": "blind_pack_bound",
-              "phase": "collect-source",
-              "priority": 40,
-              "owner": "human reviewer",
-              "status": "blocked",
-              "blocking_reason": "Current value False does not satisfy 'true'.",
-              "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-              "source": "source_checklist",
-              "counts_as_completion": false
-            },
-            {
-              "action_id": "human-adjudication-source-check-pair_count",
-              "evidence_key": "human-adjudication",
-              "repair_type": "source-check",
-              "target": "pair_count",
-              "phase": "collect-source",
-              "priority": 40,
-              "owner": "human reviewer",
-              "status": "blocked",
-              "blocking_reason": "Current value 0 does not satisfy '==20'.",
-              "next_action": "Complete all 20 blind pairs.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-              "source": "source_checklist",
-              "counts_as_completion": false
-            },
-            {
-              "action_id": "human-adjudication-source-check-reviewer_count",
-              "evidence_key": "human-adjudication",
-              "repair_type": "source-check",
-              "target": "reviewer_count",
-              "phase": "collect-source",
-              "priority": 40,
-              "owner": "human reviewer",
-              "status": "blocked",
-              "blocking_reason": "Current value 0 does not satisfy '==3'.",
-              "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-              "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-              "source": "source_checklist",
-              "counts_as_completion": false
-            }
-          ]
         }
       ],
-      "phase_queue_blocked_count": 2,
+      "phase_queue_blocked_count": 1,
       "phase_queue_counts_as_completion": false,
       "submission_state": {
         "status": "missing",
@@ -921,7 +712,7 @@
         "external_source_events": 0,
         "adoption_sample_count": 0,
         "raw_content_allowed": false,
-        "risk_band": "low",
+        "risk_band": "no-data",
         "accepted": false
       },
       "source_checklist": [
@@ -1356,51 +1147,6 @@
       "counts_as_completion": false
     },
     {
-      "action_id": "human-adjudication-source-check-blind_pack_bound",
-      "evidence_key": "human-adjudication",
-      "repair_type": "source-check",
-      "target": "blind_pack_bound",
-      "phase": "collect-source",
-      "priority": 40,
-      "owner": "human reviewer",
-      "status": "blocked",
-      "blocking_reason": "Current value False does not satisfy 'true'.",
-      "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-      "source": "source_checklist",
-      "counts_as_completion": false
-    },
-    {
-      "action_id": "human-adjudication-source-check-pair_count",
-      "evidence_key": "human-adjudication",
-      "repair_type": "source-check",
-      "target": "pair_count",
-      "phase": "collect-source",
-      "priority": 40,
-      "owner": "human reviewer",
-      "status": "blocked",
-      "blocking_reason": "Current value 0 does not satisfy '==20'.",
-      "next_action": "Complete all 20 blind pairs.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-      "source": "source_checklist",
-      "counts_as_completion": false
-    },
-    {
-      "action_id": "human-adjudication-source-check-reviewer_count",
-      "evidence_key": "human-adjudication",
-      "repair_type": "source-check",
-      "target": "reviewer_count",
-      "phase": "collect-source",
-      "priority": 40,
-      "owner": "human reviewer",
-      "status": "blocked",
-      "blocking_reason": "Current value 0 does not satisfy '==3'.",
-      "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-      "source": "source_checklist",
-      "counts_as_completion": false
-    },
-    {
       "action_id": "native-client-telemetry-source-check-adoption_sample_count",
       "evidence_key": "native-client-telemetry",
       "repair_type": "source-check",
@@ -1442,36 +1188,6 @@
       "blocking_reason": "Current value 0 does not satisfy '>0'.",
       "next_action": "Collect real target-client or external runtime guard proof.",
       "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-      "source": "source_checklist",
-      "counts_as_completion": false
-    },
-    {
-      "action_id": "provider-holdout-source-check-call_count",
-      "evidence_key": "provider-holdout",
-      "repair_type": "source-check",
-      "target": "call_count",
-      "phase": "collect-source",
-      "priority": 40,
-      "owner": "operator with provider credentials",
-      "status": "blocked",
-      "blocking_reason": "Current value 0 does not satisfy '==40'.",
-      "next_action": "Complete all 40 fixed DeepSeek calls.",
-      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-      "source": "source_checklist",
-      "counts_as_completion": false
-    },
-    {
-      "action_id": "provider-holdout-source-check-model_executed_count",
-      "evidence_key": "provider-holdout",
-      "repair_type": "source-check",
-      "target": "model_executed_count",
-      "phase": "collect-source",
-      "priority": 40,
-      "owner": "operator with provider credentials",
-      "status": "blocked",
-      "blocking_reason": "Current value 0 does not satisfy '==40'.",
-      "next_action": "Require model identity on all 40 calls.",
-      "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "source": "source_checklist",
       "counts_as_completion": false
     }
@@ -1568,70 +1284,21 @@
       "label": "Collect source",
       "priority": 40,
       "status": "blocked",
-      "blocked_count": 8,
-      "row_count": 8,
+      "blocked_count": 3,
+      "row_count": 3,
       "owners": [
         "Browser/Chrome/IDE/provider client integrator",
-        "human reviewer",
-        "operator with provider credentials",
         "target client or installer integrator"
       ],
       "evidence_keys": [
-        "human-adjudication",
         "native-client-telemetry",
-        "native-permission-enforcement",
-        "provider-holdout"
+        "native-permission-enforcement"
       ],
-      "next_action_id": "human-adjudication-source-check-blind_pack_bound",
-      "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-      "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
+      "next_action_id": "native-client-telemetry-source-check-adoption_sample_count",
+      "next_action": "Telemetry must include adoption outcome evidence.",
+      "verification_command": "python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
       "counts_as_completion": false,
       "rows": [
-        {
-          "action_id": "human-adjudication-source-check-blind_pack_bound",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "blind_pack_bound",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value False does not satisfy 'true'.",
-          "next_action": "Bind adjudication to the reviewed blind pack SHA256.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "human-adjudication-source-check-pair_count",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "pair_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==20'.",
-          "next_action": "Complete all 20 blind pairs.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "human-adjudication-source-check-reviewer_count",
-          "evidence_key": "human-adjudication",
-          "repair_type": "source-check",
-          "target": "reviewer_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "human reviewer",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==3'.",
-          "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c.",
-          "verification_command": "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
         {
           "action_id": "native-client-telemetry-source-check-adoption_sample_count",
           "evidence_key": "native-client-telemetry",
@@ -1674,36 +1341,6 @@
           "blocking_reason": "Current value 0 does not satisfy '>0'.",
           "next_action": "Collect real target-client or external runtime guard proof.",
           "verification_command": "python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "provider-holdout-source-check-call_count",
-          "evidence_key": "provider-holdout",
-          "repair_type": "source-check",
-          "target": "call_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "operator with provider credentials",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==40'.",
-          "next_action": "Complete all 40 fixed DeepSeek calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
-          "source": "source_checklist",
-          "counts_as_completion": false
-        },
-        {
-          "action_id": "provider-holdout-source-check-model_executed_count",
-          "evidence_key": "provider-holdout",
-          "repair_type": "source-check",
-          "target": "model_executed_count",
-          "phase": "collect-source",
-          "priority": 40,
-          "owner": "operator with provider credentials",
-          "status": "blocked",
-          "blocking_reason": "Current value 0 does not satisfy '==40'.",
-          "next_action": "Require model identity on all 40 calls.",
-          "verification_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self",
           "source": "source_checklist",
           "counts_as_completion": false
         }
