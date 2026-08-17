@@ -81,7 +81,7 @@
         "label": "可维护性",
         "score": 100,
         "reasons": [
-          "SKILL.md 约 310 个词/字。",
+          "SKILL.md 约 316 个词/字。",
           "入口文件保持克制，可维护性较好。",
           "references/ 已承载扩展指导。",
           "scripts/ 已承载确定性逻辑。",
@@ -102,7 +102,7 @@
         "label": "上下文成本",
         "score": 42,
         "reasons": [
-          "入口约 310 个词/字，references 约 18635 个词/字。",
+          "入口约 316 个词/字，references 约 18854 个词/字。",
           "分数越高代表上下文成本越低。",
           "上下文成本偏高，建议压缩入口或拆分 references。"
         ]
@@ -206,7 +206,7 @@
         "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
       ],
       "gaps": [
-        "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
+        "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
       ],
       "recommendations": [
         "先改触发边界，再扩展工作流。",
@@ -271,7 +271,7 @@
           "name": "包体膨胀风险",
           "impact": 2,
           "probability": 1,
-          "signal": "SKILL.md 约 310 个词/字。",
+          "signal": "SKILL.md 约 316 个词/字。",
           "response": "先补证据和边界，再增加包体复杂度。"
         },
         {
@@ -288,10 +288,11 @@
           "label": "Markdown readability",
           "matched_keywords": [
             "md",
+            "table",
             "report",
             "doc"
           ],
-          "score": 3,
+          "score": 4,
           "risks": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -305,6 +306,30 @@
           "self_repair": [
             "Preview whether each table still reads well when columns are narrow.",
             "Convert any table with paragraph-length cells into bullets or cards."
+          ]
+        },
+        {
+          "key": "tone_and_specificity",
+          "label": "Tone and specificity",
+          "matched_keywords": [
+            "copy",
+            "content",
+            "summary"
+          ],
+          "score": 3,
+          "risks": [
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+            "Strong claims can appear without examples or constraints."
+          ],
+          "constraints": [
+            "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+            "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+            "Preserve one distinctive phrase, constraint, or standard from the user's input."
+          ],
+          "self_repair": [
+            "Replace generic title candidates with scenario-specific alternatives.",
+            "Delete any polished sentence that could fit almost any project unchanged."
           ]
         },
         {
@@ -373,32 +398,10 @@
             "Scan each command for cwd, input, output, and side-effect assumptions.",
             "Remove speculative error handling that is not tied to a real failure mode."
           ]
-        },
-        {
-          "key": "tone_and_specificity",
-          "label": "Tone and specificity",
-          "matched_keywords": [
-            "summary"
-          ],
-          "score": 1,
-          "risks": [
-            "Headings and summaries can drift into generic, interchangeable language.",
-            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-            "Strong claims can appear without examples or constraints."
-          ],
-          "constraints": [
-            "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-            "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-            "Preserve one distinctive phrase, constraint, or standard from the user's input."
-          ],
-          "self_repair": [
-            "Replace generic title candidates with scenario-specific alternatives.",
-            "Delete any polished sentence that could fit almost any project unchanged."
-          ]
         }
       ],
       "human_judgment_boundary": [
-        "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+        "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
         "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
         "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
       ]
@@ -514,7 +517,7 @@
           "path": "scripts",
           "label": "Deterministic helpers or local tooling",
           "kind": "folder",
-          "file_count": 172
+          "file_count": 173
         },
         {
           "path": "evals",
@@ -529,7 +532,7 @@
           "file_count": 191
         }
       ],
-      "file_count": 439,
+      "file_count": 440,
       "folder_count": 4,
       "distribution": [
         {
@@ -554,7 +557,7 @@
         },
         {
           "label": "scripts",
-          "value": 172
+          "value": 173
         },
         {
           "label": "evals",
@@ -684,7 +687,7 @@
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 172
+        "file_count": 173
       },
       {
         "path": "evals",
@@ -1020,9 +1023,9 @@
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "75c9a7c5f5666327dcfc2c17865e4886575a7afbed4614f6e720e205ae203be6",
-        "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "evidence_bundle_sha256": "150e46829352f53577e06414470aded5314e3efaf80c60bb88ca2d2f867e773c",
+        "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
         "command_count": 23,
@@ -1049,13 +1052,13 @@
         "public_claim_ready": false,
         "public_claim_blocker_count": 5,
         "working_tree_dirty": true,
-        "changed_file_count": 30,
+        "changed_file_count": 3,
         "source_tree_dirty": false,
         "source_changed_file_count": 0,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 30
+        "generated_changed_file_count": 3
       },
-      "commit": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
+      "commit": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
       "missing_artifacts": [],
       "limitations": [
         "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1140,9 +1143,9 @@
       "failures": []
     },
     "trust_security": {
-      "scanned_files": 274,
-      "script_count": 172,
-      "internal_module_count": 80,
+      "scanned_files": 275,
+      "script_count": 173,
+      "internal_module_count": 81,
       "secret_findings": 0,
       "dependency_files": [
         "requirements-ci.txt"
@@ -1160,8 +1163,8 @@
       "help_smoke_failed_count": 0,
       "interactive_script_count": 0,
       "package_hash_scope": "source-contract-without-generated-reports",
-      "package_hash_file_count": 274,
-      "package_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7"
+      "package_hash_file_count": 275,
+      "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
     },
     "skill_atlas": {
       "skill_count": 12,
@@ -1199,8 +1202,8 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-          "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+          "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+          "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
         },
         "compatibility": {
           "openai": "pass",
@@ -1231,7 +1234,7 @@
         },
         "distribution": {
           "archive_verified": true,
-          "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+          "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
           "package_verification": "reports/package_verification.json",
           "install_simulated": true,
           "install_simulation": "reports/install_simulation.json"
@@ -1247,8 +1250,8 @@
         "target_count": 4,
         "adapter_count": 4,
         "archive_present": true,
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
-        "archive_entry_count": 650,
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+        "archive_entry_count": 652,
         "nested_skill_entry_count": 0,
         "failure_count": 0,
         "warning_count": 0
@@ -1260,7 +1263,7 @@
       "ok": true,
       "summary": {
         "archive_present": true,
-        "archive_entry_count": 650,
+        "archive_entry_count": 652,
         "nested_skill_entry_count": 0,
         "archive_extracted": true,
         "entrypoint_loaded": true,
@@ -1328,12 +1331,12 @@
           {
             "field": "archive_sha256",
             "from": "",
-            "to": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+            "to": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
           },
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7"
+            "to": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
           }
         ]
       },
@@ -2221,6 +2224,7 @@
     "score": 100,
     "band": "high",
     "gate_passed": true,
+    "authoring_ready": true,
     "strengths": [
       "The recurring job is concrete enough to anchor the package.",
       "Real input shape is explicit.",
@@ -2230,6 +2234,20 @@
     ],
     "gaps": [],
     "follow_up_questions": [],
+    "clarification_plan": {
+      "decision": "proceed",
+      "language": "en",
+      "ambiguity_type": "",
+      "target_slot": "",
+      "direction_slot": "",
+      "question": "",
+      "rationale": "",
+      "decision_impact": "",
+      "blocking_ambiguities": [],
+      "stop_reason": "clear",
+      "inference_quality": "high"
+    },
+    "assumptions": [],
     "anchor_sentence": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse. Primary output: A working skill package with lean SKILL.md, aligned agents/interface.yaml, justified references, scripts only when useful, eval evidence, reports, packaging metadata, and clear next iteration recommendations.. Exclusions: one-off writing, translation, explanation, or brainstorming requests that do not need a reusable skill, general code review or debugging unless the user is packaging that workflow as a skill, raw private material that was not intentionally supplied as skill evidence, platform-specific plugin creation when the request is not about an agent skill package.",
     "recommended_action": "Intent is clear enough to package the first routeable version.",
     "context": {
@@ -2267,13 +2285,27 @@
         "Yao Meta Skill 2.0 upgrade plan",
         "Kami-style white report layout requirements for generated skill reports",
         "local Waza engineering habits for review, design, diagnosis, and implementation discipline"
-      ]
+      ],
+      "skill_name": "",
+      "assumptions": [],
+      "clarification_state": {
+        "decision": "proceed",
+        "rounds_used": 0,
+        "max_rounds": 2,
+        "asked_ambiguities": [],
+        "resolved_ambiguities": [],
+        "correction_pending": false,
+        "blocking_ambiguities": [],
+        "stop_reason": "clear",
+        "inference_quality": "high"
+      },
+      "language": "en"
     }
   },
   "intent": {
     "skill_name": "yao-meta-skill",
     "title": "Yao Meta Skill",
-    "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use when asked to create a skill, turn a repeated process into a reusable skill, improve an existing skill, add evals, or package a skill for team reuse.",
+    "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "focus": "portability-and-contract",
     "opening_frame": "Let's start from the real work, the result you care about, and the standards that matter here. We can make the structure clearer after that.",
     "reference_note": "If you already have examples you admire, bring them in. We will learn the pattern, not copy the source.",
@@ -2335,6 +2367,18 @@
         "why": "This sets the minimum metadata and degradation strategy."
       }
     ],
+    "current_understanding": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse. Primary output: A working skill package with lean SKILL.md, aligned agents/interface.yaml, justified references, scripts only when useful, eval evidence, reports, packaging metadata, and clear next iteration recommendations.. Exclusions: one-off writing, translation, explanation, or brainstorming requests that do not need a reusable skill, general code review or debugging unless the user is packaging that workflow as a skill, raw private material that was not intentionally supplied as skill evidence, platform-specific plugin creation when the request is not about an agent skill package.",
+    "recommended_next_move": "proceed",
+    "personalized_question": "",
+    "question_rationale": "",
+    "decision_impact": "",
+    "assumptions": [],
+    "stop_rule": {
+      "one_question_per_round": true,
+      "max_rounds": 2,
+      "unresolved_action": "preferred-inference",
+      "stop_reason": "clear"
+    },
     "output": {
       "capability_sentence": "Yao Meta Skill should turn a recurring request into a reliable reusable output without widening the boundary unnecessarily.",
       "required_capture": [
@@ -2392,7 +2436,7 @@
   "iteration": {
     "summary": {
       "skill_name": "yao-meta-skill",
-      "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use when asked to create a skill, turn a repeated process into a reusable skill, improve an existing skill, add evals, or package a skill for team reuse.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "maturity_tier": "governed",
       "selection_rule": "Pick the three smallest next steps that increase reliability more than they increase context cost.",
       "recommended_now": "Borrow one proven pattern on purpose",
@@ -14059,7 +14103,8 @@
     "intent_confidence": {
       "score": 100,
       "band": "high",
-      "gate_passed": true
+      "gate_passed": true,
+      "authoring_ready": true
     },
     "github_benchmarks": [
       {
@@ -14326,10 +14371,11 @@
         "label": "Markdown readability",
         "matched_keywords": [
           "md",
+          "table",
           "report",
           "doc"
         ],
-        "score": 3,
+        "score": 4,
         "risks": [
           "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
           "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -14343,6 +14389,30 @@
         "self_repair": [
           "Preview whether each table still reads well when columns are narrow.",
           "Convert any table with paragraph-length cells into bullets or cards."
+        ]
+      },
+      {
+        "key": "tone_and_specificity",
+        "label": "Tone and specificity",
+        "matched_keywords": [
+          "copy",
+          "content",
+          "summary"
+        ],
+        "score": 3,
+        "risks": [
+          "Headings and summaries can drift into generic, interchangeable language.",
+          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+          "Strong claims can appear without examples or constraints."
+        ],
+        "constraints": [
+          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+          "Preserve one distinctive phrase, constraint, or standard from the user's input."
+        ],
+        "self_repair": [
+          "Replace generic title candidates with scenario-specific alternatives.",
+          "Delete any polished sentence that could fit almost any project unchanged."
         ]
       },
       {
@@ -14411,53 +14481,31 @@
           "Scan each command for cwd, input, output, and side-effect assumptions.",
           "Remove speculative error handling that is not tied to a real failure mode."
         ]
-      },
-      {
-        "key": "tone_and_specificity",
-        "label": "Tone and specificity",
-        "matched_keywords": [
-          "summary"
-        ],
-        "score": 1,
-        "risks": [
-          "Headings and summaries can drift into generic, interchangeable language.",
-          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-          "Strong claims can appear without examples or constraints."
-        ],
-        "constraints": [
-          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-          "Preserve one distinctive phrase, constraint, or standard from the user's input."
-        ],
-        "self_repair": [
-          "Replace generic title candidates with scenario-specific alternatives.",
-          "Delete any polished sentence that could fit almost any project unchanged."
-        ]
       }
     ],
     "top_risks": [
       "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
       "Long bullets can make the output look complete while hiding the actual decision logic.",
+      "Headings and summaries can drift into generic, interchangeable language.",
+      "The output can sound polished but lose the user's actual taste, audience, or scenario.",
       "Footnote markers or dense citation notes can interrupt the reading flow.",
-      "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-      "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-      "Missing screenshots can cause the skill to invent visual references instead of declaring the gap."
+      "Evidence can be over-attached to obvious statements and under-attached to risky claims."
     ],
     "output_constraints": [
       "Use tables only when comparison is the main job; otherwise prefer compact cards or grouped bullets.",
       "Keep table cells short and move explanations below the table.",
+      "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+      "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
       "Attach citations only to claims that need evidence, not to every sentence.",
-      "Group source notes at the end of a section when inline markers would hurt readability.",
-      "Never invent a screenshot; state when visual evidence is missing.",
-      "Record the source, viewport, and crop intent for any screenshot-dependent output."
+      "Group source notes at the end of a section when inline markers would hurt readability."
     ],
     "self_repair_checks": [
       "Preview whether each table still reads well when columns are narrow.",
       "Convert any table with paragraph-length cells into bullets or cards.",
+      "Replace generic title candidates with scenario-specific alternatives.",
+      "Delete any polished sentence that could fit almost any project unchanged.",
       "Remove decorative citations that do not support a material claim.",
-      "Move repeated source explanations into one compact source note.",
-      "Check that every screenshot reference points to a real provided or generated asset.",
-      "Reword any visual instruction that depends on an unseen screen state."
+      "Move repeated source explanations into one compact source note."
     ],
     "reviewer_note": "Use this report before deepening the package and again before approving example outputs."
   },
@@ -14722,8 +14770,8 @@
     "checks": [
       {
         "label": "Intent clarity",
-        "status": "ready",
-        "detail": "100/100 intent confidence."
+        "status": "pass",
+        "detail": "100/100 intent confidence; clarification proceed; assumptions 0."
       },
       {
         "label": "Benchmark coverage",

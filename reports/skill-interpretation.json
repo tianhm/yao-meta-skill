@@ -81,7 +81,7 @@
       "label": "可维护性",
       "score": 100,
       "reasons": [
-        "SKILL.md 约 310 个词/字。",
+        "SKILL.md 约 316 个词/字。",
         "入口文件保持克制，可维护性较好。",
         "references/ 已承载扩展指导。",
         "scripts/ 已承载确定性逻辑。",
@@ -102,7 +102,7 @@
       "label": "上下文成本",
       "score": 42,
       "reasons": [
-        "入口约 310 个词/字，references 约 18635 个词/字。",
+        "入口约 316 个词/字，references 约 18854 个词/字。",
         "分数越高代表上下文成本越低。",
         "上下文成本偏高，建议压缩入口或拆分 references。"
       ]
@@ -206,7 +206,7 @@
       "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
     ],
     "gaps": [
-      "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
+      "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
     ],
     "recommendations": [
       "先改触发边界，再扩展工作流。",
@@ -271,7 +271,7 @@
         "name": "包体膨胀风险",
         "impact": 2,
         "probability": 1,
-        "signal": "SKILL.md 约 310 个词/字。",
+        "signal": "SKILL.md 约 316 个词/字。",
         "response": "先补证据和边界，再增加包体复杂度。"
       },
       {
@@ -288,10 +288,11 @@
         "label": "Markdown readability",
         "matched_keywords": [
           "md",
+          "table",
           "report",
           "doc"
         ],
-        "score": 3,
+        "score": 4,
         "risks": [
           "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
           "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -305,6 +306,30 @@
         "self_repair": [
           "Preview whether each table still reads well when columns are narrow.",
           "Convert any table with paragraph-length cells into bullets or cards."
+        ]
+      },
+      {
+        "key": "tone_and_specificity",
+        "label": "Tone and specificity",
+        "matched_keywords": [
+          "copy",
+          "content",
+          "summary"
+        ],
+        "score": 3,
+        "risks": [
+          "Headings and summaries can drift into generic, interchangeable language.",
+          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+          "Strong claims can appear without examples or constraints."
+        ],
+        "constraints": [
+          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+          "Preserve one distinctive phrase, constraint, or standard from the user's input."
+        ],
+        "self_repair": [
+          "Replace generic title candidates with scenario-specific alternatives.",
+          "Delete any polished sentence that could fit almost any project unchanged."
         ]
       },
       {
@@ -373,32 +398,10 @@
           "Scan each command for cwd, input, output, and side-effect assumptions.",
           "Remove speculative error handling that is not tied to a real failure mode."
         ]
-      },
-      {
-        "key": "tone_and_specificity",
-        "label": "Tone and specificity",
-        "matched_keywords": [
-          "summary"
-        ],
-        "score": 1,
-        "risks": [
-          "Headings and summaries can drift into generic, interchangeable language.",
-          "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-          "Strong claims can appear without examples or constraints."
-        ],
-        "constraints": [
-          "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-          "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-          "Preserve one distinctive phrase, constraint, or standard from the user's input."
-        ],
-        "self_repair": [
-          "Replace generic title candidates with scenario-specific alternatives.",
-          "Delete any polished sentence that could fit almost any project unchanged."
-        ]
       }
     ],
     "human_judgment_boundary": [
-      "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+      "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
       "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
       "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
     ]
@@ -514,7 +517,7 @@
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 172
+        "file_count": 173
       },
       {
         "path": "evals",
@@ -529,7 +532,7 @@
         "file_count": 191
       }
     ],
-    "file_count": 439,
+    "file_count": 440,
     "folder_count": 4,
     "distribution": [
       {
@@ -554,7 +557,7 @@
       },
       {
         "label": "scripts",
-        "value": 172
+        "value": 173
       },
       {
         "label": "evals",
@@ -688,7 +691,7 @@
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 172
+      "file_count": 173
     },
     {
       "path": "evals",
@@ -1024,9 +1027,9 @@
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "75c9a7c5f5666327dcfc2c17865e4886575a7afbed4614f6e720e205ae203be6",
-      "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-      "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+      "evidence_bundle_sha256": "150e46829352f53577e06414470aded5314e3efaf80c60bb88ca2d2f867e773c",
+      "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+      "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
       "command_count": 23,
@@ -1053,13 +1056,13 @@
       "public_claim_ready": false,
       "public_claim_blocker_count": 5,
       "working_tree_dirty": true,
-      "changed_file_count": 30,
+      "changed_file_count": 3,
       "source_tree_dirty": false,
       "source_changed_file_count": 0,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 30
+      "generated_changed_file_count": 3
     },
-    "commit": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
+    "commit": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1144,9 +1147,9 @@
     "failures": []
   },
   "trust_security": {
-    "scanned_files": 274,
-    "script_count": 172,
-    "internal_module_count": 80,
+    "scanned_files": 275,
+    "script_count": 173,
+    "internal_module_count": 81,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -1164,8 +1167,8 @@
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 274,
-    "package_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7"
+    "package_hash_file_count": 275,
+    "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
   },
   "skill_atlas": {
     "skill_count": 12,
@@ -1203,8 +1206,8 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+        "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
       },
       "compatibility": {
         "openai": "pass",
@@ -1235,7 +1238,7 @@
       },
       "distribution": {
         "archive_verified": true,
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "package_verification": "reports/package_verification.json",
         "install_simulated": true,
         "install_simulation": "reports/install_simulation.json"
@@ -1251,8 +1254,8 @@
       "target_count": 4,
       "adapter_count": 4,
       "archive_present": true,
-      "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
-      "archive_entry_count": 650,
+      "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+      "archive_entry_count": 652,
       "nested_skill_entry_count": 0,
       "failure_count": 0,
       "warning_count": 0
@@ -1264,7 +1267,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 650,
+      "archive_entry_count": 652,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1332,12 +1335,12 @@
         {
           "field": "archive_sha256",
           "from": "",
-          "to": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+          "to": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
         },
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7"
+          "to": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
         }
       ]
     },

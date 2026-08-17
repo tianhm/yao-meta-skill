@@ -324,13 +324,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+        "all_equal_to_actual_archive": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
       },
       "actual": {
-        "actual_archive": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
-        "package_verification": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
-        "registry": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
-        "benchmark": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976"
+        "actual_archive": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+        "package_verification": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+        "registry": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+        "benchmark": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -365,12 +365,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 934/1000; deferred 581635/120000; top deferred scripts 514659; resource governance governed; quality density 139.2",
+        "detail": "initial load 945/1000; deferred 591294/120000; top deferred scripts 523950; resource governance governed; quality density 137.6",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 934/1000; deferred 581635/120000; top deferred scripts 514659; resource governance governed; quality density 139.2",
+        "detail": "initial load 945/1000; deferred 591294/120000; top deferred scripts 523950; resource governance governed; quality density 137.6",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -398,7 +398,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 30
+        "changed_file_count": 13
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -439,8 +439,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
-      "actual": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
+      "expected": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
+      "actual": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -455,8 +455,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -471,8 +471,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -591,8 +591,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
-      "actual": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
+      "expected": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
+      "actual": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -607,8 +607,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -623,8 +623,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
-        "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
+        "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
+        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -780,7 +780,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 310 个词/字。",
+            "SKILL.md 约 316 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -801,7 +801,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 310 个词/字，references 约 18635 个词/字。",
+            "入口约 316 个词/字，references 约 18854 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -844,7 +844,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 310 个词/字。",
+            "SKILL.md 约 316 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -865,7 +865,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 310 个词/字，references 约 18635 个词/字。",
+            "入口约 316 个词/字，references 约 18854 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1097,7 +1097,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
+          "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1145,7 +1145,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
+          "上下文成本需要补强：入口约 316 个词/字，references 约 18854 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1220,7 +1220,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 310 个词/字。",
+            "signal": "SKILL.md 约 316 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1237,10 +1237,11 @@
             "label": "Markdown readability",
             "matched_keywords": [
               "md",
+              "table",
               "report",
               "doc"
             ],
-            "score": 3,
+            "score": 4,
             "risks": [
               "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
               "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -1254,6 +1255,30 @@
             "self_repair": [
               "Preview whether each table still reads well when columns are narrow.",
               "Convert any table with paragraph-length cells into bullets or cards."
+            ]
+          },
+          {
+            "key": "tone_and_specificity",
+            "label": "Tone and specificity",
+            "matched_keywords": [
+              "copy",
+              "content",
+              "summary"
+            ],
+            "score": 3,
+            "risks": [
+              "Headings and summaries can drift into generic, interchangeable language.",
+              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+              "Strong claims can appear without examples or constraints."
+            ],
+            "constraints": [
+              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+              "Preserve one distinctive phrase, constraint, or standard from the user's input."
+            ],
+            "self_repair": [
+              "Replace generic title candidates with scenario-specific alternatives.",
+              "Delete any polished sentence that could fit almost any project unchanged."
             ]
           },
           {
@@ -1322,32 +1347,10 @@
               "Scan each command for cwd, input, output, and side-effect assumptions.",
               "Remove speculative error handling that is not tied to a real failure mode."
             ]
-          },
-          {
-            "key": "tone_and_specificity",
-            "label": "Tone and specificity",
-            "matched_keywords": [
-              "summary"
-            ],
-            "score": 1,
-            "risks": [
-              "Headings and summaries can drift into generic, interchangeable language.",
-              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-              "Strong claims can appear without examples or constraints."
-            ],
-            "constraints": [
-              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-              "Preserve one distinctive phrase, constraint, or standard from the user's input."
-            ],
-            "self_repair": [
-              "Replace generic title candidates with scenario-specific alternatives.",
-              "Delete any polished sentence that could fit almost any project unchanged."
-            ]
           }
         ],
         "human_judgment_boundary": [
-          "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+          "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
           "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
           "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
         ]
@@ -1379,7 +1382,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 310 个词/字。",
+            "signal": "SKILL.md 约 316 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1396,10 +1399,11 @@
             "label": "Markdown readability",
             "matched_keywords": [
               "md",
+              "table",
               "report",
               "doc"
             ],
-            "score": 3,
+            "score": 4,
             "risks": [
               "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
               "Long bullets can make the output look complete while hiding the actual decision logic.",
@@ -1413,6 +1417,30 @@
             "self_repair": [
               "Preview whether each table still reads well when columns are narrow.",
               "Convert any table with paragraph-length cells into bullets or cards."
+            ]
+          },
+          {
+            "key": "tone_and_specificity",
+            "label": "Tone and specificity",
+            "matched_keywords": [
+              "copy",
+              "content",
+              "summary"
+            ],
+            "score": 3,
+            "risks": [
+              "Headings and summaries can drift into generic, interchangeable language.",
+              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
+              "Strong claims can appear without examples or constraints."
+            ],
+            "constraints": [
+              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
+              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
+              "Preserve one distinctive phrase, constraint, or standard from the user's input."
+            ],
+            "self_repair": [
+              "Replace generic title candidates with scenario-specific alternatives.",
+              "Delete any polished sentence that could fit almost any project unchanged."
             ]
           },
           {
@@ -1481,32 +1509,10 @@
               "Scan each command for cwd, input, output, and side-effect assumptions.",
               "Remove speculative error handling that is not tied to a real failure mode."
             ]
-          },
-          {
-            "key": "tone_and_specificity",
-            "label": "Tone and specificity",
-            "matched_keywords": [
-              "summary"
-            ],
-            "score": 1,
-            "risks": [
-              "Headings and summaries can drift into generic, interchangeable language.",
-              "The output can sound polished but lose the user's actual taste, audience, or scenario.",
-              "Strong claims can appear without examples or constraints."
-            ],
-            "constraints": [
-              "Anchor titles and summaries in the user's audience, object, and concrete outcome.",
-              "Avoid placeholder phrases such as comprehensive guide, ultimate solution, or key insights unless the source demands them.",
-              "Preserve one distinctive phrase, constraint, or standard from the user's input."
-            ],
-            "self_repair": [
-              "Replace generic title candidates with scenario-specific alternatives.",
-              "Delete any polished sentence that could fit almost any project unchanged."
-            ]
           }
         ],
         "human_judgment_boundary": [
-          "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+          "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
           "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
           "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
         ]
@@ -1717,7 +1723,7 @@
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 172
+            "file_count": 173
           },
           {
             "path": "evals",
@@ -1732,7 +1738,7 @@
             "file_count": 191
           }
         ],
-        "file_count": 439,
+        "file_count": 440,
         "folder_count": 4,
         "distribution": [
           {
@@ -1757,7 +1763,7 @@
           },
           {
             "label": "scripts",
-            "value": 172
+            "value": 173
           },
           {
             "label": "evals",
@@ -1805,7 +1811,7 @@
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 172
+            "file_count": 173
           },
           {
             "path": "evals",
@@ -1820,7 +1826,7 @@
             "file_count": 191
           }
         ],
-        "file_count": 439,
+        "file_count": 440,
         "folder_count": 4,
         "distribution": [
           {
@@ -1845,7 +1851,7 @@
           },
           {
             "label": "scripts",
-            "value": 172
+            "value": 173
           },
           {
             "label": "evals",
@@ -3730,16 +3736,16 @@
         "score `91`",
         "`16` gates",
         "`3` warnings",
-        "`80` declared internal modules",
-        "`92 / 92` CLI help smoke checks passing across `172` scripts",
-        "`650` zip entries",
-        "archive with `650` entries",
+        "`81` declared internal modules",
+        "`92 / 92` CLI help smoke checks passing across `173` scripts",
+        "`652` zip entries",
+        "archive with `652` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",
         "`23` reproduction commands",
-        "initial load `934/1000`",
-        "target count is `85`"
+        "initial load `945/1000`",
+        "target count is `87`"
       ],
       "actual": "all present",
       "paths": [
