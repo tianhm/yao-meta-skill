@@ -174,6 +174,19 @@ npx -y skills add yaojingang/yao-meta-skill -a '*' -g -y
 
 安装完成后重启客户端，再用“创建 skill”“改进已有 skill”“评估 skill”“给 skill 增加 eval”这类任务触发 `yao-meta-skill`。
 
+### 更新提示与一次确认升级
+
+Skill 激活时可以执行缓存式更新预检。它每 24 小时最多检查一次官方 GitHub `VERSION`，每个更高稳定版本只提示一次；网络失败不会影响当前任务。
+
+```bash
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py check-update --force --self
+python3 scripts/yao.py self-update --self
+python3 scripts/yao.py self-update --self --yes
+```
+
+`self-update` 会识别受验证的 Agent Skills CLI 和 Codex 插件安装渠道。命令默认只展示更新计划，带 `--yes` 才修改安装目录。开发仓库、无记录复制目录、非官方来源和多渠道歧义状态保持只读。更新成功后需要重启 Codex 或当前 AI 客户端。完整渠道与失败恢复约定见 [Update Delivery](../references/update-delivery.md)。
+
 1. 先描述你想沉淀成 skill 的 workflow、prompt 集合或重复任务。
 2. 先做一轮简短但更有人味的意图对话，把真实任务、输出物、边界、约束和你在意的质量标准说清楚。
 3. 先让 `quickstart` 澄清意图，再静默跑 benchmark scan 和 reference synthesis；只有当意图还不清楚，或者设计路线真的冲突时，才会显式继续追问或让你拍板。

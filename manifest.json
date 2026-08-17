@@ -1,9 +1,9 @@
 {
   "name": "yao-meta-skill",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "owner": "Yao Team",
-  "updated_at": "2026-08-12",
-  "review_due": "2026-11-10",
+  "updated_at": "2026-08-17",
+  "review_due": "2026-11-15",
   "status": "active",
   "maturity_tier": "governed",
   "lifecycle_stage": "library",

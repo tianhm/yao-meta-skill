@@ -92,6 +92,7 @@ from yao_cli_target_policy import (
     configure_target_policies,
     prepare_target_context,
 )
+from yao_cli_update_commands import command_check_update, command_self_update
 
 
 COMMAND_LINE_TOOLS_MAKE = Path("/Library/Developer/CommandLineTools/usr/bin/make")
@@ -543,25 +544,6 @@ def command_test(args: argparse.Namespace) -> int:
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0 if report["ok"] else 2
-
-
-def command_check_update(args: argparse.Namespace) -> int:
-    cmd = []
-    if args.force:
-        cmd.append("--force")
-    if args.no_cache:
-        cmd.append("--no-cache")
-    if args.version_url:
-        cmd.extend(["--version-url", args.version_url])
-    if args.manifest_url:
-        cmd.extend(["--manifest-url", args.manifest_url])
-    if args.timeout is not None:
-        cmd.extend(["--timeout", str(args.timeout)])
-    if args.allow_custom_update_url:
-        cmd.append("--allow-custom-update-url")
-    result = run_script("check_update.py", cmd)
-    print(json.dumps(result["payload"] if result["payload"] is not None else result, ensure_ascii=False, indent=2))
-    return 0 if result["ok"] else 2
 
 
 def build_parser() -> argparse.ArgumentParser:

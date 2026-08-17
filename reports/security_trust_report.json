@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 270,
-    "script_count": 169,
-    "internal_module_count": 78,
+    "scanned_files": 274,
+    "script_count": 172,
+    "internal_module_count": 80,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -18,12 +18,12 @@
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 91,
+    "help_smoke_checked_count": 92,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 270,
-    "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+    "package_hash_file_count": 274,
+    "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
   },
   "failures": [],
   "warnings": [],
@@ -182,9 +182,11 @@
       "uses_subprocess": false,
       "network_urls": [
         "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/VERSION",
-        "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json"
+        "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json",
+        "https://github.com/yaojingang/yao-meta-skill/commits/main"
       ],
       "network_hosts": [
+        "github.com",
         "raw.githubusercontent.com"
       ]
     },
@@ -1715,6 +1717,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/self_update.py",
+      "interface": "cli",
+      "interface_declared": false,
+      "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/simulate_install.py",
       "interface": "cli",
       "interface_declared": false,
@@ -1965,6 +1981,24 @@
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
+    },
+    {
+      "path": "scripts/update_installation.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by update check and self-update entrypoints for safe installation discovery and command execution.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": true,
+      "network_urls": [
+        "https://github.com/yaojingang/yao-meta-skill"
+      ],
+      "network_hosts": [
+        "github.com"
+      ]
     },
     {
       "path": "scripts/upgrade_check.py",
@@ -2401,6 +2435,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/yao_cli_update_commands.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by yao.py to keep update checks and the mutating self-update surface outside the CLI orchestrator.",
+      "has_argparse": true,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/yao_runtime_paths.py",
       "interface": "internal-module",
       "interface_declared": true,
@@ -2445,11 +2493,11 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 91,
-    "checked_count": 91,
-    "passed_count": 91,
+    "candidate_count": 92,
+    "checked_count": 92,
+    "passed_count": 92,
     "failed_count": 0,
-    "skipped_count": 78,
+    "skipped_count": 80,
     "failed_scripts": [],
     "results": [
       {
@@ -3263,6 +3311,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/self_update.py",
+        "command": "python3 scripts/self_update.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: self_update.py [-h] [--yes] [--timeout TIMEOUT]\n\nUpdate a verified managed yao-meta-skill installation.\n\noptions:\n  -h, --help         show this help message and exit\n  --yes              Apply the verified update plan.\n  --timeout T",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/simulate_install.py",
         "command": "python3 scripts/simulate_install.py --help",
         "returncode": 0,
@@ -3565,6 +3623,10 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/update_installation.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/world_class_evidence_contract.py",
         "reason": "internal module"
       },
@@ -3670,6 +3732,10 @@
       },
       {
         "path": "scripts/yao_cli_telemetry.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/yao_cli_update_commands.py",
         "reason": "internal module"
       },
       {
@@ -3812,8 +3878,8 @@
           "scripts/yao_cli_operator_commands.py"
         ],
         "reviewer": "Yao Team",
-        "scope": "Local generated reports, registry metadata, temporary test outputs, and package artifacts under the skill workspace.",
-        "reason": "File writes are required to create auditable reports, compiled target contracts, package artifacts, and local test fixtures; package safety checks exclude generated temp outputs from archives.",
+        "scope": "Local generated reports, registry metadata, temporary test outputs, package artifacts, user-level update cache, and explicitly confirmed managed Skill installations.",
+        "reason": "File writes create auditable reports and package artifacts, persist metadata-only update state, and allow a verified installer to replace one managed Skill only after explicit confirmation.",
         "expires_at": "2026-09-30",
         "evidence": [
           "reports/package_verification.md",
@@ -3846,13 +3912,14 @@
           "scripts/skill_report_sources.py",
           "scripts/sync_local_install.py",
           "scripts/trust_check.py",
+          "scripts/update_installation.py",
           "scripts/yao.py",
           "scripts/yao_cli_operator_commands.py",
           "scripts/yao_cli_runtime.py"
         ],
         "reviewer": "Yao Team",
-        "scope": "Local deterministic validation, packaging, install simulation, and CI orchestration commands.",
-        "reason": "Subprocess use is limited to local verification and packaging flows that are surfaced through CLI help smoke tests and CI targets.",
+        "scope": "Local deterministic validation, packaging, install simulation, CI orchestration, read-only install discovery, and explicitly confirmed managed Skill updates.",
+        "reason": "Subprocess use covers reviewed local tooling plus allowlisted argument-array update commands for Agent Skills CLI or a verified Codex plugin marketplace; mutation requires --yes and post-update verification.",
         "expires_at": "2026-09-30",
         "evidence": [
           "reports/security_trust_report.md",

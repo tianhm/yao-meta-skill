@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "summary": {
     "item_count": 15,
@@ -201,7 +201,7 @@
       "key": "trust-security",
       "label": "Trust Security",
       "status": "pass",
-      "current": "secrets 0; scripts 169; help failures 0",
+      "current": "secrets 0; scripts 172; help failures 0",
       "target": "Secrets, scripts, dependencies, permissions, and package hash are reviewable",
       "evidence": [
         {
@@ -289,7 +289,7 @@
       "key": "registry-distribution",
       "label": "Registry Distribution",
       "status": "pass",
-      "current": "zip entries 639; install failures 0; permission failures 0",
+      "current": "zip entries 646; install failures 0; permission failures 0",
       "target": "Package metadata, archive checksum, package verification, and install simulation pass",
       "evidence": [
         {

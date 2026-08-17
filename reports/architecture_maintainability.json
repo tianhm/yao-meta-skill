@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "summary": {
-    "python_file_count": 252,
-    "script_file_count": 169,
-    "test_file_count": 83,
-    "internal_module_count": 80,
-    "cli_script_count": 93,
-    "command_handler_count": 73,
-    "entrypoint_command_handler_count": 18,
-    "command_module_count": 7,
+    "python_file_count": 256,
+    "script_file_count": 172,
+    "test_file_count": 84,
+    "internal_module_count": 82,
+    "cli_script_count": 95,
+    "command_handler_count": 74,
+    "entrypoint_command_handler_count": 17,
+    "command_module_count": 8,
     "warn_line_threshold": 900,
     "watch_line_threshold": 720,
     "early_watch_line_threshold": 600,
@@ -89,14 +89,6 @@
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
     },
     {
-      "path": "scripts/yao.py",
-      "lines": 593,
-      "kind": "cli-script",
-      "severity": "pass",
-      "early_watch": false,
-      "recommendation": "Split command handlers by domain while keeping scripts/yao.py as the thin CLI orchestrator."
-    },
-    {
       "path": "scripts/world_class_evidence_contract.py",
       "lines": 592,
       "kind": "internal-module",
@@ -119,6 +111,14 @@
       "severity": "pass",
       "early_watch": false,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
+    },
+    {
+      "path": "tests/verify_world_class_evidence_ledger.py",
+      "lines": 584,
+      "kind": "test",
+      "severity": "pass",
+      "early_watch": false,
+      "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
     }
   ],
   "watchlist": [],

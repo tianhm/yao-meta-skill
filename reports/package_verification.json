@@ -1,15 +1,15 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "package_dir": "dist",
   "summary": {
     "target_count": 4,
     "adapter_count": 4,
     "archive_present": true,
-    "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-    "archive_entry_count": 639,
+    "archive_sha256": "2f6e51d5c423768dd4393c49af69ac83b2674793ce6b1caaa42fdfe1c0edd4da",
+    "archive_entry_count": 646,
     "nested_skill_entry_count": 0,
     "failure_count": 0,
     "warning_count": 0

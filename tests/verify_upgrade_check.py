@@ -49,7 +49,7 @@ def main() -> None:
     payload = result["payload"]
     assert result["ok"], result
     assert payload["ok"], payload
-    assert payload["summary"]["declared_bump"] == "minor", payload
+    assert payload["summary"]["declared_bump"] == "major", payload
     assert payload["summary"]["recommended_bump"] == "minor", payload
     assert "agent-skills-compatible" in payload["upgrade_diff"]["added_targets"], payload
     assert "vscode" in payload["upgrade_diff"]["added_targets"], payload

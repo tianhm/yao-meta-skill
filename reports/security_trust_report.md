@@ -1,9 +1,9 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `270`
-- Scripts: `169`
-- Internal script modules: `78`
+- Scanned files: `274`
+- Scripts: `172`
+- Internal script modules: `80`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
@@ -11,12 +11,12 @@
 - File-write scripts: `80`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `91`
+- CLI help smoke checked: `92`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `270`
-- Package SHA256: `fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d`
+- Package hash files: `274`
+- Package SHA256: `974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `91`
-- Passed scripts: `91`
+- Checked scripts: `92`
+- Passed scripts: `92`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -181,6 +181,7 @@
 | scripts/run_evidence_build.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_output_eval.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_output_execution.py | cli | False | True | True | False | False | True | True | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/self_update.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/simulate_install.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/skill_ir_paths.py | internal-module | True | False | False | False | False | False | False | Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR. |
 | scripts/skill_os2_coverage_markdown.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_os2_coverage.py to keep coverage data assembly separate from Markdown rendering. |
@@ -199,6 +200,7 @@
 | scripts/trigger_eval.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/trust_check.py | cli | False | True | True | False | False | True | True | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/trust_check_scripts.py | internal-module | True | True | True | False | False | False | False | Static script inventory helpers imported by trust_check.py. |
+| scripts/update_installation.py | internal-module | True | False | False | False | False | False | True | Imported by update check and self-update entrypoints for safe installation discovery and command execution. |
 | scripts/upgrade_check.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/validate_skill.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/verify_package.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
@@ -230,4 +232,5 @@
 | scripts/yao_cli_runtime.py | internal-module | True | False | False | False | False | False | True | Imported by yao.py and command modules for shared subprocess execution and JSON payload parsing. |
 | scripts/yao_cli_target_policy.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to bind every CLI command to an explicit target before execution. |
 | scripts/yao_cli_telemetry.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to record opt-in metadata-only CLI run telemetry. |
+| scripts/yao_cli_update_commands.py | internal-module | True | True | False | False | False | False | False | Imported by yao.py to keep update checks and the mutating self-update surface outside the CLI orchestrator. |
 | scripts/yao_runtime_paths.py | internal-module | True | False | False | False | False | False | False | Imported by update and telemetry helpers to keep runtime state outside skill source and install directories. |

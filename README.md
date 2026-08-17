@@ -194,6 +194,19 @@ npx -y skills add yaojingang/yao-meta-skill -a '*' -g -y
 
 After installation, restart the client. Then ask for tasks such as "create a skill from this workflow", "improve this existing skill", "evaluate this skill", or "add evals to this skill" to trigger `yao-meta-skill`.
 
+### Update notifications and one-confirmation update
+
+Each activation can run a cached update preflight. It checks the official GitHub `VERSION` at most once every 24 hours and shows each newer stable version once. Network failures leave the active Skill task unchanged.
+
+```bash
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py check-update --force --self
+python3 scripts/yao.py self-update --self
+python3 scripts/yao.py self-update --self --yes
+```
+
+`self-update` recognizes verified Agent Skills CLI and installed Codex plugin channels. The command displays its plan first and requires `--yes` before changing an installation. Development checkouts, unmanaged copies, non-official sources, and ambiguous multi-channel installs stay read-only. Restart Codex or the active AI client after a successful update. See [Update Delivery](references/update-delivery.md) for the channel and recovery contract.
+
 1. Describe the workflow, prompt set, or repeated task you want to turn into a skill.
 2. Start with a short, human intent dialogue so the real job, outputs, exclusions, constraints, and standards are explicit.
 3. Let `quickstart` clarify intent first, then run silent benchmark scan and reference synthesis; it only surfaces explicit questions when intent is still unclear or when there is a real design conflict.
@@ -232,7 +245,8 @@ python3 scripts/yao.py review-waivers my-skill --add-waiver --gate-key trust-rep
 python3 scripts/yao.py review-waivers my-skill --add-waiver --gate-key permission-gates --reviewer "Yao Team" --reason "Permission warning accepted only for this non-governed release window." --expires-at 2026-09-30
 python3 scripts/yao.py review-annotations my-skill --add-annotation --gate-key output-lab --target-path reports/output_quality_scorecard.md --line 1 --body "Clarify recorded fixture vs model-executed evidence before release."
 python3 scripts/yao.py baseline-compare --self
-python3 scripts/yao.py check-update
+python3 scripts/yao.py check-update --notice --self
+python3 scripts/yao.py self-update --self
 python3 scripts/yao.py skill-ir . --output-json skill-ir/examples/yao-meta-skill.json --self
 python3 scripts/yao.py compile-skill . --target openai --target claude --target generic --target vscode --self
 python3 scripts/yao.py package . --platform generic --output-dir dist --self

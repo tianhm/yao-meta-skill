@@ -71,16 +71,12 @@ def intent_confidence_note(summary: dict) -> str:
 def maybe_emit_update_notice(args: argparse.Namespace) -> None:
     if getattr(args, "no_update_check", False):
         return
-    result = run_script("check_update.py", [])
+    result = run_script("check_update.py", ["--notice"])
     payload = result["payload"] if result["payload"] is not None else {}
     if not result["ok"] and not payload:
         return
-    if payload.get("update_available"):
-        sys.stderr.write(
-            "\nUpdate available for yao-meta-skill: "
-            f"{payload.get('local_version')} -> {payload.get('remote_version')}.\n"
-            f"Run: {payload.get('install_hint')}\n"
-        )
+    if payload.get("notify_user") and payload.get("notice_text"):
+        sys.stderr.write("\n" + str(payload["notice_text"]) + "\n")
 
 
 def command_init(args: argparse.Namespace) -> int:

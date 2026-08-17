@@ -5,7 +5,7 @@
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 256,
+    "file_count": 260,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -761,6 +761,12 @@
       "issues": []
     },
     {
+      "path": "scripts/self_update.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/simulate_install.py",
       "ok": true,
       "issue_count": 0,
@@ -864,6 +870,12 @@
     },
     {
       "path": "scripts/trust_check_scripts.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/update_installation.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1050,6 +1062,12 @@
     },
     {
       "path": "scripts/yao_cli_telemetry.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/yao_cli_update_commands.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -1458,6 +1476,12 @@
     },
     {
       "path": "tests/verify_trust_check.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_update_delivery.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

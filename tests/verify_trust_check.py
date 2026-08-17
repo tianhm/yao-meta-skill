@@ -140,7 +140,9 @@ def main() -> None:
         "scripts/yao_cli_report_commands.py",
         "scripts/yao_cli_telemetry.py",
         "scripts/yao_cli_target_policy.py",
+        "scripts/yao_cli_update_commands.py",
         "scripts/yao_runtime_paths.py",
+        "scripts/update_installation.py",
     ]:
         assert script_map[internal_module]["interface"] == "internal-module", script_map[internal_module]
         assert script_map[internal_module]["interface_declared"], script_map[internal_module]
@@ -187,7 +189,9 @@ def main() -> None:
     assert "yao_cli_report_commands.py" not in warning_text, payload["warnings"]
     assert "yao_cli_telemetry.py" not in warning_text, payload["warnings"]
     assert "yao_cli_target_policy.py" not in warning_text, payload["warnings"]
+    assert "yao_cli_update_commands.py" not in warning_text, payload["warnings"]
     assert "yao_runtime_paths.py" not in warning_text, payload["warnings"]
+    assert "update_installation.py" not in warning_text, payload["warnings"]
     assert "render_context_reports.py" not in warning_text, payload["warnings"]
     assert "render_social_preview.py" not in warning_text, payload["warnings"]
     assert "Network-capable scripts require bounded host policy" not in warning_text, payload["warnings"]

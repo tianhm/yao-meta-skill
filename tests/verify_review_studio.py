@@ -89,7 +89,7 @@ def main() -> None:
     assert "resource governance governed" in context_gate["detail"], context_gate
     assert "quality density" in context_gate["detail"], context_gate
     release_gate = next(item for item in payload["gates"] if item["key"] == "release-notes")
-    assert "upgrade minor declared / minor recommended" in release_gate["detail"], release_gate
+    assert "upgrade major declared / minor recommended" in release_gate["detail"], release_gate
     assert "reports/upgrade_check.json" in release_gate["evidence"], release_gate
     registry_gate = next(item for item in payload["gates"] if item["key"] == "registry-audit")
     assert "install pass" in registry_gate["detail"], registry_gate
@@ -526,7 +526,7 @@ def main() -> None:
     assert "&#x27;case_count&#x27;" not in html, html
     assert "&#x27;name&#x27;" not in html, html
     assert "reports/review_waivers.md" in output_json.read_text(encoding="utf-8"), output_json
-    assert "upgrade minor declared / minor recommended" in html, html[:8000]
+    assert "upgrade major declared / minor recommended" in html, html[:8000]
     assert str(ROOT) not in output_json.read_text(encoding="utf-8"), output_json
     formatted = review_formatting.render_kv_grid(
         {"case_count": 5, "package_sha256": "abc123"},

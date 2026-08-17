@@ -1,7 +1,7 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "previous": {
     "name": "yao-meta-skill",
     "version": "1.0.0",
@@ -13,7 +13,7 @@
   },
   "current": {
     "name": "yao-meta-skill",
-    "version": "1.2.0",
+    "version": "2.1.0",
     "targets": [
       "openai",
       "claude",
@@ -23,7 +23,7 @@
     ]
   },
   "summary": {
-    "declared_bump": "minor",
+    "declared_bump": "major",
     "recommended_bump": "minor",
     "breaking_change_count": 0,
     "added_target_count": 2,
@@ -70,12 +70,12 @@
       {
         "field": "archive_sha256",
         "from": "",
-        "to": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+        "to": "2f6e51d5c423768dd4393c49af69ac83b2674793ce6b1caaa42fdfe1c0edd4da"
       },
       {
         "field": "package_sha256",
         "from": "0000000000000000000000000000000000000000000000000000000000000000",
-        "to": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+        "to": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
       }
     ]
   },
