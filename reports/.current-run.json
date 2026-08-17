@@ -1,9 +1,9 @@
 {
   "artifact_index": "reports/artifact-index.json",
-  "artifact_index_sha256": "6601bef3ce3c85ac91f0b741e32fb58292a3306ffc8d9bc8302bf839e7f3d403",
-  "published_at": "2026-08-14T10:57:52Z",
-  "release_dir": ".yao/releases/phase1-rc-1.2.0-stable-20260814",
-  "run_id": "phase1-rc-1.2.0-stable-20260814",
+  "artifact_index_sha256": "24b3aa4016fa7a9a32ca0379c95e45b608da2277b14c78392fb30bef5ce09cde",
+  "published_at": "2026-08-17T03:18:19Z",
+  "release_dir": ".yao/releases/yao-meta-skill-2.1.0-20260817.1",
+  "run_id": "yao-meta-skill-2.1.0-20260817.1",
   "schema_version": "1.0",
   "skill_name": "yao-meta-skill"
 }
