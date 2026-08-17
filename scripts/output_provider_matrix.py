@@ -32,6 +32,10 @@ def load_provider_matrix(path: Path) -> dict[str, Any]:
         failures.append("api_key_env must be DEEPSEEK_API_KEY")
     if payload.get("api_format") != "chat-completions":
         failures.append("api_format must be chat-completions")
+    if payload.get("evaluation_locale") != "zh-CN":
+        failures.append("evaluation_locale must be zh-CN")
+    if payload.get("holdout_cases") != "holdout_cases.zh-CN.jsonl":
+        failures.append("holdout_cases must be holdout_cases.zh-CN.jsonl")
     expected_models = ["deepseek-v4-flash", "deepseek-v4-pro"]
     models = payload.get("models", []) if isinstance(payload.get("models"), list) else []
     if [item.get("model") for item in models if isinstance(item, dict)] != expected_models:
@@ -57,6 +61,17 @@ def load_provider_matrix(path: Path) -> dict[str, Any]:
     if failures:
         raise ValueError("; ".join(failures))
     return payload
+
+
+def resolve_provider_cases_path(matrix_path: Path, matrix: dict[str, Any]) -> Path:
+    """Resolve the fixed phase-one holdout declared by the provider contract."""
+    relative = Path(str(matrix.get("holdout_cases", "")))
+    if relative != Path("holdout_cases.zh-CN.jsonl") or relative.is_absolute() or ".." in relative.parts:
+        raise ValueError("unsafe or unsupported provider holdout_cases path")
+    cases_path = matrix_path.parent / relative
+    if not cases_path.is_file() or cases_path.is_symlink():
+        raise ValueError(f"provider holdout_cases is missing or unsafe: {cases_path}")
+    return cases_path
 
 
 def provider_status(matrix: dict[str, Any]) -> dict[str, Any]:

@@ -3,6 +3,8 @@
   "provider": "deepseek",
   "api_key_env": "DEEPSEEK_API_KEY",
   "api_format": "chat-completions",
+  "evaluation_locale": "zh-CN",
+  "holdout_cases": "holdout_cases.zh-CN.jsonl",
   "models": [
     {
       "model": "deepseek-v4-flash",

@@ -80,7 +80,7 @@ def main() -> None:
     assert summary["precheck_human_required_count"] == 1, summary
     assert summary["source_check_count"] >= 13, summary
     assert summary["source_pass_count"] + summary["source_blocked_count"] == summary["source_check_count"], summary
-    assert summary["source_blocked_count"] >= 6, summary
+    assert summary["source_blocked_count"] == 3, summary
     assert summary["repair_checklist_count"] == (
         summary["source_blocked_count"]
         + summary["precheck_missing_count"]
@@ -191,7 +191,7 @@ def main() -> None:
     assert "DEEPSEEK_API_KEY" in proc.stdout, proc.stdout
     provider_repairs = {item["target"]: item for item in provider["repair_checklist"]}
     provider_phases = {item["phase"]: item for item in provider["phase_queue"]}
-    assert set(provider_phases) == {"unblock-access", "collect-source"}, provider_phases
+    assert set(provider_phases) == {"unblock-access"}, provider_phases
     assert provider_phases["unblock-access"]["next_action_id"] == "provider-holdout-precheck-provider-api-key", provider_phases
     assert provider_repairs["provider-api-key"]["repair_type"] == "precheck", provider_repairs
     assert provider_repairs["provider-api-key"]["action_id"] == "provider-holdout-precheck-provider-api-key", provider_repairs
@@ -203,8 +203,8 @@ def main() -> None:
     ), provider_repairs
     assert provider_repairs["provider-api-key"]["counts_as_completion"] is False, provider_repairs
     provider_source = {item["field"]: item for item in provider["source_checklist"]}
-    assert provider_source["call_count"]["status"] == "blocked", provider_source
-    assert provider_source["model_executed_count"]["status"] == "blocked", provider_source
+    assert provider_source["call_count"]["status"] == "pass", provider_source
+    assert provider_source["model_executed_count"]["status"] == "pass", provider_source
     assert provider_source["failure_count"]["status"] == "pass", provider_source
     assert provider_source["total_tokens"]["status"] == "pass", provider_source
 
@@ -218,8 +218,7 @@ def main() -> None:
     human_repairs = {item["target"]: item for item in human["repair_checklist"]}
     assert human_repairs["human-reviewer"]["repair_type"] == "precheck", human_repairs
     assert human_repairs["human-reviewer"]["owner"] == "human reviewer", human_repairs
-    assert human_repairs["reviewer_count"]["repair_type"] == "source-check", human_repairs
-    assert "evidence-finalize-review" in human_repairs["reviewer_count"]["verification_command"], human_repairs
+    assert set(human_repairs) == {"human-reviewer"}, human_repairs
 
     native = by_key(payload["items"], "native-permission-enforcement")
     assert native["status"] == "blocked", native

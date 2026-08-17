@@ -167,6 +167,7 @@
       "scripts/promotion_checker.py",
       "scripts/propose_adaptation.py",
       "scripts/provider_output_eval_runner.py",
+      "scripts/publish_provider_evidence.py",
       "scripts/python_compat_check.py",
       "scripts/reference_synthesis_markdown.py",
       "scripts/registry_audit.py",
@@ -366,6 +367,7 @@
       "evals/output/cases.jsonl",
       "evals/output/fixtures/release-brief-source.md",
       "evals/output/holdout_cases.jsonl",
+      "evals/output/holdout_cases.zh-CN.jsonl",
       "evals/output/provider_matrix.json",
       "evals/output/schema.json",
       "evals/packaging_expectations.json",
@@ -378,6 +380,7 @@
       "evals/output/cases.jsonl",
       "evals/output/fixtures/release-brief-source.md",
       "evals/output/holdout_cases.jsonl",
+      "evals/output/holdout_cases.zh-CN.jsonl",
       "evals/output/provider_matrix.json",
       "evals/output/schema.json"
     ],

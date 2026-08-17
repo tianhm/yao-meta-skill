@@ -39,6 +39,8 @@ Official report consumers must use `scripts/evidence_resolver.py`. Keep `.yao/ru
 
 `--publish` checks clean source before provider execution. Provider answer text must remain under `.yao/runs/<run-id>/raw-outputs`; role-neutral reviewer copies stay under the run's `review-materials`, and the answer key stays under `private`. Releases carry commitments, hashes, redacted summaries, and role-neutral locators. Use `evidence-finalize-review` with three controlled reviewer packets and their registry; add `--resume` only for the same named run after an interrupted finalization. Never write `DEEPSEEK_API_KEY` to reports, fixtures, manifests, commands, or logs. Resolve Skill IR through `scripts/skill_ir_paths.py`; wildcard example scanning is forbidden.
 
+Promote completed Provider evidence into tracked reports only with `python3 scripts/publish_provider_evidence.py . --source-run <ADJUDICATED_RUN_ID> --generated-at YYYY-MM-DD`. The exporter allowlists aggregate run data, adjudication results, commitments, and lineage. It excludes raw-output locators, Provider response identifiers, system fingerprints, reviewer packets, decision reasons, controlled submission identifiers, and the reviewer registry.
+
 After source changes that affect scripts, package contents, trust evidence, Review Studio, registry metadata, or generated reports, refresh the release evidence before final sign-off:
 
 ```bash

@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "report": "phase1-trusted-generation-visual-report-v2.html",
   "baseline_commit": "4cbb6d19f76b556162072070adddb3490017308e",
-  "evidence_head": "5338d51c956d18cdd28eccddb111b1b3f236b0de",
-  "data_baseline": "2026-08-12",
+  "evidence_head": "94e8c7e18aa60f3457011cac243832dfe33263cb",
+  "data_baseline": "2026-08-16",
   "evidence": {
     "overall_maturity": {
       "status": "derived",
@@ -20,7 +20,9 @@
         "reports/evidence_consistency.json",
         "reports/conformance_matrix.json",
         "reports/phase1_trigger_holdout.json",
-        "reports/context_budget.json"
+        "reports/context_budget.json",
+        "reports/provider_output_evaluation.json",
+        "reports/provider_output_adjudication.json"
       ]
     },
     "repair_inventory": {
@@ -28,12 +30,20 @@
       "sources": ["reports/phase1-review-repair-checklist.md"]
     },
     "provider_matrix": {
-      "status": "source-stated",
-      "sources": ["evals/output/provider_matrix.json", "reports/provider_output_evaluation.json"]
+      "status": "verified",
+      "sources": [
+        "evals/output/provider_matrix.json",
+        "reports/provider_output_evaluation.json",
+        "reports/provider_review_lineage.json"
+      ]
     },
     "human_review": {
-      "status": "missing",
-      "sources": ["reports/provider_output_evaluation.json", "reports/benchmark_reproducibility.json"]
+      "status": "verified",
+      "sources": [
+        "reports/provider_output_adjudication.json",
+        "reports/provider_output_answer_commitment.json",
+        "reports/provider_review_lineage.json"
+      ]
     },
     "package_and_release": {
       "status": "verified",
@@ -46,9 +56,8 @@
     }
   },
   "external_gaps": [
-    "DeepSeek provider matrix 0/40",
-    "registered reviewer submissions 0/3",
-    "quality promotion pending",
-    "world-class ledger pending"
+    "world-class evidence intake pending",
+    "native permission enforcement evidence pending",
+    "real-client telemetry evidence pending"
   ]
 }
