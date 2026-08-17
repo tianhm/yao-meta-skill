@@ -10,10 +10,10 @@ Generated at: `2026-08-17`
 - credential value exposed: `false`
 - collection ready: `1`
 - collection blocked: `3`
-- source checks: `6` pass / `14` total
-- repair rows: `12` blocked / `12` total
+- source checks: `11` pass / `14` total
+- repair rows: `7` blocked / `7` total
 - phase queue: `2` blocked / `2` phases
-- phase queue rows: `12`
+- phase queue rows: `7`
 - next repair action: `human-adjudication-precheck-human-reviewer`
 - next repair owner: `human reviewer`
 - next phase: `unblock-access`
@@ -32,15 +32,15 @@ This preflight report checks whether an operator can start collecting the remain
 - guard claims: `python3 scripts/yao.py world-class-claim-guard . --self`
 - drafts count as evidence: `false`
 - artifact prefill counts as evidence: `false`
-- submission refs ready: `5` / `7`
-- supporting evidence ready: `29` / `33`
+- submission refs ready: `6` / `7`
+- supporting evidence ready: `31` / `33`
 
 Generate the submission kit after the real provider, human, native-permission, or native-client work exists. The generated JSON drafts remain `template_only: true` until an operator edits them with real aggregate artifact references and matching SHA-256 digests. The prefill command only inserts local artifact SHA-256 digests; it does not make a draft count as evidence.
 
 | Role | Copy to artifact_refs | Ready | Meaning |
 | --- | --- | --- | --- |
-| `submission-ref` | `true` | `5 / 7` | Rows marked submission-ref are the aggregate paths expected in artifact_refs. |
-| `supporting-evidence` | `false` | `29 / 33` | Supporting-evidence rows help reviewers audit the packet but do not all need to be copied into artifact_refs. |
+| `submission-ref` | `true` | `6 / 7` | Rows marked submission-ref are the aggregate paths expected in artifact_refs. |
+| `supporting-evidence` | `false` | `31 / 33` | Supporting-evidence rows help reviewers audit the packet but do not all need to be copied into artifact_refs. |
 
 `submission-ref` rows are the only checklist rows expected in `artifact_refs`; `supporting-evidence` rows stay available for audit context and reviewer traceability.
 
@@ -51,13 +51,13 @@ Phase queue rows group the same repair checklist into operator execution phases.
 | Priority | Phase | Status | Rows | Owners | Evidence | Verify | Next action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `20` | `unblock-access` | `blocked` | 4 / 4 blocked | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | human-adjudication, native-client-telemetry, native-permission-enforcement, provider-holdout | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Assign three independent controlled reviewer identities before claiming human adjudication. |
-| `40` | `collect-source` | `blocked` | 8 / 8 blocked | Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator | human-adjudication, native-client-telemetry, native-permission-enforcement, provider-holdout | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Bind adjudication to the reviewed blind pack SHA256. |
+| `40` | `collect-source` | `blocked` | 3 / 3 blocked | Browser/Chrome/IDE/provider client integrator, target client or installer integrator | native-client-telemetry, native-permission-enforcement | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Telemetry must include adoption outcome evidence. |
 
 ## Evidence Items
 
 | Evidence | Status | Intake | Review | Next action |
 | --- | --- | --- | --- | --- |
-| `provider-holdout` | `blocked` | `fix-submission` | `fix-submission` | Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value. |
+| `provider-holdout` | `blocked` | `awaiting-submission` | `awaiting-submission` | Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value. |
 | `human-adjudication` | `ready-for-human-review` | `awaiting-submission` | `awaiting-submission` | Assign three independent controlled reviewer identities before claiming human adjudication. |
 | `native-permission-enforcement` | `blocked` | `awaiting-submission` | `awaiting-submission` | Attach a real target-client or external installer runtime guard; metadata fallback is not enough. |
 | `native-client-telemetry` | `blocked` | `awaiting-submission` | `awaiting-submission` | Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events. |
@@ -72,14 +72,9 @@ Repair rows convert preflight and source blockers into a prioritized operator qu
 | `20` | `unblock-access` | Browser/Chrome/IDE/provider client integrator | `native-client-telemetry` | `precheck` | `external-client` | `blocked` | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events. |
 | `20` | `unblock-access` | target client or installer integrator | `native-permission-enforcement` | `precheck` | `native-guard` | `blocked` | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Attach a real target-client or external installer runtime guard; metadata fallback is not enough. |
 | `20` | `unblock-access` | operator with provider credentials | `provider-holdout` | `precheck` | `provider-api-key` | `blocked` | `python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value. |
-| `40` | `collect-source` | human reviewer | `human-adjudication` | `source-check` | `blind_pack_bound` | `blocked` | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Bind adjudication to the reviewed blind pack SHA256. |
-| `40` | `collect-source` | human reviewer | `human-adjudication` | `source-check` | `pair_count` | `blocked` | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Complete all 20 blind pairs. |
-| `40` | `collect-source` | human reviewer | `human-adjudication` | `source-check` | `reviewer_count` | `blocked` | `python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Collect reviewer-a, reviewer-b, and reviewer-c. |
 | `40` | `collect-source` | Browser/Chrome/IDE/provider client integrator | `native-client-telemetry` | `source-check` | `adoption_sample_count` | `blocked` | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Telemetry must include adoption outcome evidence. |
 | `40` | `collect-source` | Browser/Chrome/IDE/provider client integrator | `native-client-telemetry` | `source-check` | `external_source_events` | `blocked` | `python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Import at least one metadata-only event from a real client. |
 | `40` | `collect-source` | target client or installer integrator | `native-permission-enforcement` | `source-check` | `native_enforcement_count` | `blocked` | `python3 scripts/yao.py runtime-permissions . --package-dir dist --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Collect real target-client or external runtime guard proof. |
-| `40` | `collect-source` | operator with provider credentials | `provider-holdout` | `source-check` | `call_count` | `blocked` | `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Complete all 40 fixed DeepSeek calls. |
-| `40` | `collect-source` | operator with provider credentials | `provider-holdout` | `source-check` | `model_executed_count` | `blocked` | `python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> --self && python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions --self` | Require model identity on all 40 calls. |
 
 ## Provider Holdout
 
@@ -89,7 +84,7 @@ Repair rows convert preflight and source blockers into a prioritized operator qu
 - prepare draft: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --self`
 - prepare draft with artifact SHA prefill: `python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts --self`
 - submission refs ready: `1` / `1`
-- supporting evidence ready: `6` / `8`
+- supporting evidence ready: `7` / `8`
 
 ### Prechecks
 
@@ -103,10 +98,10 @@ Repair rows convert preflight and source blockers into a prioritized operator qu
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Provider calls | `0` | `==40` | `blocked` | Complete all 40 fixed DeepSeek calls. |
-| Provider model runs | `0` | `==40` | `blocked` | Require model identity on all 40 calls. |
+| Provider calls | `40` | `==40` | `pass` | Complete all 40 fixed DeepSeek calls. |
+| Provider model runs | `40` | `==40` | `pass` | Require model identity on all 40 calls. |
 | Provider failures | `0` | `==0` | `pass` | Resolve every fixed-matrix failure. |
-| Token budget | `0` | `<=250000` | `pass` | Keep the matrix within the 250000-token ceiling. |
+| Token budget | `40938` | `<=250000` | `pass` | Keep the matrix within the 250000-token ceiling. |
 
 ## Human Adjudication
 
@@ -115,8 +110,8 @@ Repair rows convert preflight and source blockers into a prioritized operator qu
 - submission: `evidence/world_class/submissions/human-adjudication.json`
 - prepare draft: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --self`
 - prepare draft with artifact SHA prefill: `python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts --self`
-- submission refs ready: `0` / `2`
-- supporting evidence ready: `6` / `8`
+- submission refs ready: `1` / `2`
+- supporting evidence ready: `7` / `8`
 
 ### Prechecks
 
@@ -131,10 +126,10 @@ Repair rows convert preflight and source blockers into a prioritized operator qu
 
 | Check | Current | Expected | Status | Next action |
 | --- | --- | --- | --- | --- |
-| Registered reviewers | `0` | `==3` | `blocked` | Collect reviewer-a, reviewer-b, and reviewer-c. |
-| Blind pairs | `0` | `==20` | `blocked` | Complete all 20 blind pairs. |
+| Registered reviewers | `3` | `==3` | `pass` | Collect reviewer-a, reviewer-b, and reviewer-c. |
+| Blind pairs | `20` | `==20` | `pass` | Complete all 20 blind pairs. |
 | Review failures | `0` | `==0` | `pass` | Resolve packet, identity, or adjudication failures. |
-| Blind pack binding | `False` | `true` | `blocked` | Bind adjudication to the reviewed blind pack SHA256. |
+| Blind pack binding | `True` | `true` | `pass` | Bind adjudication to the reviewed blind pack SHA256. |
 
 ## Native Permission Enforcement
 

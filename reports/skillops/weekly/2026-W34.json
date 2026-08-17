@@ -13,8 +13,8 @@
   "observe_more_evidence_count": 0,
   "report_only_count": 0,
   "top_score": 88,
-  "skill_count": 12,
-  "actionable_portfolio_issue_count": 0,
+  "skill_count": 11,
+  "actionable_portfolio_issue_count": 1,
   "release_lock_ready": true,
   "evidence_consistency_ok": true,
   "public_world_class_ready": false,
@@ -33,8 +33,8 @@
     "observe_more_evidence_count": 0,
     "report_only_count": 0,
     "top_score": 88,
-    "skill_count": 12,
-    "actionable_portfolio_issue_count": 0,
+    "skill_count": 11,
+    "actionable_portfolio_issue_count": 1,
     "release_lock_ready": true,
     "evidence_consistency_ok": true,
     "public_world_class_ready": false,
@@ -283,16 +283,16 @@
     }
   ],
   "portfolio": {
-    "skill_count": 12,
-    "actionable_issue_count": 0,
+    "skill_count": 11,
+    "actionable_issue_count": 1,
     "route_collision_count": 5,
     "actionable_route_collision_count": 0,
-    "owner_gap_count": 9,
+    "owner_gap_count": 8,
     "actionable_owner_gap_count": 0,
-    "stale_count": 11,
+    "stale_count": 10,
     "actionable_stale_count": 0,
-    "drift_signal_count": 0,
-    "actionable_drift_signal_count": 0,
+    "drift_signal_count": 1,
+    "actionable_drift_signal_count": 1,
     "no_route_opportunity_count": 0
   },
   "release_state": {
@@ -306,6 +306,11 @@
       "key": "review-ready-opportunities",
       "priority": "high",
       "action": "Review the top ready-for-approval SkillOps opportunities before preparing any approval ledger entry."
+    },
+    {
+      "key": "triage-skill-library",
+      "priority": "high",
+      "action": "Triage actionable route collisions, owner gaps, stale skills, drift signals, or no-route opportunities from Skill Atlas."
     },
     {
       "key": "close-world-class-evidence",

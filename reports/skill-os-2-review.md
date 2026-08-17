@@ -1,6 +1,6 @@
 # Skill OS 2.0 Review
 
-Review date: 2026-06-13
+Review date: 2026-08-17
 Scope: Yao Meta Skill against the user-provided Skill OS 2.0 upgrade plan.
 
 ## Verdict
@@ -53,7 +53,7 @@ Yao Meta Skill is no longer only a Meta Skill factory. The current working tree 
 - Local Install Sync Preflight v0 so source-to-local and source-to-active install syncs rebuild the package first, run install simulation, enforce installer permission coverage, and refuse to copy files before any destructive sync when the package is not install-ready.
 - Atlas Scope Policy v0 so examples, evolution snapshots, embedded generated skills, and validator fixtures remain visible in the full portfolio report without polluting release-actionable gates.
 - Review Annotations v0 for reviewer comments tied to Review Studio gates, source/report paths, and optional line numbers; open blocker annotations now block the Review Studio decision.
-- Review Studio keeps release claims aligned with current evidence: the root Meta Skill is in `review` with score `91`, no blockers, `3` warnings, and explicit actions for Output Lab reviewer adjudication, waiver handling, and world-class evidence completion.
+- Review Studio keeps release claims aligned with current evidence: the root Meta Skill is in `review` with score `86`, no blockers, `5` warnings, and explicit actions for Output Lab review, Atlas portfolio governance, Operations Loop evidence, waiver handling, and world-class evidence completion.
 - Review Studio Output Lab actions now link directly to `reports/output_review_decisions.json`, so pending blind A/B reviewer decisions have a concrete template instead of only a general adjudication warning.
 - Output Review Adjudication now preserves blind-review integrity by hiding expected winners for pending or invalid reviewer decisions; answer keys are revealed only after a valid A/B decision exists for that case.
 - Output Review Import v0 now accepts reviewer JSON, JSONL, or CSV decision sources, recursively rejects raw prompt/output/transcript/message, credential, secret, token, and answer-key fields case-insensitively, writes canonical `reports/output_review_decisions.json`, and can run adjudication immediately without opening the answer key before valid decisions exist.
@@ -112,7 +112,7 @@ Next move: complete independent provider evidence ledger review, then record act
 
 ### 3. Review Studio is unified and now has reviewer actions plus annotations
 
-The Review Studio page aggregates intent, trigger, output, context, runtime, trust, permission approvals, runtime permission probes, atlas, operations-loop, reviewer waiver, reviewer annotations, registry, world-class evidence, and release gates. It exposes current warnings directly and emits `review_actions` for each non-pass gate with a source-fix location, structured `source_refs`, reason, evidence path, and verification command. It now also loads `reports/review_annotations.json`, renders reviewer comments tied to gates and source/report paths, and blocks the page decision when any open blocker annotation exists. The current root report is intentionally not a clean pass: decision `review`, score `91`, `16` gates, `0` blockers, `3` warnings, `3` actions, and `0` open annotation blockers. The warnings preserve the current evidence boundary: blind A/B adjudication has `5` pending reviewer decisions, warning waivers need reviewer handling, and the world-class ledger has `4` pending external or human evidence entries. Fully reviewed and world-class claims remain blocked.
+The Review Studio page aggregates intent, trigger, output, context, runtime, trust, permission approvals, runtime permission probes, atlas, operations-loop, reviewer waiver, reviewer annotations, registry, world-class evidence, and release gates. It exposes current warnings directly and emits `review_actions` for each non-pass gate with a source-fix location, structured `source_refs`, reason, evidence path, and verification command. It now also loads `reports/review_annotations.json`, renders reviewer comments tied to gates and source/report paths, and blocks the page decision when any open blocker annotation exists. The current root report has decision `review`, score `86`, `16` gates, `0` blockers, `5` warnings, `5` actions, and `0` open annotation blockers. The warnings preserve the current evidence boundary: the legacy blind A/B set has `5` pending reviewer decisions, Atlas has portfolio-level governance signals, production telemetry remains absent, warning waivers need reviewer handling, and the world-class ledger has `4` pending external or human evidence entries. Fully reviewed and world-class claims remain blocked.
 
 Next move: add richer source-line anchors inside generated reports, record real reviewer annotations during the next human review pass, and close the provider ledger-review, native-permission, real-client telemetry, and human review evidence entries in the world-class ledger.
 
@@ -132,22 +132,22 @@ Next move: add real client or installer permission enforcement integration.
 
 | Gate | Current Result |
 | --- | --- |
-| Output Eval | `5` cases, DeepSeek provider-backed execution for `10 / 10` variants, with-skill pass rate `43.67`, baseline pass rate `23.67`, delta `20.0`, with file-backed, near-neighbor, boundary coverage, `10` command execution runs, `0` recorded fixture runs, `10` provider model-executed runs in root release evidence, `10` observed token rows, `0` estimated token rows, provider runner v0 available, `5` blind A/B review pairs, a generated `reports/output_review_decisions.json` template, `0 / 5` reviewer decisions pending, `0` answer keys revealed, and `5` pending answers hidden |
+| Output Eval | `5` local cases plus a fixed `10`-case Chinese Provider holdout; DeepSeek V4 Flash and V4 Pro completed `40 / 40` governed calls with `40,938` observed tokens; three independent reviewers completed `20` blind pairs, with-skill won `19 / 20`, Fleiss kappa reached `0.7321`, and critical failures stayed at `0`; the legacy local set still has `0 / 5` reviewer decisions recorded |
 | Runtime Conformance | `5 / 5` targets passing |
 | Target Compiler | `5 / 5` compiled target contracts generated for OpenAI, Claude, generic, Agent Skills compatible, and VS Code / Copilot outputs, including target permission contracts and target-native behavior contracts |
-| Trust | `0` secret findings, `1` pinned dependency file, `81` declared internal modules, `3 / 3` network-capable scripts covered by bounded host policy, `92 / 92` CLI help smoke checks passing across `173` scripts, source-contract hash scope explicit |
+| Trust | `0` secret findings, `1` pinned dependency file, `81` declared internal modules, `3 / 3` network-capable scripts covered by bounded host policy, `93 / 93` CLI help smoke checks passing across `174` scripts, source-contract hash scope explicit |
 | Permission Governance | `3 / 3` required high-permission capabilities approved, `0` missing, `0` invalid, `0` expired |
 | Runtime Permission Probes | `4 / 4` target adapters probed, `0` native-enforcement adapters, `4` explicit metadata fallbacks, `4` residual risks retained for reviewer visibility |
 | Skill Atlas | `12` scanned skills, `1` actionable root skill, `1` telemetry report, `0` actionable route collisions, `0` actionable owner gaps, `0` actionable stale skills, `0` actionable drift signals, `25` scoped non-actionable issue signals retained for visibility |
 | Registry Audit | package metadata generated with version, owner, license, source checksum, archive checksum, Skill IR provenance, and compatibility matrix |
-| Package Verification | `4 / 4` target adapters present, archive verified, `652` zip entries, `0` nested SKILL.md entries, `0` failures, `0` warnings |
-| Install Simulation | archive with `652` entries extracted into a local verification root, `0` nested SKILL.md entries, entrypoint/manifest/interface loaded, reports present, `4` adapters readable, `12` installer permission checks enforced, `0` permission failures, `0` failures, `0` warnings |
+| Package Verification | `4 / 4` target adapters present, archive verified, `658` zip entries, `0` nested SKILL.md entries, `0` failures, `0` warnings |
+| Install Simulation | archive with `658` entries extracted into a local verification root, `0` nested SKILL.md entries, entrypoint/manifest/interface loaded, reports present, `4` adapters readable, `12` installer permission checks enforced, `0` permission failures, `0` failures, `0` warnings |
 | Local Install Sync Preflight | `make sync-local-install` and `make sync-active-install` rebuild the package first, then sync only after install simulation passes with `12` enforced installer permission checks and `0` permission failures |
 | Upgrade Check | current package declares `major` over the 1.0.0 baseline, recommended bump is `minor`, and release notes include added targets plus checksum changes |
 | Adoption Drift | `0` metadata-only production events, `0` adoption samples, adoption `0`, risk band `no-data`; optional `yao.py` CLI capture, external client `telemetry-emit`, `5` `telemetry-hooks` recipes, Browser/Chrome native messaging host, and validated external JSONL import are available but off by default for reproducible release evidence; raw `reports/telemetry_events.jsonl` is gitignored and blocked from zip packages |
 | Review Waivers | ledger generated; current release surfaces `2` candidates: `1` waiverable Output Lab warning and `1` non-waivable world-class evidence gate; Atlas drift and the no-telemetry Operations Loop remain evidence-collection actions |
 | Review Annotations | ledger generated; current release has `0` reviewer annotations and `0` open annotation blockers |
-| Review Studio | decision `review`, world-class score `91`, `16` gates, `0` blockers, `3` warnings, `3` review actions, `0` open annotation blockers |
+| Review Studio | decision `review`, world-class score `86`, `16` gates, `0` blockers, `5` warnings, `5` review actions, `0` open annotation blockers |
 | Skill OS 2.0 Audit | `15` audited areas, with local foundation evidence separated from human-required and external-required gaps |
 | World-Class Evidence Plan | `4` remaining evidence tasks: `1` human-required and `3` external-required, all with runbooks, success checks, and privacy contracts |
 | World-Class Evidence Ledger | `4` evidence entries remain pending: `1` human-required and `3` external-required; anti-overclaim guards block planned work, metadata fallbacks, pending review, and local command runners from counting as completion |

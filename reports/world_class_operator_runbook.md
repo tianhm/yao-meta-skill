@@ -382,7 +382,7 @@ This runbook coordinates evidence collection only. It does not accept submission
 | World-class ledger ready | `evidence-pending` | `ready_to_claim_world_class == true` | `blocked` | `reports/world_class_evidence_ledger.json` |
 | Claim guard clean | `violations 0; ledger ready False` | `violation_count == 0 and ledger_ready_to_claim_world_class == true` | `blocked` | `reports/world_class_claim_guard.json` |
 | Benchmark public claim ready | `public_claim_ready False` | `public_claim_ready == true` | `blocked` | `reports/benchmark_reproducibility.json` |
-| Review Studio clean | `blockers 0; warnings 3` | `blocker_count == 0 and warning_count == 0` | `blocked` | `reports/review-studio.json` |
+| Review Studio clean | `blockers 0; warnings 5` | `blocker_count == 0 and warning_count == 0` | `blocked` | `reports/review-studio.json` |
 | Evidence consistency clean | `consistent` | `decision == consistent and fail_count == 0` | `pass` | `reports/evidence_consistency.json` |
 
 ## Boundary

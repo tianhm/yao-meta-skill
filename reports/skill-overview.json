@@ -414,7 +414,7 @@
     "external_pending_count": 3,
     "human_pending_count": 1,
     "source_check_count": 14,
-    "source_pass_count": 6,
+    "source_pass_count": 11,
     "conclusion_zh": "世界级证据尚未完成：4 项待补，0 项已接受。",
     "conclusion_en": "World-class evidence is not complete: 4 pending, 0 accepted.",
     "entries": [
@@ -428,10 +428,7 @@
         "status": "pending",
         "summary_zh": "缺少真实 provider 模型运行和 token metadata。",
         "summary_en": "Missing a real provider model run and token metadata.",
-        "blocked_checks": [
-          "Provider calls",
-          "Provider model runs"
-        ]
+        "blocked_checks": []
       },
       {
         "key": "human-adjudication",
@@ -443,11 +440,7 @@
         "status": "pending",
         "summary_zh": "盲评 pair 仍待真实 reviewer 决策。",
         "summary_en": "Blind-review pairs still need real reviewer decisions.",
-        "blocked_checks": [
-          "Registered reviewers",
-          "Blind pairs",
-          "Blind pack binding"
-        ]
+        "blocked_checks": []
       },
       {
         "key": "native-permission-enforcement",
@@ -516,22 +509,22 @@
         "path": "scripts",
         "label": "Deterministic helpers or local tooling",
         "kind": "folder",
-        "file_count": 173
+        "file_count": 174
       },
       {
         "path": "evals",
         "label": "Trigger and quality checks",
         "kind": "folder",
-        "file_count": 33
+        "file_count": 34
       },
       {
         "path": "reports",
         "label": "Generated evidence and overview artifacts",
         "kind": "folder",
-        "file_count": 191
+        "file_count": 195
       }
     ],
-    "file_count": 440,
+    "file_count": 446,
     "folder_count": 4,
     "distribution": [
       {
@@ -556,15 +549,15 @@
       },
       {
         "label": "scripts",
-        "value": 173
+        "value": 174
       },
       {
         "label": "evals",
-        "value": 33
+        "value": 34
       },
       {
         "label": "reports",
-        "value": 191
+        "value": 195
       }
     ]
   },
@@ -686,19 +679,19 @@
       "path": "scripts",
       "label": "Deterministic helpers or local tooling",
       "kind": "folder",
-      "file_count": 173
+      "file_count": 174
     },
     {
       "path": "evals",
       "label": "Trigger and quality checks",
       "kind": "folder",
-      "file_count": 33
+      "file_count": 34
     },
     {
       "path": "reports",
       "label": "Generated evidence and overview artifacts",
       "kind": "folder",
-      "file_count": 191
+      "file_count": 195
     }
   ],
   "strengths": [
@@ -804,7 +797,7 @@
     "source_path": "skill-ir/examples/yao-meta-skill.json",
     "target_count": 5,
     "trigger_samples": 8,
-    "output_eval_cases": 5
+    "output_eval_cases": 6
   },
   "compiled_targets": {
     "ok": true,
@@ -1022,9 +1015,9 @@
       "methodology_complete": true,
       "required_artifact_count": 25,
       "missing_artifact_count": 0,
-      "evidence_bundle_sha256": "150e46829352f53577e06414470aded5314e3efaf80c60bb88ca2d2f867e773c",
-      "source_contract_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
-      "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+      "evidence_bundle_sha256": "ec52890423f7cb86c63078e55f4df33df8728efe5f84807902ba8b178fa436dd",
+      "source_contract_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+      "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
       "output_case_count": 5,
       "failure_disclosure_count": 3,
       "command_count": 23,
@@ -1034,30 +1027,30 @@
       "token_observed_count": 10,
       "human_review_complete": false,
       "provider_evidence_complete": true,
-      "phase1_provider_matrix_complete": false,
-      "phase1_human_review_complete": false,
-      "phase1_quality_promotion_complete": false,
-      "phase1_completion_ready": false,
+      "phase1_provider_matrix_complete": true,
+      "phase1_human_review_complete": true,
+      "phase1_quality_promotion_complete": true,
+      "phase1_completion_ready": true,
       "world_class_ready": false,
-      "world_class_open_gap_count": 4,
+      "world_class_open_gap_count": 2,
       "world_class_task_count": 4,
       "world_class_ledger_pending_count": 4,
       "world_class_source_check_count": 14,
-      "world_class_source_pass_count": 6,
-      "world_class_source_blocked_count": 8,
+      "world_class_source_pass_count": 11,
+      "world_class_source_blocked_count": 3,
       "beta_test_ready": true,
       "beta_test_blocker_count": 0,
       "beta_test_deferred_evidence_count": 4,
       "public_claim_ready": false,
-      "public_claim_blocker_count": 5,
+      "public_claim_blocker_count": 3,
       "working_tree_dirty": true,
-      "changed_file_count": 3,
+      "changed_file_count": 24,
       "source_tree_dirty": false,
       "source_changed_file_count": 0,
       "generated_tree_dirty": true,
-      "generated_changed_file_count": 3
+      "generated_changed_file_count": 24
     },
-    "commit": "beb6b53f579e6c0e0f8cba751940c165324f3a19",
+    "commit": "4f77b8a6ee7e59284219d0adcbbceef4dcdcdca9",
     "missing_artifacts": [],
     "limitations": [
       "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -1142,8 +1135,8 @@
     "failures": []
   },
   "trust_security": {
-    "scanned_files": 275,
-    "script_count": 173,
+    "scanned_files": 277,
+    "script_count": 174,
     "internal_module_count": 81,
     "secret_findings": 0,
     "dependency_files": [
@@ -1152,34 +1145,34 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 80,
+    "file_write_script_count": 81,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 92,
+    "help_smoke_checked_count": 93,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 275,
-    "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
+    "package_hash_file_count": 277,
+    "package_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8"
   },
   "skill_atlas": {
-    "skill_count": 12,
+    "skill_count": 11,
     "actionable_skill_count": 1,
     "route_collision_count": 5,
     "actionable_route_collision_count": 0,
-    "owner_gap_count": 9,
+    "owner_gap_count": 8,
     "actionable_owner_gap_count": 0,
-    "stale_count": 11,
+    "stale_count": 10,
     "actionable_stale_count": 0,
     "shared_resource_count": 0,
     "no_route_opportunity_count": 0,
     "telemetry_report_count": 1,
-    "drift_signal_count": 0,
-    "actionable_drift_signal_count": 0,
-    "non_actionable_issue_count": 25
+    "drift_signal_count": 1,
+    "actionable_drift_signal_count": 1,
+    "non_actionable_issue_count": 23
   },
   "registry_distribution": {
     "ok": true,
@@ -1201,8 +1194,8 @@
       "trust_level": "local",
       "license": "MIT",
       "checksums": {
-        "package_sha256": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0",
-        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
+        "package_sha256": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
       },
       "compatibility": {
         "openai": "pass",
@@ -1233,7 +1226,7 @@
       },
       "distribution": {
         "archive_verified": true,
-        "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
+        "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
         "package_verification": "reports/package_verification.json",
         "install_simulated": true,
         "install_simulation": "reports/install_simulation.json"
@@ -1249,8 +1242,8 @@
       "target_count": 4,
       "adapter_count": 4,
       "archive_present": true,
-      "archive_sha256": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d",
-      "archive_entry_count": 652,
+      "archive_sha256": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7",
+      "archive_entry_count": 658,
       "nested_skill_entry_count": 0,
       "failure_count": 0,
       "warning_count": 0
@@ -1262,7 +1255,7 @@
     "ok": true,
     "summary": {
       "archive_present": true,
-      "archive_entry_count": 652,
+      "archive_entry_count": 658,
       "nested_skill_entry_count": 0,
       "archive_extracted": true,
       "entrypoint_loaded": true,
@@ -1330,12 +1323,12 @@
         {
           "field": "archive_sha256",
           "from": "",
-          "to": "f532ba329d36e7e7c5907fc0359f3b4ca7f99f5a4de935d695cedeaea868675d"
+          "to": "f5275f7471c04e62dfc862d714e5d752a688d66952277bee848364634c0046e7"
         },
         {
           "field": "package_sha256",
           "from": "0000000000000000000000000000000000000000000000000000000000000000",
-          "to": "a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0"
+          "to": "54d1fb49b5de9d73a5a312204ffdfad76937ed8e877571521c569139d9630bd8"
         }
       ]
     },
@@ -1351,7 +1344,7 @@
   "adoption_drift": {
     "ok": true,
     "summary": {
-      "event_count": 1,
+      "event_count": 0,
       "adoption_sample_count": 0,
       "activation_count": 0,
       "accepted_count": 0,
@@ -1366,17 +1359,18 @@
       "script_error_count": 0,
       "missing_resource_count": 0,
       "review_overdue_count": 0,
-      "risk_band": "low",
-      "event_types": {
-        "review_event": 1
-      },
+      "risk_band": "no-data",
+      "event_types": {},
       "failure_types": {},
-      "source_types": {
-        "manual": 1
-      },
+      "source_types": {},
       "command_counts": {}
     },
-    "next_iteration_candidates": [],
+    "next_iteration_candidates": [
+      {
+        "signal": "no telemetry",
+        "recommendation": "Start with a small metadata-only sample before using telemetry for release decisions."
+      }
+    ],
     "privacy_contract": {
       "storage": "local-first",
       "event_scope": "metadata-only",
@@ -1509,10 +1503,10 @@
       {
         "key": "provider-holdout",
         "label": "Provider Holdout",
-        "status": "external_required",
+        "status": "pass",
         "category": "external",
         "owner": "operator with provider credentials",
-        "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+        "current": "phase1 model-executed 40/40; calls 40/40; status completed",
         "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
         "runbook": [
           "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
@@ -1549,10 +1543,10 @@
       {
         "key": "human-adjudication",
         "label": "Human Adjudication",
-        "status": "human_required",
+        "status": "pass",
         "category": "human",
         "owner": "human reviewer",
-        "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+        "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
         "objective": "Collect three controlled, independent reviews of the same 20-pair provider blind pack.",
         "runbook": [
           "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
@@ -1673,27 +1667,27 @@
     "source_audit": {
       "json": "reports/skill_os2_audit.json",
       "markdown": "reports/skill_os2_audit.md",
-      "open_gap_count": 4
+      "open_gap_count": 2
     }
   },
   "world_class_evidence_ledger": {
     "ok": true,
     "summary": {
       "ledger_entry_count": 4,
-      "source_accepted_count": 0,
+      "source_accepted_count": 2,
       "accepted_count": 0,
       "pending_count": 4,
       "human_pending_count": 1,
       "external_pending_count": 3,
       "submitted_entry_count": 0,
       "reviewer_approved_submission_count": 0,
-      "missing_submission_count": 3,
-      "invalid_submission_count": 1,
+      "missing_submission_count": 4,
+      "invalid_submission_count": 0,
       "source_check_count": 14,
-      "source_pass_count": 6,
-      "source_blocked_count": 8,
+      "source_pass_count": 11,
+      "source_blocked_count": 3,
       "submitted_but_pending_count": 0,
-      "source_accepted_without_valid_submission_count": 0,
+      "source_accepted_without_valid_submission_count": 2,
       "overclaim_guard_active": true,
       "ready_to_claim_world_class": false,
       "decision": "evidence-pending"
@@ -1705,9 +1699,9 @@
         "category": "external",
         "owner": "operator with provider credentials",
         "status": "pending",
-        "source_status": "external_required",
-        "source_accepted": false,
-        "current": "phase1 model-executed 0/40; calls 0/40; status external-required",
+        "source_status": "pass",
+        "source_accepted": true,
+        "current": "phase1 model-executed 40/40; calls 40/40; status completed",
         "objective": "Complete the fixed 10-case DeepSeek Flash+Pro matrix with 40 real calls and governed budget evidence.",
         "runbook": [
           "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
@@ -1746,11 +1740,11 @@
         ],
         "observed_state": {
           "contract_version": "phase1",
-          "call_count": 0,
-          "model_executed_count": 0,
+          "call_count": 40,
+          "model_executed_count": 40,
           "failure_count": 0,
-          "total_tokens": 0,
-          "accepted": false
+          "total_tokens": 40938,
+          "accepted": true
         },
         "source_checklist": [
           {
@@ -1758,9 +1752,9 @@
             "label": "Provider calls",
             "field": "call_count",
             "expected": "==40",
-            "actual": 0,
-            "status": "blocked",
-            "source_accepted": false,
+            "actual": 40,
+            "status": "pass",
+            "source_accepted": true,
             "next_action": "Complete all 40 fixed DeepSeek calls."
           },
           {
@@ -1768,9 +1762,9 @@
             "label": "Provider model runs",
             "field": "model_executed_count",
             "expected": "==40",
-            "actual": 0,
-            "status": "blocked",
-            "source_accepted": false,
+            "actual": 40,
+            "status": "pass",
+            "source_accepted": true,
             "next_action": "Require model identity on all 40 calls."
           },
           {
@@ -1780,7 +1774,7 @@
             "expected": "==0",
             "actual": 0,
             "status": "pass",
-            "source_accepted": false,
+            "source_accepted": true,
             "next_action": "Resolve every fixed-matrix failure."
           },
           {
@@ -1788,36 +1782,24 @@
             "label": "Token budget",
             "field": "total_tokens",
             "expected": "<=250000",
-            "actual": 0,
+            "actual": 40938,
             "status": "pass",
-            "source_accepted": false,
+            "source_accepted": true,
             "next_action": "Keep the matrix within the 250000-token ceiling."
           }
         ],
         "source_check_count": 4,
-        "source_pass_count": 2,
-        "source_blocked_count": 2,
+        "source_pass_count": 4,
+        "source_blocked_count": 0,
         "submission_state": {
-          "status": "invalid-contract",
+          "status": "missing",
           "path": "evidence/world_class/submissions/provider-holdout.json",
-          "submitted_by": "Codex operator using DeepSeek official API",
-          "submitted_at": "2026-06-17",
-          "artifact_ref_count": 1,
-          "artifact_existing_count": 1,
-          "artifact_sha256_verified_count": 1,
-          "attested_real_evidence": true,
-          "reviewer_or_operator_identity_present": true,
-          "privacy_contract_satisfied": true,
+          "artifact_ref_count": 0,
+          "attested_real_evidence": false,
+          "privacy_contract_satisfied": false,
           "ledger_reviewer_approved": false,
           "ledger_reviewer": "",
           "ledger_reviewed_at": "",
-          "errors": [
-            "attestation.ledger_reviewer_approved must be true for a real submission",
-            "attestation.ledger_reviewer is required",
-            "attestation.ledger_reviewed_at must use YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ",
-            "attestation.ledger_reviewer must be different from submitted_by",
-            "attestation.ledger_reviewed_at must be at or after submitted_at"
-          ],
           "ledger_counts_as_completion": false
         },
         "anti_overclaim": {
@@ -1834,9 +1816,9 @@
         "category": "human",
         "owner": "human reviewer",
         "status": "pending",
-        "source_status": "human_required",
-        "source_accepted": false,
-        "current": "phase1 reviewers 0/3; pairs 0/20; promotion pending",
+        "source_status": "pass",
+        "source_accepted": true,
+        "current": "phase1 reviewers 3/3; pairs 20/20; promotion eligible",
         "objective": "Collect three controlled, independent reviews of the same 20-pair provider blind pack.",
         "runbook": [
           "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
@@ -1878,11 +1860,11 @@
         ],
         "observed_state": {
           "contract_version": "phase1",
-          "reviewer_count": 0,
-          "pair_count": 0,
+          "reviewer_count": 3,
+          "pair_count": 20,
           "failure_count": 0,
-          "blind_pack_bound": false,
-          "accepted": false
+          "blind_pack_bound": true,
+          "accepted": true
         },
         "source_checklist": [
           {
@@ -1890,9 +1872,9 @@
             "label": "Registered reviewers",
             "field": "reviewer_count",
             "expected": "==3",
-            "actual": 0,
-            "status": "blocked",
-            "source_accepted": false,
+            "actual": 3,
+            "status": "pass",
+            "source_accepted": true,
             "next_action": "Collect reviewer-a, reviewer-b, and reviewer-c."
           },
           {
@@ -1900,9 +1882,9 @@
             "label": "Blind pairs",
             "field": "pair_count",
             "expected": "==20",
-            "actual": 0,
-            "status": "blocked",
-            "source_accepted": false,
+            "actual": 20,
+            "status": "pass",
+            "source_accepted": true,
             "next_action": "Complete all 20 blind pairs."
           },
           {
@@ -1912,7 +1894,7 @@
             "expected": "==0",
             "actual": 0,
             "status": "pass",
-            "source_accepted": false,
+            "source_accepted": true,
             "next_action": "Resolve packet, identity, or adjudication failures."
           },
           {
@@ -1920,15 +1902,15 @@
             "label": "Blind pack binding",
             "field": "blind_pack_bound",
             "expected": "true",
-            "actual": false,
-            "status": "blocked",
-            "source_accepted": false,
+            "actual": true,
+            "status": "pass",
+            "source_accepted": true,
             "next_action": "Bind adjudication to the reviewed blind pack SHA256."
           }
         ],
         "source_check_count": 4,
-        "source_pass_count": 1,
-        "source_blocked_count": 3,
+        "source_pass_count": 4,
+        "source_blocked_count": 0,
         "submission_state": {
           "status": "missing",
           "path": "evidence/world_class/submissions/human-adjudication.json",
@@ -2106,7 +2088,7 @@
           "external_source_events": 0,
           "adoption_sample_count": 0,
           "raw_content_allowed": false,
-          "risk_band": "low",
+          "risk_band": "no-data",
           "accepted": false
         },
         "source_checklist": [

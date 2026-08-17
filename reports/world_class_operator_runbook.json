@@ -1035,7 +1035,7 @@
         "key": "review_studio_clean",
         "label": "Review Studio clean",
         "passed": false,
-        "current": "blockers 0; warnings 3",
+        "current": "blockers 0; warnings 5",
         "expected": "blocker_count == 0 and warning_count == 0",
         "artifact": "reports/review-studio.json"
       },
@@ -1077,7 +1077,7 @@
         "key": "review_studio_clean",
         "label": "Review Studio clean",
         "passed": false,
-        "current": "blockers 0; warnings 3",
+        "current": "blockers 0; warnings 5",
         "expected": "blocker_count == 0 and warning_count == 0",
         "artifact": "reports/review-studio.json"
       }
