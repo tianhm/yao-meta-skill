@@ -193,20 +193,20 @@ th {
         <span>maturity: governed</span>
         <span>archetype: governed</span>
         <span>format: agent-skills</span>
-        <span>updated: 2026-08-12</span>
+        <span>updated: 2026-08-17</span>
         <span>intent confidence: 100 / 100</span>
       </div>
     </section>
 
     <section>
       <h2>Architecture at a glance</h2>
-      <div class="arch-grid"><div class='arch-step'><div class='step-label'>Inputs</div><div class='step-detail'>workflow, prompt, transcript, docs, or notes</div></div><div class='arch-step'><div class='step-label'>Boundary</div><div class='step-detail'>Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Logic</div><div class='step-detail'>Skip one-offs; require `repeated use` + `reusable output contract`.; Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.; Capture job, output, exclusions, constraints, standards, mode.</div></div><div class='arch-step'><div class='step-label'>Usage</div><div class='step-detail'>Use $yao-meta-skill on an explicit target; use --self for Yao itself.; Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Next</div><div class='step-detail'>Review the top iteration directions before growing the package.</div></div></div>
+      <div class="arch-grid"><div class='arch-step'><div class='step-label'>Inputs</div><div class='step-detail'>workflow, prompt, transcript, docs, or notes</div></div><div class='arch-step'><div class='step-label'>Boundary</div><div class='step-detail'>Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Logic</div><div class='step-detail'>Require `repeated use` + `reusable output contract`; skip one-offs.; Lock target path + identity before writes; self-edits require `--self`.; Capture job, output, exclusions, constraints, standards, mode.</div></div><div class='arch-step'><div class='step-label'>Usage</div><div class='step-detail'>Use $yao-meta-skill on an explicit target; use --self for Yao itself.; Use this skill when the request matches: Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.</div></div><div class='arch-step'><div class='step-label'>Next</div><div class='step-detail'>Review the top iteration directions before growing the package.</div></div></div>
     </section>
 
     <section class="grid">
       <div class="panel">
         <h2>Core logic</h2>
-        <ul><li>Skip one-offs; require `repeated use` + `reusable output contract`.</li><li>Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.</li><li>Capture job, output, exclusions, constraints, standards, mode.</li><li>Scan `3-5` external/user/local references when useful.</li><li>Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.</li></ul>
+        <ul><li>Require `repeated use` + `reusable output contract`; skip one-offs.</li><li>Lock target path + identity before writes; self-edits require `--self`.</li><li>Capture job, output, exclusions, constraints, standards, mode.</li><li>Scan `3-5` useful external/user/local references.</li><li>Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.</li></ul>
       </div>
       <div class="panel">
         <h2>How to use it</h2>

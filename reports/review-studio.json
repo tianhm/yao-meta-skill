@@ -65,7 +65,7 @@
       "key": "context-budget",
       "label": "上下文",
       "status": "pass",
-      "detail": "initial load 936/1000; deferred 574402/120000; top deferred scripts 508064; resource governance governed; quality density 149.6",
+      "detail": "initial load 934/1000; deferred 581345/120000; top deferred scripts 514369; resource governance governed; quality density 139.2",
       "evidence": "reports/context_budget.json",
       "link": "context_budget.md",
       "review_action_id": "",
@@ -95,7 +95,7 @@
       "key": "trust-report",
       "label": "信任报告",
       "status": "pass",
-      "detail": "0 secrets; 169 scripts; 3 network-capable scripts; 0 help smoke failures",
+      "detail": "0 secrets; 172 scripts; 3 network-capable scripts; 0 help smoke failures",
       "evidence": "reports/security_trust_report.json",
       "link": "security_trust_report.md",
       "review_action_id": "",
@@ -110,7 +110,7 @@
       "key": "python-compat",
       "label": "Python 兼容",
       "status": "pass",
-      "detail": "Python 3.11; 256 files; 0 compatibility issues; 0 syntax; 0 f-string 3.11 hazards",
+      "detail": "Python 3.11; 260 files; 0 compatibility issues; 0 syntax; 0 f-string 3.11 hazards",
       "evidence": "reports/python_compatibility.json",
       "link": "python_compatibility.md",
       "review_action_id": "",
@@ -125,7 +125,7 @@
       "key": "architecture-maintainability",
       "label": "架构维护",
       "status": "pass",
-      "detail": "252 Python files; 0 hotspots; 0 watchlist files; 7 early watch files; 0 blockers; largest 719 lines; 73 CLI handlers; 18 in entrypoint",
+      "detail": "256 Python files; 0 hotspots; 0 watchlist files; 7 early watch files; 0 blockers; largest 719 lines; 74 CLI handlers; 17 in entrypoint",
       "evidence": "reports/architecture_maintainability.json",
       "link": "architecture_maintainability.md",
       "review_action_id": "",
@@ -230,7 +230,7 @@
       "key": "registry-audit",
       "label": "注册审计",
       "status": "pass",
-      "detail": "yao-meta-skill 1.2.0; 6/6 compatibility entries pass; install pass with 4 adapters; installer permissions 12 enforced / 0 failures",
+      "detail": "yao-meta-skill 2.1.0; 6/6 compatibility entries pass; install pass with 4 adapters; installer permissions 12 enforced / 0 failures",
       "evidence": "reports/registry_audit.json + reports/install_simulation.json",
       "link": "registry_audit.md",
       "review_action_id": "",
@@ -245,7 +245,7 @@
       "key": "release-notes",
       "label": "发布路线",
       "status": "pass",
-      "detail": "0 promote; 3 keep current; 0 blocked; upgrade minor declared / minor recommended",
+      "detail": "0 promote; 3 keep current; 0 blocked; upgrade major declared / minor recommended",
       "evidence": "reports/promotion_decisions.json + reports/upgrade_check.json + docs/migration-v2.md",
       "link": "promotion_decisions.md",
       "review_action_id": "",
@@ -1475,8 +1475,8 @@
     "upgrade_check": "reports/upgrade_check.md",
     "migration": "docs/migration-v2.md",
     "skill_ir": "skill-ir/examples/yao-meta-skill.json",
-    "daily_skillops": "reports/skillops/daily/2026-08-16.md",
-    "weekly_curator": "reports/skillops/weekly/2026-W33.md"
+    "daily_skillops": "reports/skillops/daily/2026-08-17.md",
+    "weekly_curator": "reports/skillops/weekly/2026-W34.md"
   },
   "data": {
     "overview": {
@@ -1486,7 +1486,7 @@
         "display_name": "Yao Meta Skill",
         "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "maturity": "governed",
-        "updated_at": "2026-08-12",
+        "updated_at": "2026-08-17",
         "core_value": "把一次性经验沉淀为可复用、可评估、可迁移的 Skill 包体。",
         "audience": "Skill 作者、复用团队和后续 reviewer。",
         "deliverables": [
@@ -1561,7 +1561,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 304 个词/字。",
+            "SKILL.md 约 310 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -1582,7 +1582,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 304 个词/字，references 约 18240 个词/字。",
+            "入口约 310 个词/字，references 约 18635 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1686,7 +1686,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 304 个词/字，references 约 18240 个词/字。"
+          "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1751,7 +1751,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 304 个词/字。",
+            "signal": "SKILL.md 约 310 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1988,13 +1988,13 @@
             "path": "references",
             "label": "Extended guidance and reusable notes",
             "kind": "folder",
-            "file_count": 38
+            "file_count": 39
           },
           {
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 169
+            "file_count": 172
           },
           {
             "path": "evals",
@@ -2009,7 +2009,7 @@
             "file_count": 187
           }
         ],
-        "file_count": 431,
+        "file_count": 435,
         "folder_count": 4,
         "distribution": [
           {
@@ -2030,11 +2030,11 @@
           },
           {
             "label": "references",
-            "value": 38
+            "value": 39
           },
           {
             "label": "scripts",
-            "value": 169
+            "value": 172
           },
           {
             "label": "evals",
@@ -2119,11 +2119,11 @@
       "display_name": "Yao Meta Skill",
       "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "logic_steps": [
-        "Skip one-offs; require `repeated use` + `reusable output contract`.",
-        "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+        "Require `repeated use` + `reusable output contract`; skip one-offs.",
+        "Lock target path + identity before writes; self-edits require `--self`.",
         "Capture job, output, exclusions, constraints, standards, mode.",
-        "Scan `3-5` external/user/local references when useful.",
-        "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates."
+        "Scan `3-5` useful external/user/local references.",
+        "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk."
       ],
       "usage_steps": [
         "Use $yao-meta-skill on an explicit target; use --self for Yao itself.",
@@ -2158,13 +2158,13 @@
           "path": "references",
           "label": "Extended guidance and reusable notes",
           "kind": "folder",
-          "file_count": 38
+          "file_count": 39
         },
         {
           "path": "scripts",
           "label": "Deterministic helpers or local tooling",
           "kind": "folder",
-          "file_count": 169
+          "file_count": 172
         },
         {
           "path": "evals",
@@ -2500,9 +2500,9 @@
           "methodology_complete": true,
           "required_artifact_count": 25,
           "missing_artifact_count": 0,
-          "evidence_bundle_sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d",
-          "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-          "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+          "evidence_bundle_sha256": "09d0ffb73cedb651f42f5c2d168d6a3d97967b5a0235f094feab6c88ac59dda0",
+          "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+          "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
           "output_case_count": 5,
           "failure_disclosure_count": 3,
           "command_count": 23,
@@ -2529,13 +2529,13 @@
           "public_claim_ready": false,
           "public_claim_blocker_count": 5,
           "working_tree_dirty": true,
-          "changed_file_count": 18,
+          "changed_file_count": 37,
           "source_tree_dirty": false,
           "source_changed_file_count": 0,
           "generated_tree_dirty": true,
-          "generated_changed_file_count": 18
+          "generated_changed_file_count": 37
         },
-        "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
+        "commit": "d7afef8407de08f5c35278b88d0716d6ae40edda",
         "missing_artifacts": [],
         "limitations": [
           "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -2620,9 +2620,9 @@
         "failures": []
       },
       "trust_security": {
-        "scanned_files": 270,
-        "script_count": 169,
-        "internal_module_count": 78,
+        "scanned_files": 274,
+        "script_count": 172,
+        "internal_module_count": 80,
         "secret_findings": 0,
         "dependency_files": [
           "requirements-ci.txt"
@@ -2636,12 +2636,12 @@
         "permission_missing_count": 0,
         "permission_invalid_count": 0,
         "permission_expired_count": 0,
-        "help_smoke_checked_count": 91,
+        "help_smoke_checked_count": 92,
         "help_smoke_failed_count": 0,
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
-        "package_hash_file_count": 270,
-        "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+        "package_hash_file_count": 274,
+        "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
       },
       "skill_atlas": {
         "skill_count": 12,
@@ -2664,7 +2664,7 @@
         "package": {
           "schema_version": "2.0",
           "name": "yao-meta-skill",
-          "version": "1.2.0",
+          "version": "2.1.0",
           "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
           "targets": [
             "openai",
@@ -2679,8 +2679,8 @@
           "trust_level": "local",
           "license": "MIT",
           "checksums": {
-            "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-            "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+            "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+            "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
           },
           "compatibility": {
             "openai": "pass",
@@ -2711,12 +2711,12 @@
           },
           "distribution": {
             "archive_verified": true,
-            "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+            "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
             "package_verification": "reports/package_verification.json",
             "install_simulated": true,
             "install_simulation": "reports/install_simulation.json"
           },
-          "generated_at": "2026-08-16"
+          "generated_at": "2026-08-17"
         },
         "failures": [],
         "warnings": []
@@ -2727,8 +2727,8 @@
           "target_count": 4,
           "adapter_count": 4,
           "archive_present": true,
-          "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-          "archive_entry_count": 639,
+          "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+          "archive_entry_count": 646,
           "nested_skill_entry_count": 0,
           "failure_count": 0,
           "warning_count": 0
@@ -2740,7 +2740,7 @@
         "ok": true,
         "summary": {
           "archive_present": true,
-          "archive_entry_count": 639,
+          "archive_entry_count": 646,
           "nested_skill_entry_count": 0,
           "archive_extracted": true,
           "entrypoint_loaded": true,
@@ -2761,7 +2761,7 @@
       "upgrade_check": {
         "ok": true,
         "summary": {
-          "declared_bump": "minor",
+          "declared_bump": "major",
           "recommended_bump": "minor",
           "breaking_change_count": 0,
           "added_target_count": 2,
@@ -2808,12 +2808,12 @@
             {
               "field": "archive_sha256",
               "from": "",
-              "to": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+              "to": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
             },
             {
               "field": "package_sha256",
               "from": "0000000000000000000000000000000000000000000000000000000000000000",
-              "to": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+              "to": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
             }
           ]
         },
@@ -3694,7 +3694,7 @@
         ],
         "maturity_tier": "governed",
         "skill_archetype": "governed",
-        "updated_at": "2026-08-12"
+        "updated_at": "2026-08-17"
       }
     },
     "intent_confidence": {
@@ -4425,7 +4425,7 @@
     "phase1_trigger_holdout": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-12",
+      "generated_at": "2026-08-17",
       "summary": {
         "precision": 1.0,
         "recall": 0.917,
@@ -4435,8 +4435,8 @@
         "existing_suite_case_count": 66,
         "existing_suite_false_positives": 0,
         "existing_suite_false_negatives": 0,
-        "skill_body_tokens": 758,
-        "initial_load_tokens": 936,
+        "skill_body_tokens": 756,
+        "initial_load_tokens": 934,
         "decision": "pass"
       },
       "thresholds": {
@@ -6391,45 +6391,45 @@
     "benchmark_reproducibility": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
-      "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
+      "commit": "d7afef8407de08f5c35278b88d0716d6ae40edda",
       "git_status": {
         "available": true,
         "dirty": true,
-        "changed_file_count": 18,
+        "changed_file_count": 37,
         "generated_dirty": true,
-        "generated_changed_file_count": 18,
+        "generated_changed_file_count": 37,
         "source_dirty": false,
         "source_changed_file_count": 0,
         "sample": [
+          " M registry/packages/yao-meta-skill.json",
+          " M reports/adaptation_proposals.json",
+          " M reports/adaptation_proposals.md",
+          " M reports/adoption_drift_report.json",
           " M reports/benchmark_reproducibility.json",
           " M reports/benchmark_reproducibility.md",
           " M reports/context_budget.json",
+          " M reports/context_budget.md",
           " M reports/context_budget_summary.json",
           " M reports/evidence_consistency.json",
-          " M reports/python_compatibility.json",
-          " M reports/python_compatibility.md",
-          " M reports/review-studio.html",
-          " M reports/review-studio.json",
-          " M reports/review-viewer.json",
-          " M reports/skill-interpretation.html",
-          " M reports/skill-interpretation.json"
+          " M reports/evidence_consistency.md",
+          " M reports/package_verification.json"
         ],
         "source_sample": [],
         "generated_sample": [
+          " M registry/packages/yao-meta-skill.json",
+          " M reports/adaptation_proposals.json",
+          " M reports/adaptation_proposals.md",
+          " M reports/adoption_drift_report.json",
           " M reports/benchmark_reproducibility.json",
           " M reports/benchmark_reproducibility.md",
           " M reports/context_budget.json",
+          " M reports/context_budget.md",
           " M reports/context_budget_summary.json",
           " M reports/evidence_consistency.json",
-          " M reports/python_compatibility.json",
-          " M reports/python_compatibility.md",
-          " M reports/review-studio.html",
-          " M reports/review-studio.json",
-          " M reports/review-viewer.json",
-          " M reports/skill-interpretation.html",
-          " M reports/skill-interpretation.json"
+          " M reports/evidence_consistency.md",
+          " M reports/package_verification.json"
         ],
         "generated_dirty_prefixes": [
           "dist/",
@@ -6447,9 +6447,9 @@
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d",
-        "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+        "evidence_bundle_sha256": "09d0ffb73cedb651f42f5c2d168d6a3d97967b5a0235f094feab6c88ac59dda0",
+        "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
         "command_count": 23,
@@ -6476,11 +6476,11 @@
         "public_claim_ready": false,
         "public_claim_blocker_count": 5,
         "working_tree_dirty": true,
-        "changed_file_count": 18,
+        "changed_file_count": 37,
         "source_tree_dirty": false,
         "source_changed_file_count": 0,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 18
+        "generated_changed_file_count": 37
       },
       "beta_test_release": {
         "ready": true,
@@ -6525,10 +6525,10 @@
       },
       "release_lock": {
         "ready": true,
-        "commit": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
+        "commit": "d7afef8407de08f5c35278b88d0716d6ae40edda",
         "status_scope": "generation-time status before this report is written",
         "source_changed_file_count": 0,
-        "generated_changed_file_count": 18,
+        "generated_changed_file_count": 37,
         "reason": "only generated evidence artifacts were dirty at generation time"
       },
       "evidence_bundle": {
@@ -6537,7 +6537,7 @@
         "existing_count": 25,
         "missing_count": 0,
         "missing_paths": [],
-        "sha256": "1b49f6d0ddb6beb07527849d86ac18d04fe1482cd0e3dd952c26c8bd806d073d"
+        "sha256": "09d0ffb73cedb651f42f5c2d168d6a3d97967b5a0235f094feab6c88ac59dda0"
       },
       "methodology": {
         "path": "reports/benchmark_methodology.md",
@@ -6645,92 +6645,92 @@
           "label": "trust_report",
           "path": "reports/security_trust_report.json",
           "exists": true,
-          "bytes": 150099,
-          "sha256": "ddab0390d91d58d93702d5757f209565154ff06845235224569d018c6ab23ed9"
+          "bytes": 152704,
+          "sha256": "777c6614e39dd03face4ecdff951f2f7ec9982b276ea15e0b1736e0fbc30ed76"
         },
         {
           "label": "python_compatibility",
           "path": "reports/python_compatibility.json",
           "exists": true,
-          "bytes": 33181,
-          "sha256": "630200b19cf813085f1c47efde44142cb2b9466f646cf5d8bbe4e6709076977f"
+          "bytes": 33666,
+          "sha256": "7facad8ac4e6096600a830aaa68a7d8e9e94a2acc346744352d57c540c231fd9"
         },
         {
           "label": "registry_audit",
           "path": "reports/registry_audit.json",
           "exists": true,
           "bytes": 3234,
-          "sha256": "64cef54f60f84773a33be71375d3a7db41e2cce98d451c25881ef3cc275fcfcb"
+          "sha256": "32526b26c882b47cfd29ecd57651fa96ba5a354e636e27a44a042e2458064030"
         },
         {
           "label": "package_verification",
           "path": "reports/package_verification.json",
           "exists": true,
           "bytes": 19705,
-          "sha256": "54681e0207e0202f86a13d875be8cd553e36fcb22c51a2aa17ca0f09bfdd7a11"
+          "sha256": "cf88c6cea4f06a6fbf05a62b1e60eaec7e2babeb5b1bd417d477b4b2a2d360c8"
         },
         {
           "label": "install_simulation",
           "path": "reports/install_simulation.json",
           "exists": true,
           "bytes": 8793,
-          "sha256": "702b1daf443b04f489a219c10247cd457b723e79710851b26f5ab14d0f2ae786"
+          "sha256": "5620310a5658d1d765c101a186ef6a212a37d76783bb6e3094a1b64823dfc7a3"
         },
         {
           "label": "skill_os2_audit",
           "path": "reports/skill_os2_audit.json",
           "exists": true,
           "bytes": 14786,
-          "sha256": "21e4ead21a8a211fff5c007b6ec6413274cccb5bed9d9ca1f4ee5ec6cf7287a3"
+          "sha256": "656ce828608c8bfacfb687de6d0e3a01c2b2f149f11f2fd4ade1eb43507e9fb7"
         },
         {
           "label": "world_class_evidence_plan",
           "path": "reports/world_class_evidence_plan.json",
           "exists": true,
           "bytes": 22166,
-          "sha256": "a71bed1b859223ac95d67fc17e6ddb132c2a2036f57e5e27b8e59803f46a860b"
+          "sha256": "d16ef4db8417f9841d2911446b412d379ae5e2f9f1fa95868faec19380811317"
         },
         {
           "label": "world_class_evidence_ledger",
           "path": "reports/world_class_evidence_ledger.json",
           "exists": true,
           "bytes": 23936,
-          "sha256": "6cf7b7d2577bd40f18f43f381931bbbb6f851f808f0d5d480c93e8543eaadb88"
+          "sha256": "add5a8ff3fc8b0debdcbf458ddc4db9094437475157060de4adbb14534994a46"
         },
         {
           "label": "world_class_evidence_intake",
           "path": "reports/world_class_evidence_intake.json",
           "exists": true,
           "bytes": 20920,
-          "sha256": "82f45e98d600c5b51798f08338d05f473cee6aa6c7b189d2c916ba5e86bc9579"
+          "sha256": "4367020246b7ccb01ca3a25d1c6d49a0cde005e2ae5fa47b29c8344a3c79748f"
         },
         {
           "label": "world_class_evidence_preflight",
           "path": "reports/world_class_evidence_preflight.json",
           "exists": true,
           "bytes": 91513,
-          "sha256": "5938af7f2cba5d81470a7ad7028b959472226b82986c5bee84f7e47ba005496e"
+          "sha256": "d06ceb3b8e57e7b35b7e51282105359b188e134b75a4486cfec40a5cae5f7864"
         },
         {
           "label": "world_class_submission_review",
           "path": "reports/world_class_submission_review.json",
           "exists": true,
           "bytes": 14703,
-          "sha256": "4dee01a6d64779a2a553f629317290de3cfe6cfc55e6d3e3a00f32234691d2b9"
+          "sha256": "887d86e72e94476128c275eec76ec7f4bdcb78b9eb1f14ff05decd066957238a"
         },
         {
           "label": "world_class_operator_runbook",
           "path": "reports/world_class_operator_runbook.json",
           "exists": true,
           "bytes": 87802,
-          "sha256": "43b70c62688825eb20bf4e9173c3615e27ec50d9b50d62d5548f11dd68a469dd"
+          "sha256": "f87461e21e37712e013c2ec29ef97c4f970e2aca9021b14318a3217c646e972c"
         },
         {
           "label": "world_class_operator_runbook_markdown",
           "path": "reports/world_class_operator_runbook.md",
           "exists": true,
           "bytes": 24401,
-          "sha256": "6cfacee37936220006244bbc7be89c280a3b1be00fe6a647a39484943d59fa90"
+          "sha256": "7d66292ed914a3cfe992762baba3eeb2e00ee83577b766803d77c020c356eacf"
         },
         {
           "label": "world_class_operator_runbook_html",
@@ -6743,8 +6743,8 @@
           "label": "world_class_claim_guard",
           "path": "reports/world_class_claim_guard.json",
           "exists": true,
-          "bytes": 23134,
-          "sha256": "0a618dcf9b7e8fb519c6ce1eb4264aa3dc8a535899925d281c23861c6163f391"
+          "bytes": 23512,
+          "sha256": "350361b6dcbf4cc9b4bb508267a9aa37aef58f7e8ab20ae45b2de7749505da04"
         }
       ],
       "missing_artifacts": [],
@@ -6885,7 +6885,7 @@
     "skill_os2_coverage": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "item_count": 21,
@@ -7014,7 +7014,7 @@
           "label": "Trust Security",
           "status": "pass",
           "objective": "Scripts, dependencies, permissions, secrets, and package hash are reviewable for team distribution.",
-          "current": "169 scripts; secrets 0; help failures 0",
+          "current": "172 scripts; secrets 0; help failures 0",
           "command": "python3 scripts/yao.py trust . --self",
           "test": "python3 tests/verify_trust_check.py",
           "evidence": [
@@ -7088,7 +7088,7 @@
           "label": "Registry Distribution",
           "status": "pass",
           "objective": "Skill packages are installable, versioned, checksumed, and upgrade-reviewable.",
-          "current": "archive entries 639; install failures 0",
+          "current": "archive entries 646; install failures 0",
           "command": "python3 scripts/yao.py package . --platform openai --platform claude --platform generic --platform vscode --output-dir dist --zip --self && python3 scripts/yao.py registry-audit . --self",
           "test": "python3 tests/verify_registry_audit.py",
           "evidence": [
@@ -7633,11 +7633,11 @@
               "exists": true
             },
             {
-              "path": "reports/skillops/daily/2026-08-16.json",
+              "path": "reports/skillops/daily/2026-08-17.json",
               "exists": true
             },
             {
-              "path": "reports/skillops/daily/2026-08-16.md",
+              "path": "reports/skillops/daily/2026-08-17.md",
               "exists": true
             }
           ],
@@ -7660,11 +7660,11 @@
               "exists": true
             },
             {
-              "path": "reports/skillops/weekly/2026-W33.json",
+              "path": "reports/skillops/weekly/2026-W34.json",
               "exists": true
             },
             {
-              "path": "reports/skillops/weekly/2026-W33.md",
+              "path": "reports/skillops/weekly/2026-W34.md",
               "exists": true
             }
           ],
@@ -7696,7 +7696,7 @@
     "compiled_targets": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "target_count": 5,
@@ -7732,7 +7732,7 @@
           "compiled_contract": {
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
@@ -7772,17 +7772,17 @@
             },
             "workflow": {
               "steps": [
-                "Skip one-offs; require `repeated use` + `reusable output contract`.",
-                "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+                "Require `repeated use` + `reusable output contract`; skip one-offs.",
+                "Lock target path + identity before writes; self-edits require `--self`.",
                 "Capture job, output, exclusions, constraints, standards, mode.",
-                "Scan `3-5` external/user/local references when useful.",
-                "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+                "Scan `3-5` useful external/user/local references.",
+                "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
                 "Add deeper profiles only when earned."
               ],
               "decision_points": [
-                "Route by frontmatter `description`; use the lightest reliable process.",
-                "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-                "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
+                "Route by frontmatter `description` using the lightest mode.",
+                "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+                "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
                 "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
                 "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
                 "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -7840,6 +7840,7 @@
                 "references/target-safety.md",
                 "references/telemetry-drift-method.md",
                 "references/trust-security-method.md",
+                "references/update-delivery.md",
                 "references/user-memory-policy.md"
               ],
               "scripts": [
@@ -7962,6 +7963,7 @@
                 "scripts/run_evidence_build.py",
                 "scripts/run_output_eval.py",
                 "scripts/run_output_execution.py",
+                "scripts/self_update.py",
                 "scripts/simulate_install.py",
                 "scripts/skill_ir_paths.py",
                 "scripts/skill_os2_coverage_markdown.py",
@@ -7980,6 +7982,7 @@
                 "scripts/trigger_eval.py",
                 "scripts/trust_check.py",
                 "scripts/trust_check_scripts.py",
+                "scripts/update_installation.py",
                 "scripts/upgrade_check.py",
                 "scripts/validate_skill.py",
                 "scripts/verify_package.py",
@@ -8011,6 +8014,7 @@
                 "scripts/yao_cli_runtime.py",
                 "scripts/yao_cli_target_policy.py",
                 "scripts/yao_cli_telemetry.py",
+                "scripts/yao_cli_update_commands.py",
                 "scripts/yao_runtime_paths.py"
               ],
               "assets": [
@@ -8067,8 +8071,8 @@
                 "reports/governance_score.json"
               ],
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               }
@@ -8134,7 +8138,7 @@
               "owner": "Yao Team",
               "maturity": "governed",
               "review_cadence": "quarterly",
-              "review_due": "2026-11-10"
+              "review_due": "2026-11-15"
             },
             "runtime": {
               "activation": {
@@ -8268,7 +8272,7 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 17,
+                  "script_count": 18,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
@@ -8284,6 +8288,7 @@
                     "scripts/skill_report_sources.py",
                     "scripts/sync_local_install.py",
                     "scripts/trust_check.py",
+                    "scripts/update_installation.py",
                     "scripts/yao.py",
                     "scripts/yao_cli_operator_commands.py",
                     "scripts/yao_cli_runtime.py"
@@ -8309,7 +8314,7 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
@@ -8317,7 +8322,7 @@
                 "secret_findings": 0,
                 "network_script_count": 3,
                 "file_write_script_count": 80,
-                "subprocess_script_count": 17,
+                "subprocess_script_count": 18,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -8339,7 +8344,7 @@
               "capability_counts": {
                 "network": 3,
                 "file_write": 80,
-                "subprocess": 17,
+                "subprocess": 18,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -8358,8 +8363,8 @@
               "resources": {
                 "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
                 "counts": {
-                  "references": 38,
-                  "scripts": 169,
+                  "references": 39,
+                  "scripts": 172,
                   "assets": 6,
                   "reports": 43
                 },
@@ -8370,7 +8375,7 @@
               },
               "scripts": {
                 "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-                "script_count": 169,
+                "script_count": 172,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -8538,7 +8543,7 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 17,
+                "script_count": 18,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
@@ -8554,6 +8559,7 @@
                   "scripts/skill_report_sources.py",
                   "scripts/sync_local_install.py",
                   "scripts/trust_check.py",
+                  "scripts/update_installation.py",
                   "scripts/yao.py",
                   "scripts/yao_cli_operator_commands.py",
                   "scripts/yao_cli_runtime.py"
@@ -8579,7 +8585,7 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
@@ -8587,7 +8593,7 @@
               "secret_findings": 0,
               "network_script_count": 3,
               "file_write_script_count": 80,
-              "subprocess_script_count": 17,
+              "subprocess_script_count": 18,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -8607,7 +8613,7 @@
             "capability_counts": {
               "network": 3,
               "file_write": 80,
-              "subprocess": 17,
+              "subprocess": 18,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -8626,8 +8632,8 @@
             "resources": {
               "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               },
@@ -8638,7 +8644,7 @@
             },
             "scripts": {
               "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-              "script_count": 169,
+              "script_count": 172,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -8732,7 +8738,7 @@
           "compiled_contract": {
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
@@ -8772,17 +8778,17 @@
             },
             "workflow": {
               "steps": [
-                "Skip one-offs; require `repeated use` + `reusable output contract`.",
-                "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+                "Require `repeated use` + `reusable output contract`; skip one-offs.",
+                "Lock target path + identity before writes; self-edits require `--self`.",
                 "Capture job, output, exclusions, constraints, standards, mode.",
-                "Scan `3-5` external/user/local references when useful.",
-                "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+                "Scan `3-5` useful external/user/local references.",
+                "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
                 "Add deeper profiles only when earned."
               ],
               "decision_points": [
-                "Route by frontmatter `description`; use the lightest reliable process.",
-                "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-                "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
+                "Route by frontmatter `description` using the lightest mode.",
+                "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+                "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
                 "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
                 "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
                 "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -8840,6 +8846,7 @@
                 "references/target-safety.md",
                 "references/telemetry-drift-method.md",
                 "references/trust-security-method.md",
+                "references/update-delivery.md",
                 "references/user-memory-policy.md"
               ],
               "scripts": [
@@ -8962,6 +8969,7 @@
                 "scripts/run_evidence_build.py",
                 "scripts/run_output_eval.py",
                 "scripts/run_output_execution.py",
+                "scripts/self_update.py",
                 "scripts/simulate_install.py",
                 "scripts/skill_ir_paths.py",
                 "scripts/skill_os2_coverage_markdown.py",
@@ -8980,6 +8988,7 @@
                 "scripts/trigger_eval.py",
                 "scripts/trust_check.py",
                 "scripts/trust_check_scripts.py",
+                "scripts/update_installation.py",
                 "scripts/upgrade_check.py",
                 "scripts/validate_skill.py",
                 "scripts/verify_package.py",
@@ -9011,6 +9020,7 @@
                 "scripts/yao_cli_runtime.py",
                 "scripts/yao_cli_target_policy.py",
                 "scripts/yao_cli_telemetry.py",
+                "scripts/yao_cli_update_commands.py",
                 "scripts/yao_runtime_paths.py"
               ],
               "assets": [
@@ -9067,8 +9077,8 @@
                 "reports/governance_score.json"
               ],
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               }
@@ -9134,7 +9144,7 @@
               "owner": "Yao Team",
               "maturity": "governed",
               "review_cadence": "quarterly",
-              "review_due": "2026-11-10"
+              "review_due": "2026-11-15"
             },
             "runtime": {
               "activation": {
@@ -9268,7 +9278,7 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 17,
+                  "script_count": 18,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
@@ -9284,6 +9294,7 @@
                     "scripts/skill_report_sources.py",
                     "scripts/sync_local_install.py",
                     "scripts/trust_check.py",
+                    "scripts/update_installation.py",
                     "scripts/yao.py",
                     "scripts/yao_cli_operator_commands.py",
                     "scripts/yao_cli_runtime.py"
@@ -9309,7 +9320,7 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
@@ -9317,7 +9328,7 @@
                 "secret_findings": 0,
                 "network_script_count": 3,
                 "file_write_script_count": 80,
-                "subprocess_script_count": 17,
+                "subprocess_script_count": 18,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -9339,7 +9350,7 @@
               "capability_counts": {
                 "network": 3,
                 "file_write": 80,
-                "subprocess": 17,
+                "subprocess": 18,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -9358,8 +9369,8 @@
               "resources": {
                 "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
                 "counts": {
-                  "references": 38,
-                  "scripts": 169,
+                  "references": 39,
+                  "scripts": 172,
                   "assets": 6,
                   "reports": 43
                 },
@@ -9370,7 +9381,7 @@
               },
               "scripts": {
                 "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-                "script_count": 169,
+                "script_count": 172,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -9538,7 +9549,7 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 17,
+                "script_count": 18,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
@@ -9554,6 +9565,7 @@
                   "scripts/skill_report_sources.py",
                   "scripts/sync_local_install.py",
                   "scripts/trust_check.py",
+                  "scripts/update_installation.py",
                   "scripts/yao.py",
                   "scripts/yao_cli_operator_commands.py",
                   "scripts/yao_cli_runtime.py"
@@ -9579,7 +9591,7 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
@@ -9587,7 +9599,7 @@
               "secret_findings": 0,
               "network_script_count": 3,
               "file_write_script_count": 80,
-              "subprocess_script_count": 17,
+              "subprocess_script_count": 18,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -9607,7 +9619,7 @@
             "capability_counts": {
               "network": 3,
               "file_write": 80,
-              "subprocess": 17,
+              "subprocess": 18,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -9626,8 +9638,8 @@
             "resources": {
               "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               },
@@ -9638,7 +9650,7 @@
             },
             "scripts": {
               "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-              "script_count": 169,
+              "script_count": 172,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -9732,7 +9744,7 @@
           "compiled_contract": {
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
@@ -9772,17 +9784,17 @@
             },
             "workflow": {
               "steps": [
-                "Skip one-offs; require `repeated use` + `reusable output contract`.",
-                "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+                "Require `repeated use` + `reusable output contract`; skip one-offs.",
+                "Lock target path + identity before writes; self-edits require `--self`.",
                 "Capture job, output, exclusions, constraints, standards, mode.",
-                "Scan `3-5` external/user/local references when useful.",
-                "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+                "Scan `3-5` useful external/user/local references.",
+                "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
                 "Add deeper profiles only when earned."
               ],
               "decision_points": [
-                "Route by frontmatter `description`; use the lightest reliable process.",
-                "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-                "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
+                "Route by frontmatter `description` using the lightest mode.",
+                "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+                "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
                 "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
                 "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
                 "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -9840,6 +9852,7 @@
                 "references/target-safety.md",
                 "references/telemetry-drift-method.md",
                 "references/trust-security-method.md",
+                "references/update-delivery.md",
                 "references/user-memory-policy.md"
               ],
               "scripts": [
@@ -9962,6 +9975,7 @@
                 "scripts/run_evidence_build.py",
                 "scripts/run_output_eval.py",
                 "scripts/run_output_execution.py",
+                "scripts/self_update.py",
                 "scripts/simulate_install.py",
                 "scripts/skill_ir_paths.py",
                 "scripts/skill_os2_coverage_markdown.py",
@@ -9980,6 +9994,7 @@
                 "scripts/trigger_eval.py",
                 "scripts/trust_check.py",
                 "scripts/trust_check_scripts.py",
+                "scripts/update_installation.py",
                 "scripts/upgrade_check.py",
                 "scripts/validate_skill.py",
                 "scripts/verify_package.py",
@@ -10011,6 +10026,7 @@
                 "scripts/yao_cli_runtime.py",
                 "scripts/yao_cli_target_policy.py",
                 "scripts/yao_cli_telemetry.py",
+                "scripts/yao_cli_update_commands.py",
                 "scripts/yao_runtime_paths.py"
               ],
               "assets": [
@@ -10067,8 +10083,8 @@
                 "reports/governance_score.json"
               ],
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               }
@@ -10134,7 +10150,7 @@
               "owner": "Yao Team",
               "maturity": "governed",
               "review_cadence": "quarterly",
-              "review_due": "2026-11-10"
+              "review_due": "2026-11-15"
             },
             "runtime": {
               "activation": {
@@ -10268,7 +10284,7 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 17,
+                  "script_count": 18,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
@@ -10284,6 +10300,7 @@
                     "scripts/skill_report_sources.py",
                     "scripts/sync_local_install.py",
                     "scripts/trust_check.py",
+                    "scripts/update_installation.py",
                     "scripts/yao.py",
                     "scripts/yao_cli_operator_commands.py",
                     "scripts/yao_cli_runtime.py"
@@ -10309,7 +10326,7 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
@@ -10317,7 +10334,7 @@
                 "secret_findings": 0,
                 "network_script_count": 3,
                 "file_write_script_count": 80,
-                "subprocess_script_count": 17,
+                "subprocess_script_count": 18,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -10339,7 +10356,7 @@
               "capability_counts": {
                 "network": 3,
                 "file_write": 80,
-                "subprocess": 17,
+                "subprocess": 18,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -10358,8 +10375,8 @@
               "resources": {
                 "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
                 "counts": {
-                  "references": 38,
-                  "scripts": 169,
+                  "references": 39,
+                  "scripts": 172,
                   "assets": 6,
                   "reports": 43
                 },
@@ -10369,7 +10386,7 @@
               },
               "scripts": {
                 "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-                "script_count": 169,
+                "script_count": 172,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -10531,7 +10548,7 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 17,
+                "script_count": 18,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
@@ -10547,6 +10564,7 @@
                   "scripts/skill_report_sources.py",
                   "scripts/sync_local_install.py",
                   "scripts/trust_check.py",
+                  "scripts/update_installation.py",
                   "scripts/yao.py",
                   "scripts/yao_cli_operator_commands.py",
                   "scripts/yao_cli_runtime.py"
@@ -10572,7 +10590,7 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
@@ -10580,7 +10598,7 @@
               "secret_findings": 0,
               "network_script_count": 3,
               "file_write_script_count": 80,
-              "subprocess_script_count": 17,
+              "subprocess_script_count": 18,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -10600,7 +10618,7 @@
             "capability_counts": {
               "network": 3,
               "file_write": 80,
-              "subprocess": 17,
+              "subprocess": 18,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -10619,8 +10637,8 @@
             "resources": {
               "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               },
@@ -10630,7 +10648,7 @@
             },
             "scripts": {
               "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-              "script_count": 169,
+              "script_count": 172,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -10716,7 +10734,7 @@
           "compiled_contract": {
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
@@ -10756,17 +10774,17 @@
             },
             "workflow": {
               "steps": [
-                "Skip one-offs; require `repeated use` + `reusable output contract`.",
-                "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+                "Require `repeated use` + `reusable output contract`; skip one-offs.",
+                "Lock target path + identity before writes; self-edits require `--self`.",
                 "Capture job, output, exclusions, constraints, standards, mode.",
-                "Scan `3-5` external/user/local references when useful.",
-                "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+                "Scan `3-5` useful external/user/local references.",
+                "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
                 "Add deeper profiles only when earned."
               ],
               "decision_points": [
-                "Route by frontmatter `description`; use the lightest reliable process.",
-                "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-                "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
+                "Route by frontmatter `description` using the lightest mode.",
+                "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+                "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
                 "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
                 "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
                 "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -10824,6 +10842,7 @@
                 "references/target-safety.md",
                 "references/telemetry-drift-method.md",
                 "references/trust-security-method.md",
+                "references/update-delivery.md",
                 "references/user-memory-policy.md"
               ],
               "scripts": [
@@ -10946,6 +10965,7 @@
                 "scripts/run_evidence_build.py",
                 "scripts/run_output_eval.py",
                 "scripts/run_output_execution.py",
+                "scripts/self_update.py",
                 "scripts/simulate_install.py",
                 "scripts/skill_ir_paths.py",
                 "scripts/skill_os2_coverage_markdown.py",
@@ -10964,6 +10984,7 @@
                 "scripts/trigger_eval.py",
                 "scripts/trust_check.py",
                 "scripts/trust_check_scripts.py",
+                "scripts/update_installation.py",
                 "scripts/upgrade_check.py",
                 "scripts/validate_skill.py",
                 "scripts/verify_package.py",
@@ -10995,6 +11016,7 @@
                 "scripts/yao_cli_runtime.py",
                 "scripts/yao_cli_target_policy.py",
                 "scripts/yao_cli_telemetry.py",
+                "scripts/yao_cli_update_commands.py",
                 "scripts/yao_runtime_paths.py"
               ],
               "assets": [
@@ -11051,8 +11073,8 @@
                 "reports/governance_score.json"
               ],
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               }
@@ -11118,7 +11140,7 @@
               "owner": "Yao Team",
               "maturity": "governed",
               "review_cadence": "quarterly",
-              "review_due": "2026-11-10"
+              "review_due": "2026-11-15"
             },
             "runtime": {
               "activation": {
@@ -11252,7 +11274,7 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 17,
+                  "script_count": 18,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
@@ -11268,6 +11290,7 @@
                     "scripts/skill_report_sources.py",
                     "scripts/sync_local_install.py",
                     "scripts/trust_check.py",
+                    "scripts/update_installation.py",
                     "scripts/yao.py",
                     "scripts/yao_cli_operator_commands.py",
                     "scripts/yao_cli_runtime.py"
@@ -11293,7 +11316,7 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
@@ -11301,7 +11324,7 @@
                 "secret_findings": 0,
                 "network_script_count": 3,
                 "file_write_script_count": 80,
-                "subprocess_script_count": 17,
+                "subprocess_script_count": 18,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -11323,7 +11346,7 @@
               "capability_counts": {
                 "network": 3,
                 "file_write": 80,
-                "subprocess": 17,
+                "subprocess": 18,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -11342,8 +11365,8 @@
               "resources": {
                 "strategy": "Keep optional directories as relative resources next to SKILL.md.",
                 "counts": {
-                  "references": 38,
-                  "scripts": 169,
+                  "references": 39,
+                  "scripts": 172,
                   "assets": 6,
                   "reports": 43
                 },
@@ -11354,7 +11377,7 @@
               },
               "scripts": {
                 "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-                "script_count": 169,
+                "script_count": 172,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -11515,7 +11538,7 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 17,
+                "script_count": 18,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
@@ -11531,6 +11554,7 @@
                   "scripts/skill_report_sources.py",
                   "scripts/sync_local_install.py",
                   "scripts/trust_check.py",
+                  "scripts/update_installation.py",
                   "scripts/yao.py",
                   "scripts/yao_cli_operator_commands.py",
                   "scripts/yao_cli_runtime.py"
@@ -11556,7 +11580,7 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
@@ -11564,7 +11588,7 @@
               "secret_findings": 0,
               "network_script_count": 3,
               "file_write_script_count": 80,
-              "subprocess_script_count": 17,
+              "subprocess_script_count": 18,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -11584,7 +11608,7 @@
             "capability_counts": {
               "network": 3,
               "file_write": 80,
-              "subprocess": 17,
+              "subprocess": 18,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -11603,8 +11627,8 @@
             "resources": {
               "strategy": "Keep optional directories as relative resources next to SKILL.md.",
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               },
@@ -11615,7 +11639,7 @@
             },
             "scripts": {
               "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-              "script_count": 169,
+              "script_count": 172,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -11700,7 +11724,7 @@
           "compiled_contract": {
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
@@ -11740,17 +11764,17 @@
             },
             "workflow": {
               "steps": [
-                "Skip one-offs; require `repeated use` + `reusable output contract`.",
-                "Lock explicit target path + identity before writes; modifying `yao-meta-skill` requires `--self`.",
+                "Require `repeated use` + `reusable output contract`; skip one-offs.",
+                "Lock target path + identity before writes; self-edits require `--self`.",
                 "Capture job, output, exclusions, constraints, standards, mode.",
-                "Scan `3-5` external/user/local references when useful.",
-                "Write `description` early; route edits need `trigger_eval.py`; releases need risk-matched gates.",
+                "Scan `3-5` useful external/user/local references.",
+                "Write `description` early; route edits need `trigger_eval.py`; release gates follow risk.",
                 "Add deeper profiles only when earned."
               ],
               "decision_points": [
-                "Route by frontmatter `description`; use the lightest reliable process.",
-                "Keep `SKILL.md` lean; route guidance to `references/`, logic to `scripts/`, evidence to `reports/`.",
-                "`Scaffold`: exploratory. `Production`: team. `Library`: shared infra. `Governed`: release-critical.",
+                "Route by frontmatter `description` using the lightest mode.",
+                "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
+                "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
                 "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
                 "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
                 "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
@@ -11808,6 +11832,7 @@
                 "references/target-safety.md",
                 "references/telemetry-drift-method.md",
                 "references/trust-security-method.md",
+                "references/update-delivery.md",
                 "references/user-memory-policy.md"
               ],
               "scripts": [
@@ -11930,6 +11955,7 @@
                 "scripts/run_evidence_build.py",
                 "scripts/run_output_eval.py",
                 "scripts/run_output_execution.py",
+                "scripts/self_update.py",
                 "scripts/simulate_install.py",
                 "scripts/skill_ir_paths.py",
                 "scripts/skill_os2_coverage_markdown.py",
@@ -11948,6 +11974,7 @@
                 "scripts/trigger_eval.py",
                 "scripts/trust_check.py",
                 "scripts/trust_check_scripts.py",
+                "scripts/update_installation.py",
                 "scripts/upgrade_check.py",
                 "scripts/validate_skill.py",
                 "scripts/verify_package.py",
@@ -11979,6 +12006,7 @@
                 "scripts/yao_cli_runtime.py",
                 "scripts/yao_cli_target_policy.py",
                 "scripts/yao_cli_telemetry.py",
+                "scripts/yao_cli_update_commands.py",
                 "scripts/yao_runtime_paths.py"
               ],
               "assets": [
@@ -12035,8 +12063,8 @@
                 "reports/governance_score.json"
               ],
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               }
@@ -12102,7 +12130,7 @@
               "owner": "Yao Team",
               "maturity": "governed",
               "review_cadence": "quarterly",
-              "review_due": "2026-11-10"
+              "review_due": "2026-11-15"
             },
             "runtime": {
               "activation": {
@@ -12236,7 +12264,7 @@
                 },
                 "subprocess": {
                   "required": true,
-                  "script_count": 17,
+                  "script_count": 18,
                   "scripts": [
                     "scripts/apply_adaptation.py",
                     "scripts/benchmark_release_lock.py",
@@ -12252,6 +12280,7 @@
                     "scripts/skill_report_sources.py",
                     "scripts/sync_local_install.py",
                     "scripts/trust_check.py",
+                    "scripts/update_installation.py",
                     "scripts/yao.py",
                     "scripts/yao_cli_operator_commands.py",
                     "scripts/yao_cli_runtime.py"
@@ -12277,7 +12306,7 @@
               },
               "help_smoke": {
                 "enabled": true,
-                "checked_count": 91,
+                "checked_count": 92,
                 "failed_count": 0,
                 "failed_scripts": []
               },
@@ -12285,7 +12314,7 @@
                 "secret_findings": 0,
                 "network_script_count": 3,
                 "file_write_script_count": 80,
-                "subprocess_script_count": 17,
+                "subprocess_script_count": 18,
                 "interactive_script_count": 0,
                 "help_smoke_failed_count": 0
               }
@@ -12307,7 +12336,7 @@
               "capability_counts": {
                 "network": 3,
                 "file_write": 80,
-                "subprocess": 17,
+                "subprocess": 18,
                 "interactive": 0
               },
               "evidence": "reports/security_trust_report.json",
@@ -12326,8 +12355,8 @@
               "resources": {
                 "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
                 "counts": {
-                  "references": 38,
-                  "scripts": 169,
+                  "references": 39,
+                  "scripts": 172,
                   "assets": 6,
                   "reports": 43
                 },
@@ -12338,7 +12367,7 @@
               },
               "scripts": {
                 "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-                "script_count": 169,
+                "script_count": 172,
                 "help_smoke_failed_count": 0
               },
               "permissions": {
@@ -12503,7 +12532,7 @@
               },
               "subprocess": {
                 "required": true,
-                "script_count": 17,
+                "script_count": 18,
                 "scripts": [
                   "scripts/apply_adaptation.py",
                   "scripts/benchmark_release_lock.py",
@@ -12519,6 +12548,7 @@
                   "scripts/skill_report_sources.py",
                   "scripts/sync_local_install.py",
                   "scripts/trust_check.py",
+                  "scripts/update_installation.py",
                   "scripts/yao.py",
                   "scripts/yao_cli_operator_commands.py",
                   "scripts/yao_cli_runtime.py"
@@ -12544,7 +12574,7 @@
             },
             "help_smoke": {
               "enabled": true,
-              "checked_count": 91,
+              "checked_count": 92,
               "failed_count": 0,
               "failed_scripts": []
             },
@@ -12552,7 +12582,7 @@
               "secret_findings": 0,
               "network_script_count": 3,
               "file_write_script_count": 80,
-              "subprocess_script_count": 17,
+              "subprocess_script_count": 18,
               "interactive_script_count": 0,
               "help_smoke_failed_count": 0
             }
@@ -12572,7 +12602,7 @@
             "capability_counts": {
               "network": 3,
               "file_write": 80,
-              "subprocess": 17,
+              "subprocess": 18,
               "interactive": 0
             },
             "evidence": "reports/security_trust_report.json",
@@ -12591,8 +12621,8 @@
             "resources": {
               "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
               "counts": {
-                "references": 38,
-                "scripts": 169,
+                "references": 39,
+                "scripts": 172,
                 "assets": 6,
                 "reports": 43
               },
@@ -12603,7 +12633,7 @@
             },
             "scripts": {
               "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-              "script_count": 169,
+              "script_count": 172,
               "help_smoke_failed_count": 0
             },
             "permissions": {
@@ -13313,9 +13343,9 @@
       "ok": true,
       "skill_dir": ".",
       "summary": {
-        "scanned_files": 270,
-        "script_count": 169,
-        "internal_module_count": 78,
+        "scanned_files": 274,
+        "script_count": 172,
+        "internal_module_count": 80,
         "secret_findings": 0,
         "dependency_files": [
           "requirements-ci.txt"
@@ -13329,12 +13359,12 @@
         "permission_missing_count": 0,
         "permission_invalid_count": 0,
         "permission_expired_count": 0,
-        "help_smoke_checked_count": 91,
+        "help_smoke_checked_count": 92,
         "help_smoke_failed_count": 0,
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
-        "package_hash_file_count": 270,
-        "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+        "package_hash_file_count": 274,
+        "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
       },
       "failures": [],
       "warnings": [],
@@ -13493,9 +13523,11 @@
           "uses_subprocess": false,
           "network_urls": [
             "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/VERSION",
-            "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json"
+            "https://raw.githubusercontent.com/yaojingang/yao-meta-skill/main/manifest.json",
+            "https://github.com/yaojingang/yao-meta-skill/commits/main"
           ],
           "network_hosts": [
+            "github.com",
             "raw.githubusercontent.com"
           ]
         },
@@ -15026,6 +15058,20 @@
           "network_hosts": []
         },
         {
+          "path": "scripts/self_update.py",
+          "interface": "cli",
+          "interface_declared": false,
+          "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+          "has_argparse": true,
+          "has_main_guard": true,
+          "uses_input": false,
+          "uses_network": false,
+          "uses_file_write": false,
+          "uses_subprocess": false,
+          "network_urls": [],
+          "network_hosts": []
+        },
+        {
           "path": "scripts/simulate_install.py",
           "interface": "cli",
           "interface_declared": false,
@@ -15276,6 +15322,24 @@
           "uses_subprocess": false,
           "network_urls": [],
           "network_hosts": []
+        },
+        {
+          "path": "scripts/update_installation.py",
+          "interface": "internal-module",
+          "interface_declared": true,
+          "interface_reason": "Imported by update check and self-update entrypoints for safe installation discovery and command execution.",
+          "has_argparse": false,
+          "has_main_guard": false,
+          "uses_input": false,
+          "uses_network": false,
+          "uses_file_write": false,
+          "uses_subprocess": true,
+          "network_urls": [
+            "https://github.com/yaojingang/yao-meta-skill"
+          ],
+          "network_hosts": [
+            "github.com"
+          ]
         },
         {
           "path": "scripts/upgrade_check.py",
@@ -15712,6 +15776,20 @@
           "network_hosts": []
         },
         {
+          "path": "scripts/yao_cli_update_commands.py",
+          "interface": "internal-module",
+          "interface_declared": true,
+          "interface_reason": "Imported by yao.py to keep update checks and the mutating self-update surface outside the CLI orchestrator.",
+          "has_argparse": true,
+          "has_main_guard": false,
+          "uses_input": false,
+          "uses_network": false,
+          "uses_file_write": false,
+          "uses_subprocess": false,
+          "network_urls": [],
+          "network_hosts": []
+        },
+        {
           "path": "scripts/yao_runtime_paths.py",
           "interface": "internal-module",
           "interface_declared": true,
@@ -15756,11 +15834,11 @@
       "help_smoke": {
         "enabled": true,
         "timeout_seconds": 5.0,
-        "candidate_count": 91,
-        "checked_count": 91,
-        "passed_count": 91,
+        "candidate_count": 92,
+        "checked_count": 92,
+        "passed_count": 92,
         "failed_count": 0,
-        "skipped_count": 78,
+        "skipped_count": 80,
         "failed_scripts": [],
         "results": [
           {
@@ -16574,6 +16652,16 @@
             "stderr_excerpt": ""
           },
           {
+            "path": "scripts/self_update.py",
+            "command": "python3 scripts/self_update.py --help",
+            "returncode": 0,
+            "timed_out": false,
+            "passed": true,
+            "has_help_text": true,
+            "stdout_excerpt": "usage: self_update.py [-h] [--yes] [--timeout TIMEOUT]\n\nUpdate a verified managed yao-meta-skill installation.\n\noptions:\n  -h, --help         show this help message and exit\n  --yes              Apply the verified update plan.\n  --timeout T",
+            "stderr_excerpt": ""
+          },
+          {
             "path": "scripts/simulate_install.py",
             "command": "python3 scripts/simulate_install.py --help",
             "returncode": 0,
@@ -16876,6 +16964,10 @@
             "reason": "internal module"
           },
           {
+            "path": "scripts/update_installation.py",
+            "reason": "internal module"
+          },
+          {
             "path": "scripts/world_class_evidence_contract.py",
             "reason": "internal module"
           },
@@ -16981,6 +17073,10 @@
           },
           {
             "path": "scripts/yao_cli_telemetry.py",
+            "reason": "internal module"
+          },
+          {
+            "path": "scripts/yao_cli_update_commands.py",
             "reason": "internal module"
           },
           {
@@ -17123,8 +17219,8 @@
               "scripts/yao_cli_operator_commands.py"
             ],
             "reviewer": "Yao Team",
-            "scope": "Local generated reports, registry metadata, temporary test outputs, and package artifacts under the skill workspace.",
-            "reason": "File writes are required to create auditable reports, compiled target contracts, package artifacts, and local test fixtures; package safety checks exclude generated temp outputs from archives.",
+            "scope": "Local generated reports, registry metadata, temporary test outputs, package artifacts, user-level update cache, and explicitly confirmed managed Skill installations.",
+            "reason": "File writes create auditable reports and package artifacts, persist metadata-only update state, and allow a verified installer to replace one managed Skill only after explicit confirmation.",
             "expires_at": "2026-09-30",
             "evidence": [
               "reports/package_verification.md",
@@ -17157,13 +17253,14 @@
               "scripts/skill_report_sources.py",
               "scripts/sync_local_install.py",
               "scripts/trust_check.py",
+              "scripts/update_installation.py",
               "scripts/yao.py",
               "scripts/yao_cli_operator_commands.py",
               "scripts/yao_cli_runtime.py"
             ],
             "reviewer": "Yao Team",
-            "scope": "Local deterministic validation, packaging, install simulation, and CI orchestration commands.",
-            "reason": "Subprocess use is limited to local verification and packaging flows that are surfaced through CLI help smoke tests and CI targets.",
+            "scope": "Local deterministic validation, packaging, install simulation, CI orchestration, read-only install discovery, and explicitly confirmed managed Skill updates.",
+            "reason": "Subprocess use covers reviewed local tooling plus allowlisted argument-array update commands for Agent Skills CLI or a verified Codex plugin marketplace; mutation requires --yes and post-update verification.",
             "expires_at": "2026-09-30",
             "evidence": [
               "reports/security_trust_report.md",
@@ -17192,11 +17289,11 @@
     "python_compatibility": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-13",
+      "generated_at": "2026-08-17",
       "root": ".",
       "summary": {
         "target_python": "3.11",
-        "file_count": 256,
+        "file_count": 260,
         "issue_count": 0,
         "syntax_error_count": 0,
         "fstring_311_violation_count": 0,
@@ -17952,6 +18049,12 @@
           "issues": []
         },
         {
+          "path": "scripts/self_update.py",
+          "ok": true,
+          "issue_count": 0,
+          "issues": []
+        },
+        {
           "path": "scripts/simulate_install.py",
           "ok": true,
           "issue_count": 0,
@@ -18055,6 +18158,12 @@
         },
         {
           "path": "scripts/trust_check_scripts.py",
+          "ok": true,
+          "issue_count": 0,
+          "issues": []
+        },
+        {
+          "path": "scripts/update_installation.py",
           "ok": true,
           "issue_count": 0,
           "issues": []
@@ -18241,6 +18350,12 @@
         },
         {
           "path": "scripts/yao_cli_telemetry.py",
+          "ok": true,
+          "issue_count": 0,
+          "issues": []
+        },
+        {
+          "path": "scripts/yao_cli_update_commands.py",
           "ok": true,
           "issue_count": 0,
           "issues": []
@@ -18654,6 +18769,12 @@
           "issues": []
         },
         {
+          "path": "tests/verify_update_delivery.py",
+          "ok": true,
+          "issue_count": 0,
+          "issues": []
+        },
+        {
           "path": "tests/verify_upgrade_check.py",
           "ok": true,
           "issue_count": 0,
@@ -18759,17 +18880,17 @@
     "architecture_maintainability": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
-        "python_file_count": 252,
-        "script_file_count": 169,
-        "test_file_count": 83,
-        "internal_module_count": 80,
-        "cli_script_count": 93,
-        "command_handler_count": 73,
-        "entrypoint_command_handler_count": 18,
-        "command_module_count": 7,
+        "python_file_count": 256,
+        "script_file_count": 172,
+        "test_file_count": 84,
+        "internal_module_count": 82,
+        "cli_script_count": 95,
+        "command_handler_count": 74,
+        "entrypoint_command_handler_count": 17,
+        "command_module_count": 8,
         "warn_line_threshold": 900,
         "watch_line_threshold": 720,
         "early_watch_line_threshold": 600,
@@ -18847,14 +18968,6 @@
           "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
         },
         {
-          "path": "scripts/yao.py",
-          "lines": 593,
-          "kind": "cli-script",
-          "severity": "pass",
-          "early_watch": false,
-          "recommendation": "Split command handlers by domain while keeping scripts/yao.py as the thin CLI orchestrator."
-        },
-        {
           "path": "scripts/world_class_evidence_contract.py",
           "lines": 592,
           "kind": "internal-module",
@@ -18877,6 +18990,14 @@
           "severity": "pass",
           "early_watch": false,
           "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
+        },
+        {
+          "path": "tests/verify_world_class_evidence_ledger.py",
+          "lines": 584,
+          "kind": "test",
+          "severity": "pass",
+          "early_watch": false,
+          "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
         }
       ],
       "watchlist": [],
@@ -18952,22 +19073,22 @@
       "stats": {
         "context_budget_tier": "production",
         "context_budget_limit": 1000,
-        "skill_body_tokens": 758,
-        "other_text_tokens": 1316316,
-        "estimated_initial_load_tokens": 936,
-        "estimated_total_text_tokens": 1317074,
-        "deferred_resource_tokens": 574402,
+        "skill_body_tokens": 756,
+        "other_text_tokens": 1337701,
+        "estimated_initial_load_tokens": 934,
+        "estimated_total_text_tokens": 1338457,
+        "deferred_resource_tokens": 581345,
         "deferred_resource_warn_threshold": 120000,
         "deferred_resource_dirs": [
           {
             "path": "scripts",
-            "estimated_tokens": 508064,
-            "file_count": 169
+            "estimated_tokens": 514369,
+            "file_count": 172
           },
           {
             "path": "references",
-            "estimated_tokens": 30756,
-            "file_count": 38
+            "estimated_tokens": 31394,
+            "file_count": 39
           },
           {
             "path": "evals",
@@ -18983,8 +19104,8 @@
         "large_deferred_resource_dirs": [
           {
             "path": "scripts",
-            "estimated_tokens": 508064,
-            "file_count": 169
+            "estimated_tokens": 514369,
+            "file_count": 172
           }
         ],
         "deferred_resource_governance": {
@@ -19006,17 +19127,17 @@
               ],
               "missing": [],
               "path": "scripts",
-              "estimated_tokens": 508064,
-              "file_count": 169,
+              "estimated_tokens": 514369,
+              "file_count": 172,
               "rationale": "Script resources are deterministic deferred tools, not initial-load prompt context."
             }
           ],
           "summary": "Large deferred resources are indexed and backed by evidence."
         },
-        "relevant_file_count": 694,
+        "relevant_file_count": 707,
         "unused_resource_dirs": [],
-        "quality_signal_points": 140,
-        "quality_density": 149.6
+        "quality_signal_points": 130,
+        "quality_density": 139.2
       }
     },
     "promotion": {
@@ -19857,17 +19978,17 @@
       },
       "catalog": {
         "workspace_root": ".",
-        "generated_at": "2026-08-16",
+        "generated_at": "2026-08-17",
         "skills": [
           {
             "name": "yao-meta-skill",
             "path": ".",
             "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
             "owner": "Yao Team",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "status": "active",
             "maturity": "governed",
-            "updated_at": "2026-08-12",
+            "updated_at": "2026-08-17",
             "review_cadence": "quarterly",
             "targets": [
               "openai",
@@ -19996,6 +20117,7 @@
               "scripts/run_evidence_build.py",
               "scripts/run_output_eval.py",
               "scripts/run_output_execution.py",
+              "scripts/self_update.py",
               "scripts/simulate_install.py",
               "scripts/skill_ir_paths.py",
               "scripts/skill_os2_coverage_markdown.py",
@@ -20014,6 +20136,7 @@
               "scripts/trigger_eval.py",
               "scripts/trust_check.py",
               "scripts/trust_check_scripts.py",
+              "scripts/update_installation.py",
               "scripts/upgrade_check.py",
               "scripts/validate_skill.py",
               "scripts/verify_package.py",
@@ -20045,6 +20168,7 @@
               "scripts/yao_cli_runtime.py",
               "scripts/yao_cli_target_policy.py",
               "scripts/yao_cli_telemetry.py",
+              "scripts/yao_cli_update_commands.py",
               "scripts/yao_runtime_paths.py",
               "references/artifact-design-doctrine.md",
               "references/authoring-discipline.md",
@@ -20083,6 +20207,7 @@
               "references/target-safety.md",
               "references/telemetry-drift-method.md",
               "references/trust-security-method.md",
+              "references/update-delivery.md",
               "references/user-memory-policy.md",
               "assets/review-studio.css",
               "assets/review-viewer.css",
@@ -20774,7 +20899,7 @@
           "name": "release-orchestrator",
           "path": "examples/complex-release-orchestrator/generated-skill",
           "reason": "review overdue by cadence quarterly",
-          "age_days": 138,
+          "age_days": 139,
           "allowed_days": 100,
           "actionable": false,
           "scope": "example"
@@ -20804,7 +20929,7 @@
           "name": "incident-command-governor",
           "path": "examples/governed-incident-command/generated-skill",
           "reason": "review overdue by cadence monthly",
-          "age_days": 138,
+          "age_days": 139,
           "allowed_days": 31,
           "actionable": false,
           "scope": "example"
@@ -20972,7 +21097,7 @@
     "adoption_drift": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-08-16T04:31:45Z",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "privacy_contract": {
         "storage": "local-first",
@@ -21056,7 +21181,7 @@
     "daily_skillops": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "decision": "proposal-review",
       "source_supplied": false,
@@ -21562,20 +21687,20 @@
         "benchmark_reproducibility": "reports/benchmark_reproducibility.json"
       },
       "artifacts": {
-        "json": "reports/skillops/daily/2026-08-16.json",
-        "markdown": "reports/skillops/daily/2026-08-16.md"
+        "json": "reports/skillops/daily/2026-08-17.json",
+        "markdown": "reports/skillops/daily/2026-08-17.md"
       },
-      "source_path": "reports/skillops/daily/2026-08-16.json"
+      "source_path": "reports/skillops/daily/2026-08-17.json"
     },
     "weekly_curator": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "decision": "curator-review",
-      "week_id": "2026-W33",
-      "daily_report_count": 9,
-      "opportunity_count": 45,
+      "week_id": "2026-W34",
+      "daily_report_count": 10,
+      "opportunity_count": 50,
       "unique_opportunity_count": 5,
       "ready_for_approval_review_count": 1,
       "proposal_review_count": 4,
@@ -21593,9 +21718,9 @@
       "failure_count": 0,
       "summary": {
         "decision": "curator-review",
-        "week_id": "2026-W33",
-        "daily_report_count": 9,
-        "opportunity_count": 45,
+        "week_id": "2026-W34",
+        "daily_report_count": 10,
+        "opportunity_count": 50,
         "unique_opportunity_count": 5,
         "ready_for_approval_review_count": 1,
         "proposal_review_count": 4,
@@ -21666,7 +21791,8 @@
         "reports/skillops/daily/2026-07-16.json",
         "reports/skillops/daily/2026-08-12.json",
         "reports/skillops/daily/2026-08-14.json",
-        "reports/skillops/daily/2026-08-16.json"
+        "reports/skillops/daily/2026-08-16.json",
+        "reports/skillops/daily/2026-08-17.json"
       ],
       "opportunity_summary": {
         "action_type_counts": {
@@ -21890,16 +22016,16 @@
         "world_class_ledger": "reports/world_class_evidence_ledger.json"
       },
       "artifacts": {
-        "json": "reports/skillops/weekly/2026-W33.json",
-        "markdown": "reports/skillops/weekly/2026-W33.md"
+        "json": "reports/skillops/weekly/2026-W34.json",
+        "markdown": "reports/skillops/weekly/2026-W34.md"
       },
-      "source_path": "reports/skillops/weekly/2026-W33.json"
+      "source_path": "reports/skillops/weekly/2026-W34.json"
     },
     "review_waivers": {
       "schema_version": "1.0",
       "ok": true,
       "skill_dir": ".",
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "summary": {
         "waiver_count": 0,
         "active_count": 0,
@@ -21989,7 +22115,7 @@
             "Reviewer links output_review_adjudication or output_execution evidence."
           ],
           "suggested_evidence": "reports/output_review_adjudication.md",
-          "suggested_command": "python3 scripts/yao.py review-waivers . --add-waiver --gate-key output-lab --reviewer \"<reviewer>\" --reason \"Output Lab has pending human/provider evidence; accepted only for this bounded review scope.\" --expires-at 2027-08-16 --evidence reports/output_review_adjudication.md --self",
+          "suggested_command": "python3 scripts/yao.py review-waivers . --add-waiver --gate-key output-lab --reviewer \"<reviewer>\" --reason \"Output Lab has pending human/provider evidence; accepted only for this bounded review scope.\" --expires-at 2027-08-17 --evidence reports/output_review_adjudication.md --self",
           "world_class_boundary": "Does not count as provider, human, or public world-class completion evidence."
         },
         {
@@ -22042,7 +22168,7 @@
     "adaptation_proposals": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "source_patterns": "reports/user_patterns.json",
       "pattern_count": 5,
@@ -22440,7 +22566,7 @@
     "world_class_evidence_ledger": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "decision": "evidence-pending",
       "ready_to_claim_world_class": false,
@@ -22992,7 +23118,7 @@
     "world_class_evidence_intake": {
       "schema_version": "1.0",
       "ok": false,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "schema_present": true,
@@ -23399,7 +23525,7 @@
     "world_class_evidence_preflight": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "evidence_item_count": 4,
@@ -25322,7 +25448,7 @@
     "world_class_submission_review": {
       "schema_version": "1.0",
       "ok": false,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "decision": "fix-submissions",
       "ready_to_claim_world_class": false,
@@ -25708,7 +25834,7 @@
     "world_class_operator_runbook": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "evidence_item_count": 4,
@@ -27433,14 +27559,14 @@
     "world_class_claim_guard": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "summary": {
         "ledger_ready_to_claim_world_class": false,
         "ledger_pending_count": 4,
-        "claim_surface_count": 226,
-        "json_claim_surface_count": 109,
-        "metadata_claim_surface_count": 110,
+        "claim_surface_count": 230,
+        "json_claim_surface_count": 111,
+        "metadata_claim_surface_count": 112,
         "package_claim_surface_count": 17,
         "violation_count": 0,
         "overclaim_guard_active": true,
@@ -28211,6 +28337,14 @@
           "violation_count": 0
         },
         {
+          "path": "reports/skillops/daily/2026-08-17.json",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/daily/2026-08-17.md",
+          "violation_count": 0
+        },
+        {
           "path": "reports/skillops/weekly/2026-W25.json",
           "violation_count": 0
         },
@@ -28240,6 +28374,14 @@
         },
         {
           "path": "reports/skillops/weekly/2026-W33.md",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/weekly/2026-W34.json",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/weekly/2026-W34.md",
           "violation_count": 0
         },
         {
@@ -28397,7 +28539,7 @@
       "package": {
         "schema_version": "2.0",
         "name": "yao-meta-skill",
-        "version": "1.2.0",
+        "version": "2.1.0",
         "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
         "targets": [
           "openai",
@@ -28412,8 +28554,8 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-          "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+          "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+          "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
         },
         "compatibility": {
           "openai": "pass",
@@ -28444,21 +28586,21 @@
         },
         "distribution": {
           "archive_verified": true,
-          "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+          "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
           "package_verification": "reports/package_verification.json",
           "install_simulated": true,
           "install_simulation": "reports/install_simulation.json"
         },
-        "generated_at": "2026-08-16"
+        "generated_at": "2026-08-17"
       },
       "index": {
         "schema_version": "2.0",
-        "generated_at": "2026-08-16",
+        "generated_at": "2026-08-17",
         "package_count": 1,
         "packages": [
           {
             "name": "yao-meta-skill",
-            "version": "1.2.0",
+            "version": "2.1.0",
             "maturity": "governed",
             "owner": "Yao Team",
             "targets": [
@@ -28469,7 +28611,7 @@
               "vscode"
             ],
             "package_metadata": "registry/packages/yao-meta-skill.json",
-            "package_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+            "package_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
           }
         ]
       },
@@ -28485,15 +28627,15 @@
     "package_verification": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "package_dir": "dist",
       "summary": {
         "target_count": 4,
         "adapter_count": 4,
         "archive_present": true,
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-        "archive_entry_count": 639,
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+        "archive_entry_count": 646,
         "nested_skill_entry_count": 0,
         "failure_count": 0,
         "warning_count": 0
@@ -29157,14 +29299,14 @@
     "install_simulation": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "skill_dir": ".",
       "package_dir": "dist",
       "install_root": "dist/install-simulation/simulate-yao-meta-skill",
       "installed_skill_dir": "dist/install-simulation/simulate-yao-meta-skill/yao-meta-skill",
       "summary": {
         "archive_present": true,
-        "archive_entry_count": 639,
+        "archive_entry_count": 646,
         "nested_skill_entry_count": 0,
         "archive_extracted": true,
         "entrypoint_loaded": true,
@@ -29443,7 +29585,7 @@
     "upgrade_check": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-08-16",
+      "generated_at": "2026-08-17",
       "previous": {
         "name": "yao-meta-skill",
         "version": "1.0.0",
@@ -29455,7 +29597,7 @@
       },
       "current": {
         "name": "yao-meta-skill",
-        "version": "1.2.0",
+        "version": "2.1.0",
         "targets": [
           "openai",
           "claude",
@@ -29465,7 +29607,7 @@
         ]
       },
       "summary": {
-        "declared_bump": "minor",
+        "declared_bump": "major",
         "recommended_bump": "minor",
         "breaking_change_count": 0,
         "added_target_count": 2,
@@ -29512,12 +29654,12 @@
           {
             "field": "archive_sha256",
             "from": "",
-            "to": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+            "to": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
           },
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d"
+            "to": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff"
           }
         ]
       },
@@ -29538,10 +29680,10 @@
     },
     "manifest": {
       "name": "yao-meta-skill",
-      "version": "1.2.0",
+      "version": "2.1.0",
       "owner": "Yao Team",
-      "updated_at": "2026-08-12",
-      "review_due": "2026-11-10",
+      "updated_at": "2026-08-17",
+      "review_due": "2026-11-15",
       "status": "active",
       "maturity_tier": "governed",
       "lifecycle_stage": "library",

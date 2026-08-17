@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16T13:52:58Z",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "decision": "curator-review",
-  "week_id": "2026-W33",
-  "daily_report_count": 9,
-  "opportunity_count": 45,
+  "week_id": "2026-W34",
+  "daily_report_count": 10,
+  "opportunity_count": 50,
   "unique_opportunity_count": 5,
   "ready_for_approval_review_count": 1,
   "proposal_review_count": 4,
@@ -15,7 +15,7 @@
   "top_score": 88,
   "skill_count": 12,
   "actionable_portfolio_issue_count": 0,
-  "release_lock_ready": false,
+  "release_lock_ready": true,
   "evidence_consistency_ok": true,
   "public_world_class_ready": false,
   "world_class_pending_count": 4,
@@ -24,9 +24,9 @@
   "failure_count": 0,
   "summary": {
     "decision": "curator-review",
-    "week_id": "2026-W33",
-    "daily_report_count": 9,
-    "opportunity_count": 45,
+    "week_id": "2026-W34",
+    "daily_report_count": 10,
+    "opportunity_count": 50,
     "unique_opportunity_count": 5,
     "ready_for_approval_review_count": 1,
     "proposal_review_count": 4,
@@ -35,7 +35,7 @@
     "top_score": 88,
     "skill_count": 12,
     "actionable_portfolio_issue_count": 0,
-    "release_lock_ready": false,
+    "release_lock_ready": true,
     "evidence_consistency_ok": true,
     "public_world_class_ready": false,
     "world_class_pending_count": 4,
@@ -97,7 +97,8 @@
     "reports/skillops/daily/2026-07-16.json",
     "reports/skillops/daily/2026-08-12.json",
     "reports/skillops/daily/2026-08-14.json",
-    "reports/skillops/daily/2026-08-16.json"
+    "reports/skillops/daily/2026-08-16.json",
+    "reports/skillops/daily/2026-08-17.json"
   ],
   "opportunity_summary": {
     "action_type_counts": {
@@ -295,7 +296,7 @@
     "no_route_opportunity_count": 0
   },
   "release_state": {
-    "release_lock_ready": false,
+    "release_lock_ready": true,
     "evidence_consistency_ok": true,
     "public_world_class_ready": false,
     "world_class_pending_count": 4
@@ -321,7 +322,7 @@
     "world_class_ledger": "reports/world_class_evidence_ledger.json"
   },
   "artifacts": {
-    "json": "reports/skillops/weekly/2026-W33.json",
-    "markdown": "reports/skillops/weekly/2026-W33.md"
+    "json": "reports/skillops/weekly/2026-W34.json",
+    "markdown": "reports/skillops/weekly/2026-W34.md"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-08-16",
+  "generated_at": "2026-08-17",
   "skill_dir": ".",
   "summary": {
     "check_count": 41,
@@ -324,13 +324,13 @@
       "label": "Release archive hash matches package, registry, and benchmark evidence",
       "status": "pass",
       "expected": {
-        "all_equal_to_actual_archive": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+        "all_equal_to_actual_archive": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
       },
       "actual": {
-        "actual_archive": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-        "package_verification": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-        "registry": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
-        "benchmark": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6"
+        "actual_archive": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+        "package_verification": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+        "registry": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+        "benchmark": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574"
       },
       "paths": [
         "dist/yao-meta-skill.zip",
@@ -365,12 +365,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 936/1000; deferred 574402/120000; top deferred scripts 508064; resource governance governed; quality density 149.6",
+        "detail": "initial load 934/1000; deferred 581345/120000; top deferred scripts 514369; resource governance governed; quality density 139.2",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 936/1000; deferred 574402/120000; top deferred scripts 508064; resource governance governed; quality density 149.6",
+        "detail": "initial load 934/1000; deferred 581345/120000; top deferred scripts 514369; resource governance governed; quality density 139.2",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -398,7 +398,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 14
+        "changed_file_count": 37
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -439,8 +439,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
-      "actual": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
+      "expected": "d7afef8407de08f5c35278b88d0716d6ae40edda",
+      "actual": "d7afef8407de08f5c35278b88d0716d6ae40edda",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -455,8 +455,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+        "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -471,8 +471,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+        "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -591,8 +591,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
-      "actual": "2a6993abd34ba58c0c86d6f4a909abe76791be76",
+      "expected": "d7afef8407de08f5c35278b88d0716d6ae40edda",
+      "actual": "d7afef8407de08f5c35278b88d0716d6ae40edda",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -607,8 +607,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+        "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -623,8 +623,8 @@
         "release_lock_ready": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "fb734dcafe35dd45f4dcdbaa6c73477003886c456726a950ea4ad94102762d3d",
-        "archive_sha256": "c1d48529b501f65ff8de5fba491470d1800e5d7d7e4f71d244752f3f99e6a6c6",
+        "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
+        "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 14,
         "world_class_source_pass_count": 6,
@@ -780,7 +780,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 304 个词/字。",
+            "SKILL.md 约 310 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -801,7 +801,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 304 个词/字，references 约 18240 个词/字。",
+            "入口约 310 个词/字，references 约 18635 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -844,7 +844,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 304 个词/字。",
+            "SKILL.md 约 310 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -865,7 +865,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 304 个词/字，references 约 18240 个词/字。",
+            "入口约 310 个词/字，references 约 18635 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1097,7 +1097,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 304 个词/字，references 约 18240 个词/字。"
+          "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1145,7 +1145,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 304 个词/字，references 约 18240 个词/字。"
+          "上下文成本需要补强：入口约 310 个词/字，references 约 18635 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1220,7 +1220,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 304 个词/字。",
+            "signal": "SKILL.md 约 310 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1379,7 +1379,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 304 个词/字。",
+            "signal": "SKILL.md 约 310 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1711,13 +1711,13 @@
             "path": "references",
             "label": "Extended guidance and reusable notes",
             "kind": "folder",
-            "file_count": 38
+            "file_count": 39
           },
           {
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 169
+            "file_count": 172
           },
           {
             "path": "evals",
@@ -1732,7 +1732,7 @@
             "file_count": 187
           }
         ],
-        "file_count": 431,
+        "file_count": 435,
         "folder_count": 4,
         "distribution": [
           {
@@ -1753,11 +1753,11 @@
           },
           {
             "label": "references",
-            "value": 38
+            "value": 39
           },
           {
             "label": "scripts",
-            "value": 169
+            "value": 172
           },
           {
             "label": "evals",
@@ -1799,13 +1799,13 @@
             "path": "references",
             "label": "Extended guidance and reusable notes",
             "kind": "folder",
-            "file_count": 38
+            "file_count": 39
           },
           {
             "path": "scripts",
             "label": "Deterministic helpers or local tooling",
             "kind": "folder",
-            "file_count": 169
+            "file_count": 172
           },
           {
             "path": "evals",
@@ -1820,7 +1820,7 @@
             "file_count": 187
           }
         ],
-        "file_count": 431,
+        "file_count": 435,
         "folder_count": 4,
         "distribution": [
           {
@@ -1841,11 +1841,11 @@
           },
           {
             "label": "references",
-            "value": 38
+            "value": 39
           },
           {
             "label": "scripts",
-            "value": 169
+            "value": 172
           },
           {
             "label": "evals",
@@ -3730,16 +3730,16 @@
         "score `91`",
         "`16` gates",
         "`3` warnings",
-        "`78` declared internal modules",
-        "`91 / 91` CLI help smoke checks passing across `169` scripts",
-        "`639` zip entries",
-        "archive with `639` entries",
+        "`80` declared internal modules",
+        "`92 / 92` CLI help smoke checks passing across `172` scripts",
+        "`646` zip entries",
+        "archive with `646` entries",
         "`12` installer permission checks enforced",
         "`0` permission failures",
         "`25` required artifacts",
         "`23` reproduction commands",
-        "initial load `936/1000`",
-        "target count is `84`"
+        "initial load `934/1000`",
+        "target count is `85`"
       ],
       "actual": "all present",
       "paths": [
