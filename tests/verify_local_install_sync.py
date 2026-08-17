@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import hashlib
 import json
 import shutil
 import subprocess
@@ -42,6 +43,26 @@ def build_package(out_dir: Path) -> dict:
     return {"ok": proc.returncode == 0, "payload": payload, "stderr": proc.stderr}
 
 
+def write_verification(package_dir: Path) -> Path:
+    archive = package_dir / "yao-meta-skill.zip"
+    path = package_dir / "package_verification.json"
+    path.write_text(
+        json.dumps(
+            {
+                "ok": True,
+                "summary": {
+                    "archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
+                    "failure_count": 0,
+                },
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return path
+
+
 def rewrite_archive_json(package_dir: Path, relative_path: str, transform) -> None:
     archive_path = package_dir / "yao-meta-skill.zip"
     rewritten_path = package_dir / "yao-meta-skill.rewritten.zip"
@@ -60,6 +81,7 @@ def rewrite_archive_json(package_dir: Path, relative_path: str, transform) -> No
 
 
 def run_sync(install_dir: Path, package_dir: Path) -> dict:
+    verification_json = write_verification(package_dir)
     proc = subprocess.run(
         [
             sys.executable,
@@ -68,6 +90,8 @@ def run_sync(install_dir: Path, package_dir: Path) -> dict:
             str(install_dir),
             "--package-dir",
             str(package_dir),
+            "--verification-json",
+            str(verification_json),
             "--generated-at",
             "2026-06-13",
         ],
@@ -85,7 +109,15 @@ def run_sync(install_dir: Path, package_dir: Path) -> dict:
     }
 
 
-def run_sync_raw(install_dir: Path, package_dir: Path) -> subprocess.CompletedProcess[str]:
+def run_sync_raw(
+    install_dir: Path,
+    package_dir: Path,
+    *,
+    refresh_verification: bool = True,
+) -> subprocess.CompletedProcess[str]:
+    verification_json = package_dir / "package_verification.json"
+    if refresh_verification:
+        verification_json = write_verification(package_dir)
     return subprocess.run(
         [
             sys.executable,
@@ -94,6 +126,8 @@ def run_sync_raw(install_dir: Path, package_dir: Path) -> subprocess.CompletedPr
             str(install_dir),
             "--package-dir",
             str(package_dir),
+            "--verification-json",
+            str(verification_json),
             "--generated-at",
             "2026-06-13",
         ],
@@ -125,10 +159,17 @@ def main() -> None:
 
     untracked_file = ROOT / "sync-local-untracked.tmp"
     untracked_file.write_text("do not copy me\n", encoding="utf-8")
+    source_readme = ROOT / "README.md"
+    original_readme = source_readme.read_bytes()
+    archive_readme = None
+    with zipfile.ZipFile(package_dir / "yao-meta-skill.zip") as archive:
+        archive_readme = archive.read("yao-meta-skill/README.md")
+    source_readme.write_bytes(original_readme + b"\nsource changed after package verification\n")
     try:
         result = run_sync(install_dir, package_dir)
     finally:
         untracked_file.unlink(missing_ok=True)
+        source_readme.write_bytes(original_readme)
 
     policy_gap_dir = TMP / "policy-gap-dist"
     shutil.copytree(package_dir, policy_gap_dir)
@@ -148,6 +189,18 @@ def main() -> None:
     refused_stale.write_text("must not be touched after preflight failure\n", encoding="utf-8")
     preflight_refused = run_sync_raw(refused_install_dir, policy_gap_dir)
 
+    unattested_dir = TMP / "unattested-dist"
+    shutil.copytree(package_dir, unattested_dir)
+    with (unattested_dir / "yao-meta-skill.zip").open("ab") as archive:
+        archive.write(b"tampered")
+    unattested_install_dir = TMP / "unattested-install"
+    unattested_install_dir.mkdir(parents=True)
+    (unattested_install_dir / "SKILL.md").write_text(
+        "---\nname: yao-meta-skill\ndescription: local install fixture\n---\n",
+        encoding="utf-8",
+    )
+    unattested_result = run_sync_raw(unattested_install_dir, unattested_dir, refresh_verification=False)
+
     ordinary_dir = TMP / "ordinary-folder"
     ordinary_dir.mkdir(parents=True)
     ordinary_file = ordinary_dir / "keep.txt"
@@ -161,6 +214,11 @@ def main() -> None:
         "sync_ok": result["ok"],
         "skill_md_copied": (install_dir / "SKILL.md").exists(),
         "script_copied": (install_dir / "scripts" / "yao.py").exists(),
+        "portable_evidence_pointer_installed": (install_dir / "reports" / ".current-run.json").exists(),
+        "portable_evidence_index_installed": (install_dir / "reports" / "artifact-index.json").exists(),
+        "install_matches_verified_archive": (install_dir / "README.md").read_bytes() == archive_readme,
+        "install_source_is_verified_archive": result["payload"]["install_source"] == "verified-archive",
+        "archive_attestation_verified": result["payload"]["archive_attestation"]["ok"] is True,
         "untracked_file_skipped": not (install_dir / "sync-local-untracked.tmp").exists(),
         "untracked_business_skill_skipped": not (install_dir / "geo-ranking-article-generator").exists(),
         "stale_file_removed": not stale_file.exists(),
@@ -170,6 +228,7 @@ def main() -> None:
         "install_preflight_permission_failures_zero": result["payload"]["install_preflight"]["installer_permission_failure_count"] == 0,
         "install_preflight_blocks_sync": preflight_refused.returncode != 0,
         "install_preflight_failure_preserves_files": refused_stale.exists(),
+        "unattested_archive_refused": unattested_result.returncode != 0,
         "ordinary_dir_refused": refused.returncode != 0,
         "ordinary_dir_preserved": ordinary_file.exists(),
         "makefile_target_present": "sync-local-install" in makefile_text,

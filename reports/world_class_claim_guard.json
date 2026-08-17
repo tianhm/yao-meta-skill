@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-08-14",
   "skill_dir": ".",
   "summary": {
     "ledger_ready_to_claim_world_class": false,
     "ledger_pending_count": 4,
-    "claim_surface_count": 205,
-    "json_claim_surface_count": 99,
-    "metadata_claim_surface_count": 100,
+    "claim_surface_count": 222,
+    "json_claim_surface_count": 108,
+    "metadata_claim_surface_count": 109,
     "package_claim_surface_count": 17,
     "violation_count": 0,
     "overclaim_guard_active": true,
@@ -99,7 +99,15 @@
       "violation_count": 0
     },
     {
+      "path": "docs/migration-1.2.0.md",
+      "violation_count": 0
+    },
+    {
       "path": "docs/migration-v2.md",
+      "violation_count": 0
+    },
+    {
+      "path": "docs/release-notes-1.2.0.md",
       "violation_count": 0
     },
     {
@@ -151,6 +159,10 @@
       "violation_count": 0
     },
     {
+      "path": "reports/.current-run.json",
+      "violation_count": 0
+    },
+    {
       "path": "reports/adaptation_approval_ledger.json",
       "violation_count": 0
     },
@@ -192,6 +204,10 @@
     },
     {
       "path": "reports/artifact-design-profile.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/artifact-index.json",
       "violation_count": 0
     },
     {
@@ -495,6 +511,30 @@
       "violation_count": 0
     },
     {
+      "path": "reports/phase1-review-repair-checklist.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1-trusted-generation-evidence-ledger-v2.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1-trusted-generation-visual-report-v2.html",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1-trusted-generation-visual-report-v2.validation.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1_trigger_holdout.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/phase1_trigger_holdout.md",
+      "violation_count": 0
+    },
+    {
       "path": "reports/portability_score.json",
       "violation_count": 0
     },
@@ -516,6 +556,10 @@
     },
     {
       "path": "reports/prompt-quality-profile.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/provider_output_evaluation.json",
       "violation_count": 0
     },
     {
@@ -707,6 +751,22 @@
       "violation_count": 0
     },
     {
+      "path": "reports/skillops/daily/2026-08-12.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-12.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-14.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/daily/2026-08-14.md",
+      "violation_count": 0
+    },
+    {
       "path": "reports/skillops/weekly/2026-W25.json",
       "violation_count": 0
     },
@@ -728,6 +788,14 @@
     },
     {
       "path": "reports/skillops/weekly/2026-W29.md",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/weekly/2026-W33.json",
+      "violation_count": 0
+    },
+    {
+      "path": "reports/skillops/weekly/2026-W33.md",
       "violation_count": 0
     },
     {

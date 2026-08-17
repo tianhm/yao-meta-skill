@@ -212,6 +212,7 @@ def build_manifest(name: str, mode: str, archetype: str) -> dict:
         "lifecycle_stage": mode_payload["lifecycle_stage"],
         "context_budget_tier": mode_payload["context_budget_tier"],
         "review_cadence": mode_payload["review_cadence"],
+        "skill_ir_source": "reports/skill-ir.json",
         "skill_archetype": archetype,
         "target_platforms": [
             "openai",

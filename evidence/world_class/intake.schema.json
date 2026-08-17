@@ -242,21 +242,42 @@
       "then": {
         "properties": {
           "artifact_refs": {
-            "contains": {
-              "type": "object",
-              "properties": {
-                "path": {
-                  "const": "reports/output_execution_runs.json"
-                },
-                "kind": {
-                  "const": "aggregate-report"
+            "anyOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "const": "reports/provider_output_evaluation.json"
+                    },
+                    "kind": {
+                      "const": "aggregate-report"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "kind"
+                  ]
                 }
               },
-              "required": [
-                "path",
-                "kind"
-              ]
-            }
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "const": "reports/output_execution_runs.json"
+                    },
+                    "kind": {
+                      "const": "aggregate-report"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "kind"
+                  ]
+                }
+              }
+            ]
           }
         }
       }
@@ -279,40 +300,82 @@
       "then": {
         "properties": {
           "artifact_refs": {
-            "allOf": [
+            "anyOf": [
               {
-                "contains": {
-                  "type": "object",
-                  "properties": {
-                    "path": {
-                      "const": "reports/output_review_adjudication.json"
-                    },
-                    "kind": {
-                      "const": "adjudication-report"
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "const": "reports/provider_output_adjudication.json"
+                        },
+                        "kind": {
+                          "const": "adjudication-report"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "kind"
+                      ]
                     }
                   },
-                  "required": [
-                    "path",
-                    "kind"
-                  ]
-                }
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "const": "reports/provider_reviewer_registry.json"
+                        },
+                        "kind": {
+                          "const": "reviewer-registry"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "kind"
+                      ]
+                    }
+                  }
+                ]
               },
               {
-                "contains": {
-                  "type": "object",
-                  "properties": {
-                    "path": {
-                      "const": "reports/output_review_decisions.json"
-                    },
-                    "kind": {
-                      "const": "review-decisions"
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "const": "reports/output_review_adjudication.json"
+                        },
+                        "kind": {
+                          "const": "adjudication-report"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "kind"
+                      ]
                     }
                   },
-                  "required": [
-                    "path",
-                    "kind"
-                  ]
-                }
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "const": "reports/output_review_decisions.json"
+                        },
+                        "kind": {
+                          "const": "review-decisions"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "kind"
+                      ]
+                    }
+                  }
+                ]
               }
             ]
           }

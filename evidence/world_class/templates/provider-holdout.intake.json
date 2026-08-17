@@ -9,19 +9,19 @@
   "summary": "Provider-backed holdout run with model, timing, token metadata, and aggregate output hashes.",
   "artifact_refs": [
     {
-      "path": "reports/output_execution_runs.json",
+      "path": "reports/provider_output_evaluation.json",
       "kind": "aggregate-report",
       "contains_raw_content": false,
-      "note": "Must show model_executed_count > 0 and token_observed_count > 0."
+      "note": "Must show 40 fixed DeepSeek calls, 40 model-executed rows, zero failures, and no more than 250000 total tokens."
     }
   ],
   "provenance": {
-    "provider": "<provider>",
-    "model": "<provider-model>",
-    "run_command": "python3 scripts/yao.py output-exec --provider-runner <provider> --provider-model <provider-model> --timeout-seconds 60",
-    "credential_env": "<PROVIDER_API_KEY_ENV>",
-    "model_env": "YAO_OUTPUT_EVAL_MODEL",
-    "model_default": "<provider-default-model>",
+    "provider": "DeepSeek",
+    "model": "deepseek-v4-flash + deepseek-v4-pro",
+    "run_command": "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model_env": "evals/output/provider_matrix.json",
+    "model_default": "fixed dual-model matrix",
     "credential_material_committed": false
   },
   "privacy": {

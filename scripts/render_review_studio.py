@@ -271,13 +271,12 @@ def render_html(report: dict[str, Any]) -> str:
             "trust_level",
             "targets",
             "compatibility_pass_count",
-            "archive_sha256",
         ],
         "registry package metadata missing",
     )
     package_panel = render_kv_grid(
         package_summary,
-        ["target_count", "adapter_count", "archive_present", "archive_entry_count", "failure_count", "warning_count", "archive_sha256"],
+        ["target_count", "adapter_count", "archive_present", "archive_entry_count", "failure_count", "warning_count"],
         "package verification missing",
     )
     install_panel = render_kv_grid(

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-08-14",
   "skill_dir": ".",
   "summary": {
     "schema_present": true,
@@ -90,12 +90,14 @@
       "blocking_reason": "No real evidence submission has been provided yet.",
       "template_status": "pass",
       "submission_status": "missing",
-      "source_accepted": true,
+      "source_accepted": false,
       "observed_state": {
-        "model_executed_count": 10,
-        "timing_observed_count": 10,
-        "token_observed_count": 10,
-        "accepted": true
+        "contract_version": "phase1",
+        "call_count": 0,
+        "model_executed_count": 0,
+        "failure_count": 0,
+        "total_tokens": 0,
+        "accepted": false
       },
       "template_path": "evidence/world_class/templates/provider-holdout.intake.json",
       "submission_path": "evidence/world_class/submissions/provider-holdout.json",
@@ -113,22 +115,25 @@
           "observed token metadata"
         ],
         "runbook": [
-          "Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.",
-          "For OpenAI Responses: python3 scripts/yao.py output-exec --provider-runner openai --provider-model ${YAO_OUTPUT_EVAL_MODEL:-gpt-4.1-mini} --timeout-seconds 60",
-          "For DeepSeek Chat Completions: python3 scripts/yao.py output-exec --provider-runner deepseek --provider-model deepseek-v4-flash --provider-api-format chat-completions --provider-thinking disabled --api-key-env DEEPSEEK_API_KEY --timeout-seconds 120",
+          "Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.",
+          "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID>",
+          "Keep the generated private answer key and role-neutral review materials inside .yao/runs/<PROVIDER_RUN_ID>.",
           "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
           "Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.",
           "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
         ],
         "success_checks": [
-          "reports/output_execution_runs.json summary.model_executed_count > 0",
-          "reports/output_execution_runs.json summary.timing_observed_count > 0",
-          "reports/output_execution_runs.json summary.token_observed_count > 0",
+          "reports/provider_output_evaluation.json summary.call_count == 40",
+          "reports/provider_output_evaluation.json summary.model_executed_count == 40",
+          "reports/provider_output_evaluation.json summary.failure_count == 0",
+          "reports/provider_output_evaluation.json summary.total_tokens <= 250000",
           "reports/skill_os2_audit.json item provider-holdout status becomes pass"
         ],
         "evidence_artifacts": [
-          "reports/output_execution_runs.json",
-          "reports/output_execution_runs.md",
+          "evals/output/provider_matrix.json",
+          "reports/provider_output_evaluation.json",
+          "reports/provider_output_blind_pack.json",
+          "reports/provider_output_answer_commitment.json",
           "reports/skill_os2_audit.json",
           "evidence/world_class/intake.schema.json",
           "evidence/world_class/templates/provider-holdout.intake.json",
@@ -146,7 +151,7 @@
         "pending_review_counts_as_human_decision": false,
         "local_command_runner_counts_as_provider_model": false
       },
-      "next_action": "Run provider-backed holdout cases with real credentials and commit only aggregate evidence."
+      "next_action": "Run evidence-build with DEEPSEEK_API_KEY and keep raw outputs in the isolated run directory."
     },
     {
       "evidence_key": "human-adjudication",
@@ -159,19 +164,11 @@
       "submission_status": "missing",
       "source_accepted": false,
       "observed_state": {
-        "pair_count": 5,
-        "judgment_count": 0,
-        "pending_count": 5,
-        "invalid_decision_count": 0,
-        "answer_revealed_count": 0,
-        "reviewer_metadata_present": false,
-        "reason_required": true,
-        "blind_review_attested": false,
-        "raw_content_excluded_attested": true,
-        "reviewer_reason_required_attested": true,
-        "ready_for_human_evidence": false,
-        "raw_content_allowed": false,
-        "raw_content_path_count": 0,
+        "contract_version": "phase1",
+        "reviewer_count": 0,
+        "pair_count": 0,
+        "failure_count": 0,
+        "blind_pack_bound": false,
         "accepted": false
       },
       "template_path": "evidence/world_class/templates/human-adjudication.intake.json",
@@ -190,46 +187,37 @@
           "answer key unopened until decisions exist"
         ],
         "runbook": [
-          "python3 scripts/yao.py output-review-kit --write-template",
-          "Open reports/output_review_kit.md and choose A or B for each pair without opening the answer key.",
-          "python3 scripts/adjudicate_output_review.py --write-template",
-          "Record reviewer choices in a separate JSON, JSONL, or CSV decision source with reviewer, reviewed_at, case_id, winner_variant, confidence, required reason, and truthful reviewer_attestation only.",
-          "python3 scripts/yao.py output-review-import --input <reviewer-decisions.json> --blind-review-attested --run-adjudication",
-          "python3 scripts/yao.py output-review",
+          "Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.",
+          "Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.",
+          "Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.",
+          "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <reviewer-a.json> --decisions <reviewer-b.json> --decisions <reviewer-c.json> --reviewer-registry <registry.json> --run-id <FINAL_RUN_ID>",
           "python3 scripts/yao.py skill-os2-audit . --generated-at <YYYY-MM-DD>",
           "Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.",
           "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
         ],
         "success_checks": [
-          "reports/output_review_adjudication.json summary.pending_count == 0",
-          "reports/output_review_adjudication.json summary.judgment_count == summary.pair_count",
-          "reports/output_review_adjudication.json summary.invalid_decision_count == 0",
-          "reports/output_review_adjudication.json summary.reviewer_metadata_present is true",
-          "reports/output_review_adjudication.json summary.blind_review_attested is true",
-          "reports/output_review_adjudication.json review_integrity.blind_pack_sha256 exists and matches reports/output_review_decisions.json",
-          "reports/output_review_adjudication.json pairs and reviewer_checklist store prompt_sha256, not raw prompt text",
-          "reports/output_review_adjudication.json summary.ready_for_human_evidence is true",
+          "reports/provider_output_adjudication.json summary.reviewer_count == 3",
+          "reports/provider_output_adjudication.json summary.pair_count == 20",
+          "reports/provider_output_adjudication.json summary.failure_count == 0",
+          "reports/provider_output_adjudication.json evidence_binding.blind_pack_sha256 matches the source run",
           "reports/skill_os2_audit.json item human-adjudication status becomes pass"
         ],
         "evidence_artifacts": [
-          "reports/output_blind_review_pack.md",
-          "reports/output_review_kit.md",
-          "reports/output_review_decisions.json",
-          "reports/output_review_adjudication.json",
-          "reports/output_review_adjudication.md",
-          "scripts/import_output_review_decisions.py",
+          "reports/provider_output_blind_pack.json",
+          "reports/provider_reviewer_registry.json",
+          "reports/provider_output_adjudication.json",
+          "reports/provider_review_lineage.json",
+          "scripts/adjudicate_multi_reviewer.py",
+          "scripts/finalize_provider_review.py",
           "evidence/world_class/intake.schema.json",
           "evidence/world_class/templates/human-adjudication.intake.json",
           "reports/world_class_evidence_intake.json",
           "reports/world_class_evidence_intake.md"
         ],
         "privacy_contract": [
-          "Reviewer decisions should not include raw user data or private customer detail.",
-          "Reviewer reasons must be rubric-based and must not include raw user data or private customer detail.",
-          "The decision importer rejects raw prompt, output, transcript, message, and answer-key fields.",
-          "The adjudication evidence stores prompt_sha256 instead of raw prompt text.",
-          "The decision and adjudication artifacts preserve blind_pack_sha256 so reviewers can audit exactly which pack was judged.",
-          "Keep the answer key separate until after decisions are recorded."
+          "Reviewer packets contain choices, reasons, hashes, and controlled submission metadata without raw prompts or answer-key roles.",
+          "The private answer key remains under .yao/runs and is opened by the finalizer after all controlled packets are fixed.",
+          "The adjudication and lineage artifacts preserve blind_pack_sha256 and answer_key_sha256 commitments."
         ]
       },
       "anti_overclaim": {
@@ -238,7 +226,7 @@
         "pending_review_counts_as_human_decision": false,
         "local_command_runner_counts_as_provider_model": false
       },
-      "next_action": "Record real A/B choices, reviewer metadata, and blind-review attestation, then regenerate adjudication."
+      "next_action": "Collect three controlled reviewer packets and adjudicate them against the private run answer key."
     },
     {
       "evidence_key": "native-permission-enforcement",
@@ -328,9 +316,9 @@
       "source_accepted": false,
       "observed_state": {
         "external_source_events": 0,
-        "adoption_sample_count": 1,
+        "adoption_sample_count": 0,
         "raw_content_allowed": false,
-        "risk_band": "low",
+        "risk_band": "no-data",
         "accepted": false
       },
       "template_path": "evidence/world_class/templates/native-client-telemetry.intake.json",

@@ -122,6 +122,23 @@ def main() -> None:
         subprocess.run(["rm", "-rf", str(tmp_root)], check=True)
     tmp_root.mkdir(parents=True, exist_ok=True)
 
+    unrelated_ir_root = tmp_root / "unrelated-ir-skill"
+    unrelated_ir_root.mkdir()
+    (unrelated_ir_root / "SKILL.md").write_text(
+        "---\nname: unrelated-ir-skill\ndescription: Verify canonical Skill IR reporting.\n---\n\n# Unrelated IR Skill\n",
+        encoding="utf-8",
+    )
+    unrelated_examples = unrelated_ir_root / "skill-ir" / "examples"
+    unrelated_examples.mkdir(parents=True)
+    (unrelated_examples / "other-skill.json").write_text(
+        json.dumps({"name": "other-skill"}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    unrelated_ir_model = build_report_model(unrelated_ir_root)
+    assert all("已生成 Skill IR" not in item for item in unrelated_ir_model["strengths"]), unrelated_ir_model[
+        "strengths"
+    ]
+
     init_result = run(
         "init",
         "skill-overview-demo",
@@ -159,6 +176,31 @@ def main() -> None:
     assert (created / "reports" / "adoption_drift_report.json").exists(), created
     assert (created / "reports" / "review_waivers.md").exists(), created
     assert (created / "reports" / "review_waivers.json").exists(), created
+
+    subprocess.run(["git", "init", "-q"], cwd=created, check=True)
+    subprocess.run(["git", "config", "user.email", "skill-overview-test@example.invalid"], cwd=created, check=True)
+    subprocess.run(["git", "config", "user.name", "Skill Overview Test"], cwd=created, check=True)
+    subprocess.run(["git", "add", "."], cwd=created, check=True)
+    subprocess.run(["git", "commit", "-qm", "fixture"], cwd=created, check=True)
+    tracked_refresh = run("skill-report", str(created))
+    assert tracked_refresh["ok"], tracked_refresh
+    subprocess.run(["git", "add", "reports/skill-overview.html", "reports/skill-overview.json"], cwd=created, check=True)
+    subprocess.run(["git", "commit", "-qm", "refresh overview"], cwd=created, check=True)
+    tracked_overview = json.loads((created / "reports" / "skill-overview.json").read_text(encoding="utf-8"))
+    tracked_asset_count = tracked_overview["package_assets"]["file_count"]
+    tracked_counts = {item["path"]: item["file_count"] for item in tracked_overview["package_map"]}
+    assert tracked_counts["reports"] > 0, tracked_counts
+
+    local_draft = created / "reports" / "local-review-draft.html"
+    local_draft.write_text("<p>local draft</p>\n", encoding="utf-8")
+    draft_refresh = run("skill-report", str(created))
+    assert draft_refresh["ok"], draft_refresh
+    draft_overview = json.loads((created / "reports" / "skill-overview.json").read_text(encoding="utf-8"))
+    local_draft.unlink()
+    assert draft_overview["package_assets"]["file_count"] == tracked_asset_count, {
+        "tracked": tracked_asset_count,
+        "with_untracked_draft": draft_overview["package_assets"]["file_count"],
+    }
 
     overview_json = json.loads((created / "reports" / "skill-overview.json").read_text(encoding="utf-8"))
     directions_json = json.loads((created / "reports" / "iteration-directions.json").read_text(encoding="utf-8"))

@@ -80,6 +80,24 @@ def main() -> None:
     assert sparse_scorecard["evidence_score"]["score"] < scorecard["evidence_score"]["score"], sparse_scorecard
     assert any("证据不足" in reason for reason in sparse_scorecard["evidence_score"]["reasons"]), sparse_scorecard
 
+    unrelated_ir_root = tmp_root / "unrelated-ir-skill"
+    unrelated_ir_root.mkdir()
+    (unrelated_ir_root / "SKILL.md").write_text(
+        "---\nname: unrelated-ir-skill\ndescription: Verify canonical Skill IR evidence.\n---\n\n# Unrelated IR Skill\n",
+        encoding="utf-8",
+    )
+    unrelated_examples = unrelated_ir_root / "skill-ir" / "examples"
+    unrelated_examples.mkdir(parents=True)
+    (unrelated_examples / "other-skill.json").write_text(
+        json.dumps({"name": "other-skill"}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    unrelated_scorecard = calculate_scorecard(unrelated_ir_root)
+    assert unrelated_scorecard["evidence_score"]["score"] == 0, unrelated_scorecard
+    assert all(
+        "skill-ir.json 已存在" not in reason for reason in unrelated_scorecard["evidence_score"]["reasons"]
+    ), unrelated_scorecard
+
     print(json.dumps({"ok": True}, ensure_ascii=False, indent=2))
 
 

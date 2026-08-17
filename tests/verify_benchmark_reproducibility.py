@@ -166,6 +166,10 @@ def main() -> None:
     assert payload["evidence_bundle"]["missing_count"] == 0, payload
     assert payload["evidence_bundle"]["missing_paths"] == [], payload
     assert payload["summary"]["provider_evidence_complete"] is True, payload
+    assert payload["summary"]["phase1_provider_matrix_complete"] is False, payload
+    assert payload["summary"]["phase1_human_review_complete"] is False, payload
+    assert payload["summary"]["phase1_quality_promotion_complete"] is False, payload
+    assert payload["summary"]["phase1_completion_ready"] is False, payload
     assert payload["summary"]["human_review_complete"] is False, payload
     assert payload["summary"]["world_class_ready"] is False, payload
     assert payload["summary"]["world_class_source_check_count"] >= 13, payload
@@ -249,7 +253,8 @@ def main() -> None:
         assert not any("release lock" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
     else:
         assert any("release lock" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
-    assert not any("provider-backed model holdout evidence is incomplete" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
+    assert any("phase-one provider matrix" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
+    assert any("phase-one three-reviewer" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
     assert any("human blind-review" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
     assert any("world-class evidence" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
     assert any("world-class source checks" in item for item in payload["public_claim"]["blockers"]), payload["public_claim"]
@@ -295,7 +300,8 @@ def main() -> None:
     assert "do not claim world-class" in markdown, markdown
     assert "public claim ready: `false`" in markdown, markdown
     assert "## Public Claim Boundary" in markdown, markdown
-    assert "provider-backed model holdout evidence is incomplete" not in markdown, markdown
+    assert "phase-one provider matrix" in markdown, markdown
+    assert "phase-one three-reviewer" in markdown, markdown
     assert "Provider-backed model holdout source evidence is complete" in markdown, markdown
     assert "world-class source checks are not all accepted" in markdown, markdown
     assert "## Release Lock" in markdown, markdown

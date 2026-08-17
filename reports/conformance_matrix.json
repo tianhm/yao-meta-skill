@@ -35,13 +35,13 @@
         "references resource resolves: references/autonomous-adaptation.md",
         "references resource resolves: references/distribution-registry-method.md",
         "references resource resolves: references/eval-playbook.md",
+        "references resource resolves: references/evidence-publication.md",
         "references resource resolves: references/gate-selection.md",
         "references resource resolves: references/governance.md",
         "references resource resolves: references/human-review-template.md",
         "references resource resolves: references/intent-dialogue.md",
         "references resource resolves: references/iteration-philosophy.md",
-        "references resource resolves: references/non-skill-decision-tree.md",
-        "references resource resolves: references/operating-modes.md"
+        "references resource resolves: references/non-skill-decision-tree.md"
       ],
       "failures": [],
       "warnings": []
@@ -79,13 +79,13 @@
         "references resource resolves: references/autonomous-adaptation.md",
         "references resource resolves: references/distribution-registry-method.md",
         "references resource resolves: references/eval-playbook.md",
+        "references resource resolves: references/evidence-publication.md",
         "references resource resolves: references/gate-selection.md",
         "references resource resolves: references/governance.md",
         "references resource resolves: references/human-review-template.md",
         "references resource resolves: references/intent-dialogue.md",
         "references resource resolves: references/iteration-philosophy.md",
-        "references resource resolves: references/non-skill-decision-tree.md",
-        "references resource resolves: references/operating-modes.md"
+        "references resource resolves: references/non-skill-decision-tree.md"
       ],
       "failures": [],
       "warnings": []
@@ -123,16 +123,17 @@
         "references resource resolves: references/autonomous-adaptation.md",
         "references resource resolves: references/distribution-registry-method.md",
         "references resource resolves: references/eval-playbook.md",
+        "references resource resolves: references/evidence-publication.md",
         "references resource resolves: references/gate-selection.md",
         "references resource resolves: references/governance.md",
         "references resource resolves: references/human-review-template.md",
         "references resource resolves: references/intent-dialogue.md",
         "references resource resolves: references/iteration-philosophy.md",
-        "references resource resolves: references/non-skill-decision-tree.md",
-        "references resource resolves: references/operating-modes.md"
+        "references resource resolves: references/non-skill-decision-tree.md"
       ],
       "failures": [],
       "warnings": [
+        "source checkout directory differs from skill name; package verification must enforce archive top-level identity.",
         "agent-skills uses canonical Agent Skills metadata; provider-native execution transforms are not implemented in v0."
       ]
     },
@@ -169,16 +170,17 @@
         "references resource resolves: references/autonomous-adaptation.md",
         "references resource resolves: references/distribution-registry-method.md",
         "references resource resolves: references/eval-playbook.md",
+        "references resource resolves: references/evidence-publication.md",
         "references resource resolves: references/gate-selection.md",
         "references resource resolves: references/governance.md",
         "references resource resolves: references/human-review-template.md",
         "references resource resolves: references/intent-dialogue.md",
         "references resource resolves: references/iteration-philosophy.md",
-        "references resource resolves: references/non-skill-decision-tree.md",
-        "references resource resolves: references/operating-modes.md"
+        "references resource resolves: references/non-skill-decision-tree.md"
       ],
       "failures": [],
       "warnings": [
+        "source checkout directory differs from skill name; package verification must enforce archive top-level identity.",
         "vscode uses canonical Agent Skills metadata; provider-native execution transforms are not implemented in v0."
       ]
     },
@@ -215,13 +217,13 @@
         "references resource resolves: references/autonomous-adaptation.md",
         "references resource resolves: references/distribution-registry-method.md",
         "references resource resolves: references/eval-playbook.md",
+        "references resource resolves: references/evidence-publication.md",
         "references resource resolves: references/gate-selection.md",
         "references resource resolves: references/governance.md",
         "references resource resolves: references/human-review-template.md",
         "references resource resolves: references/intent-dialogue.md",
         "references resource resolves: references/iteration-philosophy.md",
-        "references resource resolves: references/non-skill-decision-tree.md",
-        "references resource resolves: references/operating-modes.md"
+        "references resource resolves: references/non-skill-decision-tree.md"
       ],
       "failures": [],
       "warnings": []

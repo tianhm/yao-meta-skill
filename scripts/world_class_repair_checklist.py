@@ -55,13 +55,9 @@ def repair_verification_command(evidence_key: str, repair_type: str) -> str:
     if repair_type == "unknown-key":
         return "python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions"
     if evidence_key == "provider-holdout" and repair_type == "source-check":
-        return (
-            "python3 scripts/yao.py output-exec --provider-runner <openai|deepseek> "
-            "--provider-model <model> --timeout-seconds 60 && "
-            + preflight
-        )
+        return "python3 scripts/yao.py evidence-build . --run-id <PROVIDER_RUN_ID> && " + preflight
     if evidence_key == "human-adjudication" and repair_type == "source-check":
-        return "python3 scripts/yao.py output-review && " + preflight
+        return "python3 scripts/yao.py evidence-finalize-review . --source-run <PROVIDER_RUN_ID> --decisions <A.json> --decisions <B.json> --decisions <C.json> --reviewer-registry <registry.json> && " + preflight
     if evidence_key == "native-permission-enforcement" and repair_type == "source-check":
         return "python3 scripts/yao.py runtime-permissions . --package-dir dist && " + preflight
     if evidence_key == "native-client-telemetry" and repair_type == "source-check":

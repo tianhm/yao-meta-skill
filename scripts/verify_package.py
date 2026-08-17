@@ -54,7 +54,7 @@ def generated_zip_entries(names: list[str]) -> list[str]:
     generated = []
     for name in names:
         parts = PurePosixPath(name).parts
-        if ".previews" in parts or "dist" in parts or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:])):
+        if ".previews" in parts or ".yao" in parts or "dist" in parts or (len(parts) > 2 and parts[1] == "tests" and any(part.startswith("tmp") for part in parts[2:])):
             generated.append(name)
     return generated
 
@@ -155,7 +155,40 @@ def verify_package(
                 "Archive exposes only the root SKILL.md entrypoint",
             )
             generated_entries = generated_zip_entries(archive_entries)
-            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes generated dist/, .previews/, and tests/tmp* contents")
+            add_check(checks, failures, "archive-excludes-generated", not generated_entries, "Archive excludes local .yao state, local evidence pointers, generated dist/, .previews/, and tests/tmp* contents")
+            with zipfile.ZipFile(archive_path) as archive:
+                pointer_name = f"{package_root}/reports/.current-run.json"
+                index_name = f"{package_root}/reports/artifact-index.json"
+                try:
+                    pointer = json.loads(archive.read(pointer_name))
+                    portable_index_bytes = archive.read(index_name)
+                    portable_index = json.loads(portable_index_bytes)
+                except (KeyError, json.JSONDecodeError):
+                    pointer = {}
+                    portable_index = {}
+                    portable_index_bytes = b""
+                portable_failures = []
+                if pointer.get("mode") != "portable":
+                    portable_failures.append("portable pointer mode is missing")
+                if pointer.get("artifact_index_sha256") != hashlib.sha256(portable_index_bytes).hexdigest():
+                    portable_failures.append("portable artifact index hash does not match")
+                for entry in portable_index.get("artifacts", []) if isinstance(portable_index, dict) else []:
+                    member = f"{package_root}/{entry.get('path', '')}"
+                    try:
+                        content = archive.read(member)
+                    except KeyError:
+                        portable_failures.append(f"portable evidence artifact is missing: {member}")
+                        continue
+                    if hashlib.sha256(content).hexdigest() != entry.get("sha256"):
+                        portable_failures.append(f"portable evidence artifact hash mismatch: {member}")
+            add_check(
+                checks,
+                failures,
+                "archive-portable-evidence-index",
+                not portable_failures,
+                "Archive includes a self-contained portable evidence pointer and verified report index"
+                + (f": {'; '.join(portable_failures)}" if portable_failures else ""),
+            )
     elif require_zip:
         add_check(checks, failures, "archive-present", False, f"Missing required package archive: {display_path(archive_path)}")
     else:
@@ -163,7 +196,6 @@ def verify_package(
 
     registry_package = registry.get("package", {}) if registry else {}
     if registry_package:
-        add_check(checks, failures, "registry-ok", bool(registry.get("ok")), "Registry audit is OK")
         add_check(
             checks,
             failures,

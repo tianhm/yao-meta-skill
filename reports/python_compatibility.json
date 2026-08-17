@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-06-13",
+  "generated_at": "2026-08-14",
   "root": ".",
   "summary": {
     "target_python": "3.11",
-    "file_count": 235,
+    "file_count": 250,
     "issue_count": 0,
     "syntax_error_count": 0,
     "fstring_311_violation_count": 0,
@@ -48,6 +48,12 @@
     },
     {
       "path": "scripts/adaptation_report_contracts.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/adjudicate_multi_reviewer.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -191,6 +197,12 @@
       "issues": []
     },
     {
+      "path": "scripts/evidence_consistency_review_studio.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/evidence_consistency_skill_os2_review.py",
       "ok": true,
       "issue_count": 0,
@@ -203,7 +215,25 @@
       "issues": []
     },
     {
+      "path": "scripts/evidence_resolver.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/evidence_store.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/export_skill_ir.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/finalize_provider_review.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -245,6 +275,12 @@
       "issues": []
     },
     {
+      "path": "scripts/json_schema_validation.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/judge_blind_eval.py",
       "ok": true,
       "issue_count": 0,
@@ -264,6 +300,12 @@
     },
     {
       "path": "scripts/optimize_description.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/output_provider_matrix.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -419,6 +461,12 @@
       "issues": []
     },
     {
+      "path": "scripts/render_phase1_trigger_holdout.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "scripts/render_portability_report.py",
       "ok": true,
       "issue_count": 0,
@@ -426,6 +474,12 @@
     },
     {
       "path": "scripts/render_prompt_quality_profile.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/render_provider_output_status.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -666,6 +720,12 @@
     },
     {
       "path": "scripts/run_eval_suite.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "scripts/run_evidence_build.py",
       "ok": true,
       "issue_count": 0,
       "issues": []
@@ -971,6 +1031,18 @@
       "issues": []
     },
     {
+      "path": "tests/fixtures/fake_deepseek_output_runner.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/fixtures/fake_untrusted_output_runner.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "tests/review_studio_helpers.py",
       "ok": true,
       "issue_count": 0,
@@ -1049,6 +1121,12 @@
       "issues": []
     },
     {
+      "path": "tests/verify_evidence_build.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "tests/verify_evidence_consistency.py",
       "ok": true,
       "issue_count": 0,
@@ -1121,6 +1199,12 @@
       "issues": []
     },
     {
+      "path": "tests/verify_output_provider_matrix.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
       "path": "tests/verify_output_review_adjudication.py",
       "ok": true,
       "issue_count": 0,
@@ -1146,6 +1230,12 @@
     },
     {
       "path": "tests/verify_packager_failures.py",
+      "ok": true,
+      "issue_count": 0,
+      "issues": []
+    },
+    {
+      "path": "tests/verify_phase1_trigger_holdout.py",
       "ok": true,
       "issue_count": 0,
       "issues": []

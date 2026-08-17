@@ -1,22 +1,22 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `247`
-- Scripts: `155`
-- Internal script modules: `69`
+- Scanned files: `265`
+- Scripts: `165`
+- Internal script modules: `74`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
 - Network policy missing scripts: `0`
-- File-write scripts: `74`
+- File-write scripts: `79`
 - Permission approvals: `3 / 3`
 - Permission approval gaps: `0`
-- CLI help smoke checked: `86`
+- CLI help smoke checked: `91`
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `247`
-- Package SHA256: `4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff`
+- Package hash files: `265`
+- Package SHA256: `d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202`
 
 ## Failures
 
@@ -54,8 +54,8 @@
 
 - Enabled: `True`
 - Timeout seconds: `5.0`
-- Checked scripts: `86`
-- Passed scripts: `86`
+- Checked scripts: `91`
+- Passed scripts: `91`
 - Failed scripts: `none`
 
 ## Script Surface
@@ -64,6 +64,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | scripts/adaptation_patch_safety.py | internal-module | True | False | False | False | False | False | False | Shared adaptation patch target parsing and target-file baseline verification helpers. |
 | scripts/adaptation_report_contracts.py | internal-module | True | False | False | False | False | False | False | Shared adaptation approval and regression report contract decoration helpers. |
+| scripts/adjudicate_multi_reviewer.py | cli | True | True | True | False | False | True | False | Adjudicates three independent provider-output review packets and writes promotion evidence. |
 | scripts/adjudicate_output_review.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/apply_adaptation.py | cli | True | True | True | False | False | True | True | Approval-gated adaptive patch application with dry-run, allowlist, regression, and rollback evidence. |
 | scripts/benchmark_release_lock.py | internal-module | True | False | False | False | False | False | True | Imported by render_benchmark_reproducibility.py to keep release-lock git status classification out of the report renderer. |
@@ -87,19 +88,25 @@
 | scripts/evidence_consistency_core.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py for shared report loading, comparison, and Markdown rendering helpers. |
 | scripts/evidence_consistency_phase_queue.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to prevent preflight and Review Studio phase-queue drift. |
 | scripts/evidence_consistency_release.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to verify release evidence refresh instructions. |
+| scripts/evidence_consistency_review_studio.py | internal-module | True | False | False | False | False | False | False | Keeps Review Studio mirror validation isolated from the evidence-consistency orchestrator. |
 | scripts/evidence_consistency_skill_os2_review.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to keep Skill OS 2.0 review summary drift checks out of the main consistency renderer. |
 | scripts/evidence_consistency_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by render_evidence_consistency.py to isolate world-class evidence workflow consistency checks. |
+| scripts/evidence_resolver.py | internal-module | True | False | False | False | False | False | True | Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection. |
+| scripts/evidence_store.py | internal-module | True | False | False | False | False | True | True | Imported by evidence-build and evidence consumers for transactional local evidence publishing. |
 | scripts/export_skill_ir.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/finalize_provider_review.py | cli | True | True | True | False | False | False | False | Binds three controlled reviewer submissions to one immutable provider run without rerunning the model matrix. |
 | scripts/github_benchmark_scan.py | cli | False | True | True | False | True | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/governance_check.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/html_rendering.py | internal-module | True | False | False | False | False | False | False | Used by report renderers to escape HTML while preserving meaningful falsey values. |
 | scripts/import_output_review_decisions.py | cli | True | True | True | False | False | True | False | Imports human blind A/B reviewer decisions into the canonical output-review decision file. |
 | scripts/import_telemetry_events.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/init_skill.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/json_schema_validation.py | internal-module | True | False | False | False | False | False | False | Imported by manifest and Skill IR validation to enforce their committed JSON Schema contracts. |
 | scripts/judge_blind_eval.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/lint_skill.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/local_output_eval_runner.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/optimize_description.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/output_provider_matrix.py | internal-module | True | False | False | False | False | True | False | Imported by evidence-build and matrix tests for budgeted double-model output evaluation. |
 | scripts/output_review_privacy.py | internal-module | True | False | False | False | False | False | False | Imported by output-review import and world-class human evidence validators to reject raw content, credential, secret, token, and answer-key fields recursively. |
 | scripts/prepare_output_review_kit.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/prepare_world_class_submission_kit.py | cli | True | True | True | False | False | True | False | Prepares editable world-class evidence intake packets without counting drafts as accepted evidence. |
@@ -125,8 +132,10 @@
 | scripts/render_iteration_directions.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_iteration_ledger.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_output_risk_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/render_phase1_trigger_holdout.py | cli | True | True | True | False | False | True | False | Renders frozen phase-one trigger, regression, context, and metadata evidence. |
 | scripts/render_portability_report.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_prompt_quality_profile.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/render_provider_output_status.py | cli | True | True | True | False | False | True | False | Renders credential-safe DeepSeek provider-matrix readiness without making API calls. |
 | scripts/render_reference_scan.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_reference_synthesis.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/render_regression_history.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
@@ -167,10 +176,11 @@
 | scripts/run_conformance_suite.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_description_optimization_suite.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_eval_suite.py | cli | False | True | True | False | False | False | True | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/run_evidence_build.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_output_eval.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/run_output_execution.py | cli | False | True | True | False | False | True | True | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/simulate_install.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
-| scripts/skill_ir_paths.py | internal-module | True | False | False | False | False | False | False | Imported by compiler, registry, conformance, and report scripts to locate canonical Skill IR artifacts. |
+| scripts/skill_ir_paths.py | internal-module | True | False | False | False | False | False | False | Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR. |
 | scripts/skill_os2_coverage_markdown.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_os2_coverage.py to keep coverage data assembly separate from Markdown rendering. |
 | scripts/skill_report_charts.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to render inline SVG report charts. |
 | scripts/skill_report_i18n.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to keep bilingual report copy and fallback rules out of HTML rendering. |
@@ -178,7 +188,7 @@
 | scripts/skill_report_metrics.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to calculate overview report metrics. |
 | scripts/skill_report_model.py | internal-module | True | False | False | False | False | False | False | Imported by render_skill_overview.py to build the v2 report data model. |
 | scripts/skill_report_sections.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to assemble overview report quality, risk, and asset sections. |
-| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to load source files and scan overview package assets. |
+| scripts/skill_report_sources.py | internal-module | True | False | False | False | False | False | True | Imported by skill_report_model.py to load source files and scan overview package assets. |
 | scripts/skill_report_world_class.py | internal-module | True | False | False | False | False | False | False | Imported by skill_report_model.py to summarize world-class evidence readiness and roadmap actions. |
 | scripts/skillops_opportunity.py | internal-module | True | False | False | False | False | False | False | Imported by render_daily_skillops_report.py to score SkillOps opportunities without writing files. |
 | scripts/summarize_user_signals.py | cli | True | True | True | False | False | True | False | Scans an explicit local source file and summarizes redacted repeated user preference signals. |

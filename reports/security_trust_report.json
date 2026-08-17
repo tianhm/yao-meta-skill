@@ -2,9 +2,9 @@
   "ok": true,
   "skill_dir": ".",
   "summary": {
-    "scanned_files": 247,
-    "script_count": 155,
-    "internal_module_count": 69,
+    "scanned_files": 265,
+    "script_count": 165,
+    "internal_module_count": 74,
     "secret_findings": 0,
     "dependency_files": [
       "requirements-ci.txt"
@@ -12,18 +12,18 @@
     "network_script_count": 3,
     "network_policy_covered_count": 3,
     "network_policy_missing_count": 0,
-    "file_write_script_count": 74,
+    "file_write_script_count": 79,
     "permission_required_count": 3,
     "permission_approved_count": 3,
     "permission_missing_count": 0,
     "permission_invalid_count": 0,
     "permission_expired_count": 0,
-    "help_smoke_checked_count": 86,
+    "help_smoke_checked_count": 91,
     "help_smoke_failed_count": 0,
     "interactive_script_count": 0,
     "package_hash_scope": "source-contract-without-generated-reports",
-    "package_hash_file_count": 247,
-    "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff"
+    "package_hash_file_count": 265,
+    "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
   },
   "failures": [],
   "warnings": [],
@@ -53,6 +53,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/adjudicate_multi_reviewer.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Adjudicates three independent provider-output review packets and writes promotion evidence.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -385,6 +399,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/evidence_consistency_review_studio.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Keeps Review Studio mirror validation isolated from the evidence-consistency orchestrator.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/evidence_consistency_skill_os2_review.py",
       "interface": "internal-module",
       "interface_declared": true,
@@ -413,6 +441,34 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/evidence_resolver.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by reports, Review Studio, and evidence gates to resolve the published evidence collection.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": true,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/evidence_store.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by evidence-build and evidence consumers for transactional local evidence publishing.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": true,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/export_skill_ir.py",
       "interface": "cli",
       "interface_declared": false,
@@ -422,6 +478,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/finalize_provider_review.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Binds three controlled reviewer submissions to one immutable provider run without rerunning the model matrix.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -515,6 +585,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/json_schema_validation.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by manifest and Skill IR validation to enforce their committed JSON Schema contracts.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/judge_blind_eval.py",
       "interface": "cli",
       "interface_declared": false,
@@ -566,6 +650,20 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/output_provider_matrix.py",
+      "interface": "internal-module",
+      "interface_declared": true,
+      "interface_reason": "Imported by evidence-build and matrix tests for budgeted double-model output evaluation.",
+      "has_argparse": false,
+      "has_main_guard": false,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
       "uses_subprocess": false,
       "network_urls": [],
       "network_hosts": []
@@ -927,6 +1025,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/render_phase1_trigger_holdout.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Renders frozen phase-one trigger, regression, context, and metadata evidence.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/render_portability_report.py",
       "interface": "cli",
       "interface_declared": false,
@@ -945,6 +1057,20 @@
       "interface": "cli",
       "interface_declared": false,
       "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": true,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
+      "path": "scripts/render_provider_output_status.py",
+      "interface": "cli",
+      "interface_declared": true,
+      "interface_reason": "Renders credential-safe DeepSeek provider-matrix readiness without making API calls.",
       "has_argparse": true,
       "has_main_guard": true,
       "uses_input": false,
@@ -1519,6 +1645,20 @@
       "network_hosts": []
     },
     {
+      "path": "scripts/run_evidence_build.py",
+      "interface": "cli",
+      "interface_declared": false,
+      "interface_reason": "Default CLI classification; add SCRIPT_INTERFACE for internal modules.",
+      "has_argparse": true,
+      "has_main_guard": true,
+      "uses_input": false,
+      "uses_network": false,
+      "uses_file_write": false,
+      "uses_subprocess": false,
+      "network_urls": [],
+      "network_hosts": []
+    },
+    {
       "path": "scripts/run_output_eval.py",
       "interface": "cli",
       "interface_declared": false,
@@ -1564,7 +1704,7 @@
       "path": "scripts/skill_ir_paths.py",
       "interface": "internal-module",
       "interface_declared": true,
-      "interface_reason": "Imported by compiler, registry, conformance, and report scripts to locate canonical Skill IR artifacts.",
+      "interface_reason": "Imported by compiler, packager, registry, conformance, and report scripts to resolve one canonical Skill IR.",
       "has_argparse": false,
       "has_main_guard": false,
       "uses_input": false,
@@ -1682,7 +1822,7 @@
       "uses_input": false,
       "uses_network": false,
       "uses_file_write": false,
-      "uses_subprocess": false,
+      "uses_subprocess": true,
       "network_urls": [],
       "network_hosts": []
     },
@@ -2249,13 +2389,23 @@
   "help_smoke": {
     "enabled": true,
     "timeout_seconds": 5.0,
-    "candidate_count": 86,
-    "checked_count": 86,
-    "passed_count": 86,
+    "candidate_count": 91,
+    "checked_count": 91,
+    "passed_count": 91,
     "failed_count": 0,
-    "skipped_count": 69,
+    "skipped_count": 74,
     "failed_scripts": [],
     "results": [
+      {
+        "path": "scripts/adjudicate_multi_reviewer.py",
+        "command": "python3 scripts/adjudicate_multi_reviewer.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: adjudicate_multi_reviewer.py [-h] --answer-key ANSWER_KEY\n                                    --decisions DECISIONS\n                                    --reviewer-registry REVIEWER_REGISTRY\n                                    [--outp",
+        "stderr_excerpt": ""
+      },
       {
         "path": "scripts/adjudicate_output_review.py",
         "command": "python3 scripts/adjudicate_output_review.py --help",
@@ -2394,6 +2544,16 @@
         "passed": true,
         "has_help_text": true,
         "stdout_excerpt": "usage: export_skill_ir.py [-h] [--output-json OUTPUT_JSON] [--validate-only]\n                          [skill_dir]\n\nExport a platform-neutral Skill IR document from a skill package.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help ",
+        "stderr_excerpt": ""
+      },
+      {
+        "path": "scripts/finalize_provider_review.py",
+        "command": "python3 scripts/finalize_provider_review.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: finalize_provider_review.py [-h] --source-run SOURCE_RUN\n                                   --decisions DECISIONS\n                                   --reviewer-registry REVIEWER_REGISTRY\n                                   [--run-id R",
         "stderr_excerpt": ""
       },
       {
@@ -2717,6 +2877,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/render_phase1_trigger_holdout.py",
+        "command": "python3 scripts/render_phase1_trigger_holdout.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: render_phase1_trigger_holdout.py [-h] [--output-json OUTPUT_JSON]\n                                        [--output-md OUTPUT_MD]\n                                        [--generated-at GENERATED_AT]\n                                 ",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/render_portability_report.py",
         "command": "python3 scripts/render_portability_report.py --help",
         "returncode": 0,
@@ -2734,6 +2904,16 @@
         "passed": true,
         "has_help_text": true,
         "stdout_excerpt": "usage: render_prompt_quality_profile.py [-h] [--output-md OUTPUT_MD]\n                                        [--output-json OUTPUT_JSON]\n                                        [skill_dir]\n\nRender prompt behavior quality, RTF mapping, and n",
+        "stderr_excerpt": ""
+      },
+      {
+        "path": "scripts/render_provider_output_status.py",
+        "command": "python3 scripts/render_provider_output_status.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: render_provider_output_status.py [-h] [--output-json OUTPUT_JSON]\n                                        [skill_dir]\n\nRender DeepSeek provider-matrix readiness without calling the provider.\n\npositional arguments:\n  skill_dir\n\noption",
         "stderr_excerpt": ""
       },
       {
@@ -2997,6 +3177,16 @@
         "stderr_excerpt": ""
       },
       {
+        "path": "scripts/run_evidence_build.py",
+        "command": "python3 scripts/run_evidence_build.py --help",
+        "returncode": 0,
+        "timed_out": false,
+        "passed": true,
+        "has_help_text": true,
+        "stdout_excerpt": "usage: run_evidence_build.py [-h] [--run-id RUN_ID] [--publish] [--recover]\n                             skill_dir\n\nBuild isolated, hash-indexed evidence for an agent skill.\n\npositional arguments:\n  skill_dir\n\noptions:\n  -h, --help       sh",
+        "stderr_excerpt": ""
+      },
+      {
         "path": "scripts/run_output_eval.py",
         "command": "python3 scripts/run_output_eval.py --help",
         "returncode": 0,
@@ -3043,7 +3233,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: sync_local_install.py [-h] [--root ROOT] [--install-dir INSTALL_DIR]\n                             [--package-dir PACKAGE_DIR]\n                             [--generated-at GENERATED_AT]\n                             [--skip-install-pre",
+        "stdout_excerpt": "usage: sync_local_install.py [-h] [--root ROOT] [--install-dir INSTALL_DIR]\n                             [--package-dir PACKAGE_DIR]\n                             [--verification-json VERIFICATION_JSON]\n                             [--genera",
         "stderr_excerpt": ""
       },
       {
@@ -3113,7 +3303,7 @@
         "timed_out": false,
         "passed": true,
         "has_help_text": true,
-        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,optimize-description,promote-check,python-compat,architecture-audit,rev",
+        "stdout_excerpt": "usage: yao.py [-h] [--record-cli-telemetry] [--no-cli-telemetry]\n              [--telemetry-events-jsonl TELEMETRY_EVENTS_JSONL]\n              {init,quickstart,validate,evidence-build,evidence-finalize-review,optimize-description,promote-ch",
         "stderr_excerpt": ""
       }
     ],
@@ -3167,6 +3357,10 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/evidence_consistency_review_studio.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/evidence_consistency_skill_os2_review.py",
         "reason": "internal module"
       },
@@ -3175,7 +3369,23 @@
         "reason": "internal module"
       },
       {
+        "path": "scripts/evidence_resolver.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/evidence_store.py",
+        "reason": "internal module"
+      },
+      {
         "path": "scripts/html_rendering.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/json_schema_validation.py",
+        "reason": "internal module"
+      },
+      {
+        "path": "scripts/output_provider_matrix.py",
         "reason": "internal module"
       },
       {
@@ -3448,6 +3658,7 @@
         "capability": "file_write",
         "status": "approved",
         "scripts": [
+          "scripts/adjudicate_multi_reviewer.py",
           "scripts/adjudicate_output_review.py",
           "scripts/apply_adaptation.py",
           "scripts/build_confusion_matrix.py",
@@ -3459,11 +3670,13 @@
           "scripts/create_iteration_snapshot.py",
           "scripts/cross_packager.py",
           "scripts/emit_telemetry_event.py",
+          "scripts/evidence_store.py",
           "scripts/export_skill_ir.py",
           "scripts/github_benchmark_scan.py",
           "scripts/import_output_review_decisions.py",
           "scripts/import_telemetry_events.py",
           "scripts/init_skill.py",
+          "scripts/output_provider_matrix.py",
           "scripts/prepare_output_review_kit.py",
           "scripts/prepare_world_class_submission_kit.py",
           "scripts/probe_runtime_permissions.py",
@@ -3486,8 +3699,10 @@
           "scripts/render_iteration_directions.py",
           "scripts/render_iteration_ledger.py",
           "scripts/render_output_risk_profile.py",
+          "scripts/render_phase1_trigger_holdout.py",
           "scripts/render_portability_report.py",
           "scripts/render_prompt_quality_profile.py",
+          "scripts/render_provider_output_status.py",
           "scripts/render_reference_scan.py",
           "scripts/render_reference_synthesis.py",
           "scripts/render_regression_history.py",
@@ -3547,11 +3762,14 @@
           "scripts/apply_adaptation.py",
           "scripts/benchmark_release_lock.py",
           "scripts/ci_test.py",
+          "scripts/evidence_resolver.py",
+          "scripts/evidence_store.py",
           "scripts/render_benchmark_reproducibility.py",
           "scripts/render_eval_dashboard.py",
           "scripts/render_evidence_consistency.py",
           "scripts/run_eval_suite.py",
           "scripts/run_output_execution.py",
+          "scripts/skill_report_sources.py",
           "scripts/sync_local_install.py",
           "scripts/trust_check.py",
           "scripts/yao.py",

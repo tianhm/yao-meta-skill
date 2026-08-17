@@ -28,12 +28,21 @@ Common focused checks:
 - Review Studio changes: `python3 tests/verify_review_studio.py`
 - Trust or script inventory changes: `python3 tests/verify_trust_check.py`
 - Packaging or registry changes: `python3 tests/verify_package_verification.py && python3 tests/verify_registry_audit.py`
+- Phase-one trigger/context changes: `python3 tests/verify_phase1_trigger_holdout.py`
+- Provider output changes: `python3 tests/verify_output_provider_matrix.py`
+
+## Trusted evidence runs
+
+Use `python3 scripts/yao.py evidence-build <skill_dir>` for an isolated dry run. Add `--publish` only after source and generated evidence have been committed and the target worktree is clean. Publishing creates an immutable bundle under the target Skill's `.yao/releases`, refreshes canonical report mirrors, and updates `reports/.current-run.json` last.
+
+Official report consumers must use `scripts/evidence_resolver.py`. Keep `.yao/runs` and `.yao/releases` local. Commit the canonical pointer and artifact index when they form release evidence. If `.yao/publish-transaction.json` exists, dry runs must stay read-only and return `recovery-required`; use `evidence-build <skill_dir> --recover` for explicit recovery. Preserve the transaction marker, snapshot, and previous release bundle when recovery reports an integrity error. Packaged installs use a portable pointer and report index. See `references/evidence-publication.md` for the full protocol.
+
+`--publish` checks clean source before provider execution. Provider answer text must remain under `.yao/runs/<run-id>/raw-outputs`; role-neutral reviewer copies stay under the run's `review-materials`, and the answer key stays under `private`. Releases carry commitments, hashes, redacted summaries, and role-neutral locators. Use `evidence-finalize-review` with three controlled reviewer packets and their registry; add `--resume` only for the same named run after an interrupted finalization. Never write `DEEPSEEK_API_KEY` to reports, fixtures, manifests, commands, or logs. Resolve Skill IR through `scripts/skill_ir_paths.py`; wildcard example scanning is forbidden.
 
 After source changes that affect scripts, package contents, trust evidence, Review Studio, registry metadata, or generated reports, refresh the release evidence before final sign-off:
 
 ```bash
 GENERATED_AT="${GENERATED_AT:-$(date +%F)}"
-python3 scripts/run_output_execution.py --runner-command '["python3","scripts/local_output_eval_runner.py"]'
 python3 scripts/compile_skill.py . --generated-at "$GENERATED_AT"
 python3 scripts/cross_packager.py . --platform openai --platform claude --platform generic --platform vscode --expectations evals/packaging_expectations.json --output-dir dist --zip
 python3 scripts/simulate_install.py . --package-dir dist --install-root dist/install-simulation --output-json reports/install_simulation.json --output-md reports/install_simulation.md --generated-at "$GENERATED_AT"
@@ -69,6 +78,8 @@ python3 scripts/render_review_studio.py . --output-html reports/review-studio.ht
 python3 scripts/render_evidence_consistency.py . --generated-at "$GENERATED_AT"
 ```
 
+`reports/output_execution_runs.json` is the immutable legacy provider baseline. Do not replace it with the local runner during routine report refresh. Phase 1 Provider evidence is generated inside `evidence-build` runs and promoted through the evidence publication protocol.
+
 For final release evidence, commit source and generated package evidence first, then run the clean-lock reports from a clean worktree:
 
 ```bash
@@ -86,7 +97,7 @@ python3 scripts/render_evidence_consistency.py . --generated-at "$GENERATED_AT"
 
 If `reports/benchmark_reproducibility.json` reports `release_lock_ready: false`, do not commit that benchmark as release evidence. Restore the transient dirty-lock reports, commit the source/generated evidence that caused the dirty state, and regenerate the clean-lock reports on the resulting clean tree.
 
-Local sync into `~/.agents/skills.disabled/yao-meta-skill` or `~/.agents/skills/yao-meta-skill` must keep the install preflight enabled unless the user explicitly requests a diagnostic bypass. `make sync-local-install` and `make sync-active-install` rebuild the package first, then `scripts/sync_local_install.py` refuses to copy files when install simulation or installer permission enforcement fails.
+Local sync into `~/.agents/skills.disabled/yao-meta-skill` or `~/.agents/skills/yao-meta-skill` must keep the install preflight enabled unless the user explicitly requests a diagnostic bypass. Build and verify the archive before invoking `make sync-local-install` or `make sync-active-install`. The sync targets preserve the attested archive. `scripts/sync_local_install.py` checks the archive bytes against `reports/package_verification.json`, installs those exact bytes, and refuses the copy when the hash, install simulation, or installer permission enforcement fails.
 
 Clean test-only scratch directories after verification with `find tests -maxdepth 1 \( -name 'tmp' -o -name 'tmp_*' \) -type d -exec rm -rf {} +`. Do not clean unrelated untracked files.
 

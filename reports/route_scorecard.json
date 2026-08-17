@@ -15,7 +15,7 @@
       "correct_count": 3,
       "precision": 1.0,
       "recall": 1.0,
-      "average_margin": 0.644
+      "average_margin": 0.646
     },
     "team-frontend-review": {
       "expected_count": 3,
@@ -117,12 +117,12 @@
       "expected_route": "yao-meta-skill",
       "predicted_route": "yao-meta-skill",
       "correct": true,
-      "margin": 0.51,
+      "margin": 0.516,
       "ambiguous": false,
       "ranked_routes": [
         {
           "name": "yao-meta-skill",
-          "score": 0.51,
+          "score": 0.516,
           "passed_threshold": true,
           "threshold": 0.33,
           "matched_desired_concepts": [
@@ -525,7 +525,7 @@
       "ranked_routes": [
         {
           "name": "yao-meta-skill",
-          "score": 0.016,
+          "score": 0.024,
           "passed_threshold": false,
           "threshold": 0.33,
           "matched_desired_concepts": [],

@@ -1,6 +1,6 @@
 {
   "skill_name": "yao-meta-skill",
-  "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+  "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
   "systems_doctrine": "Structure drives behavior: improve the boundary, feedback loops, drift watch, and leverage points before adding weight.",
   "stability": {
     "score": 100,

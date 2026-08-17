@@ -1,0 +1,9 @@
+{
+  "artifact_index": "reports/artifact-index.json",
+  "artifact_index_sha256": "2ecfe5b321078997ec2124d96337a2cb19ca1d2680d3ceaa93f24d69a3984579",
+  "published_at": "2026-08-16T02:43:46Z",
+  "release_dir": ".yao/releases/phase1-pr-canonical-ir-attested-20260816",
+  "run_id": "phase1-pr-canonical-ir-attested-20260816",
+  "schema_version": "1.0",
+  "skill_name": "yao-meta-skill"
+}

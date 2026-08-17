@@ -337,6 +337,7 @@ def main() -> None:
         assert ProviderHandler.requests[-1]["authorization"] == "Bearer test-key", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["model"] == "fixture-model", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["temperature"] == 0.0, ProviderHandler.requests[-1]
+        assert ProviderHandler.requests[-1]["body"]["max_output_tokens"] == 3000, ProviderHandler.requests[-1]
         assert "Create a reusable skill package." in ProviderHandler.requests[-1]["body"]["input"], ProviderHandler.requests[-1]
         assert "fixture_output" not in ProviderHandler.requests[-1]["body"]["input"], ProviderHandler.requests[-1]
 
@@ -377,6 +378,43 @@ def main() -> None:
         assert "reports/output_quality_scorecard.md" in governed_input, governed_input
         assert "missing evidence" in governed_input, governed_input
 
+        input_root = tmp_root / "provider-input-root"
+        input_root.mkdir()
+        outside_secret = tmp_root / "outside-secret.txt"
+        outside_secret.write_text("SECRET-MUST-NOT-ENTER-PROVIDER-PROMPT", encoding="utf-8")
+        (input_root / "linked-secret.txt").symlink_to(outside_secret)
+        symlink_provider_request = {
+            "case_id": "symlink-boundary",
+            "variant": "with_skill",
+            "prompt": "Use the supplied input.",
+            "input_files": ["linked-secret.txt"],
+            "metadata": {},
+        }
+        symlink_provider_proc = subprocess.run(
+            [
+                sys.executable,
+                str(PROVIDER_RUNNER),
+                "--base-url",
+                provider_url,
+                "--allow-insecure-localhost",
+                "--model",
+                "fixture-model",
+                "--input-root",
+                str(input_root),
+            ],
+            cwd=ROOT,
+            input=json.dumps(symlink_provider_request),
+            capture_output=True,
+            text=True,
+            env=provider_env,
+            check=True,
+        )
+        symlink_provider = json.loads(symlink_provider_proc.stdout)
+        assert symlink_provider["execution_kind"] == "model", symlink_provider
+        symlink_input = ProviderHandler.requests[-1]["body"]["input"]
+        assert "SECRET-MUST-NOT-ENTER-PROVIDER-PROMPT" not in symlink_input, symlink_input
+        assert "skipped-unsafe-path" in symlink_input, symlink_input
+
         chat_provider_url = f"http://127.0.0.1:{server.server_port}/chat/completions"
         direct_chat_provider_proc = subprocess.run(
             [
@@ -410,6 +448,7 @@ def main() -> None:
         assert ProviderHandler.requests[-1]["body"]["model"] == "fixture-model", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["thinking"]["type"] == "disabled", ProviderHandler.requests[-1]
         assert ProviderHandler.requests[-1]["body"]["temperature"] == 0.0, ProviderHandler.requests[-1]
+        assert ProviderHandler.requests[-1]["body"]["max_tokens"] == 3000, ProviderHandler.requests[-1]
         assert "Create a reusable skill package." in ProviderHandler.requests[-1]["body"]["messages"][0]["content"], (
             ProviderHandler.requests[-1]
         )

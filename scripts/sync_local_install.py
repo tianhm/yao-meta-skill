@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
 import shutil
 import subprocess
 import tempfile
+import zipfile
 from datetime import date
 from pathlib import Path
 
@@ -16,6 +18,7 @@ SENTINEL_NAME = ".yao-local-install.json"
 DEFAULT_INSTALL_DIR = Path.home() / ".agents" / "skills.disabled" / SKILL_NAME
 ACTIVE_INSTALL_DIR = Path.home() / ".agents" / "skills" / SKILL_NAME
 DEFAULT_PACKAGE_DIR = ROOT / "dist"
+DEFAULT_VERIFICATION_JSON = ROOT / "reports" / "package_verification.json"
 ALLOW_UNTRACKED_PREFIXES = {
     ".github",
     "agents",
@@ -38,6 +41,10 @@ ALLOW_UNTRACKED_ROOT_FILES = {
     "requirements-ci.txt",
 }
 PROTECTED_INSTALL_PREFIXES = {".git"}
+LOCAL_ONLY_PATHS = {
+    Path("reports/.current-run.json"),
+    Path("reports/artifact-index.json"),
+}
 
 
 def git_files(root: Path, *args: str) -> list[Path]:
@@ -59,7 +66,7 @@ def allow_untracked(path: Path) -> bool:
 
 
 def candidate_files(root: Path) -> tuple[list[Path], list[Path]]:
-    tracked = set(git_files(root))
+    tracked = set(git_files(root)) - LOCAL_ONLY_PATHS
     untracked = set(git_files(root, "--others", "--exclude-standard"))
     allowed_untracked = {path for path in untracked if allow_untracked(path)}
     skipped_untracked = sorted(untracked - allowed_untracked)
@@ -163,6 +170,33 @@ def install_preflight(root: Path, package_dir: Path, generated_at: str) -> dict:
     }
 
 
+def verify_archive_attestation(package_dir: Path, verification_json: Path) -> dict:
+    archive_path = package_dir / f"{SKILL_NAME}.zip"
+    if not archive_path.is_file():
+        raise ValueError(f"Verified install archive is missing: {archive_path}")
+    if not verification_json.is_file():
+        raise ValueError(f"Package verification report is missing: {verification_json}")
+    try:
+        report = json.loads(verification_json.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Package verification report is invalid JSON: {verification_json}") from exc
+    summary = report.get("summary", {}) if isinstance(report, dict) else {}
+    expected_sha256 = str(summary.get("archive_sha256") or "")
+    actual_sha256 = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    if report.get("ok") is not True or int(summary.get("failure_count", 1) or 0) != 0:
+        raise ValueError(f"Package verification report is not passing: {verification_json}")
+    if expected_sha256 != actual_sha256:
+        raise ValueError(
+            "Install archive hash does not match package verification report: "
+            f"expected {expected_sha256 or 'missing'}, actual {actual_sha256}"
+        )
+    return {
+        "ok": True,
+        "verification_json": str(verification_json),
+        "archive_sha256": actual_sha256,
+    }
+
+
 def remove_stale_files(install_dir: Path, desired_files: set[Path], dry_run: bool) -> list[str]:
     removed = []
     if not install_dir.exists():
@@ -206,28 +240,57 @@ def copy_files(root: Path, install_dir: Path, files: list[Path], dry_run: bool) 
     return copied, skipped
 
 
+def extract_archive_source(package_dir: Path, destination: Path) -> tuple[Path, list[Path]]:
+    archive_path = package_dir / f"{SKILL_NAME}.zip"
+    if not archive_path.is_file():
+        raise ValueError(f"Verified install archive is missing: {archive_path}")
+    package_root = destination / SKILL_NAME
+    files: list[Path] = []
+    with zipfile.ZipFile(archive_path) as archive:
+        for info in archive.infolist():
+            path = Path(info.filename)
+            if path.is_absolute() or ".." in path.parts or not path.parts or path.parts[0] != SKILL_NAME:
+                raise ValueError(f"Unsafe install archive member: {info.filename}")
+            mode = info.external_attr >> 16
+            if mode & 0o170000 == 0o120000:
+                raise ValueError(f"Symlink install archive member is forbidden: {info.filename}")
+            relative = Path(*path.parts[1:])
+            if not relative.parts or info.is_dir():
+                continue
+            target = package_root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(archive.read(info))
+            files.append(relative)
+    return package_root, sorted(files)
+
+
 def sync_local_install(
     root: Path,
     install_dir: Path,
     dry_run: bool = False,
     package_dir: Path | None = None,
+    verification_json: Path | None = None,
     generated_at: str | None = None,
     skip_install_preflight: bool = False,
 ) -> dict:
     root = root.resolve()
     install_dir = install_dir.resolve()
     validate_install_dir(root, install_dir)
+    resolved_package_dir = (package_dir or DEFAULT_PACKAGE_DIR).resolve()
+    resolved_verification_json = (verification_json or DEFAULT_VERIFICATION_JSON).resolve()
+    archive_attestation = verify_archive_attestation(resolved_package_dir, resolved_verification_json)
     preflight = {"ok": True, "skipped": True}
     if not skip_install_preflight:
-        resolved_package_dir = (package_dir or DEFAULT_PACKAGE_DIR).resolve()
         preflight = install_preflight(root, resolved_package_dir, generated_at or str(date.today()))
-    files, skipped_untracked = candidate_files(root)
-    desired_files = set(files)
-    desired_files.add(Path(SENTINEL_NAME))
-    removed = remove_stale_files(install_dir, desired_files, dry_run)
-    if not dry_run:
-        install_dir.mkdir(parents=True, exist_ok=True)
-    copied, skipped_sources = copy_files(root, install_dir, files, dry_run)
+    _, skipped_untracked = candidate_files(root)
+    with tempfile.TemporaryDirectory(prefix="yao-local-install-archive-") as temp_dir:
+        archive_root, files = extract_archive_source(resolved_package_dir, Path(temp_dir))
+        desired_files = set(files)
+        desired_files.add(Path(SENTINEL_NAME))
+        removed = remove_stale_files(install_dir, desired_files, dry_run)
+        if not dry_run:
+            install_dir.mkdir(parents=True, exist_ok=True)
+        copied, skipped_sources = copy_files(archive_root, install_dir, files, dry_run)
     write_sentinel(root, install_dir, dry_run)
     return {
         "ok": True,
@@ -239,6 +302,8 @@ def sync_local_install(
         "skipped_source_count": len(skipped_sources),
         "skipped_untracked_count": len(skipped_untracked),
         "install_preflight": preflight,
+        "archive_attestation": archive_attestation,
+        "install_source": "verified-archive",
         "copied_samples": copied[:10],
         "removed_samples": removed[:10],
         "skipped_source_samples": skipped_sources[:10],
@@ -251,6 +316,7 @@ def main() -> None:
     parser.add_argument("--root", default=str(ROOT))
     parser.add_argument("--install-dir", default=str(DEFAULT_INSTALL_DIR))
     parser.add_argument("--package-dir", default=str(DEFAULT_PACKAGE_DIR))
+    parser.add_argument("--verification-json", default=str(DEFAULT_VERIFICATION_JSON))
     parser.add_argument("--generated-at", default=str(date.today()))
     parser.add_argument("--skip-install-preflight", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -259,12 +325,16 @@ def main() -> None:
     package_dir = Path(args.package_dir)
     if not package_dir.is_absolute():
         package_dir = root / package_dir
+    verification_json = Path(args.verification_json)
+    if not verification_json.is_absolute():
+        verification_json = root / verification_json
     try:
         result = sync_local_install(
             root,
             resolve_install_dir(args.install_dir),
             dry_run=args.dry_run,
             package_dir=package_dir,
+            verification_json=verification_json,
             generated_at=args.generated_at,
             skip_install_preflight=args.skip_install_preflight,
         )

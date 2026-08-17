@@ -1,7 +1,7 @@
 {
   "ok": true,
   "schema_version": "2.0",
-  "generated_at": "2026-07-16",
+  "generated_at": "2026-08-14",
   "previous": {
     "name": "yao-meta-skill",
     "version": "1.0.0",
@@ -13,7 +13,7 @@
   },
   "current": {
     "name": "yao-meta-skill",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "targets": [
       "openai",
       "claude",
@@ -63,19 +63,19 @@
       {
         "field": "description",
         "from": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes.",
-        "to": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs."
+        "to": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests."
       }
     ],
     "checksum_changes": [
       {
         "field": "archive_sha256",
         "from": "",
-        "to": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
+        "to": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
       },
       {
         "field": "package_sha256",
         "from": "0000000000000000000000000000000000000000000000000000000000000000",
-        "to": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff"
+        "to": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202"
       }
     ]
   },

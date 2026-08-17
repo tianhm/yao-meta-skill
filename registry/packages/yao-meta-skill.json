@@ -1,8 +1,8 @@
 {
   "schema_version": "2.0",
   "name": "yao-meta-skill",
-  "version": "1.1.0",
-  "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+  "version": "1.2.0",
+  "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
   "targets": [
     "openai",
     "claude",
@@ -16,8 +16,8 @@
   "trust_level": "local",
   "license": "MIT",
   "checksums": {
-    "package_sha256": "4a7954098cf0f49eca67f55cd0794fe88a068c7eb3bd0fce2b405a9363e0e3ff",
-    "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773"
+    "package_sha256": "d20c4b01783581d6f54dc29d54f77aba81031b4fb94934bb20b0dbce9dd36202",
+    "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222"
   },
   "compatibility": {
     "openai": "pass",
@@ -48,10 +48,10 @@
   },
   "distribution": {
     "archive_verified": true,
-    "archive_sha256": "f19c4c9b82688a27fea31cbd09ce5f48322229ae3e2ac54d86996142d36f5773",
+    "archive_sha256": "a113681dcdfb7d2d3453dca2fbea0203967d0e1600ef09c3faca41aff8b44222",
     "package_verification": "reports/package_verification.json",
     "install_simulated": true,
     "install_simulation": "reports/install_simulation.json"
   },
-  "generated_at": "2026-07-16"
+  "generated_at": "2026-08-14"
 }

@@ -7,10 +7,11 @@ from pathlib import Path
 from typing import Any
 
 from output_review_privacy import BLOCKED_DECISION_FIELDS
-from world_class_human_evidence import validate_human_adjudication_report
+from evidence_resolver import resolve_report_path
+from world_class_human_evidence import validate_human_adjudication_report, validate_phase1_human_report
 from world_class_native_permission_evidence import validate_native_permission_report
 from world_class_native_telemetry_evidence import validate_native_telemetry_report
-from world_class_provider_evidence import validate_provider_execution_report
+from world_class_provider_evidence import validate_phase1_provider_report, validate_provider_execution_report
 
 
 SCRIPT_INTERFACE = "internal-module"
@@ -74,13 +75,26 @@ REQUIRED_REAL_ARTIFACT_PATHS = {
         "reports/telemetry_hook_recipes.json",
     },
 }
+REQUIRED_REAL_ARTIFACT_GROUPS = {
+    "provider-holdout": [
+        {"reports/provider_output_evaluation.json"},
+        {"reports/output_execution_runs.json"},
+    ],
+    "human-adjudication": [
+        {"reports/provider_output_adjudication.json", "reports/provider_reviewer_registry.json"},
+        {"reports/output_review_adjudication.json", "reports/output_review_decisions.json"},
+    ],
+}
 EXPECTED_REAL_ARTIFACT_KINDS = {
     "provider-holdout": {
         "reports/output_execution_runs.json": "aggregate-report",
+        "reports/provider_output_evaluation.json": "aggregate-report",
     },
     "human-adjudication": {
         "reports/output_review_adjudication.json": "adjudication-report",
         "reports/output_review_decisions.json": "review-decisions",
+        "reports/provider_output_adjudication.json": "adjudication-report",
+        "reports/provider_reviewer_registry.json": "reviewer-registry",
     },
     "native-permission-enforcement": {
         "reports/runtime_permission_probes.json": "runtime-probe-report",
@@ -109,6 +123,7 @@ FORBIDDEN_REAL_SUBMISSION_FIELDS = BLOCKED_DECISION_FIELDS
 def load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
@@ -119,6 +134,7 @@ def load_json(path: Path) -> dict[str, Any]:
 def load_json_with_status(path: Path) -> tuple[dict[str, Any], str]:
     if not path.exists():
         return {}, "missing"
+    path = resolve_report_path(path)
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
@@ -248,15 +264,17 @@ def validate_artifact_refs(
     refs = payload.get("artifact_refs")
     add_error(errors, isinstance(refs, list) and len(refs) > 0, "artifact_refs must contain at least one reference")
     evidence_key = str(payload.get("evidence_key", ""))
-    required_paths = REQUIRED_REAL_ARTIFACT_PATHS.get(evidence_key, set())
+    groups = REQUIRED_REAL_ARTIFACT_GROUPS.get(evidence_key, [])
+    required_paths = REQUIRED_REAL_ARTIFACT_PATHS.get(evidence_key, set()) if not groups else set()
     expected_kinds = EXPECTED_REAL_ARTIFACT_KINDS.get(evidence_key, {})
     observed_paths: set[str] = set()
     seen_artifact_paths: set[str] = set()
+    verified_artifact_paths: set[str] = set()
     stats = {
         "artifact_ref_count": len(refs) if isinstance(refs, list) else 0,
         "artifact_existing_count": 0,
         "artifact_sha256_verified_count": 0,
-        "required_artifact_count": len(required_paths) if not template_expected else 0,
+        "required_artifact_count": (min((len(group) for group in groups), default=len(required_paths))) if not template_expected else 0,
         "required_artifact_verified_count": 0,
     }
     if not isinstance(refs, list):
@@ -313,6 +331,7 @@ def validate_artifact_refs(
             errors.append(f"artifact_refs[{index}].sha256 does not match local artifact")
             continue
         stats["artifact_sha256_verified_count"] += 1
+        verified_artifact_paths.add(rel)
         if rel in required_paths:
             stats["required_artifact_verified_count"] += 1
     if not template_expected and required_paths:
@@ -321,6 +340,16 @@ def validate_artifact_refs(
             errors.append(f"artifact_refs must include required evidence artifact {path}")
         if not missing_required and stats["required_artifact_verified_count"] < len(required_paths):
             errors.append("all required evidence artifacts must have verified sha256 digests")
+    if not template_expected and groups:
+        matched = next((group for group in groups if group <= observed_paths), None)
+        if matched is None:
+            alternatives = " or ".join(" + ".join(sorted(group)) for group in groups)
+            errors.append(f"artifact_refs must include one complete evidence artifact group: {alternatives}")
+        else:
+            verified = sum(1 for path in matched if path in verified_artifact_paths)
+            stats["required_artifact_verified_count"] = verified
+            if verified < len(matched):
+                errors.append("all required evidence artifacts must have verified sha256 digests")
     return stats
 
 
@@ -344,6 +373,10 @@ def artifact_ref_path_map(payload: dict[str, Any], root: Path) -> dict[str, Path
 
 def validate_provider_holdout_artifacts(payload: dict[str, Any], errors: list[str], root: Path) -> None:
     paths = artifact_ref_path_map(payload, root)
+    phase1 = load_json(paths.get("reports/provider_output_evaluation.json", root / "__missing__"))
+    if phase1:
+        validate_phase1_provider_report(phase1, errors)
+        return
     execution = load_json(paths.get("reports/output_execution_runs.json", root / "__missing__"))
     if not execution:
         return
@@ -353,6 +386,12 @@ def validate_provider_holdout_artifacts(payload: dict[str, Any], errors: list[st
 
 def validate_human_adjudication_artifacts(payload: dict[str, Any], errors: list[str], root: Path) -> None:
     paths = artifact_ref_path_map(payload, root)
+    phase1 = load_json(paths.get("reports/provider_output_adjudication.json", root / "__missing__"))
+    registry = load_json(paths.get("reports/provider_reviewer_registry.json", root / "__missing__"))
+    if phase1 or registry:
+        if phase1 and registry:
+            validate_phase1_human_report(phase1, registry, errors)
+        return
     adjudication = load_json(paths.get("reports/output_review_adjudication.json", root / "__missing__"))
     decisions = load_json(paths.get("reports/output_review_decisions.json", root / "__missing__"))
     if not adjudication or not decisions:

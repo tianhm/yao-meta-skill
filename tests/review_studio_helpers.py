@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import atexit
 import shutil
 import subprocess
 import sys
@@ -9,6 +10,57 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "scripts"
 SCRIPT = SCRIPTS / "render_review_studio.py"
+CANONICAL_MUTATION_PATHS = (
+    Path("reports"),
+    Path("registry/index.json"),
+    Path("registry/packages/yao-meta-skill.json"),
+    Path("skill_atlas"),
+    Path("skill-ir/examples/yao-meta-skill.json"),
+)
+_CANONICAL_SNAPSHOT: tuple[Path, list[tuple[Path, bool]]] | None = None
+
+
+def remove_path(path: Path) -> None:
+    if path.is_dir():
+        shutil.rmtree(path)
+    elif path.exists() or path.is_symlink():
+        path.unlink()
+
+
+def snapshot_review_studio_inputs(snapshot_root: Path) -> None:
+    global _CANONICAL_SNAPSHOT
+    if _CANONICAL_SNAPSHOT is not None:
+        return
+    entries = []
+    for relative in CANONICAL_MUTATION_PATHS:
+        source = ROOT / relative
+        backup = snapshot_root / relative
+        existed = source.exists()
+        entries.append((relative, existed))
+        if source.is_dir():
+            shutil.copytree(source, backup)
+        elif source.is_file():
+            backup.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, backup)
+    _CANONICAL_SNAPSHOT = (snapshot_root, entries)
+    atexit.register(restore_review_studio_inputs)
+
+
+def restore_review_studio_inputs() -> None:
+    global _CANONICAL_SNAPSHOT
+    if _CANONICAL_SNAPSHOT is None:
+        return
+    snapshot_root, entries = _CANONICAL_SNAPSHOT
+    for relative, existed in entries:
+        target = ROOT / relative
+        backup = snapshot_root / relative
+        remove_path(target)
+        if existed and backup.is_dir():
+            shutil.copytree(backup, target)
+        elif existed:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(backup, target)
+    _CANONICAL_SNAPSHOT = None
 
 
 def run(args: list[object], allowed_returncodes: tuple[int, ...] = (0,)) -> subprocess.CompletedProcess[str]:
@@ -31,6 +83,7 @@ def prepare_tmp_root() -> Path:
     if tmp_root.exists():
         shutil.rmtree(tmp_root)
     tmp_root.mkdir(parents=True, exist_ok=True)
+    snapshot_review_studio_inputs(tmp_root / "canonical-snapshot")
     return tmp_root
 
 

@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
+COMMAND_LINE_TOOLS_MAKE = Path("/Library/Developer/CommandLineTools/usr/bin/make")
 SAFE_ENV_KEYS = (
     "HOME",
     "LANG",
@@ -50,6 +51,7 @@ DEFAULT_TARGETS = [
     "runtime-permission-check",
     "trust-check",
     "skill-atlas-check",
+    "package-check",
     "registry-audit-check",
     "package-verify-check",
     "install-simulation-check",
@@ -96,7 +98,6 @@ DEFAULT_TARGETS = [
     "portability-report",
     "portability-check",
     "failure-regression-check",
-    "package-check",
     "package-failure-check",
     "security-boundary-check",
     "local-install-sync-check",
@@ -127,8 +128,9 @@ def run_target(target: str, index: int, total: int, tail_lines: int) -> None:
     child_env["CI"] = "1"
     try:
         with log_path.open("w", encoding="utf-8") as log_file:
+            make_executable = str(COMMAND_LINE_TOOLS_MAKE) if COMMAND_LINE_TOOLS_MAKE.is_file() else "make"
             proc = subprocess.run(
-                ["make", "--silent", target],
+                [make_executable, "--silent", target],
                 cwd=ROOT,
                 stdout=log_file,
                 stderr=subprocess.STDOUT,

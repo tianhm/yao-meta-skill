@@ -1,11 +1,11 @@
 {
-  "current_description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+  "current_description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
   "current_candidate": {
     "id": "current",
     "label": "Current",
-    "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "strategy": "current",
-    "estimated_tokens": 54,
+    "estimated_tokens": 74,
     "dev": {
       "false_positives": 0,
       "false_negatives": 0,
@@ -21,7 +21,7 @@
       -1.0,
       -1.0,
       -1.0,
-      54
+      74
     ],
     "holdout": {
       "false_positives": 0,
@@ -896,7 +896,7 @@
           {
             "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
             "family": "long_context_summary_only",
-            "score": 0.257,
+            "score": 0.25,
             "predicted_trigger": false,
             "expected_trigger": false,
             "passed": true,
@@ -2166,9 +2166,9 @@
   "winner": {
     "id": "current",
     "label": "Current",
-    "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+    "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
     "strategy": "current",
-    "estimated_tokens": 54,
+    "estimated_tokens": 74,
     "dev": {
       "false_positives": 0,
       "false_negatives": 0,
@@ -2184,7 +2184,7 @@
       -1.0,
       -1.0,
       -1.0,
-      54
+      74
     ],
     "holdout": {
       "false_positives": 0,
@@ -2435,7 +2435,7 @@
         {
           "prompt": "We have a messy release runbook, export process, and a prompt history; turn all of that into one reusable skill package with evals and packaging checks.",
           "family": "complex_multi_asset",
-          "score": 0.816,
+          "score": 0.819,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -2460,7 +2460,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.804,
             "support_score": 0,
-            "lexical_support": 0.208,
+            "lexical_support": 0.25,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -2492,7 +2492,7 @@
         {
           "prompt": "Turn these workflow fragments, transcripts, and prompts into one production-ready skill with scripts and references.",
           "family": "complex_multi_asset",
-          "score": 0.454,
+          "score": 0.459,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -2516,7 +2516,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.411,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.267,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -2541,7 +2541,7 @@
         {
           "prompt": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
           "family": "iterate_existing_skill",
-          "score": 0.514,
+          "score": 0.52,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -2567,7 +2567,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.464,
             "support_score": 0.04,
-            "lexical_support": 0.214,
+            "lexical_support": 0.286,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -2702,7 +2702,7 @@
         {
           "prompt": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
           "family": "long_context_trigger",
-          "score": 0.871,
+          "score": 0.874,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -2730,7 +2730,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.857,
             "support_score": 0.04,
-            "lexical_support": 0.154,
+            "lexical_support": 0.192,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -2981,7 +2981,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.0,
+            "lexical_support": 0.111,
             "negative_penalty": 0.3,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -3029,7 +3029,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.0,
+            "lexical_support": 0.043,
             "negative_penalty": 0.68,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -3054,7 +3054,7 @@
         {
           "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
           "family": "long_context_summary_only",
-          "score": 0.236,
+          "score": 0.24,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -3082,7 +3082,7 @@
             ],
             "semantic_coverage": 0.661,
             "support_score": 0,
-            "lexical_support": 0.222,
+            "lexical_support": 0.278,
             "negative_penalty": 0.3,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -3140,7 +3140,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.1,
+            "lexical_support": 0.0,
             "negative_penalty": 0.68,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -3295,7 +3295,7 @@
             ],
             "semantic_coverage": 0.321,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.267,
             "negative_penalty": 0.64,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -3406,7 +3406,7 @@
             ],
             "semantic_coverage": 0.482,
             "support_score": 0,
-            "lexical_support": 0.048,
+            "lexical_support": 0.095,
             "negative_penalty": 0.82,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -3469,7 +3469,7 @@
             ],
             "semantic_coverage": 0.482,
             "support_score": 0,
-            "lexical_support": 0.158,
+            "lexical_support": 0.211,
             "negative_penalty": 0.64,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -3666,7 +3666,7 @@
         {
           "prompt": "Take this existing skill draft, tighten the trigger boundary, add near-neighbor evals, and package it for distribution.",
           "family": "iterate_existing_skill",
-          "score": 0.684,
+          "score": 0.688,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -3693,7 +3693,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.643,
             "support_score": 0.04,
-            "lexical_support": 0.278,
+            "lexical_support": 0.333,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -3922,7 +3922,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.143,
+            "lexical_support": 0.214,
             "negative_penalty": 0.72,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -4153,7 +4153,7 @@
             ],
             "semantic_coverage": 0.304,
             "support_score": 0,
-            "lexical_support": 0.077,
+            "lexical_support": 0.154,
             "negative_penalty": 0.46,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -4202,7 +4202,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.214,
+            "lexical_support": 0.357,
             "negative_penalty": 0.64,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -4579,7 +4579,7 @@
         {
           "prompt": "We have a messy release runbook, export process, and a prompt history; turn all of that into one reusable skill package with evals and packaging checks.",
           "family": "complex_multi_asset",
-          "score": 0.816,
+          "score": 0.819,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -4604,7 +4604,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.804,
             "support_score": 0,
-            "lexical_support": 0.208,
+            "lexical_support": 0.25,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -4636,7 +4636,7 @@
         {
           "prompt": "Turn these workflow fragments, transcripts, and prompts into one production-ready skill with scripts and references.",
           "family": "complex_multi_asset",
-          "score": 0.454,
+          "score": 0.459,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -4660,7 +4660,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.411,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.267,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -4685,7 +4685,7 @@
         {
           "prompt": "Tighten the trigger boundary on this existing skill and prepare it for team distribution.",
           "family": "iterate_existing_skill",
-          "score": 0.514,
+          "score": 0.52,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -4711,7 +4711,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.464,
             "support_score": 0.04,
-            "lexical_support": 0.214,
+            "lexical_support": 0.286,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -4846,7 +4846,7 @@
         {
           "prompt": "After the long handoff notes below, build a skill package for team reuse. The materials include a transcript, rough notes, and an onboarding flow, and the result should include references, scripts, and validation.",
           "family": "long_context_trigger",
-          "score": 0.871,
+          "score": 0.874,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -4874,7 +4874,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.857,
             "support_score": 0.04,
-            "lexical_support": 0.154,
+            "lexical_support": 0.192,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -5125,7 +5125,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.0,
+            "lexical_support": 0.111,
             "negative_penalty": 0.3,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -5173,7 +5173,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.0,
+            "lexical_support": 0.043,
             "negative_penalty": 0.68,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -5198,7 +5198,7 @@
         {
           "prompt": "I pasted a very long process note. For now I only need a recap and a short summary, not a skill package.",
           "family": "long_context_summary_only",
-          "score": 0.236,
+          "score": 0.24,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -5226,7 +5226,7 @@
             ],
             "semantic_coverage": 0.661,
             "support_score": 0,
-            "lexical_support": 0.222,
+            "lexical_support": 0.278,
             "negative_penalty": 0.3,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -5284,7 +5284,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.1,
+            "lexical_support": 0.0,
             "negative_penalty": 0.68,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -5439,7 +5439,7 @@
             ],
             "semantic_coverage": 0.321,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.267,
             "negative_penalty": 0.64,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -5550,7 +5550,7 @@
             ],
             "semantic_coverage": 0.482,
             "support_score": 0,
-            "lexical_support": 0.048,
+            "lexical_support": 0.095,
             "negative_penalty": 0.82,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -5613,7 +5613,7 @@
             ],
             "semantic_coverage": 0.482,
             "support_score": 0,
-            "lexical_support": 0.158,
+            "lexical_support": 0.211,
             "negative_penalty": 0.64,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -5810,7 +5810,7 @@
         {
           "prompt": "Take this existing skill draft, tighten the trigger boundary, add near-neighbor evals, and package it for distribution.",
           "family": "iterate_existing_skill",
-          "score": 0.684,
+          "score": 0.688,
           "predicted_trigger": true,
           "expected_trigger": true,
           "passed": true,
@@ -5837,7 +5837,7 @@
             "exclusive_negative_concepts": [],
             "semantic_coverage": 0.643,
             "support_score": 0.04,
-            "lexical_support": 0.278,
+            "lexical_support": 0.333,
             "negative_penalty": 0,
             "coverage_boost": 0.06,
             "concept_evidence": {
@@ -6066,7 +6066,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.143,
+            "lexical_support": 0.214,
             "negative_penalty": 0.72,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -6297,7 +6297,7 @@
             ],
             "semantic_coverage": 0.304,
             "support_score": 0,
-            "lexical_support": 0.077,
+            "lexical_support": 0.154,
             "negative_penalty": 0.46,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -6346,7 +6346,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.214,
+            "lexical_support": 0.357,
             "negative_penalty": 0.64,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -6720,7 +6720,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.1,
             "negative_penalty": 0.26,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -6764,7 +6764,7 @@
             ],
             "semantic_coverage": 0.054,
             "support_score": 0,
-            "lexical_support": 0.154,
+            "lexical_support": 0.231,
             "negative_penalty": 0.22,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -6784,7 +6784,7 @@
         {
           "prompt": "Review this process and suggest improvements for later; no packaging yet.",
           "family": "blind_brainstorm_only",
-          "score": 0.013,
+          "score": 0.006,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -6811,7 +6811,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.182,
+            "lexical_support": 0.091,
             "negative_penalty": 0.22,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -7071,7 +7071,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.2,
+            "lexical_support": 0.1,
             "negative_penalty": 0.26,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -7115,7 +7115,7 @@
             ],
             "semantic_coverage": 0.054,
             "support_score": 0,
-            "lexical_support": 0.154,
+            "lexical_support": 0.231,
             "negative_penalty": 0.22,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -7135,7 +7135,7 @@
         {
           "prompt": "Review this process and suggest improvements for later; no packaging yet.",
           "family": "blind_brainstorm_only",
-          "score": 0.013,
+          "score": 0.006,
           "predicted_trigger": false,
           "expected_trigger": false,
           "passed": true,
@@ -7162,7 +7162,7 @@
             ],
             "semantic_coverage": 0.357,
             "support_score": 0,
-            "lexical_support": 0.182,
+            "lexical_support": 0.091,
             "negative_penalty": 0.22,
             "coverage_boost": 0.04,
             "concept_evidence": {
@@ -8846,7 +8846,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.062,
+            "lexical_support": 0.125,
             "negative_penalty": 1.25,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -8904,7 +8904,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.1,
+            "lexical_support": 0.15,
             "negative_penalty": 0.64,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -8956,7 +8956,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.091,
+            "lexical_support": 0.182,
             "negative_penalty": 0.88,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -9250,7 +9250,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.062,
+            "lexical_support": 0.125,
             "negative_penalty": 1.25,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -9308,7 +9308,7 @@
             ],
             "semantic_coverage": 0.0,
             "support_score": 0,
-            "lexical_support": 0.1,
+            "lexical_support": 0.15,
             "negative_penalty": 0.64,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -9360,7 +9360,7 @@
             ],
             "semantic_coverage": 0.179,
             "support_score": 0,
-            "lexical_support": 0.091,
+            "lexical_support": 0.182,
             "negative_penalty": 0.88,
             "coverage_boost": 0.0,
             "concept_evidence": {
@@ -9789,9 +9789,9 @@
     {
       "id": "current",
       "label": "Current",
-      "description": "Create/improve/evaluate agent skills from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install checks, 优化已有 skill, 补 trigger 评测. Exclude no-skill summary/translation/docs.",
+      "description": "Create, improve, or evaluate an existing skill from workflows, prompts, SOPs, scripts. Use for migration/release/package, routing, evals/tests, install/trust checks, 优化已有 skill, 补 trigger 评测. Exclude summary/translation/docs, brainstorming, one-off prompts, copy-only edits, outline-only requests.",
       "strategy": "current",
-      "estimated_tokens": 54,
+      "estimated_tokens": 74,
       "dev": {
         "false_positives": 0,
         "false_negatives": 0,
@@ -9807,7 +9807,7 @@
         -1.0,
         -1.0,
         -1.0,
-        54
+        74
       ],
       "holdout": {
         "false_positives": 0,
@@ -9825,19 +9825,19 @@
       "strategy": "minimal_template",
       "estimated_tokens": 41,
       "dev": {
-        "false_positives": 1,
+        "false_positives": 0,
         "false_negatives": 1,
-        "precision": 0.875,
+        "precision": 1.0,
         "recall": 0.875,
         "near_neighbor_pass_rate": 1.0,
-        "should_not_trigger_pass_rate": 0.857
+        "should_not_trigger_pass_rate": 1.0
       },
       "selection_key": [
-        1,
+        0,
         1,
         -1.0,
-        -0.857,
-        -0.875,
+        -1.0,
+        -1.0,
         -0.875,
         41
       ],
@@ -9857,19 +9857,19 @@
       "strategy": "guardrail_template",
       "estimated_tokens": 56,
       "dev": {
-        "false_positives": 1,
+        "false_positives": 0,
         "false_negatives": 1,
-        "precision": 0.875,
+        "precision": 1.0,
         "recall": 0.875,
         "near_neighbor_pass_rate": 1.0,
-        "should_not_trigger_pass_rate": 0.857
+        "should_not_trigger_pass_rate": 1.0
       },
       "selection_key": [
-        1,
+        0,
         1,
         -1.0,
-        -0.857,
-        -0.875,
+        -1.0,
+        -1.0,
         -0.875,
         56
       ],
@@ -9889,19 +9889,19 @@
       "strategy": "balanced_template",
       "estimated_tokens": 60,
       "dev": {
-        "false_positives": 1,
+        "false_positives": 0,
         "false_negatives": 1,
-        "precision": 0.875,
+        "precision": 1.0,
         "recall": 0.875,
         "near_neighbor_pass_rate": 1.0,
-        "should_not_trigger_pass_rate": 0.857
+        "should_not_trigger_pass_rate": 1.0
       },
       "selection_key": [
-        1,
+        0,
         1,
         -1.0,
-        -0.857,
-        -0.875,
+        -1.0,
+        -1.0,
         -0.875,
         60
       ],
@@ -9921,19 +9921,19 @@
       "strategy": "artifact_template",
       "estimated_tokens": 77,
       "dev": {
-        "false_positives": 1,
+        "false_positives": 0,
         "false_negatives": 1,
-        "precision": 0.875,
+        "precision": 1.0,
         "recall": 0.875,
         "near_neighbor_pass_rate": 1.0,
-        "should_not_trigger_pass_rate": 0.857
+        "should_not_trigger_pass_rate": 1.0
       },
       "selection_key": [
-        1,
+        0,
         1,
         -1.0,
-        -0.857,
-        -0.875,
+        -1.0,
+        -1.0,
         -0.875,
         77
       ],
@@ -9953,19 +9953,19 @@
       "strategy": "boundary_template",
       "estimated_tokens": 83,
       "dev": {
-        "false_positives": 1,
+        "false_positives": 0,
         "false_negatives": 1,
-        "precision": 0.875,
+        "precision": 1.0,
         "recall": 0.875,
         "near_neighbor_pass_rate": 1.0,
-        "should_not_trigger_pass_rate": 0.857
+        "should_not_trigger_pass_rate": 1.0
       },
       "selection_key": [
-        1,
+        0,
         1,
         -1.0,
-        -0.857,
-        -0.875,
+        -1.0,
+        -1.0,
         -0.875,
         83
       ],
@@ -10141,7 +10141,7 @@
       },
       "winner_calibration": {
         "threshold": 0.33,
-        "mean_positive_score": 0.704,
+        "mean_positive_score": 0.705,
         "mean_non_trigger_score": 0.0,
         "mean_near_neighbor_score": 0.0,
         "min_positive_score": 0.465,
@@ -10156,7 +10156,7 @@
       },
       "current_calibration": {
         "threshold": 0.33,
-        "mean_positive_score": 0.704,
+        "mean_positive_score": 0.705,
         "mean_non_trigger_score": 0.0,
         "mean_near_neighbor_score": 0.0,
         "min_positive_score": 0.465,
@@ -10243,8 +10243,8 @@
       "winner_calibration": {
         "threshold": 0.33,
         "mean_positive_score": 0.377,
-        "mean_non_trigger_score": 0.024,
-        "mean_near_neighbor_score": 0.006,
+        "mean_non_trigger_score": 0.023,
+        "mean_near_neighbor_score": 0.003,
         "min_positive_score": 0.374,
         "max_non_trigger_score": 0.084,
         "score_gap": 0.29,
@@ -10258,8 +10258,8 @@
       "current_calibration": {
         "threshold": 0.33,
         "mean_positive_score": 0.377,
-        "mean_non_trigger_score": 0.024,
-        "mean_near_neighbor_score": 0.006,
+        "mean_non_trigger_score": 0.023,
+        "mean_near_neighbor_score": 0.003,
         "min_positive_score": 0.374,
         "max_non_trigger_score": 0.084,
         "score_gap": 0.29,
@@ -10494,8 +10494,8 @@
   },
   "summary": {
     "winner_label": "Current",
-    "winner_tokens": 54,
-    "current_tokens": 54,
+    "winner_tokens": 74,
+    "current_tokens": 74,
     "winner_dev_total_errors": 0,
     "current_dev_total_errors": 0,
     "winner_holdout_total_errors": 0,

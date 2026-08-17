@@ -76,7 +76,11 @@ def build_output_lab_gate(
     output_execution: dict[str, Any],
     output_blind: dict[str, Any],
     output_review: dict[str, Any],
+    provider_output: dict[str, Any] | None = None,
+    provider_adjudication: dict[str, Any] | None = None,
 ) -> dict[str, str]:
+    provider_output = provider_output or {}
+    provider_adjudication = provider_adjudication or {}
     output_summary = output.get("summary", {})
     output_execution_summary = output_execution.get("summary", {})
     output_blind_summary = output_blind.get("summary", {})
@@ -96,6 +100,19 @@ def build_output_lab_gate(
     review_pending_count = int(output_review_summary.get("pending_count", 0) or 0)
     review_invalid_count = int(output_review_summary.get("invalid_decision_count", 0) or 0)
     production_like = maturity in {"production", "library", "governed"}
+    provider_summary = provider_output.get("summary", {})
+    provider_review_summary = provider_adjudication.get("summary", {})
+    provider_matrix_complete = (
+        provider_summary.get("call_count") == 40
+        and provider_summary.get("model_executed_count") == 40
+        and provider_summary.get("failure_count") == 0
+    )
+    provider_review_complete = (
+        provider_review_summary.get("reviewer_count") == 3
+        and provider_review_summary.get("pair_count") == 20
+        and provider_review_summary.get("failure_count") == 0
+        and provider_adjudication.get("quality_promotion", {}).get("eligible") is True
+    )
     blind_missing = production_like and (not output_blind or blind_pair_count < case_count)
     review_missing = production_like and case_count > 0 and not output_review
     review_pending = production_like and bool(output_review) and review_pending_count > 0
@@ -110,7 +127,15 @@ def build_output_lab_gate(
         or execution_failed
         or review_invalid
     )
-    output_warn = file_backed == 0 or near_neighbor == 0 or boundary == 0 or blind_missing or review_missing or review_pending
+    output_warn = (
+        file_backed == 0
+        or near_neighbor == 0
+        or boundary == 0
+        or blind_missing
+        or review_missing
+        or review_pending
+        or (production_like and (not provider_matrix_complete or not provider_review_complete))
+    )
     if not output:
         output_status = "warn"
         output_detail = "output eval scorecard is missing; generate it before production review"
@@ -129,6 +154,13 @@ def build_output_lab_gate(
             + (f"; reviewed {review_judgment_count}/{review_pair_count}" if output_review else "")
             + (f"; review pending {review_pending_count}" if review_pending else "")
             + ("; review adjudication missing" if review_missing else "")
+            + (f"; provider matrix {provider_output.get('status', 'pending')}" if provider_output else "")
+            + (
+                f"; phase1 review {provider_review_summary.get('reviewer_count', 0)}/3; "
+                f"promotion {provider_adjudication.get('quality_promotion', {}).get('status', 'pending')}"
+                if provider_output
+                else ""
+            )
         )
     return gate(
         "output-lab",

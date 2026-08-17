@@ -38,6 +38,21 @@ SOURCE_CHECK_SPECS = {
     ],
 }
 
+PHASE1_SOURCE_CHECK_SPECS = {
+    "provider-holdout": [
+        ("Provider calls", "call_count", "==40", "Complete all 40 fixed DeepSeek calls."),
+        ("Provider model runs", "model_executed_count", "==40", "Require model identity on all 40 calls."),
+        ("Provider failures", "failure_count", "==0", "Resolve every fixed-matrix failure."),
+        ("Token budget", "total_tokens", "<=250000", "Keep the matrix within the 250000-token ceiling."),
+    ],
+    "human-adjudication": [
+        ("Registered reviewers", "reviewer_count", "==3", "Collect reviewer-a, reviewer-b, and reviewer-c."),
+        ("Blind pairs", "pair_count", "==20", "Complete all 20 blind pairs."),
+        ("Review failures", "failure_count", "==0", "Resolve packet, identity, or adjudication failures."),
+        ("Blind pack binding", "blind_pack_bound", "true", "Bind adjudication to the reviewed blind pack SHA256."),
+    ],
+}
+
 
 def source_check_passed(actual: Any, expected: str, observed_state: dict[str, Any]) -> bool:
     if expected == ">0":
@@ -50,6 +65,16 @@ def source_check_passed(actual: Any, expected: str, observed_state: dict[str, An
         return actual is False
     if expected == "==pair_count":
         return actual == observed_state.get("pair_count") and isinstance(actual, (int, float)) and actual > 0
+    if expected.startswith("=="):
+        try:
+            return actual == int(expected[2:])
+        except ValueError:
+            return False
+    if expected.startswith("<="):
+        try:
+            return isinstance(actual, (int, float)) and actual <= int(expected[2:])
+        except ValueError:
+            return False
     return False
 
 
@@ -71,7 +96,12 @@ def build_source_checklist(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for item in items:
         key = item_evidence_key(item)
         observed_state = item_observed_state(item)
-        for label, field, expected, next_action in SOURCE_CHECK_SPECS.get(key, []):
+        specs = (
+            PHASE1_SOURCE_CHECK_SPECS.get(key, [])
+            if observed_state.get("contract_version") == "phase1"
+            else SOURCE_CHECK_SPECS.get(key, [])
+        )
+        for label, field, expected, next_action in specs:
             actual = observed_state.get(field)
             passed = source_check_passed(actual, expected, observed_state)
             rows.append(

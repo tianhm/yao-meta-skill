@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
 import shutil
 import zipfile
@@ -251,20 +252,59 @@ def build_manifest(skill_dir: Path, platform: str) -> dict:
     }
 
 
-EXCLUDED_ARCHIVE_PARTS = {".git", ".previews", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+EXCLUDED_ARCHIVE_PARTS = {".git", ".previews", ".yao", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+EXCLUDED_LOCAL_EVIDENCE_PATHS = {
+    ("reports", ".current-run.json"),
+    ("reports", "artifact-index.json"),
+}
+ARCHIVE_ATTESTATION_MARKERS = (
+    b'"archive_sha256"',
+    b"Archive SHA256",
+    "归档哈希".encode("utf-8"),
+    b"yao-meta-skill.zip",
+)
 
 
 def should_skip_archive_path(rel_path: Path) -> bool:
     parts = rel_path.parts
     if any(part in EXCLUDED_ARCHIVE_PARTS for part in parts):
         return True
+    if parts in EXCLUDED_LOCAL_EVIDENCE_PATHS:
+        return True
     if rel_path.name == "SKILL.md" and parts != ("SKILL.md",):
         return True
     if parts == ("reports", "telemetry_events.jsonl"):
         return True
+    if len(parts) >= 2 and parts[:2] == ("reports", "release_snapshots"):
+        return True
     if parts and parts[0] == "tests" and any(part.startswith("tmp") for part in parts[1:]):
         return True
     return False
+
+
+def is_archive_attestation_consumer(rel_path: Path, path: Path) -> bool:
+    if rel_path == Path("registry/index.json") or rel_path.parts[:2] == ("registry", "packages"):
+        return True
+    if not rel_path.parts or rel_path.parts[0] != "reports":
+        return False
+    if rel_path in {Path("reports/package_verification.json"), Path("reports/package_verification.md")}:
+        return True
+    try:
+        content = path.read_bytes()
+    except OSError:
+        return True
+    return any(marker in content for marker in ARCHIVE_ATTESTATION_MARKERS)
+
+
+def json_bytes(payload: dict) -> bytes:
+    return (json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
+def write_deterministic_entry(zf: zipfile.ZipFile, arcname: str, content: bytes) -> None:
+    info = zipfile.ZipInfo(arcname, date_time=(1980, 1, 1, 0, 0, 0))
+    info.compress_type = zipfile.ZIP_DEFLATED
+    info.external_attr = 0o100644 << 16
+    zf.writestr(info, content)
 
 
 def is_relative_to(path: Path, parent: Path) -> bool:
@@ -388,19 +428,48 @@ def make_zip(skill_dir: Path, out_dir: Path, package_name: str) -> Path:
     zip_path = out_dir / f"{package_name}.zip"
     skill_root = skill_dir.resolve()
     out_root = out_dir.resolve()
-    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        for path in skill_dir.rglob("*"):
-            if path.is_symlink() or not path.is_file():
-                continue
-            resolved = path.resolve()
-            if not is_relative_to(resolved, skill_root):
-                continue
-            if is_relative_to(resolved, out_root):
-                continue
-            rel_path = path.relative_to(skill_dir)
-            if should_skip_archive_path(rel_path):
-                continue
-            zf.write(path, arcname=str(PurePosixPath(package_name, *rel_path.parts)))
+    payload_files: list[tuple[Path, Path]] = []
+    for path in sorted(skill_dir.rglob("*")):
+        if path.is_symlink() or not path.is_file():
+            continue
+        resolved = path.resolve()
+        if not is_relative_to(resolved, skill_root) or is_relative_to(resolved, out_root):
+            continue
+        rel_path = path.relative_to(skill_dir)
+        if should_skip_archive_path(rel_path) or is_archive_attestation_consumer(rel_path, path):
+            continue
+        payload_files.append((path, rel_path))
+    evidence_entries = []
+    for path, relative in payload_files:
+        if relative.parts and relative.parts[0] == "reports":
+            content = path.read_bytes()
+            evidence_entries.append(
+                {"path": relative.as_posix(), "sha256": hashlib.sha256(content).hexdigest(), "size": len(content)}
+            )
+    portable_index = {
+        "schema_version": "1.0",
+        "run_id": "portable-package",
+        "skill_name": package_name,
+        "artifacts": evidence_entries,
+    }
+    index_content = json_bytes(portable_index)
+    portable_pointer = {
+        "schema_version": "1.0",
+        "mode": "portable",
+        "run_id": "portable-package",
+        "skill_name": package_name,
+        "artifact_index": "reports/artifact-index.json",
+        "artifact_index_sha256": hashlib.sha256(index_content).hexdigest(),
+    }
+    with zipfile.ZipFile(zip_path, "w") as zf:
+        for path, rel_path in payload_files:
+            write_deterministic_entry(
+                zf,
+                str(PurePosixPath(package_name, *rel_path.parts)),
+                path.read_bytes(),
+            )
+        write_deterministic_entry(zf, f"{package_name}/reports/artifact-index.json", index_content)
+        write_deterministic_entry(zf, f"{package_name}/reports/.current-run.json", json_bytes(portable_pointer))
     return zip_path
 
 

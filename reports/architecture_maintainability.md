@@ -1,16 +1,16 @@
 # Architecture Maintainability
 
-Generated at: `2026-06-13`
+Generated at: `2026-08-14`
 
 ## Summary
 
 - decision: `pass`
-- python files: `232`
-- scripts: `155`
-- tests: `77`
-- internal modules: `71`
-- CLI scripts: `86`
-- Yao CLI command handlers: `71`
+- python files: `247`
+- scripts: `165`
+- tests: `82`
+- internal modules: `76`
+- CLI scripts: `92`
+- Yao CLI command handlers: `73`
 - entrypoint command handlers: `18`
 - command modules: `7`
 - largest file lines: `719`
@@ -35,29 +35,29 @@ No near-threshold files found.
 
 | File | Lines | Kind | Recommended next split |
 | --- | ---: | --- | --- |
+| `scripts/render_benchmark_reproducibility.py` | `719` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
 | `tests/verify_evidence_consistency.py` | `719` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
-| `tests/verify_world_class_evidence_intake.py` | `703` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
-| `tests/verify_yao_cli.py` | `700` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
-| `scripts/render_benchmark_reproducibility.py` | `685` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
-| `scripts/render_evidence_consistency.py` | `676` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
+| `tests/verify_world_class_evidence_intake.py` | `706` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
+| `tests/verify_yao_cli.py` | `702` | `test` | Break broad integration assertions into focused verifier helpers when the next behavior change lands. |
+| `scripts/render_evidence_consistency.py` | `670` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
 | `scripts/render_world_class_operator_runbook.py` | `651` | `cli-script` | Watch this file before adding new responsibilities; extract a helper module when one concern dominates. |
 
 ## Largest Files
 
 | File | Lines | Kind | Severity |
 | --- | ---: | --- | --- |
+| `scripts/render_benchmark_reproducibility.py` | `719` | `cli-script` | `pass` |
 | `tests/verify_evidence_consistency.py` | `719` | `test` | `pass` |
-| `tests/verify_world_class_evidence_intake.py` | `703` | `test` | `pass` |
-| `tests/verify_yao_cli.py` | `700` | `test` | `pass` |
-| `scripts/render_benchmark_reproducibility.py` | `685` | `cli-script` | `pass` |
-| `scripts/render_evidence_consistency.py` | `676` | `cli-script` | `pass` |
+| `tests/verify_world_class_evidence_intake.py` | `706` | `test` | `pass` |
+| `tests/verify_yao_cli.py` | `702` | `test` | `pass` |
+| `scripts/render_evidence_consistency.py` | `670` | `cli-script` | `pass` |
 | `scripts/render_world_class_operator_runbook.py` | `651` | `cli-script` | `pass` |
 | `tests/verify_output_review_adjudication.py` | `599` | `test` | `pass` |
+| `scripts/world_class_evidence_contract.py` | `592` | `internal-module` | `pass` |
 | `scripts/build_skill_atlas.py` | `591` | `cli-script` | `pass` |
 | `scripts/render_skill_overview.py` | `588` | `cli-script` | `pass` |
-| `tests/verify_world_class_evidence_ledger.py` | `587` | `test` | `pass` |
 | `scripts/optimize_description.py` | `585` | `cli-script` | `pass` |
-| `scripts/trust_check.py` | `582` | `cli-script` | `pass` |
+| `tests/verify_world_class_evidence_ledger.py` | `584` | `test` | `pass` |
 
 ## Release Rule
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -19,10 +20,9 @@ def main() -> None:
         ir_dir = tmp_root / "skill-ir" / "examples"
         ir_dir.mkdir(parents=True)
         ir_path = ir_dir / "yao-meta-skill.json"
-        ir_path.write_text(
-            json.dumps({"schema_version": "2.0.0", "job_to_be_done": "test renamed checkout"}),
-            encoding="utf-8",
-        )
+        shutil.copy2(ROOT / "SKILL.md", tmp_root / "SKILL.md")
+        shutil.copy2(ROOT / "manifest.json", tmp_root / "manifest.json")
+        shutil.copy2(ROOT / "skill-ir" / "examples" / "yao-meta-skill.json", ir_path)
         ir_payload, ir_source = find_ir(tmp_root)
         assert ir_payload["schema_version"] == "2.0.0", ir_payload
         assert ir_source == "skill-ir/examples/yao-meta-skill.json", ir_source

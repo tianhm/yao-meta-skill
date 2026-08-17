@@ -68,7 +68,7 @@
       <span class="eyebrow">Evidence Collection</span>
       <h1>World-Class Evidence Preflight</h1>
       <p class="lede">This operator view shows which external and human evidence is still blocked, which commands prepare editable submission drafts, and why preflight never counts as accepted evidence.</p>
-      <div class="stats"><article><span>Decision</span><strong>collection-preflight-blocked</strong></article><article><span>Pending</span><strong>4</strong></article><article><span>Ready</span><strong>1</strong></article><article><span>Blocked</span><strong>3</strong></article><article><span>Source</span><strong>12/19</strong></article><article><span>Repairs</span><strong>11/11</strong></article><article><span>Phases</span><strong>2/2</strong></article></div>
+      <div class="stats"><article><span>Decision</span><strong>collection-preflight-blocked</strong></article><article><span>Pending</span><strong>4</strong></article><article><span>Ready</span><strong>1</strong></article><article><span>Blocked</span><strong>3</strong></article><article><span>Source</span><strong>6/14</strong></article><article><span>Repairs</span><strong>12/12</strong></article><article><span>Phases</span><strong>2/2</strong></article></div>
     </section>
     <section class="section two-col" id="handoff">
       <article class="panel">
@@ -84,7 +84,7 @@
         <article class="role-card">
           <span>Submission refs</span>
           <h3>submission-ref</h3>
-          <strong>7/7 ready</strong>
+          <strong>5/7 ready</strong>
           <p>Rows marked submission-ref are the aggregate paths expected in artifact_refs.</p>
           <small>copy to artifact_refs: <code>true</code></small>
         </article>
@@ -92,7 +92,7 @@
         <article class="role-card">
           <span>Supporting evidence</span>
           <h3>supporting-evidence</h3>
-          <strong>31/31 ready</strong>
+          <strong>29/33 ready</strong>
           <p>Supporting-evidence rows help reviewers audit the packet but do not all need to be copied into artifact_refs.</p>
           <small>copy to artifact_refs: <code>false</code></small>
         </article>
@@ -115,7 +115,7 @@
             <dt>Rows</dt><dd>4 / 4 blocked</dd>
             <dt>Owners</dt><dd>Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator</dd>
             <dt>Evidence</dt><dd>human-adjudication, native-client-telemetry, native-permission-enforcement, provider-holdout</dd>
-            <dt>Next</dt><dd>Assign a real reviewer identity before claiming human adjudication.</dd>
+            <dt>Next</dt><dd>Assign three independent controlled reviewer identities before claiming human adjudication.</dd>
             <dt>Verify</dt><dd><code>python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
             <dt>Counts</dt><dd>does not count as completion</dd>
           </dl>
@@ -128,11 +128,11 @@
           </header>
           <dl>
             <dt>Phase</dt><dd><code>collect-source</code></dd>
-            <dt>Rows</dt><dd>7 / 7 blocked</dd>
-            <dt>Owners</dt><dd>Browser/Chrome/IDE/provider client integrator, human reviewer, target client or installer integrator</dd>
-            <dt>Evidence</dt><dd>human-adjudication, native-client-telemetry, native-permission-enforcement</dd>
-            <dt>Next</dt><dd>Set reviewer_attestation only after choices are completed before opening the answer key.</dd>
-            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+            <dt>Rows</dt><dd>8 / 8 blocked</dd>
+            <dt>Owners</dt><dd>Browser/Chrome/IDE/provider client integrator, human reviewer, operator with provider credentials, target client or installer integrator</dd>
+            <dt>Evidence</dt><dd>human-adjudication, native-client-telemetry, native-permission-enforcement, provider-holdout</dd>
+            <dt>Next</dt><dd>Bind adjudication to the reviewed blind pack SHA256.</dd>
+            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-finalize-review . --source-run &lt;PROVIDER_RUN_ID&gt; --decisions &lt;A.json&gt; --decisions &lt;B.json&gt; --decisions &lt;C.json&gt; --reviewer-registry &lt;registry.json&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
             <dt>Counts</dt><dd>does not count as completion</dd>
           </dl>
         </article>
@@ -153,7 +153,7 @@
         </dl>
         <section class="next-action">
           <h4>Next Action</h4>
-          <p>Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.</p>
+          <p>Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.</p>
           <code>python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions</code>
           <code>python3 scripts/yao.py world-class-submission-kit . --evidence-key provider-holdout --output-dir evidence/world_class/submissions --prefill-artifacts</code>
         </section>
@@ -171,7 +171,7 @@
         <article class="role-card">
           <span>Supporting evidence</span>
           <h3>supporting-evidence</h3>
-          <strong>6/6 ready</strong>
+          <strong>6/8 ready</strong>
           <p>Supporting-evidence rows help reviewers audit the packet but do not all need to be copied into artifact_refs.</p>
           <small>copy to artifact_refs: <code>false</code></small>
         </article>
@@ -206,25 +206,13 @@
 
         <article class="check-row missing">
           <div>
-            <span>env_any</span>
+            <span>env</span>
             <strong>Provider credential</strong>
           </div>
           <dl>
             <dt>Current</dt><dd><code>not-set</code></dd>
             <dt>Status</dt><dd>missing</dd>
-            <dt>Action</dt><dd>Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row optional">
-          <div>
-            <span>env</span>
-            <strong>Provider model</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>not-set</code></dd>
-            <dt>Status</dt><dd>optional</dd>
-            <dt>Action</dt><dd>Optionally set YAO_OUTPUT_EVAL_MODEL, or pass --provider-model for the selected provider.</dd>
+            <dt>Action</dt><dd>Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.</dd>
           </dl>
         </article>
         </div>
@@ -232,42 +220,55 @@
         <section class="check-section">
           <h4>Source Checks</h4>
           <div class="check-grid">
-        <article class="check-row pass">
+        <article class="check-row blocked">
+          <div>
+            <span>call_count</span>
+            <strong>Provider calls</strong>
+          </div>
+          <dl>
+            <dt>Current</dt><dd><code>0</code></dd>
+            <dt>Expected</dt><dd><code>==40</code></dd>
+            <dt>Status</dt><dd>blocked</dd>
+            <dt>Action</dt><dd>Complete all 40 fixed DeepSeek calls.</dd>
+          </dl>
+        </article>
+
+        <article class="check-row blocked">
           <div>
             <span>model_executed_count</span>
-            <strong>Provider model run</strong>
+            <strong>Provider model runs</strong>
           </div>
           <dl>
-            <dt>Current</dt><dd><code>10</code></dd>
-            <dt>Expected</dt><dd><code>&gt;0</code></dd>
-            <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Run provider-backed output-exec with real credentials.</dd>
+            <dt>Current</dt><dd><code>0</code></dd>
+            <dt>Expected</dt><dd><code>==40</code></dd>
+            <dt>Status</dt><dd>blocked</dd>
+            <dt>Action</dt><dd>Require model identity on all 40 calls.</dd>
           </dl>
         </article>
 
         <article class="check-row pass">
           <div>
-            <span>timing_observed_count</span>
-            <strong>Timing observed</strong>
+            <span>failure_count</span>
+            <strong>Provider failures</strong>
           </div>
           <dl>
-            <dt>Current</dt><dd><code>10</code></dd>
-            <dt>Expected</dt><dd><code>&gt;0</code></dd>
+            <dt>Current</dt><dd><code>0</code></dd>
+            <dt>Expected</dt><dd><code>==0</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Provider execution should record timing metadata.</dd>
+            <dt>Action</dt><dd>Resolve every fixed-matrix failure.</dd>
           </dl>
         </article>
 
         <article class="check-row pass">
           <div>
-            <span>token_observed_count</span>
-            <strong>Token usage observed</strong>
+            <span>total_tokens</span>
+            <strong>Token budget</strong>
           </div>
           <dl>
-            <dt>Current</dt><dd><code>10</code></dd>
-            <dt>Expected</dt><dd><code>&gt;0</code></dd>
+            <dt>Current</dt><dd><code>0</code></dd>
+            <dt>Expected</dt><dd><code>&lt;=250000</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Provider execution should return non-estimated token usage.</dd>
+            <dt>Action</dt><dd>Keep the matrix within the 250000-token ceiling.</dd>
           </dl>
         </article>
         </div>
@@ -285,9 +286,43 @@
 	            <dt>Phase</dt><dd>unblock-access</dd>
 	            <dt>Owner</dt><dd>operator with provider credentials</dd>
 	            <dt>Status</dt><dd>blocked</dd>
-	            <dt>Reason</dt><dd>Required env_any precheck is missing.</dd>
-	            <dt>Action</dt><dd>Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.</dd>
+	            <dt>Reason</dt><dd>Required env precheck is missing.</dd>
+	            <dt>Action</dt><dd>Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.</dd>
 	            <dt>Verify</dt><dd><code>python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Evidence</dt><dd>does not count as completion</dd>
+	          </dl>
+	        </article>
+
+        <article class="repair-row blocked">
+          <div>
+            <span>source-check</span>
+            <strong>call_count</strong>
+	          </div>
+	          <dl>
+	            <dt>Priority</dt><dd>40</dd>
+	            <dt>Phase</dt><dd>collect-source</dd>
+	            <dt>Owner</dt><dd>operator with provider credentials</dd>
+	            <dt>Status</dt><dd>blocked</dd>
+	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;==40&#x27;.</dd>
+	            <dt>Action</dt><dd>Complete all 40 fixed DeepSeek calls.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-build . --run-id &lt;PROVIDER_RUN_ID&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Evidence</dt><dd>does not count as completion</dd>
+	          </dl>
+	        </article>
+
+        <article class="repair-row blocked">
+          <div>
+            <span>source-check</span>
+            <strong>model_executed_count</strong>
+	          </div>
+	          <dl>
+	            <dt>Priority</dt><dd>40</dd>
+	            <dt>Phase</dt><dd>collect-source</dd>
+	            <dt>Owner</dt><dd>operator with provider credentials</dd>
+	            <dt>Status</dt><dd>blocked</dd>
+	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;==40&#x27;.</dd>
+	            <dt>Action</dt><dd>Require model identity on all 40 calls.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-build . --run-id &lt;PROVIDER_RUN_ID&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
 	        </article>
@@ -295,7 +330,7 @@
         </section>
         <section class="runbook">
           <h4>Runbook</h4>
-          <ul><li>Set one provider API key in the operator shell, such as OPENAI_API_KEY or DEEPSEEK_API_KEY; never commit or print the value.</li><li>For OpenAI Responses: python3 scripts/yao.py output-exec --provider-runner openai --provider-model ${YAO_OUTPUT_EVAL_MODEL:-gpt-4.1-mini} --timeout-seconds 60</li><li>For DeepSeek Chat Completions: python3 scripts/yao.py output-exec --provider-runner deepseek --provider-model deepseek-v4-flash --provider-api-format chat-completions --provider-thinking disabled --api-key-env DEEPSEEK_API_KEY --timeout-seconds 120</li><li>python3 scripts/yao.py skill-os2-audit . --generated-at &lt;YYYY-MM-DD&gt;</li><li>Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.</li><li>python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions</li></ul>
+          <ul><li>Set DEEPSEEK_API_KEY in the operator shell; never commit or print the value.</li><li>python3 scripts/yao.py evidence-build . --run-id &lt;PROVIDER_RUN_ID&gt;</li><li>Keep the generated private answer key and role-neutral review materials inside .yao/runs/&lt;PROVIDER_RUN_ID&gt;.</li><li>python3 scripts/yao.py skill-os2-audit . --generated-at &lt;YYYY-MM-DD&gt;</li><li>Copy evidence/world_class/templates/provider-holdout.intake.json to evidence/world_class/submissions/provider-holdout.json and fill only real evidence fields.</li><li>python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions</li></ul>
         </section>
       </article>
 
@@ -313,7 +348,7 @@
         </dl>
         <section class="next-action">
           <h4>Next Action</h4>
-          <p>Assign a real reviewer identity before claiming human adjudication.</p>
+          <p>Assign three independent controlled reviewer identities before claiming human adjudication.</p>
           <code>python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions</code>
           <code>python3 scripts/yao.py world-class-submission-kit . --evidence-key human-adjudication --output-dir evidence/world_class/submissions --prefill-artifacts</code>
         </section>
@@ -323,7 +358,7 @@
         <article class="role-card">
           <span>Submission refs</span>
           <h3>submission-ref</h3>
-          <strong>2/2 ready</strong>
+          <strong>0/2 ready</strong>
           <p>Rows marked submission-ref are the aggregate paths expected in artifact_refs.</p>
           <small>copy to artifact_refs: <code>true</code></small>
         </article>
@@ -331,7 +366,7 @@
         <article class="role-card">
           <span>Supporting evidence</span>
           <h3>supporting-evidence</h3>
-          <strong>8/8 ready</strong>
+          <strong>6/8 ready</strong>
           <p>Supporting-evidence rows help reviewers audit the packet but do not all need to be copied into artifact_refs.</p>
           <small>copy to artifact_refs: <code>false</code></small>
         </article>
@@ -348,7 +383,7 @@
           <dl>
             <dt>Current</dt><dd><code>present</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Open the blind review kit and record real reviewer choices with required rationale.</dd>
+            <dt>Action</dt><dd>Use the provider run&#x27;s role-neutral pack and finalizer for three controlled reviews.</dd>
           </dl>
         </article>
 
@@ -360,7 +395,7 @@
           <dl>
             <dt>Current</dt><dd><code>present</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Import real A/B decisions with reviewer, reviewed_at, winner_variant, confidence, reason, and truthful blind-review attestation via `python3 scripts/yao.py output-review-import --input &lt;reviewer-decisions.json&gt; --blind-review-attested --run-adjudication`.</dd>
+            <dt>Action</dt><dd>Collect three exact 20-pair reviewer packets with integrity and independent-review attestations.</dd>
           </dl>
         </article>
 
@@ -372,7 +407,7 @@
           <dl>
             <dt>Current</dt><dd><code>present</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Use the importer to reject raw content fields and normalize reviewer decisions before adjudication.</dd>
+            <dt>Action</dt><dd>Keep the fixed reviewer count and promotion thresholds unchanged.</dd>
           </dl>
         </article>
 
@@ -384,7 +419,7 @@
           <dl>
             <dt>Current</dt><dd><code>external-human-action</code></dd>
             <dt>Status</dt><dd>human-required</dd>
-            <dt>Action</dt><dd>Assign a real reviewer identity before claiming human adjudication.</dd>
+            <dt>Action</dt><dd>Assign three independent controlled reviewer identities before claiming human adjudication.</dd>
           </dl>
         </article>
         </div>
@@ -392,133 +427,55 @@
         <section class="check-section">
           <h4>Source Checks</h4>
           <div class="check-grid">
-        <article class="check-row pass">
+        <article class="check-row blocked">
+          <div>
+            <span>reviewer_count</span>
+            <strong>Registered reviewers</strong>
+          </div>
+          <dl>
+            <dt>Current</dt><dd><code>0</code></dd>
+            <dt>Expected</dt><dd><code>==3</code></dd>
+            <dt>Status</dt><dd>blocked</dd>
+            <dt>Action</dt><dd>Collect reviewer-a, reviewer-b, and reviewer-c.</dd>
+          </dl>
+        </article>
+
+        <article class="check-row blocked">
           <div>
             <span>pair_count</span>
-            <strong>Review pairs exist</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>5</code></dd>
-            <dt>Expected</dt><dd><code>&gt;0</code></dd>
-            <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Generate the blind A/B review pack.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row blocked">
-          <div>
-            <span>pending_count</span>
-            <strong>No pending decisions</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>5</code></dd>
-            <dt>Expected</dt><dd><code>==0</code></dd>
-            <dt>Status</dt><dd>blocked</dd>
-            <dt>Action</dt><dd>Record a reviewer choice and reason for every pair.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row blocked">
-          <div>
-            <span>judgment_count</span>
-            <strong>Judgments complete</strong>
+            <strong>Blind pairs</strong>
           </div>
           <dl>
             <dt>Current</dt><dd><code>0</code></dd>
-            <dt>Expected</dt><dd><code>==pair_count</code></dd>
+            <dt>Expected</dt><dd><code>==20</code></dd>
             <dt>Status</dt><dd>blocked</dd>
-            <dt>Action</dt><dd>Every pair needs one valid human judgment.</dd>
+            <dt>Action</dt><dd>Complete all 20 blind pairs.</dd>
           </dl>
         </article>
 
         <article class="check-row pass">
           <div>
-            <span>invalid_decision_count</span>
-            <strong>No invalid decisions</strong>
+            <span>failure_count</span>
+            <strong>Review failures</strong>
           </div>
           <dl>
             <dt>Current</dt><dd><code>0</code></dd>
             <dt>Expected</dt><dd><code>==0</code></dd>
             <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Fix malformed winner/confidence entries.</dd>
+            <dt>Action</dt><dd>Resolve packet, identity, or adjudication failures.</dd>
           </dl>
         </article>
 
         <article class="check-row blocked">
           <div>
-            <span>reviewer_metadata_present</span>
-            <strong>Reviewer metadata</strong>
+            <span>blind_pack_bound</span>
+            <strong>Blind pack binding</strong>
           </div>
           <dl>
             <dt>Current</dt><dd><code>False</code></dd>
             <dt>Expected</dt><dd><code>true</code></dd>
             <dt>Status</dt><dd>blocked</dd>
-            <dt>Action</dt><dd>Record reviewer and reviewed_at before adjudication can count.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row pass">
-          <div>
-            <span>reason_required</span>
-            <strong>Reason required</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>True</code></dd>
-            <dt>Expected</dt><dd><code>true</code></dd>
-            <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Keep reason mandatory for every imported or direct reviewer decision.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row blocked">
-          <div>
-            <span>blind_review_attested</span>
-            <strong>Blind review attested</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>False</code></dd>
-            <dt>Expected</dt><dd><code>true</code></dd>
-            <dt>Status</dt><dd>blocked</dd>
-            <dt>Action</dt><dd>Set reviewer_attestation only after choices are completed before opening the answer key.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row pass">
-          <div>
-            <span>raw_content_excluded_attested</span>
-            <strong>Raw content attested</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>True</code></dd>
-            <dt>Expected</dt><dd><code>true</code></dd>
-            <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Attest that reviewer decisions exclude raw prompts, outputs, transcripts, messages, and private user content.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row pass">
-          <div>
-            <span>raw_content_allowed</span>
-            <strong>Raw content blocked</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>False</code></dd>
-            <dt>Expected</dt><dd><code>false</code></dd>
-            <dt>Status</dt><dd>pass</dd>
-            <dt>Action</dt><dd>Adjudication evidence should store prompt hashes and reviewer metadata, not raw prompts, outputs, transcripts, or messages.</dd>
-          </dl>
-        </article>
-
-        <article class="check-row blocked">
-          <div>
-            <span>ready_for_human_evidence</span>
-            <strong>Human evidence ready</strong>
-          </div>
-          <dl>
-            <dt>Current</dt><dd><code>False</code></dd>
-            <dt>Expected</dt><dd><code>true</code></dd>
-            <dt>Status</dt><dd>blocked</dd>
-            <dt>Action</dt><dd>Complete all reviewer decisions with metadata and rationale, plus blind-review attestation and integrity fingerprints.</dd>
+            <dt>Action</dt><dd>Bind adjudication to the reviewed blind pack SHA256.</dd>
           </dl>
         </article>
         </div>
@@ -537,7 +494,7 @@
 	            <dt>Owner</dt><dd>human reviewer</dd>
 	            <dt>Status</dt><dd>blocked</dd>
 	            <dt>Reason</dt><dd>Required human precheck is human-required.</dd>
-	            <dt>Action</dt><dd>Assign a real reviewer identity before claiming human adjudication.</dd>
+	            <dt>Action</dt><dd>Assign three independent controlled reviewer identities before claiming human adjudication.</dd>
 	            <dt>Verify</dt><dd><code>python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
@@ -546,7 +503,7 @@
         <article class="repair-row blocked">
           <div>
             <span>source-check</span>
-            <strong>blind_review_attested</strong>
+            <strong>blind_pack_bound</strong>
 	          </div>
 	          <dl>
 	            <dt>Priority</dt><dd>40</dd>
@@ -554,8 +511,8 @@
 	            <dt>Owner</dt><dd>human reviewer</dd>
 	            <dt>Status</dt><dd>blocked</dd>
 	            <dt>Reason</dt><dd>Current value False does not satisfy &#x27;true&#x27;.</dd>
-	            <dt>Action</dt><dd>Set reviewer_attestation only after choices are completed before opening the answer key.</dd>
-	            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Action</dt><dd>Bind adjudication to the reviewed blind pack SHA256.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-finalize-review . --source-run &lt;PROVIDER_RUN_ID&gt; --decisions &lt;A.json&gt; --decisions &lt;B.json&gt; --decisions &lt;C.json&gt; --reviewer-registry &lt;registry.json&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
 	        </article>
@@ -563,16 +520,16 @@
         <article class="repair-row blocked">
           <div>
             <span>source-check</span>
-            <strong>judgment_count</strong>
+            <strong>pair_count</strong>
 	          </div>
 	          <dl>
 	            <dt>Priority</dt><dd>40</dd>
 	            <dt>Phase</dt><dd>collect-source</dd>
 	            <dt>Owner</dt><dd>human reviewer</dd>
 	            <dt>Status</dt><dd>blocked</dd>
-	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;==pair_count&#x27;.</dd>
-	            <dt>Action</dt><dd>Every pair needs one valid human judgment.</dd>
-	            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;==20&#x27;.</dd>
+	            <dt>Action</dt><dd>Complete all 20 blind pairs.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-finalize-review . --source-run &lt;PROVIDER_RUN_ID&gt; --decisions &lt;A.json&gt; --decisions &lt;B.json&gt; --decisions &lt;C.json&gt; --reviewer-registry &lt;registry.json&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
 	        </article>
@@ -580,50 +537,16 @@
         <article class="repair-row blocked">
           <div>
             <span>source-check</span>
-            <strong>pending_count</strong>
+            <strong>reviewer_count</strong>
 	          </div>
 	          <dl>
 	            <dt>Priority</dt><dd>40</dd>
 	            <dt>Phase</dt><dd>collect-source</dd>
 	            <dt>Owner</dt><dd>human reviewer</dd>
 	            <dt>Status</dt><dd>blocked</dd>
-	            <dt>Reason</dt><dd>Current value 5 does not satisfy &#x27;==0&#x27;.</dd>
-	            <dt>Action</dt><dd>Record a reviewer choice and reason for every pair.</dd>
-	            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
-	            <dt>Evidence</dt><dd>does not count as completion</dd>
-	          </dl>
-	        </article>
-
-        <article class="repair-row blocked">
-          <div>
-            <span>source-check</span>
-            <strong>ready_for_human_evidence</strong>
-	          </div>
-	          <dl>
-	            <dt>Priority</dt><dd>40</dd>
-	            <dt>Phase</dt><dd>collect-source</dd>
-	            <dt>Owner</dt><dd>human reviewer</dd>
-	            <dt>Status</dt><dd>blocked</dd>
-	            <dt>Reason</dt><dd>Current value False does not satisfy &#x27;true&#x27;.</dd>
-	            <dt>Action</dt><dd>Complete all reviewer decisions with metadata and rationale, plus blind-review attestation and integrity fingerprints.</dd>
-	            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
-	            <dt>Evidence</dt><dd>does not count as completion</dd>
-	          </dl>
-	        </article>
-
-        <article class="repair-row blocked">
-          <div>
-            <span>source-check</span>
-            <strong>reviewer_metadata_present</strong>
-	          </div>
-	          <dl>
-	            <dt>Priority</dt><dd>40</dd>
-	            <dt>Phase</dt><dd>collect-source</dd>
-	            <dt>Owner</dt><dd>human reviewer</dd>
-	            <dt>Status</dt><dd>blocked</dd>
-	            <dt>Reason</dt><dd>Current value False does not satisfy &#x27;true&#x27;.</dd>
-	            <dt>Action</dt><dd>Record reviewer and reviewed_at before adjudication can count.</dd>
-	            <dt>Verify</dt><dd><code>python3 scripts/yao.py output-review &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;==3&#x27;.</dd>
+	            <dt>Action</dt><dd>Collect reviewer-a, reviewer-b, and reviewer-c.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py evidence-finalize-review . --source-run &lt;PROVIDER_RUN_ID&gt; --decisions &lt;A.json&gt; --decisions &lt;B.json&gt; --decisions &lt;C.json&gt; --reviewer-registry &lt;registry.json&gt; &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
 	        </article>
@@ -631,7 +554,7 @@
         </section>
         <section class="runbook">
           <h4>Runbook</h4>
-          <ul><li>python3 scripts/yao.py output-review-kit --write-template</li><li>Open reports/output_review_kit.md and choose A or B for each pair without opening the answer key.</li><li>python3 scripts/adjudicate_output_review.py --write-template</li><li>Record reviewer choices in a separate JSON, JSONL, or CSV decision source with reviewer, reviewed_at, case_id, winner_variant, confidence, required reason, and truthful reviewer_attestation only.</li><li>python3 scripts/yao.py output-review-import --input &lt;reviewer-decisions.json&gt; --blind-review-attested --run-adjudication</li><li>python3 scripts/yao.py output-review</li><li>python3 scripts/yao.py skill-os2-audit . --generated-at &lt;YYYY-MM-DD&gt;</li><li>Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.</li><li>python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions</li></ul>
+          <ul><li>Give each registered reviewer an independent copy of the matching provider_review_reviewer-*.json template and the role-neutral blind pack.</li><li>Collect all 20 A/B choices, reasons, controlled submission ids, timestamps, and truthful independent-review attestations.</li><li>Export an access-controlled reviewer registry that binds each reviewer id to the exact packet SHA256.</li><li>python3 scripts/yao.py evidence-finalize-review . --source-run &lt;PROVIDER_RUN_ID&gt; --decisions &lt;reviewer-a.json&gt; --decisions &lt;reviewer-b.json&gt; --decisions &lt;reviewer-c.json&gt; --reviewer-registry &lt;registry.json&gt; --run-id &lt;FINAL_RUN_ID&gt;</li><li>python3 scripts/yao.py skill-os2-audit . --generated-at &lt;YYYY-MM-DD&gt;</li><li>Copy evidence/world_class/templates/human-adjudication.intake.json to evidence/world_class/submissions/human-adjudication.json and fill only real evidence fields.</li><li>python3 scripts/yao.py world-class-intake . --submissions-dir evidence/world_class/submissions</li></ul>
         </section>
       </article>
 
@@ -894,15 +817,15 @@
           </dl>
         </article>
 
-        <article class="check-row pass">
+        <article class="check-row blocked">
           <div>
             <span>adoption_sample_count</span>
             <strong>Adoption sample</strong>
           </div>
           <dl>
-            <dt>Current</dt><dd><code>1</code></dd>
+            <dt>Current</dt><dd><code>0</code></dd>
             <dt>Expected</dt><dd><code>&gt;0</code></dd>
-            <dt>Status</dt><dd>pass</dd>
+            <dt>Status</dt><dd>blocked</dd>
             <dt>Action</dt><dd>Telemetry must include adoption outcome evidence.</dd>
           </dl>
         </article>
@@ -937,6 +860,23 @@
 	            <dt>Reason</dt><dd>Required external precheck is external-required.</dd>
 	            <dt>Action</dt><dd>Install a real Browser, Chrome, IDE, or provider client that emits metadata-only events.</dd>
 	            <dt>Verify</dt><dd><code>python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
+	            <dt>Evidence</dt><dd>does not count as completion</dd>
+	          </dl>
+	        </article>
+
+        <article class="repair-row blocked">
+          <div>
+            <span>source-check</span>
+            <strong>adoption_sample_count</strong>
+	          </div>
+	          <dl>
+	            <dt>Priority</dt><dd>40</dd>
+	            <dt>Phase</dt><dd>collect-source</dd>
+	            <dt>Owner</dt><dd>Browser/Chrome/IDE/provider client integrator</dd>
+	            <dt>Status</dt><dd>blocked</dd>
+	            <dt>Reason</dt><dd>Current value 0 does not satisfy &#x27;&gt;0&#x27;.</dd>
+	            <dt>Action</dt><dd>Telemetry must include adoption outcome evidence.</dd>
+	            <dt>Verify</dt><dd><code>python3 scripts/yao.py telemetry-import . --input-jsonl .yao/telemetry_spool/external_events.jsonl &amp;&amp; python3 scripts/yao.py world-class-preflight . --submissions-dir evidence/world_class/submissions</code></dd>
 	            <dt>Evidence</dt><dd>does not count as completion</dd>
 	          </dl>
 	        </article>
