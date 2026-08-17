@@ -180,7 +180,9 @@ def explicit_skill_request(job: str, description: str) -> bool:
 
 
 def diagnose_skill_candidates(job: str, primary_output: str, archetype: str, confidence: dict) -> dict:
-    fuzzy = not explicit_skill_request(job, primary_output) or confidence.get("score", 0) < 75
+    fuzzy = not explicit_skill_request(job, primary_output) or not confidence.get(
+        "authoring_ready", confidence.get("gate_passed", False)
+    )
     candidates = [
         {
             "shape": archetype,

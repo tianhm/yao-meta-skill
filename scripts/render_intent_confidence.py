@@ -1,36 +1,21 @@
 #!/usr/bin/env python3
 import argparse
 import json
-import re
 from pathlib import Path
 from typing import Any
+
+from intent_clarification import (
+    build_clarification_plan,
+    build_non_core_assumptions,
+    detect_language,
+    is_generic_intent,
+)
 
 try:
     import yaml
 except ImportError:  # pragma: no cover
     yaml = None
 
-
-GENERIC_PHRASES = {
-    "turn a repeated workflow into a reusable skill",
-    "a reusable skill package",
-    "describe what the skill does and when to use it",
-    "turn rough requests into a compact reusable demo skill",
-}
-
-GENERIC_TOKENS = {
-    "workflow",
-    "skill",
-    "package",
-    "reusable",
-    "repeated",
-    "request",
-    "requests",
-    "task",
-    "tasks",
-    "work",
-    "job",
-}
 
 FOLLOW_UP_LIBRARY = {
     "job_specificity": {
@@ -103,21 +88,8 @@ def normalized_list(value: list[str] | str | None) -> list[str]:
     return [str(item).strip() for item in value if str(item).strip()]
 
 
-def tokenize(text: str) -> list[str]:
-    return re.findall(r"[A-Za-z][A-Za-z0-9_-]{2,}", text.lower())
-
-
 def is_generic(text: str) -> bool:
-    compact = " ".join(text.lower().split())
-    if not compact:
-        return True
-    if compact in GENERIC_PHRASES:
-        return True
-    tokens = tokenize(compact)
-    if len(tokens) <= 3:
-        return True
-    content_tokens = [token for token in tokens if token not in GENERIC_TOKENS]
-    return len(content_tokens) < 2
+    return is_generic_intent(text)
 
 
 def build_context_from_skill(skill_dir: Path) -> dict[str, Any]:
@@ -237,6 +209,73 @@ def assess_intent_confidence(context: dict[str, Any]) -> dict[str, Any]:
         gap["key"] in {"job_specificity", "real_inputs", "primary_output"} and gap["severity"] == "high"
         for gap in gaps
     )
+    explicit_non_core_slots = {
+        slot
+        for slot, value in {
+            "real_inputs": real_inputs,
+            "exclusions": exclusions,
+            "constraints": constraints,
+            "standards": standards,
+        }.items()
+        if value
+    }
+    retained_assumptions = [
+        dict(item)
+        for item in context.get("assumptions", [])
+        if isinstance(item, dict)
+        and not (
+            str(item.get("source", "")) == "inferred-default"
+            and str(item.get("slot", "")) in explicit_non_core_slots
+        )
+        and not (
+            str(item.get("source", "")) == "preferred-inference"
+            and str(item.get("slot", "")) in {"job", "primary_output"}
+            and str(item.get("value", "")).strip()
+            != (job if str(item.get("slot", "")) == "job" else primary_output)
+        )
+    ]
+    normalized_context = {
+        "job": job,
+        "real_inputs": real_inputs,
+        "primary_output": primary_output,
+        "description": description,
+        "exclusions": exclusions,
+        "constraints": constraints,
+        "standards": standards,
+        "correction": correction,
+        "user_references": user_references,
+        "skill_name": str(context.get("skill_name", "")).strip(),
+        "assumptions": retained_assumptions,
+        "clarification_state": dict(context.get("clarification_state", {}) or {}),
+    }
+    clarification_plan = build_clarification_plan(normalized_context, gaps)
+    prior_state = normalized_context["clarification_state"]
+    if prior_state.get("decision") == "infer" and clarification_plan["decision"] != "ask":
+        clarification_plan.update(
+            {
+                "decision": "infer",
+                "stop_reason": str(prior_state.get("stop_reason", "round-limit")),
+                "inference_quality": str(prior_state.get("inference_quality", "low")),
+            }
+        )
+    authoring_ready = clarification_plan["decision"] != "ask"
+    gate_passed = gate_passed and authoring_ready
+    if clarification_plan["decision"] == "infer" and clarification_plan["inference_quality"] == "low":
+        gate_passed = False
+    assumptions = [*normalized_context["assumptions"], *build_non_core_assumptions(
+        normalized_context,
+        [str(gap.get("key", "")) for gap in gaps],
+        clarification_plan["language"],
+    )]
+    deduped_assumptions = []
+    seen_assumptions = set()
+    for item in assumptions:
+        key = (str(item.get("slot", "")), str(item.get("source", "")))
+        if key in seen_assumptions:
+            continue
+        seen_assumptions.add(key)
+        deduped_assumptions.append(item)
+    assumptions = deduped_assumptions
     follow_up_questions = [
         {
             **FOLLOW_UP_LIBRARY[gap["key"]],
@@ -261,25 +300,42 @@ def assess_intent_confidence(context: dict[str, Any]) -> dict[str, Any]:
         "score": score,
         "band": band,
         "gate_passed": gate_passed,
+        "authoring_ready": authoring_ready,
         "strengths": strengths[:5],
         "gaps": gaps,
         "follow_up_questions": follow_up_questions,
+        "clarification_plan": clarification_plan,
+        "assumptions": assumptions,
         "anchor_sentence": anchor_sentence,
         "recommended_action": (
             "Intent is clear enough to package the first routeable version."
             if gate_passed
-            else "Pause before deep authoring and close the highest-leverage gaps first."
+            else (
+                "Proceed with the recorded non-core assumptions and keep them visible to reviewers."
+                if authoring_ready
+                else "Pause before deep authoring and close the highest-leverage core gap first."
+            )
         ),
         "context": {
-            "job": job,
-            "real_inputs": real_inputs,
-            "primary_output": primary_output,
-            "description": description,
-            "exclusions": exclusions,
-            "constraints": constraints,
-            "standards": standards,
-            "correction": correction,
-            "user_references": user_references,
+            **normalized_context,
+            "language": detect_language(job, primary_output, description, correction),
+            "assumptions": assumptions,
+            "clarification_state": {
+                "decision": clarification_plan["decision"],
+                "rounds_used": int(context.get("clarification_state", {}).get("rounds_used", 0) or 0),
+                "max_rounds": int(context.get("clarification_state", {}).get("max_rounds", 2) or 2),
+                "asked_ambiguities": list(context.get("clarification_state", {}).get("asked_ambiguities", [])),
+                "resolved_ambiguities": list(
+                    context.get("clarification_state", {}).get("resolved_ambiguities", [])
+                ),
+                "correction_pending": bool(
+                    context.get("clarification_state", {}).get("correction_pending", False)
+                    and clarification_plan["ambiguity_type"] == "direction_conflict"
+                ),
+                "blocking_ambiguities": clarification_plan["blocking_ambiguities"],
+                "stop_reason": clarification_plan["stop_reason"],
+                "inference_quality": clarification_plan["inference_quality"],
+            },
         },
     }
 
@@ -291,7 +347,16 @@ def render_markdown(summary: dict[str, Any]) -> str:
         f"- Confidence score: `{summary['score']}/100`",
         f"- Confidence band: `{summary['band']}`",
         f"- Gate passed: `{summary['gate_passed']}`",
+        f"- Authoring ready: `{summary['authoring_ready']}`",
         f"- Recommended action: {summary['recommended_action']}",
+        "",
+        "## Clarification Decision",
+        "",
+        f"- Decision: `{summary['clarification_plan']['decision']}`",
+        f"- Ambiguity type: `{summary['clarification_plan']['ambiguity_type'] or 'none'}`",
+        f"- Stop reason: `{summary['clarification_plan']['stop_reason']}`",
+        f"- Personalized question: {summary['clarification_plan']['question'] or 'No core clarification is required.'}",
+        f"- Decision impact: {summary['clarification_plan']['decision_impact'] or 'No material package fork remains.'}",
         "",
         "## Current Reading",
         "",
@@ -314,12 +379,23 @@ def render_markdown(summary: dict[str, Any]) -> str:
         lines.append("- No major intent gaps detected.")
 
     lines.extend(["", "## Follow-Up Questions", ""])
-    if summary["follow_up_questions"]:
+    if summary["clarification_plan"]["question"]:
+        lines.append(f"- **{summary['clarification_plan']['question']}**")
+        lines.append(f"  - Why: {summary['clarification_plan']['rationale']}")
+    elif summary["follow_up_questions"]:
         for item in summary["follow_up_questions"]:
             lines.append(f"- **{item['question']}**")
             lines.append(f"  - Why: {item['why']}")
     else:
         lines.append("- No extra follow-up questions required before the first package.")
+    lines.extend(["", "## Structured Assumptions", ""])
+    if summary["assumptions"]:
+        for item in summary["assumptions"]:
+            lines.append(
+                f"- `{item.get('slot', 'unknown')}` ({item.get('source', 'unknown')}): {item.get('value', '')}"
+            )
+    else:
+        lines.append("- No assumptions are currently required.")
     return "\n".join(lines).strip() + "\n"
 
 

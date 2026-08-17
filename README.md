@@ -74,7 +74,7 @@ It turns rough workflows, transcripts, prompts, notes, and runbooks into reusabl
 - a clear trigger surface
 - a lean `SKILL.md`
 - optional references, scripts, and evals
-- a front-loaded intent dialogue with an intent confidence gate, so the system keeps clarifying when the true job, outputs, exclusions, or standards are still fuzzy
+- an inference-first intent dialogue that asks one personalized question only for core task, output, or direction forks, stops after two rounds, and records structured assumptions without retaining a full transcript
 - a silent-by-default GitHub benchmark scan plus reference synthesis that studies top public repositories and world-class pattern tracks, then surfaces only real conflicts or uncertainty to the user
 - a generated visual HTML overview for each newly initialized skill
 - a Review Studio 2.0 HTML gate page that combines intent, trigger, output eval, context, runtime, trust, atlas, adoption drift, reviewer waivers, reviewer annotations, release evidence, and per-warning fix actions

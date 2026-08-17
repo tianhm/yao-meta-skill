@@ -1,9 +1,9 @@
 # Security Trust Report
 
 - OK: `True`
-- Scanned files: `274`
-- Scripts: `172`
-- Internal script modules: `80`
+- Scanned files: `275`
+- Scripts: `173`
+- Internal script modules: `81`
 - Secret findings: `0`
 - Network-capable scripts: `3`
 - Network policy covered scripts: `3`
@@ -15,8 +15,8 @@
 - CLI help smoke failures: `0`
 - Interactive scripts: `0`
 - Package hash scope: `source-contract-without-generated-reports`
-- Package hash files: `274`
-- Package SHA256: `975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7`
+- Package hash files: `275`
+- Package SHA256: `a3dc4b537c12d61a48052305722d7d376da761b8cf1f43b79f6ce7d8280a05d0`
 
 ## Failures
 
@@ -103,6 +103,7 @@
 | scripts/import_output_review_decisions.py | cli | True | True | True | False | False | True | False | Imports human blind A/B reviewer decisions into the canonical output-review decision file. |
 | scripts/import_telemetry_events.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/init_skill.py | cli | False | True | True | False | False | True | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
+| scripts/intent_clarification.py | internal-module | True | False | False | False | False | False | False | Imported by intent reports and Yao CLI creation flows to plan bounded, bilingual clarification. |
 | scripts/json_schema_validation.py | internal-module | True | False | False | False | False | False | False | Imported by manifest and Skill IR validation to enforce their committed JSON Schema contracts. |
 | scripts/judge_blind_eval.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |
 | scripts/lint_skill.py | cli | False | True | True | False | False | False | False | Default CLI classification; add SCRIPT_INTERFACE for internal modules. |

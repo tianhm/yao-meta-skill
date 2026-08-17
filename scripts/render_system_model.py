@@ -117,7 +117,7 @@ def build_boundary_map(description: str, context: dict, manifest: dict) -> dict:
         "constraints": constraints,
         "standards": standards,
         "human_judgment_boundary": [
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby.",
         ],

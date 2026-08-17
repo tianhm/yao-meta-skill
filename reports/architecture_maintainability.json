@@ -4,10 +4,10 @@
   "generated_at": "2026-08-17",
   "skill_dir": ".",
   "summary": {
-    "python_file_count": 256,
-    "script_file_count": 172,
-    "test_file_count": 84,
-    "internal_module_count": 82,
+    "python_file_count": 258,
+    "script_file_count": 173,
+    "test_file_count": 85,
+    "internal_module_count": 83,
     "cli_script_count": 95,
     "command_handler_count": 74,
     "entrypoint_command_handler_count": 17,
@@ -50,7 +50,7 @@
     },
     {
       "path": "tests/verify_yao_cli.py",
-      "lines": 702,
+      "lines": 700,
       "kind": "test",
       "severity": "pass",
       "early_watch": true,
@@ -89,6 +89,22 @@
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
     },
     {
+      "path": "scripts/intent_clarification.py",
+      "lines": 592,
+      "kind": "internal-module",
+      "severity": "pass",
+      "early_watch": false,
+      "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
+    },
+    {
+      "path": "scripts/render_review_studio.py",
+      "lines": 592,
+      "kind": "cli-script",
+      "severity": "pass",
+      "early_watch": false,
+      "recommendation": "Move data loading and large section renderers into focused review_studio_* modules."
+    },
+    {
       "path": "scripts/world_class_evidence_contract.py",
       "lines": 592,
       "kind": "internal-module",
@@ -103,22 +119,6 @@
       "severity": "pass",
       "early_watch": false,
       "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
-    },
-    {
-      "path": "scripts/optimize_description.py",
-      "lines": 585,
-      "kind": "cli-script",
-      "severity": "pass",
-      "early_watch": false,
-      "recommendation": "Watch this file before adding new responsibilities; extract a helper module when one concern dominates."
-    },
-    {
-      "path": "tests/verify_world_class_evidence_ledger.py",
-      "lines": 584,
-      "kind": "test",
-      "severity": "pass",
-      "early_watch": false,
-      "recommendation": "Break broad integration assertions into focused verifier helpers when the next behavior change lands."
     }
   ],
   "watchlist": [],
@@ -149,7 +149,7 @@
     },
     {
       "path": "tests/verify_yao_cli.py",
-      "lines": 702,
+      "lines": 700,
       "kind": "test",
       "severity": "pass",
       "early_watch": true,

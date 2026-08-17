@@ -115,6 +115,7 @@ def main() -> None:
         "scripts/evidence_consistency_release.py",
         "scripts/evidence_consistency_skill_os2_review.py",
         "scripts/evidence_consistency_world_class.py",
+        "scripts/intent_clarification.py",
         "scripts/skill_ir_paths.py",
         "scripts/skill_report_charts.py",
         "scripts/skill_report_i18n.py",
@@ -164,6 +165,7 @@ def main() -> None:
     assert "evidence_consistency_release.py" not in warning_text, payload["warnings"]
     assert "evidence_consistency_skill_os2_review.py" not in warning_text, payload["warnings"]
     assert "evidence_consistency_world_class.py" not in warning_text, payload["warnings"]
+    assert "intent_clarification.py" not in warning_text, payload["warnings"]
     assert "skill_ir_paths.py" not in warning_text, payload["warnings"]
     assert "skill_report_charts.py" not in warning_text, payload["warnings"]
     assert "skill_report_i18n.py" not in warning_text, payload["warnings"]

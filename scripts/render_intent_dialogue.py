@@ -3,6 +3,8 @@ import argparse
 import json
 from pathlib import Path
 
+from render_intent_confidence import assess_intent_confidence
+
 try:
     import yaml
 except ImportError:  # pragma: no cover
@@ -120,6 +122,13 @@ def build_opening_styles() -> list[dict]:
     ]
 
 
+def load_json(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return payload if isinstance(payload, dict) else {}
+
+
 def build_summary(skill_dir: Path) -> dict:
     skill_text = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
     frontmatter, body = parse_frontmatter(skill_text)
@@ -129,6 +138,27 @@ def build_summary(skill_dir: Path) -> dict:
     focus = classify_focus(description)
     questions = build_questions(focus)
     opening_styles = build_opening_styles()
+    intent_context = load_json(skill_dir / "reports" / "intent-context.json")
+    stored_intent_confidence = load_json(skill_dir / "reports" / "intent-confidence.json")
+    if intent_context:
+        intent_confidence = assess_intent_confidence(intent_context)
+    elif stored_intent_confidence:
+        intent_confidence = stored_intent_confidence
+    else:
+        intent_confidence = assess_intent_confidence(
+            {
+                "job": description,
+                "real_inputs": [],
+                "primary_output": "",
+                "description": description,
+                "exclusions": [],
+                "constraints": [],
+                "standards": [],
+            }
+        )
+    clarification_plan = intent_confidence.get("clarification_plan", {})
+    resolved_context = intent_confidence.get("context", {})
+    clarification_state = resolved_context.get("clarification_state", {})
     output = {
         "capability_sentence": f"{title} should turn a recurring request into a reliable reusable output without widening the boundary unnecessarily.",
         "required_capture": [
@@ -162,6 +192,18 @@ def build_summary(skill_dir: Path) -> dict:
             "What it should clearly refuse",
         ],
         "questions": questions,
+        "current_understanding": intent_confidence.get("anchor_sentence", description),
+        "recommended_next_move": clarification_plan.get("decision", "proceed"),
+        "personalized_question": clarification_plan.get("question", ""),
+        "question_rationale": clarification_plan.get("rationale", ""),
+        "decision_impact": clarification_plan.get("decision_impact", ""),
+        "assumptions": intent_confidence.get("assumptions", []),
+        "stop_rule": {
+            "one_question_per_round": True,
+            "max_rounds": int(clarification_state.get("max_rounds", 2) or 2),
+            "unresolved_action": "preferred-inference",
+            "stop_reason": clarification_plan.get("stop_reason", "clear"),
+        },
         "output": output,
     }
 
@@ -176,9 +218,35 @@ def render_markdown(summary: dict) -> str:
         "",
         summary["opening_frame"],
         "",
-        "## Opening Tone Options",
+        "## Recommended Next Move",
+        "",
+        f"- Decision: `{summary['recommended_next_move']}`",
+        f"- Current understanding: {summary['current_understanding']}",
+        f"- Personalized question: {summary['personalized_question'] or 'No core clarification is required.'}",
+        f"- Why now: {summary['question_rationale'] or 'The current core intent is ready for the next step.'}",
+        f"- Decision impact: {summary['decision_impact'] or 'No material package fork remains.'}",
+        (
+            "- Stop rule: ask one question per round, allow at most "
+            f"{summary['stop_rule']['max_rounds']} rounds, then use preferred inference."
+        ),
+        "",
+        "### Structured Assumptions",
         "",
     ]
+    if summary["assumptions"]:
+        for item in summary["assumptions"]:
+            lines.append(
+                f"- `{item.get('slot', 'unknown')}` ({item.get('source', 'unknown')}): {item.get('value', '')}"
+            )
+    else:
+        lines.append("- No assumptions are currently required.")
+    lines.extend(
+        [
+        "",
+        "## Opening Tone Options",
+        "",
+        ]
+    )
     for item in summary["opening_styles"]:
         lines.extend(
             [

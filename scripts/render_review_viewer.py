@@ -4,6 +4,7 @@ import html
 import json
 from pathlib import Path
 
+from intent_clarification import clarification_review_status
 from review_viewer_data import (
     architecture_steps,
     benchmark_cards,
@@ -48,7 +49,18 @@ def render_html(report: dict) -> str:
     strength_items = "".join(f"<li>{html.escape(item)}</li>" for item in overview.get("strengths", []))
     logic_items = "".join(f"<li>{html.escape(item)}</li>" for item in overview.get("logic_steps", []))
     usage_items = "".join(f"<li>{html.escape(item)}</li>" for item in overview.get("usage_steps", []))
-    question_items = "".join(
+    clarification_decision = str(intent.get("recommended_next_move", "proceed"))
+    clarification_status = clarification_review_status(intent_confidence)
+    clarification_detail = str(
+        intent.get("personalized_question")
+        or intent_confidence.get("recommended_action")
+        or "No core clarification is required."
+    )
+    question_items = (
+        "<li><strong>Clarification decision</strong><br>"
+        f"<span>Status: {html.escape(clarification_status)}. Recommended next move: {html.escape(clarification_decision)}. "
+        f"{html.escape(clarification_detail)}</span></li>"
+    ) + "".join(
         f"<li><strong>{html.escape(item['question'])}</strong><br><span>{html.escape(item['why'])}</span></li>"
         for item in intent.get("questions", [])[:5]
     )
@@ -462,7 +474,7 @@ def render_html(report: dict) -> str:
           <li>Block speculative features that are not backed by real workflow variation.</li>
           <li>Move unverifiable ideas into next-step candidates instead of baseline structure.</li>
           <li>Reject decorative folders, reports, or governance that do not reduce risk.</li>
-          <li>Ask for one high-leverage clarification when job, output, or exclusion is still fuzzy.</li>
+          <li>Ask one contextual question only when the core job, primary output, or an explicit direction conflict remains unresolved.</li>
         </ul>
       </div>
     </section>

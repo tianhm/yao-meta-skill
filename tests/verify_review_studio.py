@@ -15,6 +15,20 @@ import review_studio_layout as review_layout  # noqa: E402
 
 
 def main() -> None:
+    assert review_gates.clarification_review_status(
+        {"gate_passed": True, "authoring_ready": True, "clarification_plan": {"decision": "proceed"}, "assumptions": []}
+    ) == "pass"
+    assert review_gates.clarification_review_status(
+        {
+            "gate_passed": False,
+            "authoring_ready": True,
+            "clarification_plan": {"decision": "infer"},
+            "assumptions": [{"slot": "primary_output"}],
+        }
+    ) == "warn"
+    assert review_gates.clarification_review_status(
+        {"gate_passed": False, "authoring_ready": False, "clarification_plan": {"decision": "ask"}, "assumptions": []}
+    ) == "block"
     tmp_root = prepare_tmp_root()
     output_html, output_json, proc = render_review_studio_fixture(tmp_root)
     payload = json.loads(proc.stdout)
@@ -124,6 +138,7 @@ def main() -> None:
     intent_gate = next(item for item in payload["gates"] if item["key"] == "intent-canvas")
     assert intent_gate["status"] == "pass", intent_gate
     assert "intent confidence 100/100" in intent_gate["detail"], intent_gate
+    assert "clarification proceed" in intent_gate["detail"], intent_gate
     atlas_gate = next(item for item in payload["gates"] if item["key"] == "skill-atlas")
     assert atlas_gate["status"] == "pass", atlas_gate
     assert "actionable route collisions" in atlas_gate["detail"], atlas_gate
@@ -158,6 +173,9 @@ def main() -> None:
     assert world_class_gate["evidence"] == "reports/world_class_evidence_ledger.json", world_class_gate
     assert output_html.exists(), output_html
     assert output_json.exists(), output_json
+    output_html_text = output_html.read_text(encoding="utf-8")
+    assert "追问决策" in output_html_text, output_html_text[:10000]
+    assert "结构化假设" in output_html_text, output_html_text[:10000]
     full_payload = json.loads(output_json.read_text(encoding="utf-8"))
     assert full_payload["evidence_paths"]["skill_ir"] == "skill-ir/examples/yao-meta-skill.json", full_payload[
         "evidence_paths"

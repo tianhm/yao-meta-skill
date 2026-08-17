@@ -66,7 +66,7 @@ python3 scripts/yao.py pr-review-report 4 --repo yaojingang/yao-meta-skill
 - 清晰的触发面
 - 精简的 `SKILL.md`
 - 可选的 references、scripts 和 evals
-- 深度起草前先做一轮更有人味的意图对话，并通过 intent confidence gate 判断理解是否足够清楚；如果不够清楚，会继续补 1 到 2 个高杠杆问题
+- 深度起草前先做推断优先的意图对话；只有核心任务、主要交付物或方向冲突会改变包体设计时，才逐轮提出一个结合用户原话的个性化问题，最多两轮，并用结构化假设留痕
 - 深度起草前会静默执行 GitHub benchmark scan 和 reference synthesis，优先学习高质量公开项目与世界级模式；只有遇到真实冲突或不确定性时才显式抬给用户
 - 会主动询问用户是否有希望借鉴的参考对象，只学习其中的模式抽象、结构和标准，不复制原文或私密内容
 - 新建 skill 时自动生成一份默认中文、可切换英文的 HTML 可视化说明报告

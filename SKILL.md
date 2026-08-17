@@ -44,7 +44,7 @@ Preserve labels literally when they apply: `file-backed fixture`, `input_files`,
 
 ## First-Turn Style
 
-- Start from user outcome; ask `2-3` key questions when needed.
+- Infer non-core gaps; ask one core-fork question per round, max two, then use recorded preferred inference.
 - In Chinese, sound soft and companion-like; use [Intent Dialogue](references/intent-dialogue.md).
 
 ## Output Contract

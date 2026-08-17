@@ -89,17 +89,17 @@
             "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
             "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
             "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
           ],
           "failure_modes": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
             "Footnote markers or dense citation notes can interrupt the reading flow.",
             "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-            "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-            "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
             "Users start invoking the skill for adjacent one-off or explanation-only requests.",
             "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
             "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -190,6 +190,7 @@
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/intent_clarification.py",
             "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
@@ -377,7 +378,7 @@
           ],
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           }
@@ -669,7 +670,7 @@
             "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
             "counts": {
               "references": 39,
-              "scripts": 172,
+              "scripts": 173,
               "assets": 6,
               "reports": 43
             },
@@ -680,7 +681,7 @@
           },
           "scripts": {
             "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-            "script_count": 172,
+            "script_count": 173,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -938,7 +939,7 @@
           "strategy": "Ship the neutral source tree and expose OpenAI-facing interface metadata as a generated companion file.",
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           },
@@ -949,7 +950,7 @@
         },
         "scripts": {
           "strategy": "Keep scripts as local package resources; expose help-smoke and permission metadata for reviewer approval before execution.",
-          "script_count": 172,
+          "script_count": 173,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -1095,17 +1096,17 @@
             "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
             "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
             "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
           ],
           "failure_modes": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
             "Footnote markers or dense citation notes can interrupt the reading flow.",
             "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-            "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-            "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
             "Users start invoking the skill for adjacent one-off or explanation-only requests.",
             "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
             "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -1196,6 +1197,7 @@
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/intent_clarification.py",
             "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
@@ -1383,7 +1385,7 @@
           ],
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           }
@@ -1675,7 +1677,7 @@
             "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
             "counts": {
               "references": 39,
-              "scripts": 172,
+              "scripts": 173,
               "assets": 6,
               "reports": 43
             },
@@ -1686,7 +1688,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-            "script_count": 172,
+            "script_count": 173,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -1944,7 +1946,7 @@
           "strategy": "Preserve the source tree directly; write target notes in targets/claude/README.md.",
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           },
@@ -1955,7 +1957,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local package resources and must be reviewed through trust and permission reports before use.",
-          "script_count": 172,
+          "script_count": 173,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -2101,17 +2103,17 @@
             "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
             "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
             "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
           ],
           "failure_modes": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
             "Footnote markers or dense citation notes can interrupt the reading flow.",
             "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-            "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-            "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
             "Users start invoking the skill for adjacent one-off or explanation-only requests.",
             "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
             "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -2202,6 +2204,7 @@
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/intent_clarification.py",
             "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
@@ -2389,7 +2392,7 @@
           ],
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           }
@@ -2681,7 +2684,7 @@
             "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
             "counts": {
               "references": 39,
-              "scripts": 172,
+              "scripts": 173,
               "assets": 6,
               "reports": 43
             },
@@ -2691,7 +2694,7 @@
           },
           "scripts": {
             "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-            "script_count": 172,
+            "script_count": 173,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -2943,7 +2946,7 @@
           "strategy": "Preserve references, scripts, assets, evals, reports, and adapter metadata as relative package resources.",
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           },
@@ -2953,7 +2956,7 @@
         },
         "scripts": {
           "strategy": "Expose script and permission metadata for downstream clients or installers to enforce.",
-          "script_count": 172,
+          "script_count": 173,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -3091,17 +3094,17 @@
             "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
             "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
             "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
           ],
           "failure_modes": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
             "Footnote markers or dense citation notes can interrupt the reading flow.",
             "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-            "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-            "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
             "Users start invoking the skill for adjacent one-off or explanation-only requests.",
             "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
             "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -3192,6 +3195,7 @@
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/intent_clarification.py",
             "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
@@ -3379,7 +3383,7 @@
           ],
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           }
@@ -3671,7 +3675,7 @@
             "strategy": "Keep optional directories as relative resources next to SKILL.md.",
             "counts": {
               "references": 39,
-              "scripts": 172,
+              "scripts": 173,
               "assets": 6,
               "reports": 43
             },
@@ -3682,7 +3686,7 @@
           },
           "scripts": {
             "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-            "script_count": 172,
+            "script_count": 173,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -3933,7 +3937,7 @@
           "strategy": "Keep optional directories as relative resources next to SKILL.md.",
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           },
@@ -3944,7 +3948,7 @@
         },
         "scripts": {
           "strategy": "Scripts remain local optional resources and should advertise --help when executable.",
-          "script_count": 172,
+          "script_count": 173,
           "help_smoke_failed_count": 0
         },
         "permissions": {
@@ -4081,17 +4085,17 @@
             "Keep `SKILL.md` lean: guidance in `references/`, logic in `scripts/`, evidence in `reports/`.",
             "`Scaffold`: exploratory; `Production`: team; `Library`: shared; `Governed`: release-critical.",
             "Rules: [Method](references/skill-engineering-method.md), [Modes](references/operating-modes.md), [Boundaries](references/resource-boundaries.md).",
-            "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+            "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
             "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
             "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
           ],
           "failure_modes": [
             "Tables can render as dense grids with weak hierarchy or poor mobile readability.",
             "Long bullets can make the output look complete while hiding the actual decision logic.",
+            "Headings and summaries can drift into generic, interchangeable language.",
+            "The output can sound polished but lose the user's actual taste, audience, or scenario.",
             "Footnote markers or dense citation notes can interrupt the reading flow.",
             "Evidence can be over-attached to obvious statements and under-attached to risky claims.",
-            "Screenshots can be captured from the wrong state, wrong viewport, or wrong crop.",
-            "Missing screenshots can cause the skill to invent visual references instead of declaring the gap.",
             "Users start invoking the skill for adjacent one-off or explanation-only requests.",
             "Outputs remain valid but become generic, cluttered, or weakly aligned with the user's domain.",
             "Borrowed benchmark patterns no longer fit the local job or add ceremony without payoff.",
@@ -4182,6 +4186,7 @@
             "scripts/import_output_review_decisions.py",
             "scripts/import_telemetry_events.py",
             "scripts/init_skill.py",
+            "scripts/intent_clarification.py",
             "scripts/json_schema_validation.py",
             "scripts/judge_blind_eval.py",
             "scripts/lint_skill.py",
@@ -4369,7 +4374,7 @@
           ],
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           }
@@ -4661,7 +4666,7 @@
             "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
             "counts": {
               "references": 39,
-              "scripts": 172,
+              "scripts": 173,
               "assets": 6,
               "reports": 43
             },
@@ -4672,7 +4677,7 @@
           },
           "scripts": {
             "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-            "script_count": 172,
+            "script_count": 173,
             "help_smoke_failed_count": 0
           },
           "permissions": {
@@ -4927,7 +4932,7 @@
           "strategy": "Install as project or user scoped skill source, preserving relative references and scripts.",
           "counts": {
             "references": 39,
-            "scripts": 172,
+            "scripts": 173,
             "assets": 6,
             "reports": 43
           },
@@ -4938,7 +4943,7 @@
         },
         "scripts": {
           "strategy": "Scripts require workspace trust and operator/client approval outside this compiler.",
-          "script_count": 172,
+          "script_count": 173,
           "help_smoke_failed_count": 0
         },
         "permissions": {

@@ -36,7 +36,7 @@
       "each new asset must earn its place by reducing ambiguity, risk, or repeated work"
     ],
     "human_judgment_boundary": [
-      "Ask one focused clarification when the real job, output, or exclusion boundary is unclear.",
+      "Infer non-core gaps visibly; ask one focused clarification only for an unresolved core job, primary output, or explicit direction conflict.",
       "Escalate visible tradeoffs when benchmark patterns conflict with local privacy, naming, or governance constraints.",
       "Do not silently broaden the skill into adjacent jobs just because the examples are nearby."
     ],
@@ -69,10 +69,10 @@
       "evidence": "reports/output-risk-profile.md",
       "current_risk_families": [
         "Markdown readability",
+        "Tone and specificity",
         "Citation and footnote clutter",
         "Screenshot and visual capture",
-        "Code and command safety",
-        "Tone and specificity"
+        "Code and command safety"
       ]
     },
     {
@@ -102,10 +102,10 @@
       "cadence": "after the first 3-5 real uses",
       "risk_families": [
         "Markdown readability",
+        "Tone and specificity",
         "Citation and footnote clutter",
         "Screenshot and visual capture",
-        "Code and command safety",
-        "Tone and specificity"
+        "Code and command safety"
       ]
     },
     {
@@ -138,10 +138,10 @@
       "repair": "Use output-risk families as pre-final checks.",
       "current_risk_families": [
         "Markdown readability",
+        "Tone and specificity",
         "Citation and footnote clutter",
         "Screenshot and visual capture",
-        "Code and command safety",
-        "Tone and specificity"
+        "Code and command safety"
       ]
     },
     {
@@ -161,7 +161,7 @@
     {
       "rank": 3,
       "point": "Install output self-repair checks",
-      "why": "The likely failure families are: Markdown readability, Citation and footnote clutter, Screenshot and visual capture.",
+      "why": "The likely failure families are: Markdown readability, Tone and specificity, Citation and footnote clutter.",
       "move": "Add only the checks that prevent recurring output mistakes."
     },
     {

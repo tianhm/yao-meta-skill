@@ -6,6 +6,8 @@ import json
 import sys
 
 from github_benchmark_scan import build_query
+from init_skill import TargetExistsError, initialize_skill, parse_reference
+from intent_clarification import apply_preferred_inference, detect_language, is_generic_intent
 from render_intent_confidence import assess_intent_confidence
 from yao_cli_config import (
     ARCHETYPE_MODE,
@@ -22,6 +24,13 @@ from yao_cli_runtime import run_script
 
 SCRIPT_INTERFACE = "internal-module"
 SCRIPT_INTERFACE_REASON = "Imported by yao.py to keep skill creation and quickstart command handlers out of the CLI orchestrator."
+
+
+SKIP_ANSWERS = {"", "skip", "none", "no", "n", "跳过", "略过", "不用", "算了"}
+
+
+def normalized_answer(value: str) -> str:
+    return " ".join(value.strip().lower().split())
 
 
 def prompt_with_default(label: str, default: str) -> str:
@@ -49,23 +58,89 @@ def prompt_optional_entries(label: str) -> list[str]:
 
 def update_context_slot(context: dict, slot: str, answer: str, list_mode: bool) -> None:
     value = answer.strip()
-    if not value or value.lower() in {"skip", "none", "no", "n"}:
+    if normalized_answer(value) in SKIP_ANSWERS:
         return
     if list_mode:
         context[slot] = [item.strip() for item in value.split(",") if item.strip()]
     else:
         context[slot] = value
+    context["assumptions"] = [
+        item
+        for item in context.get("assumptions", [])
+        if not (
+            isinstance(item, dict)
+            and item.get("slot") == slot
+            and item.get("source") == "preferred-inference"
+        )
+    ]
 
 
 def intent_confidence_note(summary: dict) -> str:
+    clarification = summary.get("clarification_plan", {})
     lines = [
         f"\nIntent confidence: {summary['score']}/100 ({summary['band']}).",
+        f"- Clarification decision: {clarification.get('decision', 'legacy')}; stop {clarification.get('stop_reason', 'n/a')}.",
+        f"- Structured assumptions: {len(summary.get('assumptions', []) or [])}.",
         f"- Recommended action: {summary['recommended_action']}",
     ]
-    if summary.get("gaps"):
+    if not summary.get("authoring_ready") and summary.get("gaps"):
         top_gap = summary["gaps"][0]
         lines.append(f"- Biggest gap: {top_gap['label']} — {top_gap['reason']}")
     return "\n".join(lines) + "\n"
+
+
+def compose_intent_description(context: dict, explicit_description: str | None = None) -> str:
+    job = str(context.get("job", "")).strip()
+    primary_output = str(context.get("primary_output", "")).strip()
+    state = context.get("clarification_state", {}) if isinstance(context.get("clarification_state"), dict) else {}
+    resolved = {str(item) for item in state.get("resolved_ambiguities", [])}
+    resolved_direction = bool({"direction_conflict", "multi_intent"} & resolved)
+    description = (
+        job
+        if resolved_direction or not explicit_description or is_generic_intent(explicit_description)
+        else explicit_description
+    ).strip()
+    language = detect_language(job, primary_output, description)
+    if explicit_description and job and job.lower() not in description.lower():
+        label = "核心任务" if language == "zh-CN" else "Recurring job"
+        description = f"{description.rstrip('.。')} {label}: {job.rstrip('.。')}."
+    if primary_output and primary_output.lower() not in description.lower():
+        label = "主要交付物" if language == "zh-CN" else "Primary output"
+        description = f"{description.rstrip('.。')} {label}: {primary_output.rstrip('.。')}."
+    return description
+
+
+def run_intent_clarification(context: dict, explicit_description: str | None = None, skill_name: str = "") -> dict:
+    state = context.setdefault(
+        "clarification_state",
+        {"rounds_used": 0, "max_rounds": 2, "asked_ambiguities": []},
+    )
+    confidence = assess_intent_confidence(context)
+    while confidence["clarification_plan"]["decision"] == "ask" and state["rounds_used"] < state["max_rounds"]:
+        plan = confidence["clarification_plan"]
+        answer = prompt_optional(plan["question"], "skip")
+        state["rounds_used"] += 1
+        asked_ambiguities = state.setdefault("asked_ambiguities", [])
+        if plan["ambiguity_type"] not in asked_ambiguities:
+            asked_ambiguities.append(plan["ambiguity_type"])
+        if normalized_answer(answer) not in SKIP_ANSWERS:
+            if plan["target_slot"] == "direction":
+                direction_slot = plan.get("direction_slot") or "job"
+                update_context_slot(context, direction_slot, answer, False)
+                if plan["ambiguity_type"] == "direction_conflict" and direction_slot == "job":
+                    context["primary_output"] = ""
+                context["correction"] = ""
+                state["correction_pending"] = False
+                state.setdefault("resolved_ambiguities", []).append(plan["ambiguity_type"])
+            else:
+                update_context_slot(context, plan["target_slot"], answer, False)
+        context["description"] = compose_intent_description(context, explicit_description)
+        confidence = assess_intent_confidence(context)
+    if confidence["clarification_plan"]["decision"] == "ask":
+        context = apply_preferred_inference(context, skill_name)
+        context["description"] = compose_intent_description(context, explicit_description)
+        confidence = assess_intent_confidence(context)
+    return confidence
 
 
 def maybe_emit_update_notice(args: argparse.Namespace) -> None:
@@ -132,56 +207,35 @@ def command_quickstart(args: argparse.Namespace) -> int:
         "In your own words, what repeated work do you most want this skill to reliably handle",
         "Turn a repeated workflow into a reusable skill.",
     )
-    real_inputs = args.real_input or prompt_optional_entries(
-        "What material will people actually hand to this skill in practice (comma-separated)"
-    )
-    primary_output = args.primary_output or prompt_with_default(
-        "If it works beautifully, what should it hand back so you or the next person can keep moving",
-        "A reusable skill package.",
-    )
-    description = args.description or f"{job.rstrip('.')} Primary output: {primary_output.rstrip('.')}."
     intent_context = {
         "job": job,
-        "real_inputs": real_inputs,
-        "primary_output": primary_output,
-        "description": description,
+        "real_inputs": list(args.real_input or []),
+        "primary_output": args.primary_output or "",
+        "description": args.description or job,
         "exclusions": [],
         "constraints": [],
         "standards": [],
         "correction": "",
         "user_references": [],
+        "skill_name": name,
+        "clarification_state": {"rounds_used": 0, "max_rounds": 2, "asked_ambiguities": []},
     }
+    confidence = run_intent_clarification(intent_context, args.description, name)
+    intent_context = confidence["context"]
+    job = intent_context["job"]
+    primary_output = intent_context["primary_output"]
+    description = intent_context["description"]
     inferred_archetype, archetype_reason = infer_archetype(job, description)
+    if intent_context.get("clarification_state", {}).get("inference_quality") == "low":
+        inferred_archetype = "scaffold"
+        archetype_reason = "Low-confidence preferred inference keeps the first package at scaffold scope."
     guidance = archetype_guidance(inferred_archetype)
     sys.stderr.write(discovery_summary(job, primary_output, inferred_archetype, guidance))
-    correction = prompt_optional(
-        "If I am off, what is the first thing I should correct before I package this idea",
-        "looks right",
-    )
-    if correction.lower() not in {"looks right", "skip", "none", "no"}:
-        description = f"{description.rstrip('.')} Keep this correction in scope: {correction.rstrip('.')}."
-        intent_context["description"] = description
-        intent_context["correction"] = correction
-        inferred_archetype, archetype_reason = infer_archetype(job, description)
-        guidance = archetype_guidance(inferred_archetype)
-        sys.stderr.write("\nThanks. I tightened the frame before moving on.\n")
-        sys.stderr.write(discovery_summary(job, primary_output, inferred_archetype, guidance))
     confidence = assess_intent_confidence(intent_context)
     sys.stderr.write(intent_confidence_note(confidence))
     diagnosis = diagnose_skill_candidates(job, primary_output, inferred_archetype, confidence)
     if diagnosis["fuzzy"]:
         sys.stderr.write(diagnosis_note(diagnosis))
-    if not confidence["gate_passed"]:
-        sys.stderr.write("Before I package this idea, I want to close the highest-leverage gaps instead of guessing.\n")
-        for follow_up in confidence.get("follow_up_questions", [])[:2]:
-            answer = prompt_optional(follow_up["question"], "skip")
-            update_context_slot(intent_context, follow_up["slot"], answer, follow_up["list"])
-        confidence = assess_intent_confidence(intent_context)
-        sys.stderr.write("\nI tightened the intent frame once more before moving on.\n")
-        sys.stderr.write(intent_confidence_note(confidence))
-        diagnosis = diagnose_skill_candidates(job, primary_output, inferred_archetype, confidence)
-        if diagnosis["fuzzy"]:
-            sys.stderr.write(diagnosis_note(diagnosis))
     archetype = args.archetype or prompt_with_default("I would start with this archetype (scaffold/production/library/governed)", inferred_archetype)
     archetype = archetype if archetype in ARCHETYPE_MODE else inferred_archetype
     default_mode = ARCHETYPE_MODE[archetype]
@@ -203,50 +257,57 @@ def command_quickstart(args: argparse.Namespace) -> int:
     intent_context["user_references"] = user_references
     intent_context["constraints"] = local_constraints
     confidence = assess_intent_confidence(intent_context)
+    intent_context = confidence["context"]
     github_query = args.github_query or build_query(" ".join(filter(None, [job, primary_output, description])))
     title = args.title or name.replace("-", " ").title()
     guidance = archetype_guidance(archetype)
-    cmd = [
-        name,
-        "--description",
-        description,
-        "--title",
-        title,
-        "--output-dir",
-        args.output_dir,
-        "--mode",
-        mode,
-        "--archetype",
-        archetype,
-        "--github-query",
-        github_query,
-        "--github-top-n",
-        str(args.github_top_n),
-        "--intent-job",
-        job,
-        "--intent-primary-output",
-        primary_output,
-    ]
-    for item in real_inputs:
-        cmd.extend(["--intent-real-input", item])
-    for item in intent_context.get("exclusions", []):
-        cmd.extend(["--intent-exclusion", item])
-    for item in intent_context.get("constraints", []):
-        cmd.extend(["--intent-constraint", item])
-    for item in intent_context.get("standards", []):
-        cmd.extend(["--intent-standard", item])
-    if intent_context.get("correction"):
-        cmd.extend(["--intent-correction", intent_context["correction"]])
-    if args.github_fixture_dir:
-        cmd.extend(["--github-fixture-dir", args.github_fixture_dir])
-    for reference in external_references:
-        cmd.extend(["--external-reference", reference])
-    for reference in user_references:
-        cmd.extend(["--user-reference", reference])
-    for constraint in local_constraints:
-        cmd.extend(["--local-constraint", constraint])
-    result = run_script("init_skill.py", cmd)
-    payload = result["payload"] if result["payload"] is not None else result
+    try:
+        payload = initialize_skill(
+            name,
+            description,
+            title,
+            args.output_dir,
+            mode,
+            archetype,
+            external_references=[parse_reference(item, "external") for item in external_references],
+            user_references=[parse_reference(item, "user") for item in user_references],
+            local_constraints=[parse_reference(item, "local") for item in local_constraints],
+            github_query=github_query,
+            github_top_n=args.github_top_n,
+            github_fixture_dir=args.github_fixture_dir,
+            intent_context=intent_context,
+        )
+    except TargetExistsError as exc:
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "target-exists",
+                    "target": str(exc.target),
+                    "message": str(exc),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 2
+    except ValueError as exc:
+        print(json.dumps({"ok": False, "failures": [str(exc)]}, ensure_ascii=False, indent=2))
+        return 2
+    except OSError as exc:
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "initialization-io-error",
+                    "message": str(exc),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 2
+    result = {"ok": bool(payload.get("ok")), "payload": payload}
     reference_synthesis = payload.get("reference_synthesis") or {}
     visibility = reference_visibility(reference_synthesis)
     recommendation = recommendation_from_synthesis(reference_synthesis, visibility)
@@ -287,6 +348,8 @@ def command_quickstart(args: argparse.Namespace) -> int:
             "score": confidence["score"],
             "band": confidence["band"],
             "gate_passed": confidence["gate_passed"],
+            "authoring_ready": confidence["authoring_ready"],
+            "clarification_plan": confidence["clarification_plan"],
             "recommended_action": confidence["recommended_action"],
         },
         "recommendation": recommendation,

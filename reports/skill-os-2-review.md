@@ -135,13 +135,13 @@ Next move: add real client or installer permission enforcement integration.
 | Output Eval | `5` cases, DeepSeek provider-backed execution for `10 / 10` variants, with-skill pass rate `43.67`, baseline pass rate `23.67`, delta `20.0`, with file-backed, near-neighbor, boundary coverage, `10` command execution runs, `0` recorded fixture runs, `10` provider model-executed runs in root release evidence, `10` observed token rows, `0` estimated token rows, provider runner v0 available, `5` blind A/B review pairs, a generated `reports/output_review_decisions.json` template, `0 / 5` reviewer decisions pending, `0` answer keys revealed, and `5` pending answers hidden |
 | Runtime Conformance | `5 / 5` targets passing |
 | Target Compiler | `5 / 5` compiled target contracts generated for OpenAI, Claude, generic, Agent Skills compatible, and VS Code / Copilot outputs, including target permission contracts and target-native behavior contracts |
-| Trust | `0` secret findings, `1` pinned dependency file, `80` declared internal modules, `3 / 3` network-capable scripts covered by bounded host policy, `92 / 92` CLI help smoke checks passing across `172` scripts, source-contract hash scope explicit |
+| Trust | `0` secret findings, `1` pinned dependency file, `81` declared internal modules, `3 / 3` network-capable scripts covered by bounded host policy, `92 / 92` CLI help smoke checks passing across `173` scripts, source-contract hash scope explicit |
 | Permission Governance | `3 / 3` required high-permission capabilities approved, `0` missing, `0` invalid, `0` expired |
 | Runtime Permission Probes | `4 / 4` target adapters probed, `0` native-enforcement adapters, `4` explicit metadata fallbacks, `4` residual risks retained for reviewer visibility |
 | Skill Atlas | `12` scanned skills, `1` actionable root skill, `1` telemetry report, `0` actionable route collisions, `0` actionable owner gaps, `0` actionable stale skills, `0` actionable drift signals, `25` scoped non-actionable issue signals retained for visibility |
 | Registry Audit | package metadata generated with version, owner, license, source checksum, archive checksum, Skill IR provenance, and compatibility matrix |
-| Package Verification | `4 / 4` target adapters present, archive verified, `650` zip entries, `0` nested SKILL.md entries, `0` failures, `0` warnings |
-| Install Simulation | archive with `650` entries extracted into a local verification root, `0` nested SKILL.md entries, entrypoint/manifest/interface loaded, reports present, `4` adapters readable, `12` installer permission checks enforced, `0` permission failures, `0` failures, `0` warnings |
+| Package Verification | `4 / 4` target adapters present, archive verified, `652` zip entries, `0` nested SKILL.md entries, `0` failures, `0` warnings |
+| Install Simulation | archive with `652` entries extracted into a local verification root, `0` nested SKILL.md entries, entrypoint/manifest/interface loaded, reports present, `4` adapters readable, `12` installer permission checks enforced, `0` permission failures, `0` failures, `0` warnings |
 | Local Install Sync Preflight | `make sync-local-install` and `make sync-active-install` rebuild the package first, then sync only after install simulation passes with `12` enforced installer permission checks and `0` permission failures |
 | Upgrade Check | current package declares `major` over the 1.0.0 baseline, recommended bump is `minor`, and release notes include added targets plus checksum changes |
 | Adoption Drift | `0` metadata-only production events, `0` adoption samples, adoption `0`, risk band `no-data`; optional `yao.py` CLI capture, external client `telemetry-emit`, `5` `telemetry-hooks` recipes, Browser/Chrome native messaging host, and validated external JSONL import are available but off by default for reproducible release evidence; raw `reports/telemetry_events.jsonl` is gitignored and blocked from zip packages |
@@ -153,8 +153,8 @@ Next move: add real client or installer permission enforcement integration.
 | World-Class Evidence Ledger | `4` evidence entries remain pending: `1` human-required and `3` external-required; anti-overclaim guards block planned work, metadata fallbacks, pending review, and local command runners from counting as completion |
 | Benchmark Reproducibility | local reproducibility ready with `25` required artifacts, `0` missing artifacts, `23` reproduction commands, and `3` disclosed failure cases; human review, native permission enforcement, native telemetry, and provider ledger approval remain explicit limitations |
 | IR-first Packaging | `openai`, `claude`, `generic`, and `vscode` adapters include compiler contracts, permission contracts, target-native behavior contracts, IR provenance, semantic parity checks, and install-scope notes where applicable |
-| Context Budget | initial load `934/1000`; deferred `581345/120000`; resource governance governed |
-| CI | `make ci-test` target count is `85` after adding the dedicated update-delivery verifier |
+| Context Budget | initial load `945/1000`; deferred resources remain governed |
+| CI | `make ci-test` target count is `87` after adding dedicated intent-confidence and intent-quickstart verification |
 
 ## Next Highest-Leverage Moves
 

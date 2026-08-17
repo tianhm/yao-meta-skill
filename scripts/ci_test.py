@@ -87,6 +87,8 @@ DEFAULT_TARGETS = [
     "baseline-compare-check",
     "reference-scan-check",
     "github-benchmark-scan-check",
+    "intent-confidence-check",
+    "intent-quickstart-check",
     "reference-synthesis-check",
     "output-risk-profile-check",
     "artifact-design-profile-check",

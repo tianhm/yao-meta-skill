@@ -105,6 +105,7 @@
           "scripts/import_output_review_decisions.py",
           "scripts/import_telemetry_events.py",
           "scripts/init_skill.py",
+          "scripts/intent_clarification.py",
           "scripts/json_schema_validation.py",
           "scripts/judge_blind_eval.py",
           "scripts/lint_skill.py",
