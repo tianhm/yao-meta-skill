@@ -3,43 +3,43 @@
   "ok": true,
   "generated_at": "2026-08-17",
   "skill_dir": ".",
-  "commit": "d7afef8407de08f5c35278b88d0716d6ae40edda",
+  "commit": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
   "git_status": {
     "available": true,
     "dirty": true,
-    "changed_file_count": 37,
+    "changed_file_count": 30,
     "generated_dirty": true,
-    "generated_changed_file_count": 37,
+    "generated_changed_file_count": 30,
     "source_dirty": false,
     "source_changed_file_count": 0,
     "sample": [
+      " M registry/index.json",
       " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
-      " M reports/adoption_drift_report.json",
       " M reports/benchmark_reproducibility.json",
       " M reports/benchmark_reproducibility.md",
       " M reports/context_budget.json",
       " M reports/context_budget.md",
       " M reports/context_budget_summary.json",
       " M reports/evidence_consistency.json",
-      " M reports/evidence_consistency.md",
-      " M reports/package_verification.json"
+      " M reports/install_simulation.json",
+      " M reports/package_verification.json",
+      " M reports/package_verification.md",
+      " M reports/python_compatibility.json"
     ],
     "source_sample": [],
     "generated_sample": [
+      " M registry/index.json",
       " M registry/packages/yao-meta-skill.json",
-      " M reports/adaptation_proposals.json",
-      " M reports/adaptation_proposals.md",
-      " M reports/adoption_drift_report.json",
       " M reports/benchmark_reproducibility.json",
       " M reports/benchmark_reproducibility.md",
       " M reports/context_budget.json",
       " M reports/context_budget.md",
       " M reports/context_budget_summary.json",
       " M reports/evidence_consistency.json",
-      " M reports/evidence_consistency.md",
-      " M reports/package_verification.json"
+      " M reports/install_simulation.json",
+      " M reports/package_verification.json",
+      " M reports/package_verification.md",
+      " M reports/python_compatibility.json"
     ],
     "generated_dirty_prefixes": [
       "dist/",
@@ -57,9 +57,9 @@
     "methodology_complete": true,
     "required_artifact_count": 25,
     "missing_artifact_count": 0,
-    "evidence_bundle_sha256": "09d0ffb73cedb651f42f5c2d168d6a3d97967b5a0235f094feab6c88ac59dda0",
-    "source_contract_sha256": "974d37afb9a63439adae958a56fdcd880a7d58f7f8106f1beed7b0cf9c5e05ff",
-    "archive_sha256": "885b2aba640fa66c980654a6d67522dd1f4ce6fbef4d92a0e85e3faddd901574",
+    "evidence_bundle_sha256": "75c9a7c5f5666327dcfc2c17865e4886575a7afbed4614f6e720e205ae203be6",
+    "source_contract_sha256": "975b3e97f7da47a89e24d64ed267d48ac2105a707e759ce0e3297f04e4057be7",
+    "archive_sha256": "c8ac6719d0a556e1f86e522ca7505d9c806c2f4d44f9c10476d12e3171e38976",
     "output_case_count": 5,
     "failure_disclosure_count": 3,
     "command_count": 23,
@@ -86,11 +86,11 @@
     "public_claim_ready": false,
     "public_claim_blocker_count": 5,
     "working_tree_dirty": true,
-    "changed_file_count": 37,
+    "changed_file_count": 30,
     "source_tree_dirty": false,
     "source_changed_file_count": 0,
     "generated_tree_dirty": true,
-    "generated_changed_file_count": 37
+    "generated_changed_file_count": 30
   },
   "beta_test_release": {
     "ready": true,
@@ -135,10 +135,10 @@
   },
   "release_lock": {
     "ready": true,
-    "commit": "d7afef8407de08f5c35278b88d0716d6ae40edda",
+    "commit": "5a07318fcf9a13ffdf3e9d163ad329f1dbba0e04",
     "status_scope": "generation-time status before this report is written",
     "source_changed_file_count": 0,
-    "generated_changed_file_count": 37,
+    "generated_changed_file_count": 30,
     "reason": "only generated evidence artifacts were dirty at generation time"
   },
   "evidence_bundle": {
@@ -147,7 +147,7 @@
     "existing_count": 25,
     "missing_count": 0,
     "missing_paths": [],
-    "sha256": "09d0ffb73cedb651f42f5c2d168d6a3d97967b5a0235f094feab6c88ac59dda0"
+    "sha256": "75c9a7c5f5666327dcfc2c17865e4886575a7afbed4614f6e720e205ae203be6"
   },
   "methodology": {
     "path": "reports/benchmark_methodology.md",
@@ -256,42 +256,42 @@
       "path": "reports/security_trust_report.json",
       "exists": true,
       "bytes": 152704,
-      "sha256": "777c6614e39dd03face4ecdff951f2f7ec9982b276ea15e0b1736e0fbc30ed76"
+      "sha256": "6de4e705ac4c1f9910fd11c3335d44a1f3914e93000b69d62e3650a7532caebb"
     },
     {
       "label": "python_compatibility",
       "path": "reports/python_compatibility.json",
       "exists": true,
-      "bytes": 33666,
-      "sha256": "7facad8ac4e6096600a830aaa68a7d8e9e94a2acc346744352d57c540c231fd9"
+      "bytes": 34062,
+      "sha256": "9d6e2e28515108805aaae0e986e6294ec6e5b13b88a5dba331aa6328d9447296"
     },
     {
       "label": "registry_audit",
       "path": "reports/registry_audit.json",
       "exists": true,
       "bytes": 3234,
-      "sha256": "32526b26c882b47cfd29ecd57651fa96ba5a354e636e27a44a042e2458064030"
+      "sha256": "9cc064c250955041d9bf1509bd035c8683a955496d757bf2e22c32d3af63feb4"
     },
     {
       "label": "package_verification",
       "path": "reports/package_verification.json",
       "exists": true,
       "bytes": 19705,
-      "sha256": "cf88c6cea4f06a6fbf05a62b1e60eaec7e2babeb5b1bd417d477b4b2a2d360c8"
+      "sha256": "e9b120b789e0c27cafd1ee65387f37629d686c940b74ba443f073e9c511ed1e4"
     },
     {
       "label": "install_simulation",
       "path": "reports/install_simulation.json",
       "exists": true,
       "bytes": 8793,
-      "sha256": "5620310a5658d1d765c101a186ef6a212a37d76783bb6e3094a1b64823dfc7a3"
+      "sha256": "4885d3634162123ae683c8c222c067887e70a3fa164dc83643985ab1ef7acfee"
     },
     {
       "label": "skill_os2_audit",
       "path": "reports/skill_os2_audit.json",
       "exists": true,
       "bytes": 14786,
-      "sha256": "656ce828608c8bfacfb687de6d0e3a01c2b2f149f11f2fd4ade1eb43507e9fb7"
+      "sha256": "892b5bf8d1f23a6377be8b58b2e5aeee4628bcb20a5cb0deddff3cc2ff2c6075"
     },
     {
       "label": "world_class_evidence_plan",
